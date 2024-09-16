@@ -1,0 +1,6 @@
+/* JetBrains Mono für Codeblöcke */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+pre, code {
+  font-family: 'JetBrains Mono', monospace;
+}

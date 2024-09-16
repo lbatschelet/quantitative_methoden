@@ -2,9 +2,31 @@
 title: "Quantitative Methoden"
 author: "Lukas Batschelet"
 date: "`r Sys.Date()`"
-output: 
-  html_notebook
+output:
+  html_notebook:
+    toc: true
+    toc_float: true
+    css: Setup/styles.css
+  html_document:
+    toc: true
+    df_print: paged
 ---
+
+```{r setup, include=FALSE}
+# Packages installieren und laden mit Fehlerbehandlung
+packages <- c("dplyr", "ggplot2", "tidyr", "plotly", "readr", "DT")
+
+# Funktion zum Installieren und Laden mit Fehlerbehandlung
+load_package <- function(pkg) {
+  if (!require(pkg, character.only = TRUE)) {
+    install.packages(pkg)
+    library(pkg, character.only = TRUE)
+  }
+}
+
+# Alle Packages installieren und laden
+sapply(packages, load_package)
+```
 
 ## Filestruktur
 
@@ -18,21 +40,119 @@ When you save the notebook, an HTML file containing the code and output will be 
 
 The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
-## Einführung in R
+# Einführung in R
 
-### R Syntax
+## R Syntax
+
+### Grundlagen
 
 ```{r}
 # Addition
 2 + 2
+```
 
-# Variablen
+```{r}
+# Variablen zuweisen
 x <- 2
 y <- 3
 x + y
+```
 
-# Wichtigste Funktionen
+```{r}
+# Funktionsaufrufe
 mean(c(1, 2, 3, 4, 5))
 sd(c(1, 2, 3, 4, 5))
 ```
+
+### Grafiken erstellen
+
+```{r}
+# Funktionen darstellen
+# Erzeuge eine Datenreihe für x und berechne x^3
+x <- seq(-10, 10, by = 0.1)  # Erzeuge eine Sequenz von -10 bis 10
+y <- x^3  # Berechne x^3
+
+# Erstelle ein Datenframe für ggplot
+data <- data.frame(x = x, y = y)
+
+# Plot mit ggplot2
+ggplot(data, aes(x = x, y = y)) +
+  geom_line(color = "blue", linewidth = 1) +  # Zeichne die Linie
+  theme_minimal() +  # Minimalistisches Theme
+  labs(title = expression(x^3),  # Setze den Titel als mathematischen Ausdruck
+       x = "x",
+       y = expression(x^3))  # Setze die y-Achsenbeschriftung als mathematischen Ausdruck
+```
+### Daten einlesen und darstellen
+
+```{r}
+# Daten einlesen
+data <- read.csv("Data/coffee_shop_sales.csv")
+
+# Daten mit DT Package anzeigen, um interaktive Tabelle zu erhalten
+DT::datatable(data, 
+              options = list(pageLength = 6,  # Anzahl der Zeilen pro Seite
+                             lengthMenu = c(6, 10, 15),  # Dropdown-Menü für Zeilenanzahl
+                             scrollX = TRUE))  # Horizontal scrollen erlauben
+```
+
+```{r}
+# Gesamtsumme der Verkäufe pro Produkt berechnen
+total_sales_per_product <- aggregate(Total_Sales ~ Product, data = data, sum)
+```
+
+```{r}
+# Plot erstellen
+library(ggplot2)
+
+# Verbesserter ggplot-Plot
+ggplot(total_sales_per_product, aes(x = reorder(Product, Total_Sales), y = Total_Sales)) +
+  geom_bar(stat = "identity", fill = "skyblue", color = "black", width = 0.7) +  # Füll- und Randfarbe sowie Breite anpassen
+  theme_minimal(base_size = 15) +  # Minimalistisches Theme mit angepasster Grundschriftgröße
+  labs(title = "Total Sales per Product",
+       x = "Product",
+       y = "Total Sales (in USD)") +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),  # Titel zentrieren und fett machen
+    axis.text.x = element_text(angle = 45, hjust = 1),  # X-Achsenbeschriftung drehen
+    panel.grid.major = element_line(color = "gray80"),  # Gitterlinienfarbe anpassen
+    panel.grid.minor = element_blank(),  # Kleinere Gitterlinien entfernen
+    panel.background = element_rect(fill = "white"),  # Hintergrundfarbe
+    axis.title.x = element_text(face = "bold"),  # Achsentitel fett machen
+    axis.title.y = element_text(face = "bold")  # Achsentitel fett machen
+  ) +
+  coord_flip()  # Optional: Flippen, um den Plot horizontal zu machen
+
+```
+
+### RMD syntax
+
+R Markdown unterstütz die verwendung von LaTeX- sowie Markdown-Syntax. Hier ein paar Beispiele:
+
+Inline können mathematische Formeln mit `$` eingefügt werden, z.B. $y = mx + b$.
+
+Als eigener Absatz können mathematische Formeln mit `$$` eingefügt werden, z.B.
+
+$$
+y = \frac{a}{b}
+$$
+
+Markdown-Syntax kann ebenfalls verwendet werden, z.B. können Listen erstellt werden:
+
+- Erster Punkt
+- Zweiter Punkt
+- Dritter Punkt
+
+Oder auch Tabellen:
+
+| Spalte 1 | Spalte 2 | Spalte 3 |
+|----------|----------|----------|
+| Wert 1   | Wert 2   | Wert 3   |
+| Wert 4   | Wert 5   | Wert 6   |
+
+Inlinecode kann mit \` eingefügt werden, z.B. `print("Hello World")`.
+
+
+
+
 
