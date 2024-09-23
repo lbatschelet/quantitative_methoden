@@ -1,0 +1,147 @@
+# Computer Basics and R
+
+## Vektoren und Matrizen
+
+### Vektoren
+
+Vektoren sind eine der grundlegenden Datenstrukturen in R. Sie können mit der `c()` Funktion erstellt werden. Vektoren sind grundsätzkich ähnlich wie Objekte vom typ `list` in Python.
+
+```{r}
+# Vektor erstellen
+vectorA <- c(1, 2, 3, 4, 5)
+
+# Vektor ausgeben
+vectorA
+
+```
+
+#### Vektorlänge- und Indizes
+```{r}
+# Vektorlänge
+length(vectorA)
+
+# Vektorindexierung
+vectorA[1]
+
+# Vektor slicing
+vectorA[2:4]
+```
+
+#### Werte an Indizes ändern
+```{r}
+# ACHTUNG: R-Indizierung beginnt bei 1
+vectorA[1] <- 10  # Wert an Index 1 ändern
+
+vectorA
+```
+
+
+#### Vektoren addieren
+```{r}
+vectorB <- c(6, 7, 8, 9, 10)
+
+# Vektoren werden elementweise addiert
+vectorA + vectorB
+```
+
+#### Vektoren konkatenieren
+```{r}
+vectorC <- c(vectorA, vectorB)
+
+vectorC
+```
+
+#### Datentypen
+```{r}
+# Vektoren können auch andere Datentypen als Integers enthalten.
+vectorD <- c("a", "b", "c", "d", "e")
+
+vectorD
+
+# Vektoren können auch logische Werte enthalten
+vectorE <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+
+vectorE
+```
+
+#### Vergleichsoperationen
+```{r}
+# Vergleichsoperationen können auf Vektoren angewendet werden
+# Hier wird für jedes Element in vectorA geprüft, ob es größer oder gleich dem Wert 3 ist
+3 >= vectorA
+```
+
+### Matrizen
+
+Matrizen sind zweidimensionale Datenstrukturen in R. Sie können mit der `matrix()` Funktion erstellt werden.
+
+```{r}
+# Matrix erstellen
+matrixA <- matrix(1:12, nrow = 3, ncol = 4)
+
+# Matrix ausgeben
+matrixA
+
+# Bestimmte Elemente aus der Matrix auswählen
+
+# Erstes Element
+matrixA[1, 1]
+
+# Erste Zeile
+matrixA[1, ]
+
+# Erste Spalte
+matrixA[, 1]
+
+```
+
+
+
+
+```{r}
+saison <- read.csv('Data/meteodaten_saison.csv', sep = ',', header = TRUE)
+str(saison)
+head(saison)
+tail(saison)
+summary(saison)
+saison[1:10,]
+```
+
+## Rechnen mit R
+
+### Arithmetische Operationen
+
+#### Grundlegende Arithmetik
+```{r}
+5 + 2
+```
+
+#### Klammern
+```{r}
+# Gleiche Funktion wie sonst
+(5 + 2) * 3
+```
+
+#### Exponenenten
+```{r}
+# Exponenten
+2^3
+```
+
+#### Logarithmen
+```{r}
+# Logarithmen
+# Standardmäßig wird der natürliche Logarithmus verwendet
+log(100)
+
+# Logarithmus zur Basis 10
+log10(100)
+
+# Logarithmus zur Basis 2
+
+log2(100)
+
+# Logarithmus zur Basis 3
+
+log(100, base = 3)
+```

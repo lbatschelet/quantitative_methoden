@@ -1,0 +1,26 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "Quantitative Methoden"
+  reader-mode: true
+
+  page-footer:
+    left: |
+      Quantitative Methoden
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
+  # cover-image: cover.jpg
+  # favicon: cover.jpg
+  site-url: https://r4ds.hadley.nz/
+  repo-url: https://github.com/hadley/r4ds/
+  repo-branch: main
+  repo-actions: [edit, issue]
+  chapters:
+    - index.qmd
+    - computer_basics_and_entry_to_R.qmd
+
+format:
+  html:
+    theme: cosmo
