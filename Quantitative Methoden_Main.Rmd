@@ -7,6 +7,7 @@ output:
     toc: true
     toc_float: true
     css: Setup/styles.css
+    number_sections: true
   html_document:
     toc: true
     df_print: paged
@@ -30,13 +31,13 @@ sapply(packages, load_package)
 
 ## Filestruktur
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code.
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*.
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
 
 The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
@@ -66,7 +67,7 @@ sd(c(1, 2, 3, 4, 5))
 
 ### Grafiken erstellen
 
-```{r}
+```{r, echo=FALSE}
 # Funktionen darstellen
 # Erzeuge eine Datenreihe für x und berechne x^3
 x <- seq(-10, 10, by = 0.1)  # Erzeuge eine Sequenz von -10 bis 10
@@ -83,6 +84,7 @@ ggplot(data, aes(x = x, y = y)) +
        x = "x",
        y = expression(x^3))  # Setze die y-Achsenbeschriftung als mathematischen Ausdruck
 ```
+
 ### Daten einlesen und darstellen
 
 ```{r}
@@ -139,9 +141,9 @@ $$
 
 Markdown-Syntax kann ebenfalls verwendet werden, z.B. können Listen erstellt werden:
 
-- Erster Punkt
-- Zweiter Punkt
-- Dritter Punkt
+-   Erster Punkt
+-   Zweiter Punkt
+-   Dritter Punkt
 
 Oder auch Tabellen:
 
@@ -151,6 +153,164 @@ Oder auch Tabellen:
 | Wert 4   | Wert 5   | Wert 6   |
 
 Inlinecode kann mit \` eingefügt werden, z.B. `print("Hello World")`.
+
+```{r}
+print("Hello World!")
+```
+
+# Computer Basics and R
+
+## Vektoren und Matrizen
+
+### Vektoren
+
+Vektoren sind eine der grundlegenden Datenstrukturen in R. Sie können mit der `c()` Funktion erstellt werden. Vektoren sind grundsätzkich ähnlich wie Objekte vom typ `list` in Python.
+
+```{r}
+# Vektor erstellen
+vectorA <- c(1, 2, 3, 4, 5)
+
+# Vektor ausgeben
+vectorA
+
+```
+
+#### Vektorlänge- und Indizes
+```{r}
+# Vektorlänge
+length(vectorA)
+
+# Vektorindexierung
+vectorA[1]
+
+# Vektor slicing
+vectorA[2:4]
+```
+
+#### Werte an Indizes ändern
+```{r}
+# ACHTUNG: R-Indizierung beginnt bei 1
+vectorA[1] <- 10  # Wert an Index 1 ändern
+
+vectorA
+```
+
+
+#### Vektoren addieren
+```{r}
+vectorB <- c(6, 7, 8, 9, 10)
+
+# Vektoren werden elementweise addiert
+vectorA + vectorB
+```
+
+#### Vektoren konkatenieren
+```{r}
+vectorC <- c(vectorA, vectorB)
+
+vectorC
+```
+
+#### Datentypen
+```{r}
+# Vektoren können auch andere Datentypen als Integers enthalten.
+vectorD <- c("a", "b", "c", "d", "e")
+
+vectorD
+
+# Vektoren können auch logische Werte enthalten
+vectorE <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+
+vectorE
+```
+
+#### Vergleichsoperationen
+```{r}
+# Vergleichsoperationen können auf Vektoren angewendet werden
+# Hier wird für jedes Element in vectorA geprüft, ob es größer oder gleich dem Wert 3 ist
+3 >= vectorA
+```
+
+### Matrizen
+
+Matrizen sind zweidimensionale Datenstrukturen in R. Sie können mit der `matrix()` Funktion erstellt werden.
+
+```{r}
+# Matrix erstellen
+matrixA <- matrix(1:12, nrow = 3, ncol = 4)
+
+# Matrix ausgeben
+matrixA
+
+# Bestimmte Elemente aus der Matrix auswählen
+
+# Erstes Element
+matrixA[1, 1]
+
+# Erste Zeile
+matrixA[1, ]
+
+# Erste Spalte
+matrixA[, 1]
+
+```
+
+
+
+
+```{r}
+saison <- read.csv('Data/meteodaten_saison.csv', sep = ',', header = TRUE)
+str(saison)
+head(saison)
+tail(saison)
+summary(saison)
+saison[1:10,]
+```
+
+## Rechnen mit R
+
+### Arithmetische Operationen
+
+#### Grundlegende Arithmetik
+```{r}
+5 + 2
+```
+
+#### Klammern
+```{r}
+# Gleiche Funktion wie sonst
+(5 + 2) * 3
+```
+
+#### Exponenenten
+```{r}
+# Exponenten
+2^3
+```
+
+#### Logarithmen
+```{r}
+# Logarithmen
+# Standardmäßig wird der natürliche Logarithmus verwendet
+log(100)
+
+# Logarithmus zur Basis 10
+log10(100)
+
+# Logarithmus zur Basis 2
+
+log2(100)
+
+# Logarithmus zur Basis 3
+
+log(100, base = 3)
+```
+
+
+
+
+
+
 
 
 
