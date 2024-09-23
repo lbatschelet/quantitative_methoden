@@ -1,3 +1,5 @@
 # Quantitative Methoden {.unnumbered}
 
 Diese Website dient als Sammlung meiner Vorlesungsnotizen und Übungen für die Vorlesung "Quantitative Methoden" im Herbstsemester 2024.
+
+Diese Sammlung ist aktuell noch am entstehen.
