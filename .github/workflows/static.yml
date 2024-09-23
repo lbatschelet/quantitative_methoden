@@ -1,0 +1,47 @@
+# Workflow for deploying Quarto book to gh-pages branch
+name: Deploy Quarto Book to Pages
+
+on:
+  push:
+    branches: ["main"]
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Install Quarto CLI
+      - name: Install Quarto
+        run: |
+          wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.3.340/quarto-1.3.340-linux-amd64.deb
+          sudo dpkg -i quarto-1.3.340-linux-amd64.deb
+
+      # Render the Quarto project to the _book directory
+      - name: Render Quarto Project
+        run: |
+          quarto render
+
+      # Deploy to gh-pages branch
+      - name: Deploy to gh-pages
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add _book/*
+          git commit -m "Deploy Quarto Book to GitHub Pages"
+          git push origin `git subtree split --prefix _book main`:gh-pages --force
