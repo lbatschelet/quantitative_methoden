@@ -1,12 +1,10 @@
-# Simple workflow for deploying Quarto book to GitHub Pages
+# Workflow for deploying Quarto book to gh-pages branch
 name: Deploy Quarto Book to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 permissions:
@@ -39,13 +37,11 @@ jobs:
         run: |
           quarto render
 
-      # Upload only the _book directory
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '_book'
-
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      # Deploy to gh-pages branch
+      - name: Deploy to gh-pages
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add _book/*
+          git commit -m "Deploy Quarto Book to GitHub Pages"
+          git push origin `git subtree split --prefix _book main`:gh-pages --force
