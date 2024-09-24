@@ -1,6 +1,6 @@
 project:
   type: book
-  output-dir: _book
+  output-dir: docs
 
 book:
   title: "Quantitative Methoden"
@@ -20,6 +20,7 @@ book:
   chapters:
     - index.qmd
     - computer_basics_and_entry_to_R.qmd
+    - disk_math.qmd
 
 format:
   html:
