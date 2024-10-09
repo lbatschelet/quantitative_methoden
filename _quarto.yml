@@ -5,7 +5,6 @@ project:
 book:
   title: "Quantitative Methoden"
   reader-mode: true
-
   page-footer:
     left: |
       Quantitative Methoden
@@ -20,8 +19,11 @@ book:
   chapters:
     - index.qmd
     - computer_basics_and_entry_to_R.qmd
-    - disk_math.qmd
+    - grundlagen_R.qmd
+    - wichtige_funktionen.qmd
+
 
 format:
   html:
     theme: cosmo
+    number-depth: 4

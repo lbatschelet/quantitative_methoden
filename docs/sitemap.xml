@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://r4ds.hadley.nz/index.html</loc>
-    <lastmod>2024-09-23T15:42:26.994Z</lastmod>
+    <lastmod>2024-10-07T11:16:19.717Z</lastmod>
   </url>
   <url>
     <loc>https://r4ds.hadley.nz/computer_basics_and_entry_to_R.html</loc>
-    <lastmod>2024-09-23T15:09:28.853Z</lastmod>
+    <lastmod>2024-10-07T14:57:27.163Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/disk_math.html</loc>
-    <lastmod>2024-09-24T14:13:47.460Z</lastmod>
+    <loc>https://r4ds.hadley.nz/grundlagen_R.html</loc>
+    <lastmod>2024-10-09T08:06:12.566Z</lastmod>
+  </url>
+  <url>
+    <loc>https://r4ds.hadley.nz/wichtige_funktionen.html</loc>
+    <lastmod>2024-10-07T15:06:35.891Z</lastmod>
   </url>
 </urlset>

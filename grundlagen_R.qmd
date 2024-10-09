@@ -1,0 +1,521 @@
+# Grundlagen R
+
+## Grundsätzliches zu R
+
+### Zuweisungsoperator
+
+In R werden Werte Variablen mit dem `<-` Operator zugewiesen.
+
+```{r}
+# Variablen erstellen und Wert zuweisen
+a <- 5
+
+# Die Zuweisung kann auch umgekehrt erfolgen
+5 -> b
+
+# Das gleiche funktioniert grundsätzlich aber auch mit dem = Operator
+# Allerdings wird der <- Operator bevorzugt
+c = 10
+```
+
+### Kommentare
+
+Kommentare in R werden mit einem `#` eingeleitet. Sie können entweder in einer eigenen Zeile stehen oder am Ende einer Codezeile.
+
+```{r}
+# Das ist ein Kommentar
+a <- 5 # Das ist auch ein Kommentar
+```
+
+### Ausgabe
+
+In R können Werte entweder mit der `print()` Funktion oder einfach durch Eingabe des Variablennamens ausgegeben werden.
+
+```{r}
+# Ausgabe von Variablen
+print(a)
+b
+```
+
+## Datentypen
+
+In R gibt es verschiedene Datentypen. Die wichtigsten sind:
+
+- Numerische Werte (z.B. `5`, `3.14`)
+- Zeichenketten (Strings) (z.B. `"Hallo Welt"`)
+- Logische Werte (`TRUE`, `FALSE`)
+- Vektoren (*in Python Listen*) (z.B. c(1, 2, 3))[^1]
+- Data Frames (*ähnlich wie Tabellen*, Mischen von Datentypen möglich)
+- Matrizen (*ähnlich wie in der Mathematik*, keine Mischung von Datentypen möglich)
+
+[^1]: Kleine Anmerkung: Hier wird der Vektor mit der `c()` Funktion erstellt. Diese Funktion wird verwendet, um Werte zu kombinieren (*combine*). Mehr dazu im [Abschnitt @sec-function-c].
+
+### Vektoren {#sec-type-vector}
+
+Da Vektoren eine der grundlegenden Datenstrukturen in R sind, werden wir uns diese genauer ansehen.
+
+Sie können mit der `c()` Funktion erstellt werden. Vektoren sind grundsätzlich ähnlich wie Objekte vom Typ `list` in Python. Vektoren können sämtliche Datentypen enthalten, jedoch nur *einen Datentyp pro Vektor*.
+
+Auf Vektoren können verschiedene Operationen durchgeführt werden, wie z.B. Addition, Subtraktion, Multiplikation, Division, etc.
+
+```{r}
+# Vektor erstellen
+vectorA <- c(1, 2, 3, 4, 5)
+
+# Länge des Vektors
+length(vectorA)
+
+# Logischer Vergleich
+vectorA >= 3
+
+# Arithmetische Operationen
+vectorA + 5
+```
+
+Wenn wir nun den Vektor `vectorA` erneut ausgeben, beobachten wir, dass die Operationen nicht den ursprünglichen Vektor verändert haben.
+
+```{r}
+vectorA
+```
+
+Um den Vektor zu verändern, müssen wir den veränderten Vektor entweder einer neuen Variablen zuweisen oder den Vektor direkt überschreiben.
+
+```{r}
+# Vektor einer neuen Variablen zuweisen
+vectorB <- vectorA + 5
+
+# Vektor ausgeben
+vectorB
+
+# Wir können den Vektor auch direkt überschreiben
+vectorA <- vectorA + 5
+
+# Vektor ausgeben
+vectorA
+```
+
+#### Indizierung
+
+Vektoren können indiziert werden, um auf bestimmte Elemente zuzugreifen.
+
+**Die Indizierung beginnt in R bei 1.**
+
+```{r}
+# Erstes Element des Vektors
+vectorA[1]
+```
+
+Wir können auch auf mehrere Elemente gleichzeitig zugreifen. Wenn wir z.B. auf das zweite bis vierte Element des Vektors zugreifen wollen, können wir dies mit dem `:` Operator tun.
+
+```{r}
+# Zweites bis viertes Element des Vektors
+vectorA[2:4]
+
+# Alternativ können wir auch einzelne Elemente überspringen
+vectorA[c(1, 3, 5)]
+```
+
+#### Vektoren konkatenieren
+
+Vektoren können auch konkateniert werden.
+
+```{r}
+# Vektoren erstellen
+vectorA <- c(1, 2, 3, 4, 5)
+
+# Vektoren konkatenieren
+vectorC <- c(vectorA, vectorB)
+
+# Vektor ausgeben
+vectorC
+```
+
+#### Vektoren addieren
+
+Vektoren können auch addiert werden. Hierbei werden die Vektoren elementweise addiert.[^2]
+
+[^2]: Wenn die Vektoren unterschiedliche Längen haben, wird der kürzere Vektor so oft wiederholt, bis er die Länge des längeren Vektors hat. Wenn die Länge des längeren Vektors kein Vielfaches der Länge des kürzeren Vektors ist, wird eine Warnung ausgegeben.
+
+```{r}
+# Vektoren addieren
+vectorA + vectorB
+```
+
+#### Wichtige Funktionen für Vektoren
+
+| Funktion   | Beschreibung                                | Beispiel          | Ausgabe               |
+| ---------- | ------------------------------------------- | ----------------- | --------------------- |
+| `length()` | Länge des Vektors                           | `length(vectorA)` | `{r} length(vectorA)` |
+| `sum()`    | Summe der Elemente des Vektors              | `sum(vectorA)`    | `{r} sum(vectorA)`    |
+| `mean()`   | Durchschnitt der Elemente des Vektors       | `mean(vectorA)`   | `{r} mean(vectorA)`   |
+| `var()`    | Varianz der Elemente des Vektors            | `var(vectorA)`    | `{r} var(vectorA)`    |
+| `sd()`     | Standardabweichung der Elemente des Vektors | `sd(vectorA)`     | `{r} sd(vectorA)`     |
+| `min()`    | Minimum des Vektors                         | `min(vectorA)`    | `{r} min(vectorA)`    |
+| `max()`    | Maximum des Vektors                         | `max(vectorA)`    | `{r} max(vectorA)`    |
+| `range()`  | Bereich des Vektors                         | `range(vectorA)`  | `{r} range(vectorA)`  |
+
+### Data Frames {#sec-type-data-frames}
+
+In Data Frames können [Vektoren](@sec-type-vector) unterschiedlicher Datentypen kombiniert werden. Sie sind ähnlich wie Tabellen in relationalen Datenbanken.
+
+Data Frames können mit der `data.frame()` Funktion direkt erstellt werden.
+
+```{r}
+# Data Frame erstellen
+dataFrameA <- data.frame(
+  name = c("Alice", "Bob", "Charlie", "David"),
+  age = c(25, 30, 35, 40),
+  married = c(TRUE, FALSE, TRUE, TRUE)
+)
+
+# Data Frame ausgeben
+dataFrameA
+```
+
+Wichtig ist, dass die Vektoren, die im Data Frame kombiniert werden sollen, die gleiche Länge haben müssen und dass die Vektoren nur *einen Datentyp pro Vektor* enthalten dürfen.
+
+Wir beobachten auch hier, dass die Vektoren in der Initialisierung des Data Frames wieder mit der `c()` Funktion erstellt werden.
+
+#### Indizierung
+
+Data Frames können indiziert werden, um auf bestimmte Elemente zuzugreifen.
+
+Die Indizierung erfolgt ähnlich wie bei Vektoren, jedoch mit dem Unterschied, dass wir zusätzlich auch die gewünschte Spalte angeben müssen. Dies erfolgt durch die Angabe der Zeilen- und Spaltennummer in eckigen Klammern.
+
+Wenn wir eine ganze Zeile ausgeben wollen, geben wir nur die Zeilennummer an und lassen die Spaltennummer weg.
+
+```{r}
+# Erste Zeile des Data Frames
+dataFrameA[1, ]
+
+# Zweite Zeile und dritte Spalte des Data Frames
+dataFrameA[2, 3]
+```
+
+Wir können mit dem `$` Operator auch direkter auf bestimmte Spalten zugreifen.
+
+```{r}
+# Spalte "name" des Data Frames
+dataFrameA$name
+```
+
+#### Auswahl aus Data Frames wieder als Data Frame
+
+Wir können subsetting verwenden, um einen Teil des Data Frames auszuwählen und diesen wieder als Data Frame zu speichern.
+
+```{r}
+# Auswahl der Spalten "name" und "age" als Data Frame
+dataFrameB <- dataFrameA[, c("name", "age")]
+
+# Data Frame ausgeben
+dataFrameB
+```
+
+#### Wichtige Funktionen für Data Frames
+
+| Funktion   | Beschreibung                                | Beispiel          | Ausgabe               |
+| ---------- | ------------------------------------------- | ----------------- | --------------------- |
+| `nrow()`   | Anzahl der Zeilen des Data Frames           | `nrow(dataFrameA)`| `{r} nrow(dataFrameA)`|
+| `ncol()`   | Anzahl der Spalten des Data Frames          | `ncol(dataFrameA)`| `{r} ncol(dataFrameA)`|
+| `colnames()`| Spaltennamen des Data Frames                | `colnames(dataFrameA)`| `{r} colnames(dataFrameA)`|
+| `rownames()`| Zeilennamen des Data Frames                 | `rownames(dataFrameA)`| `{r} rownames(dataFrameA)`|
+| `summary()`| Zusammenfassung des Data Frames             | `summary(dataFrameA)`| `{r} summary(dataFrameA)`|
+
+## Daten importieren und exportieren
+
+In R können Daten aus verschiedenen Dateiformaten importiert und exportiert werden. Dazu gehören z.B. CSV-Dateien, Excel-Dateien, JSON-Dateien, etc.
+
+### CSV-Dateien
+
+CSV-Dateien können mit der `read.csv()` Funktion in R eingelesen werden.
+
+```{r}
+# CSV-Datei einlesen
+meteodaten <- read.csv('Data/meteodaten_saison.csv', sep = ',', header = TRUE)
+```
+
+In diesem Beispiel wird die CSV-Datei `meteodaten_saison.csv` eingelesen. Der Parameter `sep = ','` gibt an, dass die Werte in der CSV-Datei durch Kommas getrennt sind. Der Parameter `header = TRUE` gibt an, dass die erste Zeile der CSV-Datei die Spaltennamen enthält.
+
+:::{.callout-warning title="Achtung"}
+Der Pfad zur Datei muss entweder absolut (Bsp.: `C:/Users/username/Documents/data.csv`) oder relativ zum aktuellen Arbeitsverzeichnis (Bsp.: `Data/data.csv`) angegeben werden.
+
+In aller Regel ist es sinnvoll, den Pfad relativ zum aktuellen Arbeitsverzeichnis anzugeben. Das aktuelle Arbeitsverzeichnis kann in der Terminalkonsole mit dem Befehl `getwd()` abgefragt werden, und mit dem Befehl `setwd()` kann das Arbeitsverzeichnis geändert werden.
+
+Eine mögliche Praxis ist es, ein Unterverzeichnis `Data` im Projektverzeichnis anzulegen und dort alle Daten abzulegen.
+:::
+
+#### Wichtige Funktionen für Datenimport
+
+<details>
+  <summary><strong>`str()`</strong>: Zeigt die Struktur des Data Frames an.</summary>
+
+```{r}
+str(meteodaten)
+```
+
+</details>
+
+<details>
+  <summary><strong>`head()`</strong>: Zeigt die ersten Zeilen des Data Frames an.</summary>
+
+```{r}
+head(meteodaten)
+```
+
+</details>
+
+<details>
+  <summary><strong>`tail()`</strong>: Zeigt die letzten Zeilen des Data Frames an.</summary>
+
+```{r}
+tail(meteodaten)
+```
+
+</details>
+
+<details>
+  <summary><strong>`summary()`</strong>: Gibt eine Zusammenfassung des Data Frames aus.</summary>
+
+```{r}
+summary(meteodaten)
+```
+
+</details>
+
+<details>
+  <summary><strong>Indizierung</strong>: Mit der Indizierung können bestimmte Zeilen und Spalten des Data Frames ausgewählt werden.</summary>
+
+```{r}
+meteodaten[1:10,] # Ersten 10 Zeilen
+```
+
+</details>
+
+## Plots erstellen
+
+"High-level" Plots können in R mit der `plot()` Funktion erstellt werden. Diese Funktion erstellt automatisch für die gegebenen Daten ein (geeignetes) Diagramm.
+
+Wenn wir aber Beispielsweise unser ganzes `meteodaten` Data Frame plotten wollen, weiss die Funktion nicht, wie sie das tun soll und plottet einfach alle Spalten gegen alle anderen Zeilen. Dies ist in diesem Fall nicht sinnvoll.
+
+```{r}
+plot(meteodaten)
+```
+
+Um unsere Daten sinnvoller zu plotten müssen wir die Daten zuerst filtern und dann plotten.
+
+Wir diskutieren die verschiedenen Schritte hier später:
+
+```{r}
+# CSV-Datei einlesen
+meteodaten <- read.csv('Data/meteodaten_saison.csv',
+    sep = ',',
+    header = TRUE)
+
+# Subsets der Daten erstellen
+saison_fruehling <- meteodaten[meteodaten$Saison == "Fruehling(MAM)", ]
+saison_sommer <- meteodaten[meteodaten$Saison == "Sommer(JJA)", ]
+saison_herbst <- meteodaten[meteodaten$Saison == "Herbst(SON)", ]
+saison_winter <- meteodaten[meteodaten$Saison == "Winter(DJF)", ]
+
+# Plot mit den Saisontemperaturen erstellen erstellen
+plot(saison_fruehling$Jahr, saison_fruehling$Bern_Mitteltemperatur,
+    type = "l",
+    xlab = "Jahr",
+    ylab = "Durchschnittstemperatur in °C",
+    main = "Saisonale Durchschnittstemperaturen in Bern",
+    xlim = c(1900, 2020),
+    ylim = c(-5, 35))
+
+# Weitere Linien für andere Jahreszeiten auf den selben Plot hinzufügen
+lines(saison_sommer$Jahr, saison_sommer$Bern_Mitteltemperatur,
+    col = "red")
+lines(saison_herbst$Jahr, saison_herbst$Bern_Mitteltemperatur,
+    col = "green")
+lines(saison_winter$Jahr, saison_winter$Bern_Mitteltemperatur,
+    col = "blue")
+
+# Gestrichelte Horizontale Linie bei 0 hinzufügen
+abline(h = 0, lty = 2)
+
+# Saisonale Mittelwertlinien hinzufügen
+abline(h = mean(saison_fruehling$Bern_Mitteltemperatur),
+    col = "black",
+    lty = 3)
+abline(h = mean(saison_sommer$Bern_Mitteltemperatur),
+    col = "red",
+    lty = 3)
+abline(h = mean(saison_herbst$Bern_Mitteltemperatur),
+    col = "green",
+    lty = 3)
+abline(h = mean(saison_winter$Bern_Mitteltemperatur),
+    col = "blue",
+    lty = 3)
+
+# Legende hinzufügen
+legend("topright",
+    legend = c("Frühling", "Sommer", "Herbst", "Winter"),
+    col = c("black", "red", "green", "blue"),
+    lty = 1,
+    xpd = TRUE)
+```
+
+Schauen wir uns nun die verschiedenen Schritte im Detail an.
+
+1. **CSV-Datei einlesen**: Zuerst lesen wir die CSV-Datei `meteodaten_saison.csv` ein.
+
+```{r, eval=FALSE}
+# CSV-Datei einlesen
+meteodaten <- read.csv('Data/meteodaten_saison.csv',
+    sep = ',',
+    header = TRUE)
+```
+
+Der Parameter `sep = ','` gibt an, dass die Werte in der CSV-Datei durch Kommas getrennt sind.
+
+Der Parameter `header = TRUE` gibt an, dass die erste Zeile der CSV-Datei die Spaltennamen enthält.
+
+2. **Subsets der Daten erstellen**: Da unser Data Frame `meteodaten` Daten aus verschiedenen Jahreszeiten enthält, erstellen wir Subsets für jede Jahreszeit. Damit können wir die Daten für jede Jahreszeit separat plotten.
+
+```{r, eval=FALSE}
+# Subsets der Daten erstellen
+saison_fruehling <- meteodaten[meteodaten$Saison == "Fruehling(MAM)", ]
+saison_sommer <- meteodaten[meteodaten$Saison == "Sommer(JJA)", ]
+saison_herbst <- meteodaten[meteodaten$Saison == "Herbst(SON)", ]
+saison_winter <- meteodaten[meteodaten$Saison == "Winter(DJF)", ]
+```
+
+Mit dem `==` Operator vergleichen wir die Werte auf Gleichheit.
+
+```{r, eval=FALSE}
+meteodaten$Saison == "Fruehling(MAM)"
+```
+
+Wir überprüfen also Zeile für Zeile, ob der Wert in der Spalte `Saison` gleich dem String `"Fruehling(MAM)"` ist. Dies wird in einen boolschen Vektor umgewandelt, der `TRUE` für Zeilen enthält, die dem Kriterium entsprechen, und `FALSE` für Zeilen, die es nicht tun.
+
+Betrachten wir nun eine Klammer weiter aussen, um zu verstehen, was genau wir dem Subset zuweisen.
+
+```{r, eval=FALSE}
+meteodaten[meteodaten$Saison == "Fruehling(MAM)", ]
+```
+
+Hier wählen wir alle Zeilen aus dem Data Frame `meteodaten` aus, in denen die Spalte `Saison` den Wert `"Fruehling(MAM)"` hat. Da wir nach dem letzten Komma nichts weiter angeben, wählen wir alle Spalten aus.
+
+Unsere Saisonalen Data Frames enthalten also nicht nur die Temperatur-Mittelwerte aus Bern, sondern auch die Niederschlagswerte von Bern und dem Grossen St. Bernhard. Wir greifen im erstellten Plot nur auf die Temperaturwerte zu.
+
+3. **Plot mit den Saisontemperaturen erstellen**: Wir erstellen einen Plot mit den saisonalen Durchschnittstemperaturen in Bern.
+
+```{r, eval=FALSE}
+# Plot mit den Saisontemperaturen erstellen erstellen
+plot(saison_fruehling$Jahr, saison_fruehling$Bern_Mitteltemperatur,
+    type = "l",
+    xlab = "Jahr",
+    ylab = "Durchschnittstemperatur in °C",
+    main = "Saisonale Durchschnittstemperaturen in Bern",
+    xlim = c(1900, 2020),
+    ylim = c(-5, 35))
+```
+
+Die `plot()` Funktion hat viele Parameter, die wir verwenden können, um den Plot anzupassen.
+
+| Parameter    | Beschreibung                                                                                                                                                                                        |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `plot(x, y)` | Erstellt einen Plot der Werte in `x` gegen die Werte in `y`. Wir plotten hier die Spalte `Jahr` aus dem Subset `saison_fruehling` gegen die Spalte `Bern_Mitteltemperatur` aus dem gleichen subset. |
+| `type`       | Gibt den Typ des Plots an. Hier verwenden wir `"l"`, um eine Linie zu zeichnen.                                                                                                                     |
+| `xlab`       | Beschriftung der x-Achse.                                                                                                                                                                           |
+| `ylab`       | Beschriftung der y-Achse.                                                                                                                                                                           |
+| `main`       | Titel des Plots.                                                                                                                                                                                    |
+| `xlim`       | Bereich der x-Achse. Hier von 1900 bis 2020.                                                                                                                                                        |
+| `ylim`       | Bereich der y-Achse. Hier von -5 bis 35.                                                                                                                                                            |
+
+4. **Weitere Linien für andere Jahreszeiten auf den selben Plot hinzufügen**: Wir fügen Linien für die anderen Jahreszeiten hinzu.
+
+In R können wir mit der `lines()` Funktion weitere Linien zu einem bestehenden Plot hinzufügen.
+
+```{r, eval=FALSE}
+# Weitere Linien für andere Jahreszeiten auf den selben Plot hinzufügen
+lines(saison_sommer$Jahr, saison_sommer$Bern_Mitteltemperatur,
+    col = "red")
+lines(saison_herbst$Jahr, saison_herbst$Bern_Mitteltemperatur,
+    col = "green")
+lines(saison_winter$Jahr, saison_winter$Bern_Mitteltemperatur,
+    col = "blue")
+```
+
+Hier müssen wir jeweils nicht mehr ganz so viele Parameter angeben, da wir bereits die Achsenbesschriftung etc. vorgenommen haben. Was wir noch angeben müssen, ist die Farbe der Linie mit dem `col` Parameter.
+
+5. **Gestrichelte Horizontale Linie bei 0 hinzufügen**: Wir fügen eine gestrichelte Horizontale Linie bei 0 hinzu.
+
+```{r, eval=FALSE}
+# Gestrichelte Horizontale Linie bei 0 hinzufügen
+abline(h = 0, lty = 2)
+```
+
+Mit der `abline()` Funktion können wir Linien zu einem Plot hinzufügen. Mit dem `h` Parameter geben wir die y-Position der Linie an, und mit dem `lty` Parameter geben wir den Linientyp an. Hier verwenden wir `lty = 2`, um eine gestrichelte Linie zu zeichnen.
+
+6. **Saisonale Mittelwertlinien hinzufügen**: Wir fügen Mittelwertlinien für jede Jahreszeit hinzu.
+
+```{r, eval=FALSE}
+# Saisonale Mittelwertlinien hinzufügen
+abline(h = mean(saison_fruehling$Bern_Mitteltemperatur),
+    col = "black",
+    lty = 3)
+abline(h = mean(saison_sommer$Bern_Mitteltemperatur),
+    col = "red",
+    lty = 3)
+abline(h = mean(saison_herbst$Bern_Mitteltemperatur),
+    col = "green",
+    lty = 3)
+abline(h = mean(saison_winter$Bern_Mitteltemperatur),
+    col = "blue",
+    lty = 3)
+```
+
+Hier fügen wir gestrichelte Linien für die Mittelwerte der Temperatur für jede Jahreszeit hinzu. Wir verwenden die `mean()` Funktion, um direkt im Aufruf den Mittelwert zu berechnen.
+
+7. **Legende hinzufügen**: Wir fügen eine Legende für die verschiedenen Linien hinzu.
+
+```{r, eval=FALSE}
+# Legende hinzufügen
+legend("topright",
+    legend = c("Frühling", "Sommer", "Herbst", "Winter"),
+    col = c("black", "red", "green", "blue"),
+    lty = 1,
+    xpd = TRUE)
+```
+
+Mit der `legend()` Funktion können wir eine Legende zu einem Plot hinzufügen. Wir geben die Position der Legende mit dem `topright` Parameter an. Mit dem `legend` Parameter geben wir die Beschriftungen für die Linien an. Mit dem `col` Parameter geben wir die Farben der Linien an. Mit dem `lty` Parameter geben wir den Linientyp an. Mit dem `xpd` Parameter geben wir an, ob die Legende ausserhalb des Plots sein soll.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

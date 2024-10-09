@@ -1,0 +1,10 @@
+# Wichtigste Funktionen
+
+## `c()` {#sec-function-c}
+
+Die `c()` Funktion wird verwendet, um Werte zu kombinieren (*combine*). Sie wird häufig verwendet, um Vektoren zu erstellen.
+
+```{r}
+# Vektor erstellen
+vectorA <- c(1, 2, 3, 4, 5)
+```

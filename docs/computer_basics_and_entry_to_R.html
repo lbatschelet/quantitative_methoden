@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./disk_math.html" rel="next">
+<link href="./grundlagen_R.html" rel="next">
 <link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -162,8 +162,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./disk_math.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">disk_math.html</span></span></a>
+  <a href="./grundlagen_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./wichtige_funktionen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Wichtigste Funktionen</span></span></a>
   </div>
 </li>
     </ul>
@@ -184,6 +190,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#rechnen-mit-r" id="toc-rechnen-mit-r" class="nav-link" data-scroll-target="#rechnen-mit-r"><span class="header-section-number">1.2</span> Rechnen mit R</a>
   <ul class="collapse">
   <li><a href="#arithmetische-operationen" id="toc-arithmetische-operationen" class="nav-link" data-scroll-target="#arithmetische-operationen"><span class="header-section-number">1.2.1</span> Arithmetische Operationen</a></li>
+  </ul></li>
+  <li><a href="#übungen-1" id="toc-übungen-1" class="nav-link" data-scroll-target="#übungen-1"><span class="header-section-number">1.3</span> Übungen 1</a>
+  <ul class="collapse">
+  <li><a href="#vektoren-1" id="toc-vektoren-1" class="nav-link" data-scroll-target="#vektoren-1"><span class="header-section-number">1.3.1</span> Vektoren:</a></li>
+  <li><a href="#zahlenfolgen-erzeugt-mit-den-rep-und-seq-funktionen-folgende-zahlenfolgen" id="toc-zahlenfolgen-erzeugt-mit-den-rep-und-seq-funktionen-folgende-zahlenfolgen" class="nav-link" data-scroll-target="#zahlenfolgen-erzeugt-mit-den-rep-und-seq-funktionen-folgende-zahlenfolgen"><span class="header-section-number">1.3.2</span> Zahlenfolgen: Erzeugt mit den <code>rep</code> und <code>seq</code> Funktionen folgende Zahlenfolgen:</a></li>
+  <li><a href="#einlesen-von-daten" id="toc-einlesen-von-daten" class="nav-link" data-scroll-target="#einlesen-von-daten"><span class="header-section-number">1.3.3</span> Einlesen von Daten:</a></li>
+  <li><a href="#apply" id="toc-apply" class="nav-link" data-scroll-target="#apply"><span class="header-section-number">1.3.4</span> <code>apply()</code></a></li>
+  <li><a href="#aggregate" id="toc-aggregate" class="nav-link" data-scroll-target="#aggregate"><span class="header-section-number">1.3.5</span> <code>aggregate()</code></a></li>
+  </ul></li>
+  <li><a href="#grafiken-in-r" id="toc-grafiken-in-r" class="nav-link" data-scroll-target="#grafiken-in-r"><span class="header-section-number">1.4</span> Grafiken in R</a>
+  <ul class="collapse">
+  <li><a href="#plot" id="toc-plot" class="nav-link" data-scroll-target="#plot"><span class="header-section-number">1.4.1</span> <code>plot()</code></a></li>
+  <li><a href="#r-übungen-2" id="toc-r-übungen-2" class="nav-link" data-scroll-target="#r-übungen-2"><span class="header-section-number">1.4.2</span> R-Übungen 2</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/hadley/r4ds/edit/main/computer_basics_and_entry_to_R.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -214,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="1.1" class="anchored" data-anchor-id="vektoren-und-matrizen"><span class="header-section-number">1.1</span> Vektoren und Matrizen</h2>
 <section id="vektoren" class="level3" data-number="1.1.1">
 <h3 data-number="1.1.1" class="anchored" data-anchor-id="vektoren"><span class="header-section-number">1.1.1</span> Vektoren</h3>
-<p>Vektoren sind eine der grundlegenden Datenstrukturen in R. Sie können mit der <code>c()</code> Funktion erstellt werden. Vektoren sind grundsätzkich ähnlich wie Objekte vom typ <code>list</code> in Python.</p>
+<p>Vektoren sind eine der grundlegenden Datenstrukturen in R. Sie können mit der <code>c()</code> Funktion erstellt werden. Vektoren sind grundsätzlich ähnlich wie Objekte vom typ <code>list</code> in Python.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vektor erstellen</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>vectorA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
@@ -502,9 +521,262 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 4.191807</code></pre>
 </div>
 </div>
-
-
 </section>
+</section>
+</section>
+<section id="übungen-1" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="übungen-1"><span class="header-section-number">1.3</span> Übungen 1</h2>
+<section id="vektoren-1" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="vektoren-1"><span class="header-section-number">1.3.1</span> Vektoren:</h3>
+<p>Überlegt euch die erwarteten Lösungen vor dem Eintippen!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">18</span>)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span><span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">5</span>)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span>)</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co"># A</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span> (x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># B</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(x,y,<span class="dv">13</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  5  2  1  4  1  1  1  1  1 13</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># C</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">4</span>] <span class="sc">*</span> y[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>xx[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>] <span class="sc">+</span> x[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15 17 19</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># D</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>xx <span class="sc">&lt;=</span> <span class="dv">12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE  TRUE FALSE FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>xx [xx <span class="sc">&lt;=</span><span class="dv">12</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># E</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,xx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="computer_basics_and_entry_to_R_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x[z],xx[z])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="computer_basics_and_entry_to_R_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="zahlenfolgen-erzeugt-mit-den-rep-und-seq-funktionen-folgende-zahlenfolgen" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="zahlenfolgen-erzeugt-mit-den-rep-und-seq-funktionen-folgende-zahlenfolgen"><span class="header-section-number">1.3.2</span> Zahlenfolgen: Erzeugt mit den <code>rep</code> und <code>seq</code> Funktionen folgende Zahlenfolgen:</h3>
+<ol type="a">
+<li><p><code>1 2 3 4 5 6 7 8 9</code></p></li>
+<li><p><code>'m'  'w'  'm'  'w'  'm'  'w'</code></p></li>
+<li><p><code>1 2 3 4 1 2 3 4 1 2 3 4</code></p></li>
+<li><p><code>1 2 2 3 3 3 4 4 4 4</code></p></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Lösungen</summary>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a)</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5 6 7 8 9</code></pre>
+</div>
+<details class="code-fold">
+<summary>Lösungen</summary>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># b)</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">'m'</span>, <span class="st">'w'</span>), <span class="at">times =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "m" "w" "m" "w" "m" "w"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Lösungen</summary>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># c)</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">times =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1 2 3 4 1 2 3 4 1 2 3 4</code></pre>
+</div>
+<details class="code-fold">
+<summary>Lösungen</summary>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># d)</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1 2 2 3 3 3 4 4 4 4</code></pre>
+</div>
+</div>
+</section>
+<section id="einlesen-von-daten" class="level3" data-number="1.3.3">
+<h3 data-number="1.3.3" class="anchored" data-anchor-id="einlesen-von-daten"><span class="header-section-number">1.3.3</span> Einlesen von Daten:</h3>
+<p>Lest die Datei ”meteodaten_saison.csv” in ein:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Relativer Pfad zur Datei</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>saison <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'Data/meteodaten_saison.csv'</span>, <span class="at">sep =</span> <span class="st">','</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Struktur der Daten anzeigen</span></span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(saison)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   492 obs. of  6 variables:
+ $ Jahr                           : int  1901 1901 1901 1901 1902 1902 1902 1902 1903 1903 ...
+ $ Saison                         : chr  "Fruehling(MAM)" "Herbst(SON)" "Sommer(JJA)" "Winter(DJF)" ...
+ $ Bern_Mitteltemperatur          : num  7.73 7.4 16.8 -2.73 7.53 ...
+ $ Bern_Niederschlagssumme        : num  92.6 81.6 127 37.5 107.7 ...
+ $ GrStBernhard_Mitteltemperatur  : num  -4 -0.8 6.3 -10.6 -3.63 ...
+ $ GrStBernhard_Niederschlagssumme: num  164.9 173.6 95.1 118.7 149.4 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten filtern</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>saison_winter <span class="ot">&lt;-</span> <span class="fu">subset</span>(saison, saison[,<span class="dv">2</span>] <span class="sc">==</span> <span class="st">"Winter(DJF)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="apply" class="level3" data-number="1.3.4">
+<h3 data-number="1.3.4" class="anchored" data-anchor-id="apply"><span class="header-section-number">1.3.4</span> <code>apply()</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mittelwerte über die Spalten 3 bis 6 berechnen</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(saison[<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>], <span class="dv">2</span>, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Bern_Mitteltemperatur         Bern_Niederschlagssumme 
+                      8.7151762                      84.4199187 
+  GrStBernhard_Mitteltemperatur GrStBernhard_Niederschlagssumme 
+                     -0.9231707                     171.2852304 </code></pre>
+</div>
+</div>
+</section>
+<section id="aggregate" class="level3" data-number="1.3.5">
+<h3 data-number="1.3.5" class="anchored" data-anchor-id="aggregate"><span class="header-section-number">1.3.5</span> <code>aggregate()</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(saison[,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>], <span class="fu">list</span>(saison[,<span class="dv">2</span>]), mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Group.1 Bern_Mitteltemperatur Bern_Niederschlagssumme
+1 Fruehling(MAM)              8.540921                82.61220
+2    Herbst(SON)              8.886992                80.91192
+3    Sommer(JJA)             17.230894               112.77886
+4    Winter(DJF)              0.201897                61.37669
+  GrStBernhard_Mitteltemperatur GrStBernhard_Niederschlagssumme
+1                    -2.9474255                        186.1138
+2                     0.2598916                        176.5862
+3                     6.5636856                        136.6244
+4                    -7.5688347                        185.8165</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="grafiken-in-r" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="grafiken-in-r"><span class="header-section-number">1.4</span> Grafiken in R</h2>
+<section id="plot" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="plot"><span class="header-section-number">1.4.1</span> <code>plot()</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot erstellen mit Achsenbeschriftungen und Linien</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(saison_winter[,<span class="dv">1</span>], saison_winter[,<span class="dv">3</span>], <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">xlab =</span> <span class="st">"Jahr"</span>, <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur"</span>, <span class="at">main =</span> <span class="st">"Saisonale Durchschnittstemperaturen (Winter)"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">15</span>, <span class="dv">5</span>))</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Weitere Linien für andere Spalten hinzufügen</span></span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(saison_winter[,<span class="dv">1</span>], saison_winter[,<span class="dv">5</span>], <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Legende hinzufügen</span></span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Bern"</span>, <span class="st">"Gr. St. Bernhard"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="dv">1</span>)</span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Gestrichelte Horizontale Linie bei 0 hinzufügen</span></span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Trendlinie für Bern hinzufügen</span></span>
+<span id="cb88-14"><a href="#cb88-14" aria-hidden="true" tabindex="-1"></a>model_bern <span class="ot">&lt;-</span> <span class="fu">lm</span>(saison_winter[,<span class="dv">3</span>] <span class="sc">~</span> saison_winter[,<span class="dv">1</span>]) <span class="co"># lineare Regression</span></span>
+<span id="cb88-15"><a href="#cb88-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model_bern, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="co"># gestrichelte Linie für die Trendlinie</span></span>
+<span id="cb88-16"><a href="#cb88-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-17"><a href="#cb88-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Trendlinie für Gr. St. Bernhard hinzufügen</span></span>
+<span id="cb88-18"><a href="#cb88-18" aria-hidden="true" tabindex="-1"></a>model_gr_bern <span class="ot">&lt;-</span> <span class="fu">lm</span>(saison_winter[,<span class="dv">5</span>] <span class="sc">~</span> saison_winter[,<span class="dv">1</span>]) <span class="co"># lineare Regression</span></span>
+<span id="cb88-19"><a href="#cb88-19" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model_gr_bern, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="co"># gestrichelte Linie für die Trendlinie</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="computer_basics_and_entry_to_R_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="r-übungen-2" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2" class="anchored" data-anchor-id="r-übungen-2"><span class="header-section-number">1.4.2</span> R-Übungen 2</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Relativer Pfad zur Datei</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>saison <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'Data/meteodaten_saison.csv'</span>, <span class="at">sep =</span> <span class="st">','</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Struktur der Daten anzeigen</span></span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(saison)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   492 obs. of  6 variables:
+ $ Jahr                           : int  1901 1901 1901 1901 1902 1902 1902 1902 1903 1903 ...
+ $ Saison                         : chr  "Fruehling(MAM)" "Herbst(SON)" "Sommer(JJA)" "Winter(DJF)" ...
+ $ Bern_Mitteltemperatur          : num  7.73 7.4 16.8 -2.73 7.53 ...
+ $ Bern_Niederschlagssumme        : num  92.6 81.6 127 37.5 107.7 ...
+ $ GrStBernhard_Mitteltemperatur  : num  -4 -0.8 6.3 -10.6 -3.63 ...
+ $ GrStBernhard_Niederschlagssumme: num  164.9 173.6 95.1 118.7 149.4 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten filtern</span></span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>saison_fruehling <span class="ot">&lt;-</span> saison[saison[,<span class="dv">2</span>] <span class="sc">==</span> <span class="st">"Fruehling(MAM)"</span>,]</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>saison_sommer <span class="ot">&lt;-</span> saison[saison[,<span class="dv">2</span>] <span class="sc">==</span> <span class="st">"Sommer(JJA)"</span>,]</span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>saison_herbst <span class="ot">&lt;-</span> saison[saison[,<span class="dv">2</span>] <span class="sc">==</span> <span class="st">"Herbst(SON)"</span>,]</span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>saison_winter <span class="ot">&lt;-</span> <span class="fu">subset</span>(saison, saison[,<span class="dv">2</span>] <span class="sc">==</span> <span class="st">"Winter(DJF)"</span>)</span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot mit den Saisontemperaturen erstellen erstellen</span></span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(saison_fruehling[,<span class="dv">1</span>], saison_fruehling[,<span class="dv">3</span>], <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">xlab =</span> <span class="st">"Jahr"</span>, <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>, <span class="at">main =</span> <span class="st">"Saisonale Durchschnittstemperaturen in Bern"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1900</span>, <span class="dv">2020</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">35</span>))</span>
+<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-10"><a href="#cb91-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(saison_sommer[,<span class="dv">1</span>], saison_sommer[,<span class="dv">3</span>], <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb91-11"><a href="#cb91-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(saison_herbst[,<span class="dv">1</span>], saison_herbst[,<span class="dv">3</span>], <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb91-12"><a href="#cb91-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(saison_winter[,<span class="dv">1</span>], saison_winter[,<span class="dv">3</span>], <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb91-13"><a href="#cb91-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-14"><a href="#cb91-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Gestrichelte Horizontale Linie bei 0 hinzufügen</span></span>
+<span id="cb91-15"><a href="#cb91-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb91-16"><a href="#cb91-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-17"><a href="#cb91-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Saisonale Mittelwertlinien hinzufügen</span></span>
+<span id="cb91-18"><a href="#cb91-18" aria-hidden="true" tabindex="-1"></a><span class="co"># lty = 2 für gestrichelte Linie</span></span>
+<span id="cb91-19"><a href="#cb91-19" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(saison_fruehling[,<span class="dv">3</span>]), <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb91-20"><a href="#cb91-20" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(saison_sommer[,<span class="dv">3</span>]), <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb91-21"><a href="#cb91-21" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(saison_herbst[,<span class="dv">3</span>]), <span class="at">col =</span> <span class="st">"green"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb91-22"><a href="#cb91-22" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(saison_winter[,<span class="dv">3</span>]), <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb91-23"><a href="#cb91-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-24"><a href="#cb91-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Legende ausserhalb des Plots hinzufügen</span></span>
+<span id="cb91-25"><a href="#cb91-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Legende außerhalb des Plots hinzufügen</span></span>
+<span id="cb91-26"><a href="#cb91-26" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Frühling"</span>, <span class="st">"Sommer"</span>, <span class="st">"Herbst"</span>, <span class="st">"Winter"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="computer_basics_and_entry_to_R_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
 </section>
 </section>
 
@@ -936,8 +1208,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./disk_math.html" class="pagination-link" aria-label="disk_math.html">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">disk_math.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./grundlagen_R.html" class="pagination-link" aria-label="Grundlagen R">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
