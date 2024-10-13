@@ -210,6 +210,12 @@ plot(durchschnittstemperatur_pro_jahr$Jahr, durchschnittstemperatur_pro_jahr$Ber
     xlab = "Jahr",
     ylab = "Durchschnittstemperatur in °C",
     main = "Durchschnittstemperatur pro Jahr in Bern")
+
+# Lineares Modell (lineare Regression) erstellen
+trend <- lm(Bern_Mitteltemperatur ~ Jahr, data = durchschnittstemperatur_pro_jahr)
+
+# Trendlinie hinzufügen
+abline(trend, col = "red", lwd = 2)  # Die Farbe und Dicke der Linie anpassen
 ```
 
 Die `aggregate()` Funktion nimmt vier Parameter:
@@ -220,6 +226,8 @@ Die `aggregate()` Funktion nimmt vier Parameter:
 4. Die Funktion, die auf die aggregierten Werte angewendet werden soll (`mean`).
 
 Der `~`-Operator wird in R verwendet, um die linke Seite von der rechten Seite zu trennen. In diesem Fall bedeutet dies, dass wir die Spalte `Bern_Mitteltemperatur` nach der Spalte `Jahr` aggregieren wollen.
+
+Zusätzlich haben wir hier noch eine Trendlinie hinzugefügt. Dazu haben wir ein lineares Modell mit der `lm()` Funktion erstellt und die Trendlinie mit der `abline()` Funktion hinzugefügt.
 
 ## Boxplots und mehrere Plots in einem Diagramm
 
