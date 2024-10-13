@@ -17,11 +17,14 @@ Zum Beispiel:
 ```{r}
 x <- 10
 if (x > 5) {
-  print("x ist größer als 5")
+  print(paste(x, "ist grösser als 5"))
 } else {
   print("x ist kleiner oder gleich 5")
 }
+
 ```
+
+Hier verwenden wir zusätzlich die Funktion `paste()`, um Text und Variablen zu kombinieren. Dies ist ohne nicht direkt möglich.
 
 ### `ifelse()` als Vektoroperation
 

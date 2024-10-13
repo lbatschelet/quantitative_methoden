@@ -174,7 +174,7 @@
     "href": "loops_and_functions.html",
     "title": "4  Schlaufen und Funktionen",
     "section": "",
-    "text": "4.1 if() und else()\nMit if() und else() können Bedingungen in R überprüft und entsprechende Aktionen ausgeführt werden. Die Syntax ist wie folgt:\nif (Bedingung) {\n  # Aktion, wenn die Bedingung TRUE ist\n} else {\n  # Aktion, wenn die Bedingung FALSE ist\n}\nZum Beispiel:\nx &lt;- 10\nif (x &gt; 5) {\n  print(\"x ist größer als 5\")\n} else {\n  print(\"x ist kleiner oder gleich 5\")\n}\n\n[1] \"x ist größer als 5\"",
+    "text": "4.1 if() und else()\nMit if() und else() können Bedingungen in R überprüft und entsprechende Aktionen ausgeführt werden. Die Syntax ist wie folgt:\nif (Bedingung) {\n  # Aktion, wenn die Bedingung TRUE ist\n} else {\n  # Aktion, wenn die Bedingung FALSE ist\n}\nZum Beispiel:\nx &lt;- 10\nif (x &gt; 5) {\n  print(paste(x, \"ist grösser als 5\"))\n} else {\n  print(\"x ist kleiner oder gleich 5\")\n}\n\n[1] \"10 ist grösser als 5\"\nHier verwenden wir zusätzlich die Funktion paste(), um Text und Variablen zu kombinieren. Dies ist ohne nicht direkt möglich.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Schlaufen und Funktionen</span>"
     ]
