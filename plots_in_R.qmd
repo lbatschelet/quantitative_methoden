@@ -1,0 +1,356 @@
+# Einfache Plots erstellen
+
+"High-level" Plots können in R mit der `plot()` Funktion erstellt werden. Diese Funktion erstellt automatisch für die gegebenen Daten ein (geeignetes) Diagramm.
+
+```{r, echo=FALSE}
+# CSV-Datei einlesen
+meteodaten <- read.csv('Data/meteodaten_saison.csv',
+    sep = ',',
+    header = TRUE)
+```
+
+Wenn wir aber Beispielsweise unser ganzes `meteodaten` Data Frame plotten wollen, weiss die Funktion nicht, wie sie das tun soll und plottet einfach alle Spalten gegen alle anderen Zeilen. Dies ist in diesem Fall nicht sinnvoll.
+
+```{r}
+plot(meteodaten)
+```
+
+### Liniendiagramme
+
+Um unsere Daten sinnvoller zu plotten müssen wir die Daten zuerst filtern und dann plotten.
+
+Wir diskutieren die verschiedenen Schritte hier später:
+
+```{r}
+# Subsets der Daten erstellen
+saison_fruehling <- meteodaten[meteodaten$Saison == "Fruehling(MAM)", ]
+saison_sommer <- meteodaten[meteodaten$Saison == "Sommer(JJA)", ]
+saison_herbst <- meteodaten[meteodaten$Saison == "Herbst(SON)", ]
+saison_winter <- meteodaten[meteodaten$Saison == "Winter(DJF)", ]
+
+# Plot mit den Saisontemperaturen erstellen erstellen
+plot(saison_fruehling$Jahr, saison_fruehling$Bern_Mitteltemperatur,
+    type = "l",
+    xlab = "Jahr",
+    ylab = "Durchschnittstemperatur in °C",
+    main = "Saisonale Durchschnittstemperaturen in Bern",
+    xlim = c(1900, 2020),
+    ylim = c(-5, 35))
+
+# Weitere Linien für andere Jahreszeiten auf den selben Plot hinzufügen
+lines(saison_sommer$Jahr, saison_sommer$Bern_Mitteltemperatur,
+    col = "red")
+lines(saison_herbst$Jahr, saison_herbst$Bern_Mitteltemperatur,
+    col = "green")
+lines(saison_winter$Jahr, saison_winter$Bern_Mitteltemperatur,
+    col = "blue")
+
+# Gestrichelte Horizontale Linie bei 0 hinzufügen
+abline(h = 0, lty = 2)
+
+# Saisonale Mittelwertlinien hinzufügen
+abline(h = mean(saison_fruehling$Bern_Mitteltemperatur),
+    col = "black",
+    lty = 3)
+abline(h = mean(saison_sommer$Bern_Mitteltemperatur),
+    col = "red",
+    lty = 3)
+abline(h = mean(saison_herbst$Bern_Mitteltemperatur),
+    col = "green",
+    lty = 3)
+abline(h = mean(saison_winter$Bern_Mitteltemperatur),
+    col = "blue",
+    lty = 3)
+
+# Legende hinzufügen
+legend("topright",
+    legend = c("Frühling", "Sommer", "Herbst", "Winter"),
+    col = c("black", "red", "green", "blue"),
+    lty = 1,
+    xpd = TRUE)
+```
+
+Schauen wir uns nun die verschiedenen Schritte im Detail an.
+
+1. **CSV-Datei einlesen**: Zuerst lesen wir die CSV-Datei `meteodaten_saison.csv` ein.
+
+```{r, eval=FALSE}
+# CSV-Datei einlesen
+meteodaten <- read.csv('Data/meteodaten_saison.csv',
+    sep = ',',
+    header = TRUE)
+```
+
+Der Parameter `sep = ','` gibt an, dass die Werte in der CSV-Datei durch Kommas getrennt sind.
+
+Der Parameter `header = TRUE` gibt an, dass die erste Zeile der CSV-Datei die Spaltennamen enthält.
+
+2. **Subsets der Daten erstellen**: Da unser Data Frame `meteodaten` Daten aus verschiedenen Jahreszeiten enthält, erstellen wir Subsets für jede Jahreszeit. Damit können wir die Daten für jede Jahreszeit separat plotten.
+
+```{r, eval=FALSE}
+# Subsets der Daten erstellen
+saison_fruehling <- meteodaten[meteodaten$Saison == "Fruehling(MAM)", ]
+saison_sommer <- meteodaten[meteodaten$Saison == "Sommer(JJA)", ]
+saison_herbst <- meteodaten[meteodaten$Saison == "Herbst(SON)", ]
+saison_winter <- meteodaten[meteodaten$Saison == "Winter(DJF)", ]
+```
+
+Mit dem `==` Operator vergleichen wir die Werte auf Gleichheit.
+
+```{r, eval=FALSE}
+meteodaten$Saison == "Fruehling(MAM)"
+```
+
+Wir überprüfen also Zeile für Zeile, ob der Wert in der Spalte `Saison` gleich dem String `"Fruehling(MAM)"` ist. Dies wird in einen boolschen Vektor umgewandelt, der `TRUE` für Zeilen enthält, die dem Kriterium entsprechen, und `FALSE` für Zeilen, die es nicht tun.
+
+Betrachten wir nun eine Klammer weiter aussen, um zu verstehen, was genau wir dem Subset zuweisen.
+
+```{r, eval=FALSE}
+meteodaten[meteodaten$Saison == "Fruehling(MAM)", ]
+```
+
+Hier wählen wir alle Zeilen aus dem Data Frame `meteodaten` aus, in denen die Spalte `Saison` den Wert `"Fruehling(MAM)"` hat. Da wir nach dem letzten Komma nichts weiter angeben, wählen wir alle Spalten aus.
+
+Unsere Saisonalen Data Frames enthalten also nicht nur die Temperatur-Mittelwerte aus Bern, sondern auch die Niederschlagswerte von Bern und dem Grossen St. Bernhard. Wir greifen im erstellten Plot nur auf die Temperaturwerte zu.
+
+3. **Plot mit den Saisontemperaturen erstellen**: Wir erstellen einen Plot mit den saisonalen Durchschnittstemperaturen in Bern.
+
+```{r, eval=FALSE}
+# Plot mit den Saisontemperaturen erstellen erstellen
+plot(saison_fruehling$Jahr, saison_fruehling$Bern_Mitteltemperatur,
+    type = "l",
+    xlab = "Jahr",
+    ylab = "Durchschnittstemperatur in °C",
+    main = "Saisonale Durchschnittstemperaturen in Bern",
+    xlim = c(1900, 2020),
+    ylim = c(-5, 35))
+```
+
+Die `plot()` Funktion hat viele Parameter, die wir verwenden können, um den Plot anzupassen.
+
+| Parameter    | Beschreibung                                                                                                                                                                                        |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `plot(x, y)` | Erstellt einen Plot der Werte in `x` gegen die Werte in `y`. Wir plotten hier die Spalte `Jahr` aus dem Subset `saison_fruehling` gegen die Spalte `Bern_Mitteltemperatur` aus dem gleichen subset. |
+| `type`       | Gibt den Typ des Plots an. Hier verwenden wir `"l"`, um eine Linie zu zeichnen.                                                                                                                     |
+| `xlab`       | Beschriftung der x-Achse.                                                                                                                                                                           |
+| `ylab`       | Beschriftung der y-Achse.                                                                                                                                                                           |
+| `main`       | Titel des Plots.                                                                                                                                                                                    |
+| `xlim`       | Bereich der x-Achse. Hier von 1900 bis 2020.                                                                                                                                                        |
+| `ylim`       | Bereich der y-Achse. Hier von -5 bis 35.                                                                                                                                                            |
+
+4. **Weitere Linien für andere Jahreszeiten auf den selben Plot hinzufügen**: Wir fügen Linien für die anderen Jahreszeiten hinzu.
+
+In R können wir mit der `lines()` Funktion weitere Linien zu einem bestehenden Plot hinzufügen.
+
+```{r, eval=FALSE}
+# Weitere Linien für andere Jahreszeiten auf den selben Plot hinzufügen
+lines(saison_sommer$Jahr, saison_sommer$Bern_Mitteltemperatur,
+    col = "red")
+lines(saison_herbst$Jahr, saison_herbst$Bern_Mitteltemperatur,
+    col = "green")
+lines(saison_winter$Jahr, saison_winter$Bern_Mitteltemperatur,
+    col = "blue")
+```
+
+Hier müssen wir jeweils nicht mehr ganz so viele Parameter angeben, da wir bereits die Achsenbesschriftung etc. vorgenommen haben. Was wir noch angeben müssen, ist die Farbe der Linie mit dem `col` Parameter.
+
+5. **Gestrichelte Horizontale Linie bei 0 hinzufügen**: Wir fügen eine gestrichelte Horizontale Linie bei 0 hinzu.
+
+```{r, eval=FALSE}
+# Gestrichelte Horizontale Linie bei 0 hinzufügen
+abline(h = 0, lty = 2)
+```
+
+Mit der `abline()` Funktion können wir Linien zu einem Plot hinzufügen. Mit dem `h` Parameter geben wir die y-Position der Linie an, und mit dem `lty` Parameter geben wir den Linientyp an. Hier verwenden wir `lty = 2`, um eine gestrichelte Linie zu zeichnen.
+
+6. **Saisonale Mittelwertlinien hinzufügen**: Wir fügen Mittelwertlinien für jede Jahreszeit hinzu.
+
+```{r, eval=FALSE}
+# Saisonale Mittelwertlinien hinzufügen
+abline(h = mean(saison_fruehling$Bern_Mitteltemperatur),
+    col = "black",
+    lty = 3)
+abline(h = mean(saison_sommer$Bern_Mitteltemperatur),
+    col = "red",
+    lty = 3)
+abline(h = mean(saison_herbst$Bern_Mitteltemperatur),
+    col = "green",
+    lty = 3)
+abline(h = mean(saison_winter$Bern_Mitteltemperatur),
+    col = "blue",
+    lty = 3)
+```
+
+Hier fügen wir gestrichelte Linien für die Mittelwerte der Temperatur für jede Jahreszeit hinzu. Wir verwenden die `mean()` Funktion, um direkt im Aufruf den Mittelwert zu berechnen.
+
+7. **Legende hinzufügen**: Wir fügen eine Legende für die verschiedenen Linien hinzu.
+
+```{r, eval=FALSE}
+# Legende hinzufügen
+legend("topright",
+    legend = c("Frühling", "Sommer", "Herbst", "Winter"),
+    col = c("black", "red", "green", "blue"),
+    lty = 1,
+    xpd = TRUE)
+```
+
+Mit der `legend()` Funktion können wir eine Legende zu einem Plot hinzufügen. Wir geben die Position der Legende mit dem `topright` Parameter an. Mit dem `legend` Parameter geben wir die Beschriftungen für die Linien an. Mit dem `col` Parameter geben wir die Farben der Linien an. Mit dem `lty` Parameter geben wir den Linientyp an. Mit dem `xpd` Parameter geben wir an, ob die Legende ausserhalb des Plots sein soll.
+
+## Scatterplots und `aggregate()`-Funktion
+
+Wenn wir von unseren nach Jahreszeiten sortierten Daten nun bspw. den Durchschnitt der Temperaturwerte pro Jahr berechnen wollen, können wir die `aggregate()` Funktion verwenden.
+
+```{r}
+# Durchschnittstemperatur pro Jahr berechnen
+durchschnittstemperatur_pro_jahr <- aggregate(Bern_Mitteltemperatur ~ Jahr, data = meteodaten, FUN = mean)
+
+# Plot erstellen
+plot(durchschnittstemperatur_pro_jahr$Jahr, durchschnittstemperatur_pro_jahr$Bern_Mitteltemperatur,
+    type = "p",
+    xlab = "Jahr",
+    ylab = "Durchschnittstemperatur in °C",
+    main = "Durchschnittstemperatur pro Jahr in Bern")
+```
+
+Die `aggregate()` Funktion nimmt vier Parameter:
+
+1. Die Spalte, nach der aggregiert werden soll (`Bern_Mitteltemperatur`).
+2. Die Spalte, nach der gruppiert werden soll (`Jahr`).
+3. Die Daten, auf die die Funktion angewendet werden soll (`meteodaten`).
+4. Die Funktion, die auf die aggregierten Werte angewendet werden soll (`mean`).
+
+Der `~`-Operator wird in R verwendet, um die linke Seite von der rechten Seite zu trennen. In diesem Fall bedeutet dies, dass wir die Spalte `Bern_Mitteltemperatur` nach der Spalte `Jahr` aggregieren wollen.
+
+## Boxplots und mehrere Plots in einem Diagramm
+
+Wir wollen nun für die Temperaturen und Niederschlagswerte in Bern und auf dem Grossen St. Bernhard Boxplots erstellen und diese in einem Diagramm nebeneinander plotten. Zusätzlich wollen wir die Daten Zeitlich bis ins Jahr 1980 beschränken. Auch dieser Code enthält einige zusätzliche und neue Schritte, welche wir uns anschliessend genauer ansehen.
+
+```{r}
+# Definiere neue Kategorien-Namen und die gewünschte Reihenfolge
+neue_namen <- c("Frühling", "Sommer", "Herbst", "Winter")
+alte_namen <- c("Fruehling(MAM)", "Sommer(JJA)", "Herbst(SON)", "Winter(DJF)")
+
+# Konvertiere 'Saison' in einen Faktor mit den neuen Namen und der gewünschten Reihenfolge
+meteodaten$Saison <- factor(meteodaten$Saison,
+                            levels = alte_namen,
+                            labels = neue_namen)
+
+# Mehrere Plots in einem Diagramm
+par(mfrow = c(2, 2), # 2 Zeilen und 2 Spalten
+    mar = c(4, 4, 2, 1), # verkleinert die Ränder
+    oma = c(0, 0, 4, 0), # fügt Platz für den Titel hinzu
+    cex = 0.8) # verkleinert die Schriftgrösse
+
+# Boxplots erstellen
+boxplot(Bern_Mitteltemperatur ~ Saison, data = meteodaten[meteodaten$Jahr <= 1980, ],
+    ylim = c(-10, 20),
+    ylab = "Durchschnittstemperatur in °C",
+    main = "Durchschnittstemperatur Bern")
+
+boxplot(GrStBernhard_Mitteltemperatur ~ Saison, data = meteodaten[meteodaten$Jahr <= 1980, ],
+    ylim = c(-10, 20),
+    ylab = "Durchschnittstemperatur in °C",
+    main = "Durchschnittstemperatur Gr. St. Bernhard")
+
+boxplot(Bern_Niederschlagssumme ~ Saison, data = meteodaten[meteodaten$Jahr <= 1980, ],
+    ylim = c(0, 400),
+    ylab = "Niederschlag in mm",
+    main = "Niederschlag Bern")
+
+boxplot(GrStBernhard_Niederschlagssumme ~ Saison, data = meteodaten[meteodaten$Jahr <= 1980, ],
+    ylim = c(0, 400),
+    ylab = "Niederschlag in mm",
+    main = "Niederschlag Gr. St. Bernhard")
+
+# Gesamte Überschrift für alle Plots hinzufügen
+title("Klimadaten in Bern und auf dem Grossen St. Bernhard", outer = TRUE)
+```
+
+Schauen wir uns die verschiedenen Schritte im Detail an:
+
+1. **Definiere neue Kategorien-Namen und die gewünschte Reihenfolge**: Die Kategorien-Namen haben bisher die Form `Fruehling(MAM)`, `Sommer(JJA)`, `Herbst(SON)`, `Winter(DJF)`. Um die Lesbarkeit zu verbessern und etwas kürzere Namen zu verwenden, definieren wir neue Namen. In einem nächsten Schritt konvertieren wir die Spalte `Saison` in einen Faktor[^3] mit den neuen Namen und der gewünschten Reihenfolge.
+
+[^3]: Ein Faktor ist ein Datentyp in R, der kategorische Daten repräsentiert. Faktoren werden verwendet, um Daten zu kategorisieren und zu ordnen.
+
+```{r, eval=FALSE}
+neue_namen <- c("Frühling", "Sommer", "Herbst", "Winter")
+alte_namen <- c("Fruehling(MAM)", "Sommer(JJA)", "Herbst(SON)", "Winter(DJF)")
+
+meteodaten$Saison <- factor(meteodaten$Saison,
+                            levels = alte_namen,
+                            labels = neue_namen)
+```
+
+Wir verwenden die `factor()` Funktion, um die Spalte `Saison`, die aktuell als Strings vorliegt, in einen Faktor zu konvertieren. Mit dem `levels` Parameter geben wir die Reihenfolge der vorhandenen Werte in den Daten an – hier die alten Namen, da diese in den Rohdaten stehen. Der `labels` Parameter definiert die neuen Namen, die im Plot oder bei Ausgaben angezeigt werden sollen.
+
+Wichtig zu verstehen ist, dass die Umwandlung mit `factor()` **nicht** die zugrunde liegenden Daten ändert, sondern nur die Art und Weise, wie die Kategorien dargestellt werden. Die ursprünglichen Werte (also die alten Namen) bleiben im Data Frame erhalten[^4], aber R verwendet die neuen Labels, um diese Werte im Plot oder bei der Ausgabe anders zu präsentieren.
+
+[^4]: Wenn eine Spalte mit `factor()` bearbeitet wird, wird sie intern in diskrete Kategorien umgewandelt, jedoch ohne die ursprünglichen Daten zu überschreiben. Der `levels` Parameter bezieht sich auf die originalen Datenwerte, um sicherzustellen, dass R die Daten korrekt interpretiert. Die `labels` hingegen ändern nur, wie diese Daten für den Benutzer angezeigt werden. Dadurch bleibt der Inhalt des Data Frames unverändert, aber die Darstellung der Werte wird angepasst. Das ist nützlich, wenn man die Rohdaten beibehalten will, jedoch für Visualisierungen oder Präsentationen eine klarere oder kürzere Bezeichnung verwenden möchte.
+
+2. **Mehrere Plots in einem Diagramm**: Mit der `par()` Funktion können wir das Layout und die Platzierung der Plots anpassen.
+
+- Mit dem `mfrow` Parameter geben wir an, wie viele Zeilen und Spalten von Plots wir haben wollen. Hier haben wir 2 Zeilen und 2 Spalten.
+- Mit dem `mar` Parameter können wir die Ränder des Plots anpassen.
+- Mit dem `oma` Parameter können wir Platz für den Titel des gesamten Diagramms hinzufügen.
+- Mit dem `cex` Parameter können wir die Schriftgrösse anpassen.
+
+```{r, eval=FALSE}
+par(mfrow = c(2, 2), # 2 Zeilen und 2 Spalten
+    mar = c(4, 4, 2, 1), # verkleinert die Ränder
+    oma = c(0, 0, 4, 0), # fügt Platz für den Titel hinzu
+    cex = 0.8) # verkleinert die Schriftgrösse
+```
+
+3. **Boxplots erstellen**: Wir erstellen Boxplots für die Durchschnittstemperaturen und Niederschlagssummen in Bern und auf dem Grossen St. Bernhard.
+
+Zusätzlich beschränken wir die Daten auf die Jahre bis 1980.
+
+```{r, eval=FALSE}
+boxplot(Bern_Mitteltemperatur ~ Saison, data = meteodaten[meteodaten$Jahr <= 1980, ],
+    ylim = c(-10, 20),
+    ylab = "Durchschnittstemperatur in °C",
+    main = "Durchschnittstemperatur Bern")
+```
+
+Wir beachten auch hier wieder die Verwendung des `~`-Operators, um die linke Seite von der rechten Seite zu trennen. In diesem Fall bedeutet dies, dass wir die Spalte `Bern_Mitteltemperatur` nach der Spalte `Saison` gruppieren wollen.
+
+Wir verwenden die `ylim` Parameter, um die y-Achse auf einen bestimmten Bereich zu beschränken. Dies ist nützlich, um die Plots besser vergleichen zu können.
+
+Die Selelektion der Daten erflogt im `data` Parameter. Hier wählen wir nur die Daten bis ins Jahr 1980 aus.
+
+4. **Gesamte Überschrift für alle Plots hinzufügen**: Wir fügen eine Überschrift für alle Plots hinzu.
+
+```{r, eval=FALSE}
+title("Klimadaten in Bern und auf dem Grossen St. Bernhard", outer = TRUE)
+```
+
+Der `outer` Parameter gibt an, dass die Überschrift über allen Plots platziert werden soll.
+
+## Grafiken speichern
+
+Grafiken können entweder in RStudio unter dem Reiter "Export" ... "Save Plot as PDF" oder "...Image" gespeichert werden.
+
+Alternativ können mit den Funktionen `pdf()`, `jpeg()` und `png()` Grafiken direkt in R gespeichert werden.
+
+```{r, eval=FALSE}
+# PDF-Datei erstellen
+pdf(file = "boxplots.pdf",
+    width = 9,
+    height = 4.5) # Grösse des PDFs in Inch
+
+# Boxplot aus der vorherigen Sektion erstellen
+boxplot(Bern_Mitteltemperatur ~ Saison, data = meteodaten[meteodaten$Jahr <= 1980, ],
+        ylim = c(-10, 20),
+        ylab = "Durchschnittstemperatur in °C",
+        main = "Durchschnittstemperatur Bern")
+
+# PDF-Datei schliessen
+dev.off()
+```
+
+| Parameter   | Beschreibung                                                                                                                                                                       |
+|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `file`      | Dateiname und Speicherort. Auch hier können absolute und relative Dateipfade verwendet werden. Wichtig ist die entsprechende Dateieindung (`.pdf`, `.jpeg` oder `.png`) anzugeben. |
+| `width`     | Breite des Plots in Inch.                                                                                                                                                          |
+| `height`    | Höhe des Plots in Inch.                                                                                                                                                            |
+| `dev.off()` | Ist kein eigentlicher Parameter, aber ist am Ende jeder der Funktionen benötigt, um den Export zu beenden.                                                                         |

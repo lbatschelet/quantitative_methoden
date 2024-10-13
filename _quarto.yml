@@ -18,9 +18,12 @@ book:
   repo-actions: [edit, issue]
   chapters:
     - index.qmd
-    - computer_basics_and_entry_to_R.qmd
+    # - computer_basics_and_entry_to_R.qmd
     - grundlagen_R.qmd
-    - wichtige_funktionen.qmd
+    - plots_in_R.qmd
+    - packages_and_libraries.qmd
+    - loops_and_functions.qmd
+    # - wichtige_funktionen.qmd
 
 
 format:

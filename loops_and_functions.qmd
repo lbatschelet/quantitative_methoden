@@ -1,0 +1,110 @@
+# Schlaufen und Funktionen
+
+## `if()` und `else()`
+
+Mit `if()` und `else()` können Bedingungen in R überprüft und entsprechende Aktionen ausgeführt werden. Die Syntax ist wie folgt:
+
+```{r, eval=FALSE}
+if (Bedingung) {
+  # Aktion, wenn die Bedingung TRUE ist
+} else {
+  # Aktion, wenn die Bedingung FALSE ist
+}
+```
+
+Zum Beispiel:
+
+```{r}
+x <- 10
+if (x > 5) {
+  print("x ist größer als 5")
+} else {
+  print("x ist kleiner oder gleich 5")
+}
+```
+
+### `ifelse()` als Vektoroperation
+
+`ifelse()` ist eine Funktion, die eine Bedingung auf einen Vektor anwendet und basierend auf der Bedingung Werte zurückgibt. Die Syntax ist wie folgt:
+
+```{r, eval=FALSE}
+ifelse(Bedingung, Wert_wenn_TRUE, Wert_wenn_FALSE)
+```
+
+Zum Beispiel:
+
+```{r}
+vectorA <- c(1, 2, 3, 4, 5)
+ifelse(vectorA == 3, "Drei", "Nicht Drei")
+```
+
+## Schleifen
+
+Schleifen sind nützlich, um eine bestimmte Aktion mehrmals auszuführen. In R gibt es verschiedene Arten von Schleifen, darunter `for`, `while` und `repeat`.
+
+### `for` Schleife
+
+Die `for` Schleife wird verwendet, um eine Aktion für jedes Element in einer Sequenz auszuführen. Die Syntax ist wie folgt:
+
+```{r, eval=FALSE}
+for (Element in Sequenz) {
+  # Aktion, die für jedes Element ausgeführt wird
+}
+```
+
+Zum Beispiel:
+
+```{r}
+for (i in 1:5) {
+  print(i)
+}
+```
+
+**Schleifen mit Laufindex**
+
+Laufindexe können in R auch ausserhalb der Schleife definiert werden. Zum Beispiel:
+
+```{r}
+original_vector <- c(1, 2, 3, 4, 5)
+result_vector <- vector() # Leerer Vektor für das Ergebnis
+
+# Laufindex definieren
+j <- 1
+
+for (i in original_vector) {
+  result_vector[j] <- i * 2
+  j <- j + 1
+}
+
+result_vector
+```
+
+*Bemerkung: aus Python kennen wir `j++` oder `j += 1` um den Laufindex zu erhöhen. In R gibt es **keinen** solchen Shortcut.*
+
+## Eigene Funktionen
+
+Funktionen sind nützlich, um wiederkehrende Aktionen zu kapseln und zu abstrahieren. In R können eigene Funktionen mit dem `function` Schlüsselwort definiert werden. Die Syntax ist wie folgt:
+
+```{r, eval=FALSE}
+funktion_name <- function(Parameter1, Parameter2, ...) {
+  # Aktionen, die die Funktion ausführt
+  return(Ergebnis)
+}
+```
+
+Zum Beispiel:
+
+Wir schreiben eine Funktion, die die Summe der Quadrate von zwei Zahlen berechnet.
+
+```{r}
+summe_quadrate <- function(x, y) {
+  summe <- x^2 + y^2
+  return(summe)
+}
+```
+
+Die Funktion kann dann wie folgt aufgerufen werden:
+
+```{r}
+summe_quadrate(3, 4)
+```

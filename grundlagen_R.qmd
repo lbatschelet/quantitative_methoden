@@ -48,7 +48,7 @@ In R gibt es verschiedene Datentypen. Die wichtigsten sind:
 - Data Frames (*ähnlich wie Tabellen*, Mischen von Datentypen möglich)
 - Matrizen (*ähnlich wie in der Mathematik*, keine Mischung von Datentypen möglich)
 
-[^1]: Kleine Anmerkung: Hier wird der Vektor mit der `c()` Funktion erstellt. Diese Funktion wird verwendet, um Werte zu kombinieren (*combine*). Mehr dazu im [Abschnitt @sec-function-c].
+[^1]: Kleine Anmerkung: Hier wird der Vektor mit der `c()` Funktion erstellt. Diese Funktion wird verwendet, um Werte zu kombinieren (*combine*).
 
 ### Vektoren {#sec-type-vector}
 
@@ -291,199 +291,139 @@ meteodaten[1:10,] # Ersten 10 Zeilen
 
 </details>
 
-## Plots erstellen
+## Daten als .csv- und .txt-Dateien exportieren
 
-"High-level" Plots können in R mit der `plot()` Funktion erstellt werden. Diese Funktion erstellt automatisch für die gegebenen Daten ein (geeignetes) Diagramm.
+Daten können mit der `write.csv()` Funktion als CSV-Dateien und mit der `write.table()` Funktion als Textdateien exportiert werden.
 
-Wenn wir aber Beispielsweise unser ganzes `meteodaten` Data Frame plotten wollen, weiss die Funktion nicht, wie sie das tun soll und plottet einfach alle Spalten gegen alle anderen Zeilen. Dies ist in diesem Fall nicht sinnvoll.
+### `.csv`-Dateien
+
+```{r, eval=FALSE}
+# CSV-Datei exportieren
+write.csv(meteodaten,
+          file = "meteodaten.csv",
+          row.names = FALSE)
+```
+
+| Parameter   | Beschreibung                                                                                   |
+|-------------|------------------------------------------------------------------------------------------------|
+| `x`         | Das Data Frame, das exportiert werden soll.                                                    |
+| `file`      | Dateiname und Speicherort. Auch hier können absolute und relative Dateipfade verwendet werden. |
+| `row.names` | Gibt an, ob die Zeilennummern in der CSV-Datei gespeichert werden sollen.                      |
+
+### `.txt`-Dateien
+
+```{r, eval=FALSE}
+# Textdatei exportieren
+write.table(meteodaten, # Das Data Frame, das exportiert werden soll
+            file = "meteodaten.txt", # Dateiname und Speicherort
+            sep = "\t", # Tabulator als Trennzeichen
+            eol = "\r", # Zeilenumbruch
+            na = "NA", # Wert für fehlende Daten
+            row.names = FALSE,
+            col.names = TRUE)
+```
+
+| Parameter   | Beschreibung                                                                                   |
+|-------------|------------------------------------------------------------------------------------------------|
+| `x`         | Das Data Frame, das exportiert werden soll.                                                    |
+| `file`      | Dateiname und Speicherort. Auch hier können absolute und relative Dateipfade verwendet werden. |
+| `sep`       | Trennzeichen für die Spalten.                                                                  |
+| `eol`       | Zeilenumbruch. Kann je nach Betriebssystem erforderlich sein.                                  |
+| `na`        | Wert für fehlende Daten.                                                                       |
+| `row.names` | Gibt an, ob die Zeilennummern in der Textdatei gespeichert werden sollen.                      |
+| `col.names` | Gibt an, ob die Spaltennamen in der Textdatei gespeichert werden sollen.                       |
+
+Wie sonst auch, haben die meisten Parameter Standardwerte, die nicht explizit angegeben werden müssen.
+
+## Umgang mit Fehlwerten
+
+Fehlwerte sind in Datenanalysen ein häufiges Problem. In R werden Fehlwerte standardmässig mit `NA` (Not Available) dargestellt.
+
+### Fehlwerte in Funktionsaufrufen behandeln
+
+Erstellen wir ein Beispiel-Vektor mit Fehlwerten:
 
 ```{r}
-plot(meteodaten)
+vektor_mit_na <- c(1, 2, NA, 4, 5)
 ```
 
-Um unsere Daten sinnvoller zu plotten müssen wir die Daten zuerst filtern und dann plotten.
-
-Wir diskutieren die verschiedenen Schritte hier später:
+Wenn wir nun z.B. die Summe des Vektors berechnen, erhalten wir:
 
 ```{r}
-# CSV-Datei einlesen
-meteodaten <- read.csv('Data/meteodaten_saison.csv',
-    sep = ',',
-    header = TRUE)
-
-# Subsets der Daten erstellen
-saison_fruehling <- meteodaten[meteodaten$Saison == "Fruehling(MAM)", ]
-saison_sommer <- meteodaten[meteodaten$Saison == "Sommer(JJA)", ]
-saison_herbst <- meteodaten[meteodaten$Saison == "Herbst(SON)", ]
-saison_winter <- meteodaten[meteodaten$Saison == "Winter(DJF)", ]
-
-# Plot mit den Saisontemperaturen erstellen erstellen
-plot(saison_fruehling$Jahr, saison_fruehling$Bern_Mitteltemperatur,
-    type = "l",
-    xlab = "Jahr",
-    ylab = "Durchschnittstemperatur in °C",
-    main = "Saisonale Durchschnittstemperaturen in Bern",
-    xlim = c(1900, 2020),
-    ylim = c(-5, 35))
-
-# Weitere Linien für andere Jahreszeiten auf den selben Plot hinzufügen
-lines(saison_sommer$Jahr, saison_sommer$Bern_Mitteltemperatur,
-    col = "red")
-lines(saison_herbst$Jahr, saison_herbst$Bern_Mitteltemperatur,
-    col = "green")
-lines(saison_winter$Jahr, saison_winter$Bern_Mitteltemperatur,
-    col = "blue")
-
-# Gestrichelte Horizontale Linie bei 0 hinzufügen
-abline(h = 0, lty = 2)
-
-# Saisonale Mittelwertlinien hinzufügen
-abline(h = mean(saison_fruehling$Bern_Mitteltemperatur),
-    col = "black",
-    lty = 3)
-abline(h = mean(saison_sommer$Bern_Mitteltemperatur),
-    col = "red",
-    lty = 3)
-abline(h = mean(saison_herbst$Bern_Mitteltemperatur),
-    col = "green",
-    lty = 3)
-abline(h = mean(saison_winter$Bern_Mitteltemperatur),
-    col = "blue",
-    lty = 3)
-
-# Legende hinzufügen
-legend("topright",
-    legend = c("Frühling", "Sommer", "Herbst", "Winter"),
-    col = c("black", "red", "green", "blue"),
-    lty = 1,
-    xpd = TRUE)
+sum(vektor_mit_na)
 ```
 
-Schauen wir uns nun die verschiedenen Schritte im Detail an.
+Die Ausgabe ist `{r} sum(vektor_mit_na)`, da R nicht weiss, wie es mit dem Fehlwert umgehen soll.
 
-1. **CSV-Datei einlesen**: Zuerst lesen wir die CSV-Datei `meteodaten_saison.csv` ein.
+Wir können in diversen Funktionen definieren, wie mit Fehlwerten umgegangen werden soll. Dazu können wir den `na.rm` Parameter verwenden. (rm = remove) Dieser Parameter ist standardmässig auf `FALSE` gesetzt.
+
+```{r}
+sum(vektor_mit_na,
+    na.rm = TRUE)
+```
+
+Die Ausgabe ist `{r} sum(vektor_mit_na, na.rm = TRUE)`, da der Fehlwert ignoriert wird.
+
+Dies funktioniert auch bei anderen Funktionen, wie z.B. `mean()`, `var()`, `sd()`, etc.
+
+### Fehlwerte im Dateiimport behandeln
+
+Beim Import von Daten können wir mit dem Parameter `na.strings` definieren, welche Werte als Fehlwerte interpretiert werden sollen.
 
 ```{r, eval=FALSE}
 # CSV-Datei einlesen
 meteodaten <- read.csv('Data/meteodaten_saison.csv',
-    sep = ',',
-    header = TRUE)
+                        sep = ',',
+                        header = TRUE,
+                        na.strings = c("NA", "N/A", "na"))
 ```
 
-Der Parameter `sep = ','` gibt an, dass die Werte in der CSV-Datei durch Kommas getrennt sind.
+In diesem Beispiel definieren wir, dass die Werte `"NA"`, `"N/A"` und `"na"` als Fehlwerte interpretiert werden sollen.
 
-Der Parameter `header = TRUE` gibt an, dass die erste Zeile der CSV-Datei die Spaltennamen enthält.
+### Fehlwerte identifizieren
 
-2. **Subsets der Daten erstellen**: Da unser Data Frame `meteodaten` Daten aus verschiedenen Jahreszeiten enthält, erstellen wir Subsets für jede Jahreszeit. Damit können wir die Daten für jede Jahreszeit separat plotten.
+Fehlwerte können mit der `is.na()` Funktion identifiziert und mit der `na.omit()` Funktion entfernt werden.
 
-```{r, eval=FALSE}
-# Subsets der Daten erstellen
-saison_fruehling <- meteodaten[meteodaten$Saison == "Fruehling(MAM)", ]
-saison_sommer <- meteodaten[meteodaten$Saison == "Sommer(JJA)", ]
-saison_herbst <- meteodaten[meteodaten$Saison == "Herbst(SON)", ]
-saison_winter <- meteodaten[meteodaten$Saison == "Winter(DJF)", ]
+```{r}
+# Fehlwerte identifizieren
+is.na(vektor_mit_na)
+
+# Fehlwerte entfernen
+vektor_ohne_na <- na.omit(vektor_mit_na)
 ```
 
-Mit dem `==` Operator vergleichen wir die Werte auf Gleichheit.
+Der Vektor ist nun: `{r} vektor_ohne_na`.
 
-```{r, eval=FALSE}
-meteodaten$Saison == "Fruehling(MAM)"
+#### Überprüfen auf Gleichheit
+
+Fehlwerte müssen mit `is.na()` überprüft werden, da sie nicht mit `==` verglichen werden können.[^5]
+
+[^5]: Der Vergleich von Fehlwerten mit `==` ergibt immer `NA`, da R nicht weiss, ob der Fehlwert gleich einem anderen Wert ist oder nicht.
+
+```{r}
+# Überprüfen auf Gleichheit
+vektor_mit_na == NA
+
+# Überprüfen auf Gleichheit mit is.na()
+is.na(vektor_mit_na)
 ```
 
-Wir überprüfen also Zeile für Zeile, ob der Wert in der Spalte `Saison` gleich dem String `"Fruehling(MAM)"` ist. Dies wird in einen boolschen Vektor umgewandelt, der `TRUE` für Zeilen enthält, die dem Kriterium entsprechen, und `FALSE` für Zeilen, die es nicht tun.
+### Fehlwerte ersetzen
 
-Betrachten wir nun eine Klammer weiter aussen, um zu verstehen, was genau wir dem Subset zuweisen.
+Mit der `replace()` Funktion können Fehlwerte am einfachsten ersetzt werden.
 
-```{r, eval=FALSE}
-meteodaten[meteodaten$Saison == "Fruehling(MAM)", ]
+```{r}
+# Vector mit falschen Fehlwerten
+vektor_mit_falschen_na <- c(1, 2, -999, 4, 5)
+
+# Fehlwerte ersetzen
+vektor_mit_korrigierten_na <- replace(vektor_mit_falschen_na,
+                                      vektor_mit_falschen_na == -999,
+                                      NA)
 ```
 
-Hier wählen wir alle Zeilen aus dem Data Frame `meteodaten` aus, in denen die Spalte `Saison` den Wert `"Fruehling(MAM)"` hat. Da wir nach dem letzten Komma nichts weiter angeben, wählen wir alle Spalten aus.
+Der Vektor ist nun: `{r} vektor_mit_korrigierten_na`.
 
-Unsere Saisonalen Data Frames enthalten also nicht nur die Temperatur-Mittelwerte aus Bern, sondern auch die Niederschlagswerte von Bern und dem Grossen St. Bernhard. Wir greifen im erstellten Plot nur auf die Temperaturwerte zu.
-
-3. **Plot mit den Saisontemperaturen erstellen**: Wir erstellen einen Plot mit den saisonalen Durchschnittstemperaturen in Bern.
-
-```{r, eval=FALSE}
-# Plot mit den Saisontemperaturen erstellen erstellen
-plot(saison_fruehling$Jahr, saison_fruehling$Bern_Mitteltemperatur,
-    type = "l",
-    xlab = "Jahr",
-    ylab = "Durchschnittstemperatur in °C",
-    main = "Saisonale Durchschnittstemperaturen in Bern",
-    xlim = c(1900, 2020),
-    ylim = c(-5, 35))
-```
-
-Die `plot()` Funktion hat viele Parameter, die wir verwenden können, um den Plot anzupassen.
-
-| Parameter    | Beschreibung                                                                                                                                                                                        |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `plot(x, y)` | Erstellt einen Plot der Werte in `x` gegen die Werte in `y`. Wir plotten hier die Spalte `Jahr` aus dem Subset `saison_fruehling` gegen die Spalte `Bern_Mitteltemperatur` aus dem gleichen subset. |
-| `type`       | Gibt den Typ des Plots an. Hier verwenden wir `"l"`, um eine Linie zu zeichnen.                                                                                                                     |
-| `xlab`       | Beschriftung der x-Achse.                                                                                                                                                                           |
-| `ylab`       | Beschriftung der y-Achse.                                                                                                                                                                           |
-| `main`       | Titel des Plots.                                                                                                                                                                                    |
-| `xlim`       | Bereich der x-Achse. Hier von 1900 bis 2020.                                                                                                                                                        |
-| `ylim`       | Bereich der y-Achse. Hier von -5 bis 35.                                                                                                                                                            |
-
-4. **Weitere Linien für andere Jahreszeiten auf den selben Plot hinzufügen**: Wir fügen Linien für die anderen Jahreszeiten hinzu.
-
-In R können wir mit der `lines()` Funktion weitere Linien zu einem bestehenden Plot hinzufügen.
-
-```{r, eval=FALSE}
-# Weitere Linien für andere Jahreszeiten auf den selben Plot hinzufügen
-lines(saison_sommer$Jahr, saison_sommer$Bern_Mitteltemperatur,
-    col = "red")
-lines(saison_herbst$Jahr, saison_herbst$Bern_Mitteltemperatur,
-    col = "green")
-lines(saison_winter$Jahr, saison_winter$Bern_Mitteltemperatur,
-    col = "blue")
-```
-
-Hier müssen wir jeweils nicht mehr ganz so viele Parameter angeben, da wir bereits die Achsenbesschriftung etc. vorgenommen haben. Was wir noch angeben müssen, ist die Farbe der Linie mit dem `col` Parameter.
-
-5. **Gestrichelte Horizontale Linie bei 0 hinzufügen**: Wir fügen eine gestrichelte Horizontale Linie bei 0 hinzu.
-
-```{r, eval=FALSE}
-# Gestrichelte Horizontale Linie bei 0 hinzufügen
-abline(h = 0, lty = 2)
-```
-
-Mit der `abline()` Funktion können wir Linien zu einem Plot hinzufügen. Mit dem `h` Parameter geben wir die y-Position der Linie an, und mit dem `lty` Parameter geben wir den Linientyp an. Hier verwenden wir `lty = 2`, um eine gestrichelte Linie zu zeichnen.
-
-6. **Saisonale Mittelwertlinien hinzufügen**: Wir fügen Mittelwertlinien für jede Jahreszeit hinzu.
-
-```{r, eval=FALSE}
-# Saisonale Mittelwertlinien hinzufügen
-abline(h = mean(saison_fruehling$Bern_Mitteltemperatur),
-    col = "black",
-    lty = 3)
-abline(h = mean(saison_sommer$Bern_Mitteltemperatur),
-    col = "red",
-    lty = 3)
-abline(h = mean(saison_herbst$Bern_Mitteltemperatur),
-    col = "green",
-    lty = 3)
-abline(h = mean(saison_winter$Bern_Mitteltemperatur),
-    col = "blue",
-    lty = 3)
-```
-
-Hier fügen wir gestrichelte Linien für die Mittelwerte der Temperatur für jede Jahreszeit hinzu. Wir verwenden die `mean()` Funktion, um direkt im Aufruf den Mittelwert zu berechnen.
-
-7. **Legende hinzufügen**: Wir fügen eine Legende für die verschiedenen Linien hinzu.
-
-```{r, eval=FALSE}
-# Legende hinzufügen
-legend("topright",
-    legend = c("Frühling", "Sommer", "Herbst", "Winter"),
-    col = c("black", "red", "green", "blue"),
-    lty = 1,
-    xpd = TRUE)
-```
-
-Mit der `legend()` Funktion können wir eine Legende zu einem Plot hinzufügen. Wir geben die Position der Legende mit dem `topright` Parameter an. Mit dem `legend` Parameter geben wir die Beschriftungen für die Linien an. Mit dem `col` Parameter geben wir die Farben der Linien an. Mit dem `lty` Parameter geben wir den Linientyp an. Mit dem `xpd` Parameter geben wir an, ob die Legende ausserhalb des Plots sein soll.
 
 
 
