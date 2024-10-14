@@ -1,5 +1,14 @@
-# Quantitative Methoden {.unnumbered}
+---
+author: "Lukas Batschelet"
+date: last-modified
+---
 
-Diese Website dient als Sammlung meiner Vorlesungsnotizen und Übungen für die Vorlesung "Quantitative Methoden" im Herbstsemester 2024.
+Diese Website dient als Sammlung meiner Vorlesungsnotizen und Übungen für die Vorlesung *"Quantitative Methoden"* im Herbstsemester 2024.
 
 Diese Sammlung ist aktuell noch am entstehen.
+
+:::{.callout-warning title="Hinweis"}
+
+Die Inhalte dieser Website können Lücken und Fehler enthalten. Die Inhalte werden laufend ergänzt und verbessert.
+
+:::

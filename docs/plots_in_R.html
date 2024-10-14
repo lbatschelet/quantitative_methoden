@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Einfache Plots erstellen – Quantitative Methoden</title>
+<title>3&nbsp; Einfache Plots erstellen – Quantitative Methoden</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./plots_in_R.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./plots_in_R.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -132,7 +132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Quantitative Methoden</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/hadley/r4ds/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/lbatschelet/quantitative_methoden" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -151,31 +151,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quantitative Methoden</span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./grundlagen_R.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./plots_in_R.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./packages_and_libraries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Packages und Libraries</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages und Libraries</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./loops_and_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Schlaufen und Funktionen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Schlaufen und Funktionen</span></span></a>
   </div>
 </li>
     </ul>
@@ -188,24 +188,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#liniendiagramme" id="toc-liniendiagramme" class="nav-link active" data-scroll-target="#liniendiagramme"><span class="header-section-number">2.1</span> Liniendiagramme</a></li>
-  <li><a href="#scatterplots-und-aggregate-funktion" id="toc-scatterplots-und-aggregate-funktion" class="nav-link" data-scroll-target="#scatterplots-und-aggregate-funktion"><span class="header-section-number">2.2</span> Scatterplots und <code>aggregate()</code>-Funktion</a></li>
-  <li><a href="#boxplots-und-mehrere-plots-in-einem-diagramm" id="toc-boxplots-und-mehrere-plots-in-einem-diagramm" class="nav-link" data-scroll-target="#boxplots-und-mehrere-plots-in-einem-diagramm"><span class="header-section-number">2.3</span> Boxplots und mehrere Plots in einem Diagramm</a></li>
-  <li><a href="#grafiken-speichern" id="toc-grafiken-speichern" class="nav-link" data-scroll-target="#grafiken-speichern"><span class="header-section-number">2.4</span> Grafiken speichern</a></li>
+  <li><a href="#liniendiagramme" id="toc-liniendiagramme" class="nav-link active" data-scroll-target="#liniendiagramme"><span class="header-section-number">3.1</span> Liniendiagramme</a></li>
+  <li><a href="#scatterplots-und-aggregate-funktion" id="toc-scatterplots-und-aggregate-funktion" class="nav-link" data-scroll-target="#scatterplots-und-aggregate-funktion"><span class="header-section-number">3.2</span> Scatterplots und <code>aggregate()</code>-Funktion</a></li>
+  <li><a href="#boxplots-und-mehrere-plots-in-einem-diagramm" id="toc-boxplots-und-mehrere-plots-in-einem-diagramm" class="nav-link" data-scroll-target="#boxplots-und-mehrere-plots-in-einem-diagramm"><span class="header-section-number">3.3</span> Boxplots und mehrere Plots in einem Diagramm</a></li>
+  <li><a href="#grafiken-speichern" id="toc-grafiken-speichern" class="nav-link" data-scroll-target="#grafiken-speichern"><span class="header-section-number">3.4</span> Grafiken speichern</a></li>
   <li><a href="#übungen-3" id="toc-übungen-3" class="nav-link" data-scroll-target="#übungen-3">Übungen 3</a>
   <ul class="collapse">
   <li><a href="#klimadiagramm" id="toc-klimadiagramm" class="nav-link" data-scroll-target="#klimadiagramm">3.1 Klimadiagramm</a></li>
   <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots">3.2 Boxplots</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/hadley/r4ds/edit/main/plots_in_R.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/plots_in_R.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></h1>
 </div>
 
 
@@ -234,8 +234,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="liniendiagramme" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="liniendiagramme"><span class="header-section-number">2.1</span> Liniendiagramme</h2>
+<section id="liniendiagramme" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="liniendiagramme"><span class="header-section-number">3.1</span> Liniendiagramme</h2>
 <p>Um unsere Daten sinnvoller zu plotten müssen wir die Daten zuerst filtern und dann plotten.</p>
 <p>Wir diskutieren die verschiedenen Schritte hier später:</p>
 <div class="cell">
@@ -436,8 +436,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Mit der <code>legend()</code> Funktion können wir eine Legende zu einem Plot hinzufügen. Wir geben die Position der Legende mit dem <code>topright</code> Parameter an. Mit dem <code>legend</code> Parameter geben wir die Beschriftungen für die Linien an. Mit dem <code>col</code> Parameter geben wir die Farben der Linien an. Mit dem <code>lty</code> Parameter geben wir den Linientyp an. Mit dem <code>xpd</code> Parameter geben wir an, ob die Legende ausserhalb des Plots sein soll.</p>
 </section>
-<section id="scatterplots-und-aggregate-funktion" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="scatterplots-und-aggregate-funktion"><span class="header-section-number">2.2</span> Scatterplots und <code>aggregate()</code>-Funktion</h2>
+<section id="scatterplots-und-aggregate-funktion" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="scatterplots-und-aggregate-funktion"><span class="header-section-number">3.2</span> Scatterplots und <code>aggregate()</code>-Funktion</h2>
 <p>Wenn wir von unseren nach Jahreszeiten sortierten Daten nun bspw. den Durchschnitt der Temperaturwerte pro Jahr berechnen wollen, können wir die <code>aggregate()</code> Funktion verwenden.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Durchschnittstemperatur pro Jahr berechnen</span></span>
@@ -479,8 +479,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Der <code>~</code>-Operator wird in R verwendet, um die linke Seite von der rechten Seite zu trennen. In diesem Fall bedeutet dies, dass wir die Spalte <code>Bern_Mitteltemperatur</code> nach der Spalte <code>Jahr</code> aggregieren wollen.</p>
 <p>Zusätzlich haben wir hier noch eine Trendlinie hinzugefügt. Dazu haben wir ein lineares Modell mit der <code>lm()</code> Funktion erstellt und die Trendlinie mit der <code>abline()</code> Funktion hinzugefügt.</p>
 </section>
-<section id="boxplots-und-mehrere-plots-in-einem-diagramm" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="boxplots-und-mehrere-plots-in-einem-diagramm"><span class="header-section-number">2.3</span> Boxplots und mehrere Plots in einem Diagramm</h2>
+<section id="boxplots-und-mehrere-plots-in-einem-diagramm" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="boxplots-und-mehrere-plots-in-einem-diagramm"><span class="header-section-number">3.3</span> Boxplots und mehrere Plots in einem Diagramm</h2>
 <p>Wir wollen nun für die Temperaturen und Niederschlagswerte in Bern und auf dem Grossen St.&nbsp;Bernhard Boxplots erstellen und diese in einem Diagramm nebeneinander plotten. Zusätzlich wollen wir die Daten Zeitlich bis ins Jahr 1980 beschränken. Auch dieser Code enthält einige zusätzliche und neue Schritte, welche wir uns anschliessend genauer ansehen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definiere neue Kategorien-Namen und die gewünschte Reihenfolge</span></span>
@@ -587,8 +587,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Der <code>outer</code> Parameter gibt an, dass die Überschrift über allen Plots platziert werden soll.</p>
 </section>
-<section id="grafiken-speichern" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="grafiken-speichern"><span class="header-section-number">2.4</span> Grafiken speichern</h2>
+<section id="grafiken-speichern" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="grafiken-speichern"><span class="header-section-number">3.4</span> Grafiken speichern</h2>
 <p>Grafiken können entweder in RStudio unter dem Reiter “Export” … “Save Plot as PDF” oder “…Image” gespeichert werden.</p>
 <p>Alternativ können mit den Funktionen <code>pdf()</code>, <code>jpeg()</code> und <code>png()</code> Grafiken direkt in R gespeichert werden.</p>
 <div class="cell">
@@ -1065,7 +1065,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/r4ds\.hadley\.nz\/");
+      var filterRegex = new RegExp("https:\/\/quanti\.baets\.ch\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -1396,12 +1396,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./grundlagen_R.html" class="pagination-link" aria-label="Grundlagen R">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./packages_and_libraries.html" class="pagination-link" aria-label="Packages und Libraries">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Packages und Libraries</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages und Libraries</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1413,7 +1413,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/hadley/r4ds/edit/main/plots_in_R.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/plots_in_R.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
