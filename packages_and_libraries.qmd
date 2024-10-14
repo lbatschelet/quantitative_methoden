@@ -8,13 +8,17 @@ Die Pakete müssen einmalig installiert werden und können dann immer am Anfang 
 
 Pakete können mit der Funktion `install.packages()` installiert werden. Zum Beispiel:
 
-```{r, eval=FALSE}
+```{r}
+#| label: install_ggplot2
+#| eval: false
 install.packages("ggplot2")
 ```
 
 Um Skripte und Notebooks portabel zu halten, ist es sinnvoll, die Installation von fehlenden Paketen am Anfang des Skripts oder Notebooks zu platzieren.
 
 ```{r}
+#| label: install_ggplot2_if_required
+#| eval: false
 if (!require("ggplot2")) {
   install.packages("ggplot2")
 }
@@ -25,12 +29,15 @@ if (!require("ggplot2")) {
 Pakete können mit der Funktion `library()` geladen werden. Zum Beispiel:
 
 ```{r}
+#| label: load_ggplot2
 library(ggplot2)
 ```
 
 Die meisten Pakete haben eine Vielzahl von Funktionen, die genutzt werden können. Es ist ratsam, die Dokumentation des Pakets zu lesen, um die verfügbaren Funktionen und deren Anwendung zu verstehen. Die Dokumentation eines Pakets kann mit dem Befehl `?` aufgerufen werden. Zum Beispiel:
 
-```{r, eval=FALSE}
+```{r}
+#| label: help_ggplot2
+#| eval: false
 ?ggplot2
 ```
 
@@ -53,14 +60,20 @@ Es gibt viele weitere Pakete, die für spezifische Anwendungen und Analysen entw
 
 An einem einfachen Beispiel sehen wir, wie mit Hilfe der Pakete `ggplot2` und `plotly` ein interaktives Diagramm erstellt werden kann.
 
-```{r, echo=FALSE}
+```{r}
+#| label: load_data
+#| echo: false
 # CSV-Datei einlesen
 meteodaten <- read.csv('Data/meteodaten_saison.csv',
     sep = ',',
     header = TRUE)
 ```
 
-```{r, warning=FALSE, message=FALSE}
+```{r}
+#| label: interactive_plot
+#| warning: false
+#| message: false
+#| fig.cap: "Interaktives Diagramm der saisonalen Durchschnittstemperaturen in Bern"
 # Bibliotheken laden
 library(ggplot2)
 library(plotly)
@@ -68,18 +81,32 @@ library(plotly)
 # Daten für den Plot vorbereiten
 # Konvertiere die Spalte Saison in einen einfacheren Faktor für die Darstellung
 meteodaten$Saison <- factor(meteodaten$Saison,
-                            levels = c("Fruehling(MAM)", "Sommer(JJA)", "Herbst(SON)", "Winter(DJF)"),
-                            labels = c("Frühling", "Sommer", "Herbst", "Winter"))
+                            levels = c("Fruehling(MAM)",
+                                       "Sommer(JJA)",
+                                       "Herbst(SON)",
+                                       "Winter(DJF)"),
+                            labels = c("Frühling",
+                                       "Sommer",
+                                       "Herbst",
+                                       "Winter"))
 
 # Plot mit ggplot2 erstellen
-gg <- ggplot(meteodaten, aes(x = Jahr, y = Bern_Mitteltemperatur, color = Saison)) +
-  geom_line(linewidth = 1.2) +  # Linienbreite anpassen
-  geom_hline(yintercept = 0, linetype = "dashed") +  # Horizontale Linie bei 0
-  labs(title = "Saisonale Durchschnittstemperaturen in Bern",
-       x = "Jahr", y = "Durchschnittstemperatur in °C") +
-  theme_minimal() +  # Minimalistisches Theme für einen klaren Look
-  scale_color_manual(values = c("Frühling" = "green", "Sommer" = "red", "Herbst" = "orange", "Winter" = "blue")) +  # Farben anpassen
-  theme(plot.title = element_text(hjust = 0.5, size = 16))  # Zentriere Titel und passe die Schriftgröße an
+gg <- ggplot(meteodaten, aes(x = Jahr,
+        y = Bern_Mitteltemperatur,
+        color = Saison)) +
+    geom_line(linewidth = 1.2) +  # Linienbreite anpassen
+    geom_hline(yintercept = 0,
+        linetype = "dashed") +  # Horizontale Linie bei 0
+    labs(title = "Saisonale Durchschnittstemperaturen in Bern",
+        x = "Jahr",
+        y = "Durchschnittstemperatur in °C") +
+    theme_minimal() +  # Minimalistisches Theme für einen klaren Look
+    scale_color_manual(values = c("Frühling" = "green",
+                                  "Sommer" = "red",
+                                  "Herbst" = "orange",
+                                  "Winter" = "blue")) +  # Farben anpassen
+    theme(plot.title = element_text(hjust = 0.5,
+        size = 16))  # Zentriere Titel und passe die Schriftgröße an
 
 # Plot interaktiv machen mit plotly
 gg_interaktiv <- ggplotly(gg)
