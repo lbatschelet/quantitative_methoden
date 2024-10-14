@@ -121,7 +121,65 @@ gg_interaktiv
 
 1. Installiert das Paket `maps` und ladet es in R (z.B. `library(maps)`) Findet die x,y-Koordinaten von Bern und dem Gr. S. Bernhard heraus.
 
+:::{.callout-tip title="Lösung" collapse="true"}
 
+```{r}
+library(maps)
+
+# Koordinaten für Bern und Grosser St. Bernhard
+bern_coords <- c(7.4474, 46.9481)
+gross_bernhard_coords <- c(7.1761, 45.8689)
+```
+
+:::
 
 2. Versucht eine Europakarte herzustellen und Bern und Gr. Bernhard als Punkte auf die Karte zu plotten und die Punkte mit Stationsnamen zu versehen
 
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+# Erstelle eine Europakarte
+map("world",
+    regions = c("Switzerland",
+                "France",
+                "Spain",
+                "Portugal",
+                "Belgium",
+                "Netherlands",
+                "Luxembourg",
+                "Germany",
+                "Italy",
+                "Austria"),
+    xlim = c(-10, 20),
+    ylim = c(35, 55),
+    fill = TRUE,
+    col = "lightgray")
+
+# Punkte auf der Karte plotten
+points(bern_coords[1],
+       bern_coords[2],
+       col = "red",
+       pch = 19,
+       cex = 1.5)
+points(gross_bernhard_coords[1],
+       gross_bernhard_coords[2],
+       col = "blue",
+       pch = 19,
+       cex = 1.5)
+
+# Text hinzufügen
+text(bern_coords[1],
+     bern_coords[2],
+     labels = "Bern",
+     pos = 3,
+     cex = 0.8,
+     col = "red")
+text(gross_bernhard_coords[1],
+     gross_bernhard_coords[2],
+     labels = "Gr. St. Bernhard",
+     pos = 3,
+     cex = 0.8,
+     col = "blue")
+```
+
+:::
