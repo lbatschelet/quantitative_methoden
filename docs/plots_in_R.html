@@ -436,20 +436,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Wenn wir von unseren nach Jahreszeiten sortierten Daten nun bspw. den Durchschnitt der Temperaturwerte pro Jahr berechnen wollen, können wir die <code>aggregate()</code> Funktion verwenden.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Durchschnittstemperatur pro Jahr berechnen</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>durchschnittstemperatur_pro_jahr <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Bern_Mitteltemperatur <span class="sc">~</span> Jahr, <span class="at">data =</span> meteodaten, <span class="at">FUN =</span> mean)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(durchschnittstemperatur_pro_jahr<span class="sc">$</span>Jahr, durchschnittstemperatur_pro_jahr<span class="sc">$</span>Bern_Mitteltemperatur,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"p"</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Jahr"</span>,</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Durchschnittstemperatur pro Jahr in Bern"</span>)</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineares Modell (lineare Regression) erstellen</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>trend <span class="ot">&lt;-</span> <span class="fu">lm</span>(Bern_Mitteltemperatur <span class="sc">~</span> Jahr, <span class="at">data =</span> durchschnittstemperatur_pro_jahr)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>durchschnittstemperatur_pro_jahr <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Bern_Mitteltemperatur <span class="sc">~</span> Jahr,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> meteodaten,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">FUN =</span> mean)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(durchschnittstemperatur_pro_jahr<span class="sc">$</span>Jahr,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    durchschnittstemperatur_pro_jahr<span class="sc">$</span>Bern_Mitteltemperatur,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"p"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Jahr"</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Durchschnittstemperatur pro Jahr in Bern"</span>)</span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Trendlinie hinzufügen</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(trend, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)  <span class="co"># Die Farbe und Dicke der Linie anpassen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineares Modell (lineare Regression) erstellen</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>trend <span class="ot">&lt;-</span> <span class="fu">lm</span>(Bern_Mitteltemperatur <span class="sc">~</span> Jahr,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> durchschnittstemperatur_pro_jahr)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Trendlinie hinzufügen</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(trend,</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"red"</span>,</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd =</span> <span class="dv">2</span>)  <span class="co"># Die Farbe und Dicke der Linie anpassen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -488,28 +494,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="fl">0.8</span>) <span class="co"># verkleinert die Schriftgrösse</span></span>
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplots erstellen</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Bern_Mitteltemperatur <span class="sc">~</span> Saison, <span class="at">data =</span> meteodaten[meteodaten<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1980</span>, ],</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">20</span>),</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>,</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Durchschnittstemperatur Bern"</span>)</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(GrStBernhard_Mitteltemperatur <span class="sc">~</span> Saison, <span class="at">data =</span> meteodaten[meteodaten<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1980</span>, ],</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">20</span>),</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>,</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Durchschnittstemperatur Gr. St. Bernhard"</span>)</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Bern_Niederschlagssumme <span class="sc">~</span> Saison, <span class="at">data =</span> meteodaten[meteodaten<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1980</span>, ],</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">400</span>),</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Niederschlag in mm"</span>,</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Niederschlag Bern"</span>)</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(GrStBernhard_Niederschlagssumme <span class="sc">~</span> Saison, <span class="at">data =</span> meteodaten[meteodaten<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1980</span>, ],</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">400</span>),</span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Niederschlag in mm"</span>,</span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Niederschlag Gr. St. Bernhard"</span>)</span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Gesamte Überschrift für alle Plots hinzufügen</span></span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"Klimadaten in Bern und auf dem Grossen St. Bernhard"</span>, <span class="at">outer =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Bern_Mitteltemperatur <span class="sc">~</span> Saison,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> meteodaten[meteodaten<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1980</span>, ],</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">20</span>),</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>,</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Durchschnittstemperatur Bern"</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(GrStBernhard_Mitteltemperatur <span class="sc">~</span> Saison,</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> meteodaten[meteodaten<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1980</span>, ],</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">20</span>),</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>,</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Durchschnittstemperatur Gr. St. Bernhard"</span>)</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Bern_Niederschlagssumme <span class="sc">~</span> Saison,</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> meteodaten[meteodaten<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1980</span>, ],</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">400</span>),</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Niederschlag in mm"</span>,</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Niederschlag Bern"</span>)</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(GrStBernhard_Niederschlagssumme <span class="sc">~</span> Saison,</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> meteodaten[meteodaten<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1980</span>, ],</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">400</span>),</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Niederschlag in mm"</span>,</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Niederschlag Gr. St. Bernhard"</span>)</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Gesamte Überschrift für alle Plots hinzufügen</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"Klimadaten in Bern und auf dem Grossen St. Bernhard"</span>, <span class="at">outer =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -524,11 +534,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>neue_namen <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Frühling"</span>, <span class="st">"Sommer"</span>, <span class="st">"Herbst"</span>, <span class="st">"Winter"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>alte_namen <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Fruehling(MAM)"</span>, <span class="st">"Sommer(JJA)"</span>, <span class="st">"Herbst(SON)"</span>, <span class="st">"Winter(DJF)"</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>meteodaten<span class="sc">$</span>Saison <span class="ot">&lt;-</span> <span class="fu">factor</span>(meteodaten<span class="sc">$</span>Saison,</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">levels =</span> alte_namen,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> neue_namen)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>alte_namen <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Fruehling(MAM)"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Sommer(JJA)"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Herbst(SON)"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Winter(DJF)"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>meteodaten<span class="sc">$</span>Saison <span class="ot">&lt;-</span> <span class="fu">factor</span>(meteodaten<span class="sc">$</span>Saison,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">levels =</span> alte_namen,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> neue_namen)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wir verwenden die <code>factor()</code> Funktion, um die Spalte <code>Saison</code>, die aktuell als Strings vorliegt, in einen Faktor zu konvertieren. Mit dem <code>levels</code> Parameter geben wir die Reihenfolge der vorhandenen Werte in den Daten an – hier die alten Namen, da diese in den Rohdaten stehen. Der <code>labels</code> Parameter definiert die neuen Namen, die im Plot oder bei Ausgaben angezeigt werden sollen.</p>
 <p>Wichtig zu verstehen ist, dass die Umwandlung mit <code>factor()</code> <strong>nicht</strong> die zugrunde liegenden Daten ändert, sondern nur die Art und Weise, wie die Kategorien dargestellt werden. Die ursprünglichen Werte (also die alten Namen) bleiben im Data Frame erhalten<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, aber R verwendet die neuen Labels, um diese Werte im Plot oder bei der Ausgabe anders zu präsentieren.</p>
@@ -552,10 +565,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>Zusätzlich beschränken wir die Daten auf die Jahre bis 1980.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Bern_Mitteltemperatur <span class="sc">~</span> Saison, <span class="at">data =</span> meteodaten[meteodaten<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1980</span>, ],</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">20</span>),</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>,</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Durchschnittstemperatur Bern"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Bern_Mitteltemperatur <span class="sc">~</span> Saison,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> meteodaten[meteodaten<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1980</span>, ],</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">20</span>),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Durchschnittstemperatur Bern"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wir beachten auch hier wieder die Verwendung des <code>~</code>-Operators, um die linke Seite von der rechten Seite zu trennen. In diesem Fall bedeutet dies, dass wir die Spalte <code>Bern_Mitteltemperatur</code> nach der Spalte <code>Saison</code> gruppieren wollen.</p>
 <p>Wir verwenden die <code>ylim</code> Parameter, um die y-Achse auf einen bestimmten Bereich zu beschränken. Dies ist nützlich, um die Plots besser vergleichen zu können.</p>
@@ -579,13 +593,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> <span class="fl">4.5</span>) <span class="co"># Grösse des PDFs in Inch</span></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot aus der vorherigen Sektion erstellen</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Bern_Mitteltemperatur <span class="sc">~</span> Saison, <span class="at">data =</span> meteodaten[meteodaten<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1980</span>, ],</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">20</span>),</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>,</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Durchschnittstemperatur Bern"</span>)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># PDF-Datei schliessen</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Bern_Mitteltemperatur <span class="sc">~</span> Saison,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> meteodaten[meteodaten<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1980</span>, ],</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">20</span>),</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Durchschnittstemperatur Bern"</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># PDF-Datei schliessen</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <table class="caption-top table">
 <colgroup>

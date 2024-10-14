@@ -215,6 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#fehlwerte-identifizieren" id="toc-fehlwerte-identifizieren" class="nav-link" data-scroll-target="#fehlwerte-identifizieren"><span class="header-section-number">1.5.3</span> Fehlwerte identifizieren</a></li>
   <li><a href="#fehlwerte-ersetzen" id="toc-fehlwerte-ersetzen" class="nav-link" data-scroll-target="#fehlwerte-ersetzen"><span class="header-section-number">1.5.4</span> Fehlwerte ersetzen</a></li>
   </ul></li>
+  <li><a href="#übungen" id="toc-übungen" class="nav-link" data-scroll-target="#übungen"><span class="header-section-number">1.6</span> Übungen</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/hadley/r4ds/edit/main/grundlagen_R.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -925,9 +926,47 @@ Achtung
 <span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>                                      <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Der Vektor ist nun: 1, 2, NA, 4, 5.</p>
-
-
 </section>
+</section>
+<section id="übungen" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="übungen"><span class="header-section-number">1.6</span> Übungen</h2>
+<p>Berechne die Sommer (JJA) Temperaturanomalien zur Referenzperiode 1961 bis 1990 in Bern.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten einlesen</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>meteodaten <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'Data/meteodaten_saison.csv'</span>, <span class="at">sep =</span> <span class="st">','</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten filtern</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>saison_sommer <span class="ot">&lt;-</span> meteodaten[meteodaten<span class="sc">$</span>Saison <span class="sc">==</span> <span class="st">"Sommer(JJA)"</span>, ]</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Referenzwert der Periode 1961 bis 1990 berechnen</span></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>referenzwert <span class="ot">&lt;-</span> <span class="fu">mean</span>(</span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>    saison_sommer<span class="sc">$</span>Bern_Mitteltemperatur[saison_sommer<span class="sc">$</span>Jahr <span class="sc">&gt;=</span> <span class="dv">1961</span></span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>    <span class="sc">&amp;</span> saison_sommer<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1990</span>])</span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Sommer (JJA) Temperaturanomalien berechnen und direkt im data frame speichern</span></span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>saison_sommer<span class="sc">$</span>Bern_Mitteltemperatur_anomalie <span class="ot">&lt;-</span></span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>    saison_sommer<span class="sc">$</span>Bern_Mitteltemperatur <span class="sc">-</span> referenzwert</span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(saison_sommer<span class="sc">$</span>Jahr,</span>
+<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a>    saison_sommer<span class="sc">$</span>Bern_Mitteltemperatur_anomalie,</span>
+<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Jahr"</span>,</span>
+<span id="cb66-21"><a href="#cb66-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Temperaturanomalie (°C)"</span>,</span>
+<span id="cb66-22"><a href="#cb66-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Sommer (JJA) Temperaturanomalien in Bern"</span>)</span>
+<span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-24"><a href="#cb66-24" aria-hidden="true" tabindex="-1"></a><span class="co"># null-Linie hinzufügen</span></span>
+<span id="cb66-25"><a href="#cb66-25" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grundlagen_R_files/figure-html/exercise-3.1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>

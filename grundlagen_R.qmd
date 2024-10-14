@@ -456,6 +456,39 @@ vektor_mit_korrigierten_na <- replace(vektor_mit_falschen_na,
 
 Der Vektor ist nun: `{r} vektor_mit_korrigierten_na`.
 
+## Übungen
+
+Berechne die Sommer (JJA) Temperaturanomalien zur Referenzperiode 1961 bis 1990 in Bern.
+
+```{r}
+#| label: exercise-3.1
+# Daten einlesen
+meteodaten <- read.csv('Data/meteodaten_saison.csv', sep = ',', header = TRUE)
+
+# Daten filtern
+saison_sommer <- meteodaten[meteodaten$Saison == "Sommer(JJA)", ]
+
+# Referenzwert der Periode 1961 bis 1990 berechnen
+referenzwert <- mean(
+    saison_sommer$Bern_Mitteltemperatur[saison_sommer$Jahr >= 1961
+    & saison_sommer$Jahr <= 1990])
+
+# Sommer (JJA) Temperaturanomalien berechnen und direkt im data frame speichern
+saison_sommer$Bern_Mitteltemperatur_anomalie <-
+    saison_sommer$Bern_Mitteltemperatur - referenzwert
+
+# Plot erstellen
+plot(saison_sommer$Jahr,
+    saison_sommer$Bern_Mitteltemperatur_anomalie,
+    type = "l",
+    xlab = "Jahr",
+    ylab = "Temperaturanomalie (°C)",
+    main = "Sommer (JJA) Temperaturanomalien in Bern")
+
+# null-Linie hinzufügen
+abline(h = 0, col = "red")
+```
+
 
 
 

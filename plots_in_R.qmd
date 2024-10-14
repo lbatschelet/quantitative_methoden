@@ -202,20 +202,26 @@ Wenn wir von unseren nach Jahreszeiten sortierten Daten nun bspw. den Durchschni
 
 ```{r}
 # Durchschnittstemperatur pro Jahr berechnen
-durchschnittstemperatur_pro_jahr <- aggregate(Bern_Mitteltemperatur ~ Jahr, data = meteodaten, FUN = mean)
+durchschnittstemperatur_pro_jahr <- aggregate(Bern_Mitteltemperatur ~ Jahr,
+    data = meteodaten,
+    FUN = mean)
 
 # Plot erstellen
-plot(durchschnittstemperatur_pro_jahr$Jahr, durchschnittstemperatur_pro_jahr$Bern_Mitteltemperatur,
+plot(durchschnittstemperatur_pro_jahr$Jahr,
+    durchschnittstemperatur_pro_jahr$Bern_Mitteltemperatur,
     type = "p",
     xlab = "Jahr",
     ylab = "Durchschnittstemperatur in °C",
     main = "Durchschnittstemperatur pro Jahr in Bern")
 
 # Lineares Modell (lineare Regression) erstellen
-trend <- lm(Bern_Mitteltemperatur ~ Jahr, data = durchschnittstemperatur_pro_jahr)
+trend <- lm(Bern_Mitteltemperatur ~ Jahr,
+    data = durchschnittstemperatur_pro_jahr)
 
 # Trendlinie hinzufügen
-abline(trend, col = "red", lwd = 2)  # Die Farbe und Dicke der Linie anpassen
+abline(trend,
+    col = "red",
+    lwd = 2)  # Die Farbe und Dicke der Linie anpassen
 ```
 
 Die `aggregate()` Funktion nimmt vier Parameter:
@@ -250,22 +256,26 @@ par(mfrow = c(2, 2), # 2 Zeilen und 2 Spalten
     cex = 0.8) # verkleinert die Schriftgrösse
 
 # Boxplots erstellen
-boxplot(Bern_Mitteltemperatur ~ Saison, data = meteodaten[meteodaten$Jahr <= 1980, ],
+boxplot(Bern_Mitteltemperatur ~ Saison,
+    data = meteodaten[meteodaten$Jahr <= 1980, ],
     ylim = c(-10, 20),
     ylab = "Durchschnittstemperatur in °C",
     main = "Durchschnittstemperatur Bern")
 
-boxplot(GrStBernhard_Mitteltemperatur ~ Saison, data = meteodaten[meteodaten$Jahr <= 1980, ],
+boxplot(GrStBernhard_Mitteltemperatur ~ Saison,
+    data = meteodaten[meteodaten$Jahr <= 1980, ],
     ylim = c(-10, 20),
     ylab = "Durchschnittstemperatur in °C",
     main = "Durchschnittstemperatur Gr. St. Bernhard")
 
-boxplot(Bern_Niederschlagssumme ~ Saison, data = meteodaten[meteodaten$Jahr <= 1980, ],
+boxplot(Bern_Niederschlagssumme ~ Saison,
+    data = meteodaten[meteodaten$Jahr <= 1980, ],
     ylim = c(0, 400),
     ylab = "Niederschlag in mm",
     main = "Niederschlag Bern")
 
-boxplot(GrStBernhard_Niederschlagssumme ~ Saison, data = meteodaten[meteodaten$Jahr <= 1980, ],
+boxplot(GrStBernhard_Niederschlagssumme ~ Saison,
+    data = meteodaten[meteodaten$Jahr <= 1980, ],
     ylim = c(0, 400),
     ylab = "Niederschlag in mm",
     main = "Niederschlag Gr. St. Bernhard")
@@ -282,7 +292,10 @@ Schauen wir uns die verschiedenen Schritte im Detail an:
 
 ```{r, eval=FALSE}
 neue_namen <- c("Frühling", "Sommer", "Herbst", "Winter")
-alte_namen <- c("Fruehling(MAM)", "Sommer(JJA)", "Herbst(SON)", "Winter(DJF)")
+alte_namen <- c("Fruehling(MAM)",
+                "Sommer(JJA)",
+                "Herbst(SON)",
+                "Winter(DJF)")
 
 meteodaten$Saison <- factor(meteodaten$Saison,
                             levels = alte_namen,
@@ -314,7 +327,8 @@ par(mfrow = c(2, 2), # 2 Zeilen und 2 Spalten
 Zusätzlich beschränken wir die Daten auf die Jahre bis 1980.
 
 ```{r, eval=FALSE}
-boxplot(Bern_Mitteltemperatur ~ Saison, data = meteodaten[meteodaten$Jahr <= 1980, ],
+boxplot(Bern_Mitteltemperatur ~ Saison,
+    data = meteodaten[meteodaten$Jahr <= 1980, ],
     ylim = c(-10, 20),
     ylab = "Durchschnittstemperatur in °C",
     main = "Durchschnittstemperatur Bern")
@@ -347,7 +361,8 @@ pdf(file = "boxplots.pdf",
     height = 4.5) # Grösse des PDFs in Inch
 
 # Boxplot aus der vorherigen Sektion erstellen
-boxplot(Bern_Mitteltemperatur ~ Saison, data = meteodaten[meteodaten$Jahr <= 1980, ],
+boxplot(Bern_Mitteltemperatur ~ Saison,
+        data = meteodaten[meteodaten$Jahr <= 1980, ],
         ylim = c(-10, 20),
         ylab = "Durchschnittstemperatur in °C",
         main = "Durchschnittstemperatur Bern")
