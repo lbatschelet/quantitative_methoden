@@ -12,7 +12,7 @@ book:
     center: |
       Made with ❤️ by [Lukas Batschelet](https://lukasbatschelet.ch/)
     right: |
-      [☕️Buy me a coffee](https://www.buymeacoffee.com/lbatschelet)
+      [☕️Buy me a coffee](https://ko-fi.com/lukasbatschelet)
   # cover-image: cover.jpg
   favicon: code
   site-url: https://quanti.baets.ch/
@@ -23,7 +23,7 @@ book:
   sidebar:
     tools:
       - icon: cup-hot-fill
-        href: https://www.buymeacoffee.com/lbatschelet
+        href: https://ko-fi.com/lukasbatschelet
         text: Buy me a coffee
   chapters:
     - index.qmd
