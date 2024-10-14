@@ -15,7 +15,7 @@ Wenn wir aber Beispielsweise unser ganzes `meteodaten` Data Frame plotten wollen
 plot(meteodaten)
 ```
 
-### Liniendiagramme
+## Liniendiagramme
 
 Um unsere Daten sinnvoller zu plotten müssen wir die Daten zuerst filtern und dann plotten.
 
@@ -378,11 +378,13 @@ dev.off()
 | `height`    | Höhe des Plots in Inch.                                                                                                                                                            |
 | `dev.off()` | Ist kein eigentlicher Parameter, aber ist am Ende jeder der Funktionen benötigt, um den Export zu beenden.                                                                         |
 
-## Übung 3.2 Klimadiagramm {.unnumbered}
+## Übungen 3 {.unnumbered}
+
+### Klimadiagramm
 
 1. Ladet den Datensatz meteodaten_tag.csv nach dem Excel Export in R (ACHTUNG: NA-Werte sind sowohl mit'-’als auch mit'NA')kodiert, deshalb: `na.strings= c('-','NA'))`
 
-:::{.callout-info collapse=true title="Lösung"}
+:::{.callout-tip title="Lösung" collapse="true"}
 
 ```{r}
 # CSV-Datei einlesen
@@ -395,7 +397,7 @@ meteodaten_tag <- read.csv('Data/meteodaten_tag.csv',
 
 2. Mit `str()` ansehen, ob Daten korrekt (z.B.als numerisch) gelesen wurden.
 
-:::{.callout-info collapse=true title="Lösung"}
+:::{.callout-tip title="Lösung" collapse="true"}
 
 ```{r}
 str(meteodaten_tag)
@@ -405,7 +407,7 @@ str(meteodaten_tag)
 
 3. Erstellt ein Histogramm (`hist()`) mit den Tagestemperaturen mit feinen Abständen (`breaks=40`).
 
-:::{.callout-info collapse=true title="Lösung"}
+:::{.callout-tip title="Lösung" collapse="true"}
 
 ```{r}
 hist(meteodaten_tag$Temperatur.C.,
@@ -420,7 +422,7 @@ hist(meteodaten_tag$Temperatur.C.,
 4. Wie sieht die Verteilung nach Augenmass aus?
 5. Berechnet die Monatsmittelwerte der Temperatur und der Bewölkung über alle Jahre (also Mittel über alle Jan, alle Feb,... wie in Klimadiagrammen). Achtung: Fehlwerte vorhanden!
 
-:::{.callout-info collapse=true title="Lösung"}
+:::{.callout-tip title="Lösung" collapse="true"}
 
 ```{r}
 monatsmittel <-
@@ -450,7 +452,7 @@ monatsmittel <- merge(temp_mittel, bewoelkung_mittel,
 
 6. Erstellt in eine Abbildung mit zwei Barplots der Ergebnisse übereinander(`par(mfrow=c(2,1))`). Was erwartet ihr?
 
-:::{.callout-info collapse=true title="Lösung"}
+:::{.callout-tip title="Lösung" collapse="true"}
 
 ```{r}
 # Mehrere Plots in einem Diagramm
@@ -460,17 +462,91 @@ par(mfrow = c(2, 1))
 barplot(temp_mittel$Temperatur.C.,
     names.arg = temp_mittel$Monat,
     xlab = "Monat",
-    ylab = "Durchschnittstemperatur in °C",
+    ylab = "Temp. in °C",
     main = "Monatsmittel der Temperatur in Bern")
 
 # Barplot für die Monatsmittel der Bewölkung
 barplot(bewoelkung_mittel$Bewoelkung.Achtel.,
     names.arg = bewoelkung_mittel$Monat,
     xlab = "Monat",
-    ylab = "Durchschnittliche Bewölkung in %",
+    ylab = "Bewölkung in Achteln",
     main = "Monatsmittel der Bewölkung in Bern")
 ```
 
 :::
 
+### Boxplots
 
+1. Wählt den Zeitraum **200-2001** in den täglichen Daten.
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+# Data Frame filtern und in einem neuen Objekt speichern
+meteodaten_tag_2000_2001 <- meteodaten_tag[meteodaten_tag$Jahr >= 2000 & meteodaten_tag$Jahr <= 2001, ]
+```
+
+:::
+
+2. Stellt die Temperaturen dieses Zeitrauemes als Funktion der Bewölkung in einem `boxpolt()`dar (je ein Boxplot pro Bewölkungsklasse). Beschriftet die Achsen und vergebt einen Titel
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+boxplot(Temperatur.C. ~ Bewoelkung.Achtel.,
+    data = meteodaten_tag_2000_2001,
+    ylab = "Temperatur in °C",
+    xlab = "Bewölkung in Achteln",
+    main = "Temperaturen in Bern 2000-2001 nach Bewölkung")
+```
+
+:::
+
+3. Unter welchen Bewölkungsbedingungen ist die Spannweite und Varianz der Temperatur am grössten?
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+# Berechnung der Spannweite und Varianz der Temperatur für jede Bewölkungsklasse
+spannweite <- aggregate(Temperatur.C. ~ Bewoelkung.Achtel.,
+    data = meteodaten_tag_2000_2001,
+    FUN = function(x) diff(range(x)))
+
+varianz <- aggregate(Temperatur.C. ~ Bewoelkung.Achtel.,
+    data = meteodaten_tag_2000_2001,
+    FUN = var)
+
+# Umbenennen der Spalten, um Verwechslungen zu vermeiden
+names(spannweite)[2] <- "Spannweite"
+names(varianz)[2] <- "Varianz"
+
+# Zusammenführen der Ergebnisse
+ergebnisse <- merge(spannweite, varianz, by = "Bewoelkung.Achtel.")
+
+# Ausgabe der Ergebnisse
+ergebnisse
+```
+
+:::
+
+4. Findet heraus welcher Monat im Mittel der bewölkungsärmste und der -reichste ist (Im Mittel über die beiden Jahre). Wie viel Bewälkung gibt es im Mittel in diesen Monaten (in Achteln)?
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+# Berechnung der Monatsmittel der Bewölkung
+bewoelkung_mittel <- aggregate(Bewoelkung.Achtel. ~ Monat,
+    data = meteodaten_tag_2000_2001,
+    FUN = mean,
+    na.rm = TRUE)
+
+# Bewölkungsärmster Monat
+bewoelkung_min <- bewoelkung_mittel[which.min(bewoelkung_mittel$Bewoelkung.Achtel.), ]
+bewoelkung_min
+
+# Bewölkungsreichster Monat
+bewoelkung_max <- bewoelkung_mittel[which.max(bewoelkung_mittel$Bewoelkung.Achtel.), ]
+bewoelkung_max
+```
+
+:::
