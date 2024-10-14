@@ -192,6 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#scatterplots-und-aggregate-funktion" id="toc-scatterplots-und-aggregate-funktion" class="nav-link" data-scroll-target="#scatterplots-und-aggregate-funktion"><span class="header-section-number">2.1</span> Scatterplots und <code>aggregate()</code>-Funktion</a></li>
   <li><a href="#boxplots-und-mehrere-plots-in-einem-diagramm" id="toc-boxplots-und-mehrere-plots-in-einem-diagramm" class="nav-link" data-scroll-target="#boxplots-und-mehrere-plots-in-einem-diagramm"><span class="header-section-number">2.2</span> Boxplots und mehrere Plots in einem Diagramm</a></li>
   <li><a href="#grafiken-speichern" id="toc-grafiken-speichern" class="nav-link" data-scroll-target="#grafiken-speichern"><span class="header-section-number">2.3</span> Grafiken speichern</a></li>
+  <li><a href="#übung-3.2-klimadiagramm" id="toc-übung-3.2-klimadiagramm" class="nav-link" data-scroll-target="#übung-3.2-klimadiagramm">Übung 3.2 Klimadiagramm</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/hadley/r4ds/edit/main/plots_in_R.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -632,6 +633,115 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
+</section>
+<section id="übung-3.2-klimadiagramm" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="übung-3.2-klimadiagramm">Übung 3.2 Klimadiagramm</h2>
+<ol type="1">
+<li>Ladet den Datensatz meteodaten_tag.csv nach dem Excel Export in R (ACHTUNG: NA-Werte sind sowohl mit’-’als auch mit’NA’)kodiert, deshalb: <code>na.strings= c('-','NA'))</code></li>
+</ol>
+<div class="callout-info" data-collapse="true" title="Lösung">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CSV-Datei einlesen</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>meteodaten_tag <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'Data/meteodaten_tag.csv'</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">','</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">'-'</span>, <span class="st">'NA'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Mit <code>str()</code> ansehen, ob Daten korrekt (z.B.als numerisch) gelesen wurden.</li>
+</ol>
+<div class="callout-info" data-collapse="true" title="Lösung">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(meteodaten_tag)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   4627 obs. of  7 variables:
+ $ Jahr                : int  2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 ...
+ $ Monat               : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ Tag                 : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ Wochentag           : chr  "Sa" "So" "Mo" "Di" ...
+ $ Temperatur.C.       : num  3.6 4.8 4.6 6.2 8.1 6.9 3.4 2.4 5.5 5.1 ...
+ $ Niederschlag.mm.Tag.: num  0 0 0 0 0.2 0 0 0 0.5 1.8 ...
+ $ Bewoelkung.Achtel.  : int  3 7 3 3 3 3 6 6 6 7 ...</code></pre>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Erstellt ein Histogramm (<code>hist()</code>) mit den Tagestemperaturen mit feinen Abständen (<code>breaks=40</code>).</li>
+</ol>
+<div class="callout-info" data-collapse="true" title="Lösung">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(meteodaten_tag<span class="sc">$</span>Temperatur.C.,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">40</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Temperatur in °C"</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Anzahl Tage"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogramm der Tagestemperaturen in Bern"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plots_in_R_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Wie sieht die Verteilung nach Augenmass aus?</li>
+<li>Berechnet die Monatsmittelwerte der Temperatur und der Bewölkung über alle Jahre (also Mittel über alle Jan, alle Feb,… wie in Klimadiagrammen). Achtung: Fehlwerte vorhanden!</li>
+</ol>
+<div class="callout-info" data-collapse="true" title="Lösung">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>monatsmittel <span class="ot">&lt;-</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aggregate</span>(<span class="fu">cbind</span>(Temperatur.C., Bewoelkung.Achtel.) <span class="sc">~</span> Monat,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> meteodaten_tag,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">FUN =</span> mean,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Hinweis zur Funktion <code>cbind()</code>: <code>cbind()</code> fügt die Spalten <code>Bern_Temperatur</code> und <code>Bern_Bewoelkung</code> zusammen, um sie dann nach <code>Monat</code> zu gruppieren. Alternativ könnten wir die beiden Mittelwerte auch seperat berechnen und anschliessend mit einem <code>merge()</code> zusammenfügen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>temp_mittel <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Temperatur.C. <span class="sc">~</span> Monat,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> meteodaten_tag,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">FUN =</span> mean,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>bewoelkung_mittel <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Bewoelkung.Achtel. <span class="sc">~</span> Monat,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> meteodaten_tag,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">FUN =</span> mean,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>monatsmittel <span class="ot">&lt;-</span> <span class="fu">merge</span>(temp_mittel, bewoelkung_mittel,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"Monat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<ol start="6" type="1">
+<li>Erstellt in eine Abbildung mit zwei Barplots der Ergebnisse übereinander(<code>par(mfrow=c(2,1))</code>). Was erwartet ihr?</li>
+</ol>
+<div class="callout-info" data-collapse="true" title="Lösung">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mehrere Plots in einem Diagramm</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot für die Monatsmittel der Temperatur</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(temp_mittel<span class="sc">$</span>Temperatur.C.,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names.arg =</span> temp_mittel<span class="sc">$</span>Monat,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Monat"</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>,</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Monatsmittel der Temperatur in Bern"</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot für die Monatsmittel der Bewölkung</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(bewoelkung_mittel<span class="sc">$</span>Bewoelkung.Achtel.,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">names.arg =</span> bewoelkung_mittel<span class="sc">$</span>Monat,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Monat"</span>,</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Durchschnittliche Bewölkung in %"</span>,</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Monatsmittel der Bewölkung in Bern"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plots_in_R_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
 
 
 </section>

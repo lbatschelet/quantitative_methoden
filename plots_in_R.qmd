@@ -377,3 +377,100 @@ dev.off()
 | `width`     | Breite des Plots in Inch.                                                                                                                                                          |
 | `height`    | Höhe des Plots in Inch.                                                                                                                                                            |
 | `dev.off()` | Ist kein eigentlicher Parameter, aber ist am Ende jeder der Funktionen benötigt, um den Export zu beenden.                                                                         |
+
+## Übung 3.2 Klimadiagramm {.unnumbered}
+
+1. Ladet den Datensatz meteodaten_tag.csv nach dem Excel Export in R (ACHTUNG: NA-Werte sind sowohl mit'-’als auch mit'NA')kodiert, deshalb: `na.strings= c('-','NA'))`
+
+:::{.callout-info collapse=true title="Lösung"}
+
+```{r}
+# CSV-Datei einlesen
+meteodaten_tag <- read.csv('Data/meteodaten_tag.csv',
+    sep = ',',
+    header = TRUE,
+    na.strings = c('-', 'NA'))
+```
+:::
+
+2. Mit `str()` ansehen, ob Daten korrekt (z.B.als numerisch) gelesen wurden.
+
+:::{.callout-info collapse=true title="Lösung"}
+
+```{r}
+str(meteodaten_tag)
+```
+
+:::
+
+3. Erstellt ein Histogramm (`hist()`) mit den Tagestemperaturen mit feinen Abständen (`breaks=40`).
+
+:::{.callout-info collapse=true title="Lösung"}
+
+```{r}
+hist(meteodaten_tag$Temperatur.C.,
+     breaks = 40,
+     xlab = "Temperatur in °C",
+     ylab = "Anzahl Tage",
+     main = "Histogramm der Tagestemperaturen in Bern")
+```
+
+:::
+
+4. Wie sieht die Verteilung nach Augenmass aus?
+5. Berechnet die Monatsmittelwerte der Temperatur und der Bewölkung über alle Jahre (also Mittel über alle Jan, alle Feb,... wie in Klimadiagrammen). Achtung: Fehlwerte vorhanden!
+
+:::{.callout-info collapse=true title="Lösung"}
+
+```{r}
+monatsmittel <-
+    aggregate(cbind(Temperatur.C., Bewoelkung.Achtel.) ~ Monat,
+        data = meteodaten_tag,
+        FUN = mean,
+        na.rm = TRUE)
+```
+
+Hinweis zur Funktion `cbind()`: `cbind()` fügt die Spalten `Bern_Temperatur` und `Bern_Bewoelkung` zusammen, um sie dann nach `Monat` zu gruppieren. Alternativ könnten wir die beiden Mittelwerte auch seperat berechnen und anschliessend mit einem `merge()` zusammenfügen.
+
+```{r}
+temp_mittel <- aggregate(Temperatur.C. ~ Monat,
+    data = meteodaten_tag,
+    FUN = mean,
+    na.rm = TRUE)
+bewoelkung_mittel <- aggregate(Bewoelkung.Achtel. ~ Monat,
+    data = meteodaten_tag,
+    FUN = mean,
+    na.rm = TRUE)
+
+monatsmittel <- merge(temp_mittel, bewoelkung_mittel,
+    by = "Monat")
+```
+
+:::
+
+6. Erstellt in eine Abbildung mit zwei Barplots der Ergebnisse übereinander(`par(mfrow=c(2,1))`). Was erwartet ihr?
+
+:::{.callout-info collapse=true title="Lösung"}
+
+```{r}
+# Mehrere Plots in einem Diagramm
+par(mfrow = c(2, 1))
+
+# Barplot für die Monatsmittel der Temperatur
+barplot(temp_mittel$Temperatur.C.,
+    names.arg = temp_mittel$Monat,
+    xlab = "Monat",
+    ylab = "Durchschnittstemperatur in °C",
+    main = "Monatsmittel der Temperatur in Bern")
+
+# Barplot für die Monatsmittel der Bewölkung
+barplot(bewoelkung_mittel$Bewoelkung.Achtel.,
+    names.arg = bewoelkung_mittel$Monat,
+    xlab = "Monat",
+    ylab = "Durchschnittliche Bewölkung in %",
+    main = "Monatsmittel der Bewölkung in Bern")
+```
+
+:::
+
+
