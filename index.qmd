@@ -1,14 +1,26 @@
 ---
+title: "Übersicht"
 author: "Lukas Batschelet"
 date: last-modified
 ---
 
 Diese Website dient als Sammlung meiner Vorlesungsnotizen und Übungen für die Vorlesung *"Quantitative Methoden"* im Herbstsemester 2024.
 
-Diese Sammlung ist aktuell noch am entstehen.
+Diese Sammlung ist aktuell noch am Entstehen.
 
 :::{.callout-warning title="Hinweis"}
 
-Die Inhalte dieser Website können Lücken und Fehler enthalten. Die Inhalte werden laufend ergänzt und verbessert.
+**Die Inhalte dieser Website können Lücken und Fehler enthalten. Die Inhalte werden laufend ergänzt und verbessert.**
+
+Fehler und Vorschläge können auf jeder Seite direkt über *Report an issue* auf Github gemeldet werden.
+Bitte das entsprechende Issue-Template verwenden.
+
+Falls bereits Erfahrung mit Github und quarto besteht, kann auch jeweils direkt die Seite bearbeitet werden.
+Anschliessend kann ein Pull-Request erstellt werden.
 
 :::
+
+
+
+
+

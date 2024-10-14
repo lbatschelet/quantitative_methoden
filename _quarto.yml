@@ -9,8 +9,10 @@ book:
   page-footer:
     left: |
       Quantitative Methoden
+    center: |
+      Made with ❤️ by [Lukas Batschelet](https://lukasbatschelet.ch/)
     right: |
-      This book was built with <a href="https://quarto.org/">Quarto</a>.
+      [☕️Buy me a coffee](https://www.buymeacoffee.com/lbatschelet)
   # cover-image: cover.jpg
   # favicon: cover.jpg
   site-url: https://quanti.baets.ch/

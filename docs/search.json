@@ -4,9 +4,9 @@
     "href": "index.html",
     "title": "Quantitative Methoden",
     "section": "",
-    "text": "Diese Website dient als Sammlung meiner Vorlesungsnotizen und Übungen für die Vorlesung “Quantitative Methoden” im Herbstsemester 2024.\nDiese Sammlung ist aktuell noch am entstehen.\n\n\n\n\n\n\nHinweis\n\n\n\nDie Inhalte dieser Website können Lücken und Fehler enthalten. Die Inhalte werden laufend ergänzt und verbessert.",
+    "text": "Diese Website dient als Sammlung meiner Vorlesungsnotizen und Übungen für die Vorlesung “Quantitative Methoden” im Herbstsemester 2024.\nDiese Sammlung ist aktuell noch am Entstehen.\n\n\n\n\n\n\nHinweis\n\n\n\nDie Inhalte dieser Website können Lücken und Fehler enthalten. Die Inhalte werden laufend ergänzt und verbessert.\nFehler und Vorschläge können auf jeder Seite direkt über Report an issue auf Github gemeldet werden. Bitte das entsprechende Issue-Template verwenden.\nFalls bereits Erfahrung mit Github und quarto besteht, kann auch jeweils direkt die Seite bearbeitet werden. Anschliessend kann ein Pull-Request erstellt werden.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>index.html</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Übersicht</span>"
     ]
   },
   {
