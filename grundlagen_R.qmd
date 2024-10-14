@@ -263,7 +263,11 @@ Der Pfad zur Datei muss entweder absolut (Bsp.: `C:/Users/username/Documents/dat
 
 In aller Regel ist es sinnvoll, den Pfad relativ zum aktuellen Arbeitsverzeichnis anzugeben. Das aktuelle Arbeitsverzeichnis kann in der Terminalkonsole mit dem Befehl `getwd()` abgefragt werden, und mit dem Befehl `setwd()` kann das Arbeitsverzeichnis geändert werden.
 
-Eine mögliche Praxis ist es, ein Unterverzeichnis `Data` im Projektverzeichnis anzulegen und dort alle Daten abzulegen.
+Eine gängige (und hier angewandte) Praxis ist es, ein Unterverzeichnis `Data` im Projektverzeichnis anzulegen und dort alle Daten abzulegen.
+
+Der einfachste Weg ist es im Explorer einen Ordner anzulegen in welchem alle Skripte gespeichert werden. In diesem Ordner kann dann ein Unterordner `Data` erstellt werden, in welchem die Daten abgelegt werden.
+
+**In RStudio kann das Arbeitsverzeichnis über das Menü `Session -> Set Working Directory -> Choose Directory...` gesetzt werden.**
 :::
 
 #### Wichtige Funktionen für Datenimport
