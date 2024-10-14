@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Lukas Batschelet">
 
 <title>3&nbsp; Einfache Plots erstellen – Quantitative Methoden</title>
 <style>
@@ -90,17 +91,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
   }
 }</script>
 
@@ -113,13 +114,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./plots_in_R.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -135,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <div class="sidebar-tools-main tools-wide">
     <a href="https://ko-fi.com/lukasbatschelet" title="Buy me a coffee" class="quarto-navigation-tool px-1" aria-label="Buy me a coffee"><i class="bi bi-cup-hot-fill"></i></a>
     <a href="https://github.com/lbatschelet/quantitative_methoden" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Lesemodus umschalten">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -145,7 +146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Suchen"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -187,20 +188,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#liniendiagramme" id="toc-liniendiagramme" class="nav-link active" data-scroll-target="#liniendiagramme"><span class="header-section-number">3.1</span> Liniendiagramme</a></li>
-  <li><a href="#scatterplots-und-aggregate-funktion" id="toc-scatterplots-und-aggregate-funktion" class="nav-link" data-scroll-target="#scatterplots-und-aggregate-funktion"><span class="header-section-number">3.2</span> Scatterplots und <code>aggregate()</code>-Funktion</a></li>
-  <li><a href="#boxplots-und-mehrere-plots-in-einem-diagramm" id="toc-boxplots-und-mehrere-plots-in-einem-diagramm" class="nav-link" data-scroll-target="#boxplots-und-mehrere-plots-in-einem-diagramm"><span class="header-section-number">3.3</span> Boxplots und mehrere Plots in einem Diagramm</a></li>
-  <li><a href="#grafiken-speichern" id="toc-grafiken-speichern" class="nav-link" data-scroll-target="#grafiken-speichern"><span class="header-section-number">3.4</span> Grafiken speichern</a></li>
+  <li><a href="#einfache-plots-erstellen" id="toc-einfache-plots-erstellen" class="nav-link active" data-scroll-target="#einfache-plots-erstellen"><span class="header-section-number">4</span> Einfache Plots erstellen</a>
+  <ul class="collapse">
+  <li><a href="#liniendiagramme" id="toc-liniendiagramme" class="nav-link" data-scroll-target="#liniendiagramme"><span class="header-section-number">4.1</span> Liniendiagramme</a></li>
+  <li><a href="#scatterplots-und-aggregate-funktion" id="toc-scatterplots-und-aggregate-funktion" class="nav-link" data-scroll-target="#scatterplots-und-aggregate-funktion"><span class="header-section-number">4.2</span> Scatterplots und <code>aggregate()</code>-Funktion</a></li>
+  <li><a href="#boxplots-und-mehrere-plots-in-einem-diagramm" id="toc-boxplots-und-mehrere-plots-in-einem-diagramm" class="nav-link" data-scroll-target="#boxplots-und-mehrere-plots-in-einem-diagramm"><span class="header-section-number">4.3</span> Boxplots und mehrere Plots in einem Diagramm</a></li>
+  <li><a href="#grafiken-speichern" id="toc-grafiken-speichern" class="nav-link" data-scroll-target="#grafiken-speichern"><span class="header-section-number">4.4</span> Grafiken speichern</a></li>
   <li><a href="#übungen-3" id="toc-übungen-3" class="nav-link" data-scroll-target="#übungen-3">Übungen 3</a>
   <ul class="collapse">
   <li><a href="#klimadiagramm" id="toc-klimadiagramm" class="nav-link" data-scroll-target="#klimadiagramm">3.1 Klimadiagramm</a></li>
   <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots">3.2 Boxplots</a></li>
   </ul></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/plots_in_R.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/plots_in_R.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -214,7 +218,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Autor:in</div>
+    <div class="quarto-title-meta-contents">
+             <p>Lukas Batschelet </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">14. Oktober 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -224,10 +240,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="einfache-plots-erstellen" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Einfache Plots erstellen</h1>
 <p>“High-level” Plots können in R mit der <code>plot()</code> Funktion erstellt werden. Diese Funktion erstellt automatisch für die gegebenen Daten ein (geeignetes) Diagramm.</p>
 <p>Wenn wir aber Beispielsweise unser ganzes <code>meteodaten</code> Data Frame plotten wollen, weiss die Funktion nicht, wie sie das tun soll und plottet einfach alle Spalten gegen alle anderen Zeilen. Dies ist in diesem Fall nicht sinnvoll.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(meteodaten)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(meteodaten)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -236,8 +254,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="liniendiagramme" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="liniendiagramme"><span class="header-section-number">3.1</span> Liniendiagramme</h2>
+<section id="liniendiagramme" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="liniendiagramme"><span class="header-section-number">4.1</span> Liniendiagramme</h2>
 <p>Um unsere Daten sinnvoller zu plotten müssen wir die Daten zuerst filtern und dann plotten.</p>
 <p>Wir diskutieren die verschiedenen Schritte hier später:</p>
 <div class="cell">
@@ -286,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Frühling"</span>, <span class="st">"Sommer"</span>, <span class="st">"Herbst"</span>, <span class="st">"Winter"</span>),</span>
 <span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>),</span>
 <span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">lty =</span> <span class="dv">1</span>,</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -303,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CSV-Datei einlesen</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>meteodaten <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'Data/meteodaten_saison.csv'</span>,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">','</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Der Parameter <code>sep = ','</code> gibt an, dass die Werte in der CSV-Datei durch Kommas getrennt sind.</p>
 <p>Der Parameter <code>header = TRUE</code> gibt an, dass die erste Zeile der CSV-Datei die Spaltennamen enthält.</p>
@@ -315,16 +333,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>saison_fruehling <span class="ot">&lt;-</span> meteodaten[meteodaten<span class="sc">$</span>Saison <span class="sc">==</span> <span class="st">"Fruehling(MAM)"</span>, ]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>saison_sommer <span class="ot">&lt;-</span> meteodaten[meteodaten<span class="sc">$</span>Saison <span class="sc">==</span> <span class="st">"Sommer(JJA)"</span>, ]</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>saison_herbst <span class="ot">&lt;-</span> meteodaten[meteodaten<span class="sc">$</span>Saison <span class="sc">==</span> <span class="st">"Herbst(SON)"</span>, ]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>saison_winter <span class="ot">&lt;-</span> meteodaten[meteodaten<span class="sc">$</span>Saison <span class="sc">==</span> <span class="st">"Winter(DJF)"</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>saison_winter <span class="ot">&lt;-</span> meteodaten[meteodaten<span class="sc">$</span>Saison <span class="sc">==</span> <span class="st">"Winter(DJF)"</span>, ]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Mit dem <code>==</code> Operator vergleichen wir die Werte auf Gleichheit.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>meteodaten<span class="sc">$</span>Saison <span class="sc">==</span> <span class="st">"Fruehling(MAM)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>meteodaten<span class="sc">$</span>Saison <span class="sc">==</span> <span class="st">"Fruehling(MAM)"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wir überprüfen also Zeile für Zeile, ob der Wert in der Spalte <code>Saison</code> gleich dem String <code>"Fruehling(MAM)"</code> ist. Dies wird in einen boolschen Vektor umgewandelt, der <code>TRUE</code> für Zeilen enthält, die dem Kriterium entsprechen, und <code>FALSE</code> für Zeilen, die es nicht tun.</p>
 <p>Betrachten wir nun eine Klammer weiter aussen, um zu verstehen, was genau wir dem Subset zuweisen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>meteodaten[meteodaten<span class="sc">$</span>Saison <span class="sc">==</span> <span class="st">"Fruehling(MAM)"</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>meteodaten[meteodaten<span class="sc">$</span>Saison <span class="sc">==</span> <span class="st">"Fruehling(MAM)"</span>, ]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hier wählen wir alle Zeilen aus dem Data Frame <code>meteodaten</code> aus, in denen die Spalte <code>Saison</code> den Wert <code>"Fruehling(MAM)"</code> hat. Da wir nach dem letzten Komma nichts weiter angeben, wählen wir alle Spalten aus.</p>
 <p>Unsere Saisonalen Data Frames enthalten also nicht nur die Temperatur-Mittelwerte aus Bern, sondern auch die Niederschlagswerte von Bern und dem Grossen St.&nbsp;Bernhard. Wir greifen im erstellten Plot nur auf die Temperaturwerte zu.</p>
@@ -339,7 +357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>,</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Saisonale Durchschnittstemperaturen in Bern"</span>,</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1900</span>, <span class="dv">2020</span>),</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">35</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">35</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die <code>plot()</code> Funktion hat viele Parameter, die wir verwenden können, um den Plot anzupassen.</p>
 <table class="caption-top table">
@@ -395,7 +413,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(saison_herbst<span class="sc">$</span>Jahr, saison_herbst<span class="sc">$</span>Bern_Mitteltemperatur,</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"green"</span>)</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(saison_winter<span class="sc">$</span>Jahr, saison_winter<span class="sc">$</span>Bern_Mitteltemperatur,</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hier müssen wir jeweils nicht mehr ganz so viele Parameter angeben, da wir bereits die Achsenbesschriftung etc. vorgenommen haben. Was wir noch angeben müssen, ist die Farbe der Linie mit dem <code>col</code> Parameter.</p>
 <ol start="5" type="1">
@@ -403,7 +421,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gestrichelte Horizontale Linie bei 0 hinzufügen</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Mit der <code>abline()</code> Funktion können wir Linien zu einem Plot hinzufügen. Mit dem <code>h</code> Parameter geben wir die y-Position der Linie an, und mit dem <code>lty</code> Parameter geben wir den Linientyp an. Hier verwenden wir <code>lty = 2</code>, um eine gestrichelte Linie zu zeichnen.</p>
 <ol start="6" type="1">
@@ -422,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">lty =</span> <span class="dv">3</span>)</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(saison_winter<span class="sc">$</span>Bern_Mitteltemperatur),</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"blue"</span>,</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">lty =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">lty =</span> <span class="dv">3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hier fügen wir gestrichelte Linien für die Mittelwerte der Temperatur für jede Jahreszeit hinzu. Wir verwenden die <code>mean()</code> Funktion, um direkt im Aufruf den Mittelwert zu berechnen.</p>
 <ol start="7" type="1">
@@ -434,12 +452,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Frühling"</span>, <span class="st">"Sommer"</span>, <span class="st">"Herbst"</span>, <span class="st">"Winter"</span>),</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>),</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">lty =</span> <span class="dv">1</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Mit der <code>legend()</code> Funktion können wir eine Legende zu einem Plot hinzufügen. Wir geben die Position der Legende mit dem <code>topright</code> Parameter an. Mit dem <code>legend</code> Parameter geben wir die Beschriftungen für die Linien an. Mit dem <code>col</code> Parameter geben wir die Farben der Linien an. Mit dem <code>lty</code> Parameter geben wir den Linientyp an. Mit dem <code>xpd</code> Parameter geben wir an, ob die Legende ausserhalb des Plots sein soll.</p>
 </section>
-<section id="scatterplots-und-aggregate-funktion" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="scatterplots-und-aggregate-funktion"><span class="header-section-number">3.2</span> Scatterplots und <code>aggregate()</code>-Funktion</h2>
+<section id="scatterplots-und-aggregate-funktion" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="scatterplots-und-aggregate-funktion"><span class="header-section-number">4.2</span> Scatterplots und <code>aggregate()</code>-Funktion</h2>
 <p>Wenn wir von unseren nach Jahreszeiten sortierten Daten nun bspw. den Durchschnitt der Temperaturwerte pro Jahr berechnen wollen, können wir die <code>aggregate()</code> Funktion verwenden.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Durchschnittstemperatur pro Jahr berechnen</span></span>
@@ -462,7 +480,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Trendlinie hinzufügen</span></span>
 <span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(trend,</span>
 <span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"red"</span>,</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd =</span> <span class="dv">2</span>)  <span class="co"># Die Farbe und Dicke der Linie anpassen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd =</span> <span class="dv">2</span>)  <span class="co"># Die Farbe und Dicke der Linie anpassen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -481,8 +499,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Der <code>~</code>-Operator wird in R verwendet, um die linke Seite von der rechten Seite zu trennen. In diesem Fall bedeutet dies, dass wir die Spalte <code>Bern_Mitteltemperatur</code> nach der Spalte <code>Jahr</code> aggregieren wollen.</p>
 <p>Zusätzlich haben wir hier noch eine Trendlinie hinzugefügt. Dazu haben wir ein lineares Modell mit der <code>lm()</code> Funktion erstellt und die Trendlinie mit der <code>abline()</code> Funktion hinzugefügt.</p>
 </section>
-<section id="boxplots-und-mehrere-plots-in-einem-diagramm" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="boxplots-und-mehrere-plots-in-einem-diagramm"><span class="header-section-number">3.3</span> Boxplots und mehrere Plots in einem Diagramm</h2>
+<section id="boxplots-und-mehrere-plots-in-einem-diagramm" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="boxplots-und-mehrere-plots-in-einem-diagramm"><span class="header-section-number">4.3</span> Boxplots und mehrere Plots in einem Diagramm</h2>
 <p>Wir wollen nun für die Temperaturen und Niederschlagswerte in Bern und auf dem Grossen St.&nbsp;Bernhard Boxplots erstellen und diese in einem Diagramm nebeneinander plotten. Zusätzlich wollen wir die Daten Zeitlich bis ins Jahr 1980 beschränken. Auch dieser Code enthält einige zusätzliche und neue Schritte, welche wir uns anschliessend genauer ansehen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definiere neue Kategorien-Namen und die gewünschte Reihenfolge</span></span>
@@ -526,7 +544,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Niederschlag Gr. St. Bernhard"</span>)</span>
 <span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Gesamte Überschrift für alle Plots hinzufügen</span></span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"Klimadaten in Bern und auf dem Grossen St. Bernhard"</span>, <span class="at">outer =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"Klimadaten in Bern und auf dem Grossen St. Bernhard"</span>, <span class="at">outer =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -548,7 +566,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>meteodaten<span class="sc">$</span>Saison <span class="ot">&lt;-</span> <span class="fu">factor</span>(meteodaten<span class="sc">$</span>Saison,</span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">levels =</span> alte_namen,</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> neue_namen)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> neue_namen)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wir verwenden die <code>factor()</code> Funktion, um die Spalte <code>Saison</code>, die aktuell als Strings vorliegt, in einen Faktor zu konvertieren. Mit dem <code>levels</code> Parameter geben wir die Reihenfolge der vorhandenen Werte in den Daten an – hier die alten Namen, da diese in den Rohdaten stehen. Der <code>labels</code> Parameter definiert die neuen Namen, die im Plot oder bei Ausgaben angezeigt werden sollen.</p>
 <p>Wichtig zu verstehen ist, dass die Umwandlung mit <code>factor()</code> <strong>nicht</strong> die zugrunde liegenden Daten ändert, sondern nur die Art und Weise, wie die Kategorien dargestellt werden. Die ursprünglichen Werte (also die alten Namen) bleiben im Data Frame erhalten<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, aber R verwendet die neuen Labels, um diese Werte im Plot oder bei der Ausgabe anders zu präsentieren.</p>
@@ -565,7 +583,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="co"># 2 Zeilen und 2 Spalten</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>), <span class="co"># verkleinert die Ränder</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">oma =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">0</span>), <span class="co"># fügt Platz für den Titel hinzu</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="fl">0.8</span>) <span class="co"># verkleinert die Schriftgrösse</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="fl">0.8</span>) <span class="co"># verkleinert die Schriftgrösse</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="3" type="1">
 <li><strong>Boxplots erstellen</strong>: Wir erstellen Boxplots für die Durchschnittstemperaturen und Niederschlagssummen in Bern und auf dem Grossen St.&nbsp;Bernhard.</li>
@@ -576,7 +594,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> meteodaten[meteodaten<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1980</span>, ],</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">20</span>),</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Durchschnittstemperatur in °C"</span>,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Durchschnittstemperatur Bern"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Durchschnittstemperatur Bern"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wir beachten auch hier wieder die Verwendung des <code>~</code>-Operators, um die linke Seite von der rechten Seite zu trennen. In diesem Fall bedeutet dies, dass wir die Spalte <code>Bern_Mitteltemperatur</code> nach der Spalte <code>Saison</code> gruppieren wollen.</p>
 <p>Wir verwenden die <code>ylim</code> Parameter, um die y-Achse auf einen bestimmten Bereich zu beschränken. Dies ist nützlich, um die Plots besser vergleichen zu können.</p>
@@ -585,12 +603,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Gesamte Überschrift für alle Plots hinzufügen</strong>: Wir fügen eine Überschrift für alle Plots hinzu.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"Klimadaten in Bern und auf dem Grossen St. Bernhard"</span>, <span class="at">outer =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"Klimadaten in Bern und auf dem Grossen St. Bernhard"</span>, <span class="at">outer =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Der <code>outer</code> Parameter gibt an, dass die Überschrift über allen Plots platziert werden soll.</p>
 </section>
-<section id="grafiken-speichern" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="grafiken-speichern"><span class="header-section-number">3.4</span> Grafiken speichern</h2>
+<section id="grafiken-speichern" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="grafiken-speichern"><span class="header-section-number">4.4</span> Grafiken speichern</h2>
 <p>Grafiken können entweder in RStudio unter dem Reiter “Export” … “Save Plot as PDF” oder “…Image” gespeichert werden.</p>
 <p>Alternativ können mit den Funktionen <code>pdf()</code>, <code>jpeg()</code> und <code>png()</code> Grafiken direkt in R gespeichert werden.</p>
 <div class="cell">
@@ -607,7 +625,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Durchschnittstemperatur Bern"</span>)</span>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># PDF-Datei schliessen</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <table class="caption-top table">
 <colgroup>
@@ -664,7 +682,7 @@ Lösung
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>meteodaten_tag <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'Data/meteodaten_tag.csv'</span>,</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">','</span>,</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">'-'</span>, <span class="st">'NA'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">'-'</span>, <span class="st">'NA'</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -685,7 +703,7 @@ Lösung
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(meteodaten_tag)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(meteodaten_tag)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   4627 obs. of  7 variables:
  $ Jahr                : int  2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 ...
@@ -720,7 +738,7 @@ Lösung
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">40</span>,</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Temperatur in °C"</span>,</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Anzahl Tage"</span>,</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogramm der Tagestemperaturen in Bern"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogramm der Tagestemperaturen in Bern"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -753,7 +771,7 @@ Lösung
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aggregate</span>(<span class="fu">cbind</span>(Temperatur.C., Bewoelkung.Achtel.) <span class="sc">~</span> Monat,</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> meteodaten_tag,</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">FUN =</span> mean,</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hinweis zur Funktion <code>cbind()</code>: <code>cbind()</code> fügt die Spalten <code>Bern_Temperatur</code> und <code>Bern_Bewoelkung</code> zusammen, um sie dann nach <code>Monat</code> zu gruppieren. Alternativ könnten wir die beiden Mittelwerte auch seperat berechnen und anschliessend mit einem <code>merge()</code> zusammenfügen.</p>
 <div class="cell">
@@ -767,7 +785,7 @@ Lösung
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>monatsmittel <span class="ot">&lt;-</span> <span class="fu">merge</span>(temp_mittel, bewoelkung_mittel,</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"Monat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"Monat"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -803,7 +821,7 @@ Lösung
 <span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">names.arg =</span> bewoelkung_mittel<span class="sc">$</span>Monat,</span>
 <span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Monat"</span>,</span>
 <span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Bewölkung in Achteln"</span>,</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Monatsmittel der Bewölkung in Bern"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Monatsmittel der Bewölkung in Bern"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -835,7 +853,7 @@ Lösung
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Frame filtern und in einem neuen Objekt speichern</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>meteodaten_tag_2000_2001 <span class="ot">&lt;-</span> meteodaten_tag[meteodaten_tag<span class="sc">$</span>Jahr <span class="sc">&gt;=</span> <span class="dv">2000</span> <span class="sc">&amp;</span> meteodaten_tag<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">2001</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>meteodaten_tag_2000_2001 <span class="ot">&lt;-</span> meteodaten_tag[meteodaten_tag<span class="sc">$</span>Jahr <span class="sc">&gt;=</span> <span class="dv">2000</span> <span class="sc">&amp;</span> meteodaten_tag<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">2001</span>, ]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -860,7 +878,7 @@ Lösung
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> meteodaten_tag_2000_2001,</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Temperatur in °C"</span>,</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Bewölkung in Achteln"</span>,</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Temperaturen in Bern 2000-2001 nach Bewölkung"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Temperaturen in Bern 2000-2001 nach Bewölkung"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -905,7 +923,7 @@ Lösung
 <span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>ergebnisse <span class="ot">&lt;-</span> <span class="fu">merge</span>(spannweite, varianz, <span class="at">by =</span> <span class="st">"Bewoelkung.Achtel."</span>)</span>
 <span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Ausgabe der Ergebnisse</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>ergebnisse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>ergebnisse</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Bewoelkung.Achtel. Spannweite  Varianz
 1                  0       24.3 52.71585
@@ -946,14 +964,14 @@ Lösung
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Bewölkungsärmster Monat</span></span>
 <span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>bewoelkung_min <span class="ot">&lt;-</span> bewoelkung_mittel[<span class="fu">which.min</span>(bewoelkung_mittel<span class="sc">$</span>Bewoelkung.Achtel.), ]</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>bewoelkung_min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>bewoelkung_min</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Monat Bewoelkung.Achtel.
 8     8           1.854839</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bewölkungsreichster Monat</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>bewoelkung_max <span class="ot">&lt;-</span> bewoelkung_mittel[<span class="fu">which.max</span>(bewoelkung_mittel<span class="sc">$</span>Bewoelkung.Achtel.), ]</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>bewoelkung_max</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>bewoelkung_max</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Monat Bewoelkung.Achtel.
 12    12           5.016129</code></pre>
@@ -964,6 +982,7 @@ Lösung
 </div>
 
 
+</section>
 </section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
@@ -1018,12 +1037,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Kopiert");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Kopiert");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -1415,7 +1434,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
 <p>Made with ❤️ by <a href="https://lukasbatschelet.ch/">Lukas Batschelet</a></p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/plots_in_R.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/plots_in_R.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p><a href="https://ko-fi.com/lukasbatschelet">☕️Buy me a coffee</a></p>
 </div>

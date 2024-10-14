@@ -1,3 +1,10 @@
+---
+title: Schlaufen und Funktionen
+author: "Lukas Batschelet"
+date: last-modified
+lang: de
+---
+
 # Schlaufen und Funktionen
 
 ## `if()` und `else()`

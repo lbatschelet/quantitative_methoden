@@ -1,3 +1,10 @@
+---
+title: Einfache Plots erstellen
+author: "Lukas Batschelet"
+date: last-modified
+lang: de
+---
+
 # Einfache Plots erstellen
 
 "High-level" Plots können in R mit der `plot()` Funktion erstellt werden. Diese Funktion erstellt automatisch für die gegebenen Daten ein (geeignetes) Diagramm.

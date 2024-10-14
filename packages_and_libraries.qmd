@@ -1,3 +1,10 @@
+---
+title: Packages und Libraries
+author: "Lukas Batschelet"
+date: last-modified
+lang: de
+---
+
 # Packages und Libraries
 
 In R gibt es ähnlich wie in Python und anderen Programmiersprachen die Möglichkeit, zusätzliche Funktionalitäten durch das Einbinden von Packages und Libraries zu nutzen. In R werden diese durch den Befehl `library()` eingebunden.
