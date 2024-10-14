@@ -380,7 +380,7 @@ dev.off()
 
 ## Übungen 3 {.unnumbered}
 
-### Klimadiagramm
+### 3.1 Klimadiagramm {.unnumbered}
 
 1. Ladet den Datensatz meteodaten_tag.csv nach dem Excel Export in R (ACHTUNG: NA-Werte sind sowohl mit'-’als auch mit'NA')kodiert, deshalb: `na.strings= c('-','NA'))`
 
@@ -475,7 +475,7 @@ barplot(bewoelkung_mittel$Bewoelkung.Achtel.,
 
 :::
 
-### Boxplots
+### 3.2 Boxplots {.unnumbered}
 
 1. Wählt den Zeitraum **200-2001** in den täglichen Daten.
 

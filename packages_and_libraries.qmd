@@ -117,13 +117,11 @@ gg_interaktiv
 
 ## Übungen {.unnumbered}
 
-### 3.4 R als GIS Ersatz
+### 3.4 R als GIS Ersatz {.unnumbered}
 
 1. Installiert das Paket `maps` und ladet es in R (z.B. `library(maps)`) Findet die x,y-Koordinaten von Bern und dem Gr. S. Bernhard heraus.
 
 
 
 2. Versucht eine Europakarte herzustellen und Bern und Gr. Bernhard als Punkte auf die Karte zu plotten und die Punkte mit Stationsnamen zu versehen
-
-
 
