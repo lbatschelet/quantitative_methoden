@@ -140,20 +140,11 @@ gross_bernhard_coords <- c(7.1761, 45.8689)
 ```{r}
 # Erstelle eine Europakarte
 map("world",
-    regions = c("Switzerland",
-                "France",
-                "Spain",
-                "Portugal",
-                "Belgium",
-                "Netherlands",
-                "Luxembourg",
-                "Germany",
-                "Italy",
-                "Austria"),
     xlim = c(-10, 20),
     ylim = c(35, 55),
     fill = TRUE,
     col = "lightgray")
+
 
 # Punkte auf der Karte plotten
 points(bern_coords[1],
