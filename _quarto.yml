@@ -14,11 +14,17 @@ book:
     right: |
       [☕️Buy me a coffee](https://www.buymeacoffee.com/lbatschelet)
   # cover-image: cover.jpg
-  # favicon: cover.jpg
+  favicon: code
   site-url: https://quanti.baets.ch/
   repo-url: https://github.com/lbatschelet/quantitative_methoden
+  issue-url: https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&labels=bug%2C+enhancement&projects=&template=bug_report.md&title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion
   repo-branch: main
   repo-actions: [edit, issue]
+  sidebar:
+    tools:
+      - icon: cup-hot-fill
+        href: https://www.buymeacoffee.com/lbatschelet
+        text: Buy me a coffee
   chapters:
     - index.qmd
     # - computer_basics_and_entry_to_R.qmd
