@@ -1,0 +1,308 @@
+# Computer Basics and R
+
+## Vektoren und Matrizen
+
+### Vektoren
+
+Vektoren sind eine der grundlegenden Datenstrukturen in R. Sie können mit der `c()` Funktion erstellt werden. Vektoren sind grundsätzlich ähnlich wie Objekte vom typ `list` in Python.
+
+```{r}
+# Vektor erstellen
+vectorA <- c(1, 2, 3, 4, 5)
+
+# Vektor ausgeben
+vectorA
+
+```
+
+#### Vektorlänge- und Indizes
+```{r}
+# Vektorlänge
+length(vectorA)
+
+# Vektorindexierung
+vectorA[1]
+
+# Vektor slicing
+vectorA[2:4]
+```
+
+#### Werte an Indizes ändern
+```{r}
+# ACHTUNG: R-Indizierung beginnt bei 1
+vectorA[1] <- 10  # Wert an Index 1 ändern
+
+vectorA
+```
+
+
+#### Vektoren addieren
+```{r}
+vectorB <- c(6, 7, 8, 9, 10)
+
+# Vektoren werden elementweise addiert
+vectorA + vectorB
+```
+
+#### Vektoren konkatenieren
+```{r}
+vectorC <- c(vectorA, vectorB)
+
+vectorC
+```
+
+#### Datentypen
+```{r}
+# Vektoren können auch andere Datentypen als Integers enthalten.
+vectorD <- c("a", "b", "c", "d", "e")
+
+vectorD
+
+# Vektoren können auch logische Werte enthalten
+vectorE <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+
+vectorE
+```
+
+#### Vergleichsoperationen
+```{r}
+# Vergleichsoperationen können auf Vektoren angewendet werden
+# Hier wird für jedes Element in vectorA geprüft, ob es größer oder gleich dem Wert 3 ist
+3 >= vectorA
+```
+
+### Matrizen
+
+Matrizen sind zweidimensionale Datenstrukturen in R. Sie können mit der `matrix()` Funktion erstellt werden.
+
+```{r}
+# Matrix erstellen
+matrixA <- matrix(1:12, nrow = 3, ncol = 4)
+
+# Matrix ausgeben
+matrixA
+
+# Bestimmte Elemente aus der Matrix auswählen
+
+# Erstes Element
+matrixA[1, 1]
+
+# Erste Zeile
+matrixA[1, ]
+
+# Erste Spalte
+matrixA[, 1]
+
+```
+
+
+
+
+```{r}
+saison <- read.csv('Data/meteodaten_saison.csv', sep = ',', header = TRUE)
+str(saison)
+head(saison)
+tail(saison)
+summary(saison)
+saison[1:10,]
+```
+
+## Rechnen mit R
+
+### Arithmetische Operationen
+
+#### Grundlegende Arithmetik
+```{r}
+5 + 2
+```
+
+#### Klammern
+```{r}
+# Gleiche Funktion wie sonst
+(5 + 2) * 3
+```
+
+#### Exponenenten
+```{r}
+# Exponenten
+2^3
+```
+
+#### Logarithmen
+```{r}
+# Logarithmen
+# Standardmäßig wird der natürliche Logarithmus verwendet
+log(100)
+
+# Logarithmus zur Basis 10
+log10(100)
+
+# Logarithmus zur Basis 2
+
+log2(100)
+
+# Logarithmus zur Basis 3
+
+log(100, base = 3)
+```
+
+
+
+## Übungen 1
+
+### Vektoren:
+
+Überlegt euch die erwarteten Lösungen vor dem Eintippen!
+
+
+```{r}
+x <-c(5,2,1,4)
+xx <-c(1,10,15,18)
+y <-rep(1,5)
+z <-c(TRUE,FALSE,TRUE,TRUE)
+
+# A
+sum (x)
+range(x)
+length(x)
+sum(x)
+
+# B
+c(x,y,13)
+
+# C
+x[4] * y[2]
+xx[2:4] + x[1:3]
+
+# D
+xx <= 12
+xx [xx <=12]
+
+# E
+plot(x,xx)
+plot(x[z],xx[z])
+```
+
+### Zahlenfolgen: Erzeugt mit den `rep` und `seq` Funktionen folgende Zahlenfolgen:
+
+a)  `1 2 3 4 5 6 7 8 9`
+
+b) `'m'  'w'  'm'  'w'  'm'  'w'`
+
+c)  `1 2 3 4 1 2 3 4 1 2 3 4`
+
+d) `1 2 2 3 3 3 4 4 4 4`
+
+
+```{r}
+#| code-fold: true
+#| code-summary: "Lösungen"
+
+# a)
+seq(1, 9)
+
+# b)
+rep(c('m', 'w'), times = 3)
+
+# c)
+rep(1:4, times = 3)
+
+# d)
+rep(1:4, 1:4)
+```
+
+
+### Einlesen von Daten:
+
+Lest die Datei ”meteodaten_saison.csv” in ein:
+
+```{r}
+# Relativer Pfad zur Datei
+saison <- read.csv('Data/meteodaten_saison.csv', sep = ',', header = TRUE)
+
+# Struktur der Daten anzeigen
+str(saison)
+
+# Daten filtern
+saison_winter <- subset(saison, saison[,2] == "Winter(DJF)")
+```
+
+### `apply()`
+
+```{r}
+# Mittelwerte über die Spalten 3 bis 6 berechnen
+apply(saison[3:6], 2, mean)
+```
+
+### `aggregate()`
+
+```{r}
+aggregate(saison[,3:6], list(saison[,2]), mean)
+```
+
+## Grafiken in R
+
+### `plot()`
+
+```{r}
+# Plot erstellen mit Achsenbeschriftungen und Linien
+plot(saison_winter[,1], saison_winter[,3], type = "l", xlab = "Jahr", ylab = "Durchschnittstemperatur", main = "Saisonale Durchschnittstemperaturen (Winter)", ylim = c(-15, 5))
+
+# Weitere Linien für andere Spalten hinzufügen
+lines(saison_winter[,1], saison_winter[,5], col = "blue")
+
+# Legende hinzufügen
+legend("bottomright", legend = c("Bern", "Gr. St. Bernhard"), col = c("black", "blue"), lty = 1)
+
+# Gestrichelte Horizontale Linie bei 0 hinzufügen
+abline(h = 0, lty = 2)
+
+# Trendlinie für Bern hinzufügen
+model_bern <- lm(saison_winter[,3] ~ saison_winter[,1]) # lineare Regression
+abline(model_bern, col = "black", lty = 2) # gestrichelte Linie für die Trendlinie
+
+# Trendlinie für Gr. St. Bernhard hinzufügen
+model_gr_bern <- lm(saison_winter[,5] ~ saison_winter[,1]) # lineare Regression
+abline(model_gr_bern, col = "blue", lty = 2) # gestrichelte Linie für die Trendlinie
+```
+
+
+### R-Übungen 2
+
+```{r}
+# Relativer Pfad zur Datei
+saison <- read.csv('Data/meteodaten_saison.csv', sep = ',', header = TRUE)
+
+# Struktur der Daten anzeigen
+str(saison)
+
+# Daten filtern
+saison_fruehling <- saison[saison[,2] == "Fruehling(MAM)",]
+saison_sommer <- saison[saison[,2] == "Sommer(JJA)",]
+saison_herbst <- saison[saison[,2] == "Herbst(SON)",]
+saison_winter <- subset(saison, saison[,2] == "Winter(DJF)")
+
+# Plot mit den Saisontemperaturen erstellen erstellen
+plot(saison_fruehling[,1], saison_fruehling[,3], type = "l", xlab = "Jahr", ylab = "Durchschnittstemperatur in °C", main = "Saisonale Durchschnittstemperaturen in Bern", xlim = c(1900, 2020), ylim = c(-5, 35))
+
+lines(saison_sommer[,1], saison_sommer[,3], col = "red")
+lines(saison_herbst[,1], saison_herbst[,3], col = "green")
+lines(saison_winter[,1], saison_winter[,3], col = "blue")
+
+# Gestrichelte Horizontale Linie bei 0 hinzufügen
+abline(h = 0, lty = 2)
+
+# Saisonale Mittelwertlinien hinzufügen
+# lty = 2 für gestrichelte Linie
+abline(h = mean(saison_fruehling[,3]), col = "black", lty = 2)
+abline(h = mean(saison_sommer[,3]), col = "red", lty = 2)
+abline(h = mean(saison_herbst[,3]), col = "green", lty = 2)
+abline(h = mean(saison_winter[,3]), col = "blue", lty = 2)
+
+# Legende ausserhalb des Plots hinzufügen
+# Legende außerhalb des Plots hinzufügen
+legend("topright", legend = c("Frühling", "Sommer", "Herbst", "Winter"), col = c("black", "red", "green", "blue"), lty = 1, xpd = TRUE)
+```
+
+
+

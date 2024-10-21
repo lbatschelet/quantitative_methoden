@@ -32,7 +32,10 @@ book:
     - plots_in_R.qmd
     - packages_and_libraries.qmd
     - loops_and_functions.qmd
+    - statistische-datenanalyse.qmd
     # - wichtige_funktionen.qmd
+  appendices:
+    - excercises/ex04.qmd
 
 
 format:

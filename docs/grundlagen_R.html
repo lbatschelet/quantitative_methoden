@@ -181,6 +181,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Schlaufen und Funktionen</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./statistische-datenanalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistische Datenanalyse</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./excercises/ex04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -650,9 +673,9 @@ Achtung
  $ Jahr                           : int  1901 1901 1901 1901 1902 1902 1902 1902 1903 1903 ...
  $ Saison                         : chr  "Fruehling(MAM)" "Herbst(SON)" "Sommer(JJA)" "Winter(DJF)" ...
  $ Bern_Mitteltemperatur          : num  7.73 7.4 16.8 -2.73 7.53 ...
- $ Bern_Niederschlagssumme        : num  92.6 81.6 127 37.5 107.7 ...
+ $ Bern_Niederschlagssumme        : num  278 245 381 112 323 ...
  $ GrStBernhard_Mitteltemperatur  : num  -4 -0.8 6.3 -10.6 -3.63 ...
- $ GrStBernhard_Niederschlagssumme: num  164.9 173.6 95.1 118.7 149.4 ...</code></pre>
+ $ GrStBernhard_Niederschlagssumme: num  495 521 285 356 448 ...</code></pre>
 </div>
 </div>
 </details>
@@ -664,19 +687,19 @@ Achtung
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(meteodaten)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Jahr         Saison Bern_Mitteltemperatur Bern_Niederschlagssumme
-1 1901 Fruehling(MAM)              7.733333                92.60000
-2 1901    Herbst(SON)              7.400000                81.63333
-3 1901    Sommer(JJA)             16.800000               127.03333
-4 1901    Winter(DJF)             -2.733333                37.46667
-5 1902 Fruehling(MAM)              7.533333               107.73333
-6 1902    Herbst(SON)              7.466667                77.23333
+1 1901 Fruehling(MAM)              7.733333                   277.8
+2 1901    Herbst(SON)              7.400000                   244.9
+3 1901    Sommer(JJA)             16.800000                   381.1
+4 1901    Winter(DJF)             -2.733333                   112.4
+5 1902 Fruehling(MAM)              7.533333                   323.2
+6 1902    Herbst(SON)              7.466667                   231.7
   GrStBernhard_Mitteltemperatur GrStBernhard_Niederschlagssumme
-1                     -4.000000                       164.90000
-2                     -0.800000                       173.60000
-3                      6.300000                        95.06667
-4                    -10.600000                       118.73333
-5                     -3.633333                       149.36667
-6                     -1.000000                       111.86667</code></pre>
+1                     -4.000000                           494.7
+2                     -0.800000                           520.8
+3                      6.300000                           285.2
+4                    -10.600000                           356.2
+5                     -3.633333                           448.1
+6                     -1.000000                           335.6</code></pre>
 </div>
 </div>
 </details>
@@ -688,19 +711,19 @@ Achtung
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(meteodaten)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Jahr         Saison Bern_Mitteltemperatur Bern_Niederschlagssumme
-487 2022    Sommer(JJA)             20.000000                79.43333
-488 2022    Winter(DJF)              2.233333                61.56667
-489 2023 Fruehling(MAM)              9.533333                90.83333
-490 2023    Herbst(SON)             11.966667               123.73333
-491 2023    Sommer(JJA)             20.000000                67.70000
-492 2023    Winter(DJF)              2.700000                77.70000
+487 2022    Sommer(JJA)             20.000000                   238.3
+488 2022    Winter(DJF)              2.233333                   184.7
+489 2023 Fruehling(MAM)              9.533333                   272.5
+490 2023    Herbst(SON)             11.966667                   371.2
+491 2023    Sommer(JJA)             20.000000                   203.1
+492 2023    Winter(DJF)              2.700000                   233.1
     GrStBernhard_Mitteltemperatur GrStBernhard_Niederschlagssumme
-487                     10.266667                        85.60000
-488                     -4.966667                        90.00000
-489                     -1.666667                       129.46667
-490                      2.966667                       184.43333
-491                      9.200000                        96.13333
-492                     -5.333333                        76.23333</code></pre>
+487                     10.266667                           256.8
+488                     -4.966667                           270.0
+489                     -1.666667                           388.4
+490                      2.966667                           553.3
+491                      9.200000                           288.4
+492                     -5.333333                           228.7</code></pre>
 </div>
 </div>
 </details>
@@ -719,19 +742,19 @@ Achtung
  3rd Qu.:1993                      3rd Qu.:12.750       
  Max.   :2023                      Max.   :21.100       
  Bern_Niederschlagssumme GrStBernhard_Mitteltemperatur
- Min.   : 15.97          Min.   :-11.2000             
- 1st Qu.: 61.89          1st Qu.: -5.1000             
- Median : 81.07          Median : -1.4000             
- Mean   : 84.42          Mean   : -0.9232             
- 3rd Qu.:102.95          3rd Qu.:  3.2750             
- Max.   :200.03          Max.   : 10.5333             
+ Min.   : 47.9           Min.   :-11.2000             
+ 1st Qu.:185.7           1st Qu.: -5.1000             
+ Median :243.2           Median : -1.4000             
+ Mean   :253.3           Mean   : -0.9232             
+ 3rd Qu.:308.9           3rd Qu.:  3.2750             
+ Max.   :600.1           Max.   : 10.5333             
  GrStBernhard_Niederschlagssumme
- Min.   : 41.97                 
- 1st Qu.:127.68                 
- Median :163.83                 
- Mean   :171.29                 
- 3rd Qu.:206.39                 
- Max.   :450.53                 </code></pre>
+ Min.   : 125.9                 
+ 1st Qu.: 383.1                 
+ Median : 491.5                 
+ Mean   : 513.9                 
+ 3rd Qu.: 619.2                 
+ Max.   :1351.6                 </code></pre>
 </div>
 </div>
 </details>
@@ -743,27 +766,27 @@ Achtung
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>meteodaten[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,] <span class="co"># Ersten 10 Zeilen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Jahr         Saison Bern_Mitteltemperatur Bern_Niederschlagssumme
-1  1901 Fruehling(MAM)              7.733333                92.60000
-2  1901    Herbst(SON)              7.400000                81.63333
-3  1901    Sommer(JJA)             16.800000               127.03333
-4  1901    Winter(DJF)             -2.733333                37.46667
-5  1902 Fruehling(MAM)              7.533333               107.73333
-6  1902    Herbst(SON)              7.466667                77.23333
-7  1902    Sommer(JJA)             16.466667                98.63333
-8  1902    Winter(DJF)             -0.800000                64.63333
-9  1903 Fruehling(MAM)              7.433333                59.20000
-10 1903    Herbst(SON)              8.766667                89.10000
+1  1901 Fruehling(MAM)              7.733333                   277.8
+2  1901    Herbst(SON)              7.400000                   244.9
+3  1901    Sommer(JJA)             16.800000                   381.1
+4  1901    Winter(DJF)             -2.733333                   112.4
+5  1902 Fruehling(MAM)              7.533333                   323.2
+6  1902    Herbst(SON)              7.466667                   231.7
+7  1902    Sommer(JJA)             16.466667                   295.9
+8  1902    Winter(DJF)             -0.800000                   193.9
+9  1903 Fruehling(MAM)              7.433333                   177.6
+10 1903    Herbst(SON)              8.766667                   267.3
    GrStBernhard_Mitteltemperatur GrStBernhard_Niederschlagssumme
-1                     -4.0000000                       164.90000
-2                     -0.8000000                       173.60000
-3                      6.3000000                        95.06667
-4                    -10.6000000                       118.73333
-5                     -3.6333333                       149.36667
-6                     -1.0000000                       111.86667
-7                      5.3000000                        80.90000
-8                     -7.4000000                       113.73333
-9                     -4.4666667                       136.56667
-10                    -0.4666667                       169.03333</code></pre>
+1                     -4.0000000                           494.7
+2                     -0.8000000                           520.8
+3                      6.3000000                           285.2
+4                    -10.6000000                           356.2
+5                     -3.6333333                           448.1
+6                     -1.0000000                           335.6
+7                      5.3000000                           242.7
+8                     -7.4000000                           341.2
+9                     -4.4666667                           409.7
+10                    -0.4666667                           507.1</code></pre>
 </div>
 </div>
 </details>

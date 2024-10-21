@@ -1,0 +1,80 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Arbeite mit den saisonalen Meteodaten, die wir im R-Kurs eingelesen haben saison = read.table("/.../meteodaten_saison.csv", sep=",", header=T))
+```{r}
+saison = read.table(".../meteodaten_saison_semi.csv", sep=";", header=T)
+```
+
+
+1. Ihr möchtet die mittlere Jahresniederschlagssumme und die mittlere Jahrestemperatur sowie deren Varianz von Jahr zu Jahr bestimmen, um die Klimabedingungen in Bern zu beschreiben. 
+
+Um die richtigen Kennzahlen (Mittelwert, Median, Modus, etc.)  zu wählen, müssen wir die Verteilung der Daten kennen. Erstellt ein Histogramm der Jahresmitteltemperaturen und -niederschlag:
+
+```{r}
+jahr = aggregate(...)
+hist(...)
+```
+
+Sind die Verteilungen in den Histogrammen symetrisch oder schief und warum vermutet ihr, dass dies so ist?
+EURE ANTWORT:
+???
+
+
+2. Welche Kennzahlen zur Beschreibung des Mittels und der Streuung kommen aufgrund den Verteilung und Skala der Daten in Frage?
+
+EURE ANTWORT:
+???
+
+
+3. Berechne Mittelwert, Median, Spannweite und Standardabweichung des jährlichen Temperaturen in Bern und schaue dir zusätzlich die Ausgabe der summary() Funktion von R an.
+
+```{r}
+mean(...
+...
+```
+
+Ist der Unterschied zwischen Mittelwert und Median so wie es aus der Verteilung zu erwarten war? 
+
+EURE ANTWORT:
+???
+
+4. Konvertiere die Spalte mit den Niederschlagssummen in Bern in Klassen, die jeweils 100 mm umfassen (Tipp: z.B. mit round() Funktion für Klassen: <50mm, 50-150mm, 150-250mm, ...)
+Erstelle die Kontingenztabelle für die Anzahl der Regensummen in den 100 mm Klassen in den vier Jahreszeiten (table() Funktion)
+
+                  0 100 200 300 400 500 600
+  Fruehling(MAM)  ?  ?   ?   ?   ?   ?   ?
+  Herbst(SON)     ?  ?   ?   ?   ?   ?   ?
+  Sommer(JJA)     ?  ?   ?   ?   ?   ?   ?
+  Winter(DJF)     ?  ?   ?   ?   ?   ?   ?
+
+Kontingenztabelle mit R erstellen
+```{r}
+str(saison)
+prec_class <- round(...
+table(...
+```
+
+
+4. Visualisiert die Erwärmungstrend der Station Bern mit einem Liniendiagramm, indem du die Jahresmitteltemperatur darstellst und die 31-jährige Gleitende Mittel (auch "running mean" genannt z.B. mit der Funktion "runmean()" aus der Bibliothek "caTools") hinzufügst.
+
+```{r}
+library(caTools)
+plot(...
+```
+
+
+Erstelle zusätzlich zwei Abbildungen der Temperaturanomalien wie hier https://www.meteoschweiz.admin.ch/klima/klimawandel.html und https://www.meteoschweiz.admin.ch/service-und-publikationen/applikationen/ext/climate-evolution-series-public.html): 
+
+```{r}
+anom <- ...
+barplot(...,col=ifelse(...)
+```
+
+Based on code: https://www.r-bloggers.com/2018/12/how-to-create-warming-stripes-in-r/
+```{r}
+
+```
+
