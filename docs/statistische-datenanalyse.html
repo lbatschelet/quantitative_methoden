@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./excercises/ex04.html" rel="next">
+<link href="./verteilungen.html" rel="next">
 <link href="./loops_and_functions.html" rel="prev">
 <link href="./code" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -213,6 +213,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./statistische-datenanalyse.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistische Datenanalyse</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./verteilungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Verteilungen</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -446,7 +452,7 @@ s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>population_sd <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((population <span class="sc">-</span> <span class="fu">mean</span>(population))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="dv">100000</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(population_sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 10.00257</code></pre>
+<pre><code>[1] 10.00364</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Eine Stichprobe aus der Grundgesamtheit ziehen</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">sample</span>(population, <span class="dv">30</span>)</span>
@@ -457,11 +463,11 @@ s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sample_sd_n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 8.812552</code></pre>
+<pre><code>[1] 9.094032</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sample_sd_n_minus_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 8.963205</code></pre>
+<pre><code>[1] 9.249496</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Viele Stichproben ziehen und die Standardabweichung berechnen</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sample_sd_n_list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"numeric"</span>, <span class="dv">1000</span>)</span>
@@ -479,11 +485,11 @@ s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mean_sd_n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.754878</code></pre>
+<pre><code>[1] 9.726885</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mean_sd_n_minus_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.92164</code></pre>
+<pre><code>[1] 9.893169</code></pre>
 </div>
 </div>
 </section>
@@ -923,8 +929,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./excercises/ex04.html" class="pagination-link" aria-label="Übung 4: Deskriptive Statistik und Visualisierung">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./verteilungen.html" class="pagination-link" aria-label="Verteilungen">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Verteilungen</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

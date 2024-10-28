@@ -62,7 +62,6 @@ hist(jahresdaten$Bern_Niederschlagssumme,
 
 Beide Verteilungen sind ungefähr symmetrisch, da die Daten in der Mitte des Bereichs konzentriert sind und die Verteilung nach links und rechts ungefähr gleich ist. Dies ist aber mit so "wenigen" Daten nicht wirklich aussagekräftig. Das macht aber bei der Art der Daten Sinn, da die Temperatur und Niederschlagssumme in der Regel normalverteilt sind.
 
-
 ### Kennzahlen
 Welche Kennzahlen zur Beschreibung des Mittels und der Streuung kommen aufgrund den Verteilung und Skala der Daten in Frage?
 
@@ -78,6 +77,7 @@ print(mean_temp_bern)
 median_temp_bern <- median(jahresdaten$Bern_Mitteltemperatur)
 print(median_temp_bern)
 range_temp_bern <- diff(range(jahresdaten$Bern_Mitteltemperatur))
+range(jahresdaten$Bern_Mitteltemperatur)
 print(range_temp_bern)
 sd_temp_bern <- sd(jahresdaten$Bern_Mitteltemperatur)
 print(sd_temp_bern)
@@ -115,7 +115,19 @@ meteodaten$Niederschlag_klassen <- cut(
   include.lowest = TRUE,
   right = FALSE
 )
+```
 
+Die Einteilung liesse sich auch einfacher machen, aber etwas weniger hübsch...
+
+```{r}
+#| eval: false
+# Klassen für Niederschlagssummen in 100-mm-Schritten erstellen
+meteodaten$Niederschlag_klassen <-
+            round(meteodaten$Bern_Niederschlagssumme/100)*100
+```
+Wir arbeiten weiter mit der ersten Lösung.
+
+```{r}
 # 2. Erstelle eine Kontingenztabelle
 kontingenz_tabelle <- table(
   meteodaten$Saison,
@@ -160,20 +172,23 @@ Erstelle zusätzlich zwei Abbildungen der Temperaturanomalien wie [hier](https:/
 
 ```{r}
 #| label: warming_stripes
-#| fig-cap: Warming Stripes im vergleich zur Referenzperiode 1961-1990
+#| fig-cap: Warming Stripes im vergleich zur Referenzperiode 1961-1990. [Nach R-Bloggers](https://www.r-bloggers.com/2018/12/how-to-create-warming-stripes-in-r/)
+# Bibliothek
 # Bibliothek
 library(ggplot2)
 
 # Berechnung der Abweichung der Mitteltemperatur von der Referenzperiode 1961-1990
 jahresdaten$Abweichung <- jahresdaten$Bern_Mitteltemperatur - mean(jahresdaten$Bern_Mitteltemperatur[jahresdaten$Jahr >= 1961 & jahresdaten$Jahr <= 1990])
 
-
-# Erstelle die "Warming Stripes"
+# Erstelle die "Warming Stripes" mit Legende
 ggplot(jahresdaten, aes(x = Jahr, y = 1, fill = Abweichung)) +
   geom_tile() +
-  scale_fill_gradientn(colours = c("blue", "lightblue", "white", "orange", "red", "darkred")) +
+  scale_fill_gradientn(
+    colours = c("blue", "lightblue", "white", "orange", "red", "darkred"),
+    name = "Temperaturabweichung (°C)"
+  ) +
   theme_void() +  # Entfernt Achsen, Titel etc.
-  theme(legend.position = "none") +
+  theme(legend.position = "bottom", legend.title = element_text(size = 10)) +
   labs(title = "Schweizer Temperatur seit 1864")
 ```
 
@@ -181,7 +196,7 @@ ggplot(jahresdaten, aes(x = Jahr, y = 1, fill = Abweichung)) +
 
 ```{r}
 #| label: barplot
-#| fig-cap: Barplot der Temperaturanomalien zur Vergleichsperiode 1961–1990. [Nach R-Bloggers](https://www.r-bloggers.com/2018/12/how-to-create-warming-stripes-in-r/)
+#| fig-cap: Barplot der Temperaturanomalien zur Vergleichsperiode 1961–1990.
 # Bibliotheken
 library(ggplot2)
 
