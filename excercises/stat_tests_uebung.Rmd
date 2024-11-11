@@ -1,0 +1,188 @@
+---
+title: "Verteilungen und Tests"
+output: html_notebook
+---
+
+# Verteilungen
+
+Erstellt mit R das Histogramm und die Verteilungsfunktion des Sommer-Niederschlags am Grossen St. Bernhard (Datei mit Saison-Mittelwerten). Tipp: In R kann die empirische Verteilungsfunktion mit der Funktion ecdf() erzeugt werden.
+
+```{r}
+meteodaten <- read.csv('../Data/meteodaten_saison.csv',
+                       sep = ',',
+                       header = TRUE)
+
+# Zeichne das Histogramm mit absoluter Häufigkeit
+hist(meteodaten$GrStBernhard_Niederschlagssumme, 
+     main = "Histogramm und Empirische Verteilungsfunktion",
+     xlab = "Niederschlagssumme (mm)",
+     ylab = "Häufigkeit",
+     col = "lightblue",
+     freq = TRUE)  # Zeigt absolute Häufigkeit
+
+# Füge die empirische Verteilungsfunktion hinzu
+par(new = TRUE)  # Erlaube das Zeichnen eines neuen Plots auf der bestehenden Grafik
+plot(ecdf(meteodaten$GrStBernhard_Niederschlagssumme), 
+     axes = FALSE,  # Deaktiviere Achsen für den zweiten Plot
+     xlab = "", 
+     ylab = "",
+     main = "",  # Kein Titel, um Überlappung zu vermeiden
+     col = "red", 
+     lwd = 2,
+     pch = NA)  # Entfernt die Punkte auf der Linie
+
+# Füge die rechte y-Achse hinzu
+axis(4, col = "red", col.axis = "red")  # 4 steht für die rechte Seite
+mtext("F(x)", side = 4, line = 3, col = "red")  # Beschriftung der rechten y-Achse
+```
+
+Lies aus dem Plot der Verteilungsfunktion ungefähr ab, welcher Niederschlag in 20% der Jahre überschritten wird?
+ANTWORT: ???
+
+```{r}
+# Zeichne das Histogramm mit absoluter Häufigkeit
+hist(meteodaten$GrStBernhard_Niederschlagssumme, 
+     main = "Histogramm und Empirische Verteilungsfunktion",
+     xlab = "Niederschlagssumme (mm)",
+     ylab = "Häufigkeit",
+     col = "lightblue",
+     freq = TRUE)  # Zeigt absolute Häufigkeit
+
+# Füge die empirische Verteilungsfunktion hinzu
+par(new = TRUE)  # Erlaube das Zeichnen eines neuen Plots auf der bestehenden Grafik
+plot(ecdf(meteodaten$GrStBernhard_Niederschlagssumme), 
+     axes = FALSE,  # Deaktiviere Achsen für den zweiten Plot
+     xlab = "", 
+     ylab = "",
+     main = "",  # Kein Titel, um Überlappung zu vermeiden
+     col = "red", 
+     lwd = 2,
+     pch = NA)  # Entfernt die Punkte auf der Linie
+
+# Berechne den Wert, bei dem die Verteilungsfunktion 80% überschreitet
+niederschlag_80 <- quantile(meteodaten$GrStBernhard_Niederschlagssumme, 0.8)
+
+# Füge die rechte y-Achse hinzu
+axis(4, col = "red", col.axis = "red")  # 4 steht für die rechte Seite
+mtext("F(x)", side = 4, line = 3, col = "red")  # Beschriftung der rechten y-Achse
+
+# Zeichne eine vertikale Linie bei 80%
+abline(v = niederschlag_80, col = "blue", lty = 2)  # Vertikale Linie bei 80%-Quantil hinzufügen
+text(niederschlag_80, 0.5, paste("80%:", round(niederschlag_80, 1), "mm"), col = "blue", pos = 4)
+
+# Zeichne eine horizontale gestrichelte Linie bei 80%
+abline(h = 0.8, col = "blue", lty = 2)
+```
+
+
+
+
+# Statistische Tests mit Psychologieexperiment 
+
+Daten einlesen 
+```{r}
+psychologieExperiment <- read.table('../Data/Psycho_Exp_Ergebnisse2_2024-10-28.csv',
+                                    sep = ',',
+                                    header = TRUE,
+                                    na.strings = '999')
+
+# Spalten im DataFrame umbenennen
+colnames(psychologieExperiment) <- c(
+  "Gefuehl_Vor_SelberGutesTun",
+  "Gefuehl_Nach_SelberGutesTun",
+  "Gefuehl_Vor_AnderenGutesTun",
+  "Gefuehl_Nach_AnderenGutesTun"
+)
+```
+
+
+Gehen wir mal davon aus, dass die Mittelwerte interpretierbar seien. (Nächste Woche lernen wir weitere Test für Verteilungen kennen und Test, wenn die Normalverteilung nicht gegeben ist.) Dann könnten wir untersuchen, wie stark sich die Mittelwerte vor und nach dem Experiment unterscheiden und ob die Unterschiede statistisch signifikant sind. 
+
+Stellt  nunzunächst die Null- und Alternativhypothesen für beide Experimente (1. sich selber und 2. anderen etwas gutes tun) auf, ob etwas Gutes tun sich auf das Wohlbefinden auswirkt.
+
+H0: Die beiden Mittelwerte sind gleich
+HA: Jemandem oder uns selbst etwas Gutes zu tun, hat einen (positiven) Einfluss auf das Wohlbefinden
+
+Erstelle einen Boxplot, um die Verteilung der Daten anzusehen und einen ersten Eindruck zu erhalten
+```{r}
+boxplot(psychologieExperiment,
+        main = "Boxplot der Gefühle vor und nach dem Experiment",
+        ylab = "Gefühle",
+        col = c("lightblue", "lightgreen"),
+        names = c("Gefühl, vor dem man sich selbst etwas Gutes tut",
+                  "Gefühl, nach dem man sich selbst etwas Gutes tut",
+                  "Gefühl, vor dem man jemand anderem etwas Gutes tut",
+                  "Gefühl, nach dem man jemand anderem etwas Gutes tut"),
+        las = 2)
+```
+
+
+Berechne wie gross die Unterschiede der Mittelwerte sind?
+```{r}
+DiffSelberGutesTun <- mean(psychologieExperiment$Gefuehl_Nach_SelberGutesTun, 
+                           na.rm = TRUE) -
+                      mean(psychologieExperiment$Gefuehl_Vor_SelberGutesTun, 
+                           na.rm = TRUE)
+print(DiffSelberGutesTun)
+
+DiffAnderenGutesTun <- mean(psychologieExperiment$Gefuehl_Nach_AnderenGutesTun, 
+                            na.rm = TRUE) - 
+                       mean(psychologieExperiment$Gefuehl_Vor_AnderenGutesTun, 
+                            na.rm = TRUE)
+print(DiffAnderenGutesTun)
+```
+Interpretiere die Unterschiede!
+ANTWORT: Beide Effekte sind positiv. Fast identisch grosse Effekte.
+
+
+Führe nun einen 2-Stichproben T-Test mit R durch. Schau dir mit der Hilfe unter ?t.test die Parameter der t.test Funktion in R an. Wähle entsprechend einen ein- oder zweiseitigen Test, das Konfidenzlevel mit 99% und gehe davon aus, dass die Varianzen beider Stichproben gleich sind. Recherchiere, ob es sich um abhängige oder unabhängige Stichproben handelt. Gibt den entsprechenden Parameter bei der Nutzung der t.test Funktion an.   
+
+```{r}
+t.test(psychologieExperiment$Gefuehl_Nach_SelberGutesTun,
+       psychologieExperiment$Gefuehl_Vor_SelberGutesTun, 
+       alternative = "greater", 
+       paired = TRUE, 
+       equal.var = TRUE, 
+       conf.level = 0.99)
+t.test(psychologieExperiment$Gefuehl_Nach_AnderenGutesTun,
+       psychologieExperiment$Gefuehl_Vor_AnderenGutesTun, 
+       alternative = "greater", 
+       paired = TRUE, 
+       equal.var = TRUE, 
+       conf.level = 0.99)
+```
+Interpretiere die Ausgabe des Tests (Konfidenzintervalle besprechen wir nächste Woche).
+ANTWORT: ???
+
+
+Ihr könntest mit einem gleichen t-Test auch testen, ob der Effekt beider Experimente gleich gross ist, d.h. wirkt es sich gleich oder unterschiedlich auf das Befinden aus, ob man sich selbst oder anderen etwas Gutes tut. Wie würdet ihr hierfür vorgehen?
+
+1. Hypothesen aufstellen
+H0: Ob ich anderen oder mir selber tue underscheidet sich nicht in der Auswirkung auf mein Wohlbefinden.
+HA: Ob ich anderen oder mir selber tue unterscheidet sich in der Auswirkung auf mein Wohlbefinden.
+
+2. Berechnungen
+```{r}
+DiffAuswirkung <- DiffSelberGutesTun - DiffAnderenGutesTun
+print(DiffAuswirkung)
+```
+
+3. t-Test
+```{r}
+t.test(psychologieExperiment$Gefuehl_Nach_SelberGutesTun -
+         psychologieExperiment$Gefuehl_Vor_SelberGutesTun,
+       psychologieExperiment$Gefuehl_Nach_AnderenGutesTun -
+         psychologieExperiment$Gefuehl_Vor_AnderenGutesTun, 
+       alternative = "greater", 
+       paired = TRUE, 
+       equal.var = TRUE, 
+       conf.level = 0.99)
+```
+
+4. Interpretation aller ausgegebenen Ergebnisse der R t-test() Funktion.
+ANTWORT: Mit dem t-Wert von ca. 0.5 und einem p-Wert von ca. 0.3 können wir die Nullhypothese nicht ablehnen. Es gibt keinen signifikanten Unterschied zwischen den beiden Experimenten.
+
+
+
+
+

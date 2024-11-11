@@ -1,0 +1,53 @@
+# Statistische Tests
+
+Statistische Tests sind essenziell, um Hypothesen über Daten zu überprüfen. Sie ermöglichen es Forschenden, fundierte Aussagen darüber zu treffen, ob beobachtete Muster zufällig oder signifikant sind. Dieser Abschnitt erklärt grundlegende Konzepte wie p-Werte, t-Tests, Konfidenzintervalle und Hypothesen.
+
+### Hypothesen
+
+Eine Hypothese ist eine testbare Aussage über eine Population. In der Statistik gibt es zwei Hauptarten von Hypothesen:
+
+- **Nullhypothese (H₀)**: Sie postuliert, dass es keinen Effekt oder Unterschied gibt. Zum Beispiel könnte H₀ aussagen, dass es keinen Unterschied zwischen den Mittelwerten zweier Gruppen gibt.
+- **Alternativhypothese (H₁)**: Diese Hypothese widerspricht der Nullhypothese und postuliert, dass es einen Effekt oder Unterschied gibt.
+
+Statistische Tests werden durchgeführt, um zu entscheiden, ob die Nullhypothese abgelehnt werden kann, basierend auf den Daten und einem vorgegebenen Signifikanzniveau (z. B. 0,05).
+
+### p-Werte
+
+Der p-Wert gibt an, wie wahrscheinlich es ist, ein mindestens so extremes Ergebnis wie das beobachtete zu erhalten, wenn die Nullhypothese wahr ist. Ein kleiner p-Wert (typischerweise < 0,05) weist darauf hin, dass die Daten unwahrscheinlich unter der Nullhypothese sind und diese abgelehnt werden könnte.
+
+**Wichtige Punkte**:
+
+- Ein p-Wert von 0,03 bedeutet, dass es eine 3%-ige Wahrscheinlichkeit gibt, ein solches Ergebnis zu beobachten, wenn H₀ wahr ist.
+- Der p-Wert ist keine direkte Wahrscheinlichkeit dafür, dass H₀ wahr oder falsch ist.
+
+### t-Test
+
+Der t-Test wird verwendet, um zu prüfen, ob der Mittelwert einer Gruppe sich signifikant von dem einer anderen unterscheidet. Es gibt verschiedene Varianten des t-Tests:
+
+- **Unabhängiger t-Test**: Vergleicht die Mittelwerte zweier unabhängiger Gruppen.
+- **Gepaarter t-Test**: Vergleicht Mittelwerte von Daten, die paarweise verbunden sind (z. B. Vorher-Nachher-Vergleiche derselben Personen).
+
+Der t-Wert ist eine Teststatistik, die die Differenz zwischen den Mittelwerten in Einheiten des Standardfehlers angibt. Ein größerer t-Wert weist auf eine größere Abweichung von der Nullhypothese hin.
+
+### Konfidenzintervalle
+
+Ein Konfidenzintervall ist ein Bereich von Werten, der den wahren Wert eines Parameters mit einer bestimmten Wahrscheinlichkeit enthält. Ein 95%-Konfidenzintervall bedeutet, dass der wahre Parameterwert mit 95%-iger Wahrscheinlichkeit innerhalb dieses Intervalls liegt.
+
+**Wichtige Punkte**:
+
+- Ein 95%-Konfidenzintervall für den Mittelwert von 10 bis 20 zeigt, dass der wahre Mittelwert in 95 von 100 Stichproben innerhalb dieses Bereichs liegt.
+- Das Konfidenzintervall beschreibt die Präzision der Schätzung, nicht die Wahrscheinlichkeit, dass ein bestimmter Wert in diesem Bereich liegt.
+
+### Weitere Statistische Tests
+
+#### Chi-Quadrat-Test
+
+Dieser Test wird verwendet, um zu prüfen, ob ein beobachteter Unterschied zwischen erwarteten und tatsächlichen Häufigkeiten signifikant ist. Er ist besonders nützlich bei kategorialen Daten.
+
+#### ANOVA (Analyse der Varianz)
+
+Die ANOVA vergleicht die Mittelwerte von drei oder mehr Gruppen, um festzustellen, ob mindestens ein Mittelwert signifikant unterschiedlich ist.
+
+#### Regressionstests
+
+Diese Tests analysieren die Beziehung zwischen einer abhängigen Variable und einer oder mehreren unabhängigen Variablen. Sie helfen, Vorhersagen zu treffen und den Einfluss der Prädiktoren zu bestimmen.

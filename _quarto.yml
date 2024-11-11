@@ -34,9 +34,11 @@ book:
     - loops_and_functions.qmd
     - statistische-datenanalyse.qmd
     - verteilungen.qmd
+    - statistische-tests.qmd
     # - wichtige_funktionen.qmd
   appendices:
-    - excercises/ex04.qmd
+    - excercises/deskriptive-statistik.qmd
+    - excercises/verteilungen-und-tests.qmd
 
 
 format:

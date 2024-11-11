@@ -1,0 +1,235 @@
+---
+title: "Tests Teil 2"
+output: html_notebook
+---
+
+# Chi^2 Verteilungstest zu Würfelexperiment
+
+```{r}
+# Daten einlesen
+wuerfel_daten <- read.table(
+  "../Data/alle_wuerfel.csv", 
+  sep = ",", 
+  header = TRUE
+)
+
+# Initialisierung eines Vektors für p-Werte
+p_werte <- rep(NA, 4)
+
+# Schleife durch die relevanten Spalten (Spalten 5 bis 32)
+for (spalte in 5:32) {
+  # Durchführung des Chi-Quadrat-Tests
+  chi_quadrat_test <- chisq.test(x = wuerfel_daten[, spalte], 
+                                 p = wuerfel_daten[, 3])  # Erwartete Wahrscheinlichkeiten in Spalte 3
+  
+  # p-Wert speichern
+  p_werte <- c(p_werte, chi_quadrat_test$p.value)
+  
+  # Barplot für absolute Häufigkeiten
+  barplot(
+    wuerfel_daten[, 4], 
+    names.arg = wuerfel_daten[, 1], 
+    col = "grey", 
+    ylim = c(0, 15), 
+    main = colnames(wuerfel_daten)[spalte]
+  )
+  
+  # Neuen Plot für die Vergleichsdaten auf derselben Grafik
+  par(new = TRUE)
+  barplot(
+    wuerfel_daten[, spalte], 
+    col = rgb(1, 0, 0, 0.5, maxColorValue = 1), 
+    ylim = c(0, 15)
+  )
+  
+  # Legende hinzufügen, die den p-Wert anzeigt
+  legend(
+    "topleft", 
+    paste("p-Wert:", round(chi_quadrat_test$p.value, 2), 
+          ifelse(chi_quadrat_test$p.value < 0.05, "erfunden", 
+                 ifelse(
+                   chi_quadrat_test$p.value > 0.9, 
+                      "wahrscheinlich erfunden", 
+                      "gewürfelt")
+                 )
+          )
+  )
+  
+  # Anhalten für visuelle Überprüfung
+  # cat("Drücke Enter, um fortzufahren...") 
+  # readline()
+}
+
+# Ergebniszeilen für die Interpretation der p-Werte hinzufügen
+interpretation <- ifelse(
+  p_werte < 0.05 | p_werte > 0.9,
+  "erfunden", "gewürfelt"
+)
+
+# p-Werte und die neue Interpretation an den DataFrame anhängen
+wuerfel_daten <- rbind(
+  wuerfel_daten, 
+  p_werte, 
+  interpretation
+)
+
+# Überarbeiteter DataFrame mit neuen Zeilen für p-Werte und ihre Interpretation
+```
+
+
+# Psychologie Experiment
+
+Daten einlesen 
+```{r}
+psychologieExperiment <- read.table(
+  '../Data/Psycho_Exp_Ergebnisse2_2024-10-28.csv',
+  sep = ',',
+  header = TRUE,
+  na.strings = '999'
+)
+
+# Spalten im DataFrame umbenennen
+colnames(psychologieExperiment) <- c(
+  "Gefuehl_Vor_SelberGutesTun",
+  "Gefuehl_Nach_SelberGutesTun",
+  "Gefuehl_Vor_AnderenGutesTun",
+  "Gefuehl_Nach_AnderenGutesTun"
+)
+```
+
+Erstelle sogenannte QQ Plots und führe den Shapiro Test auf Normalverteilung durch 
+```{r}
+# QQ-Plots für die vier Spalten erstellen
+
+qqnorm(psychologieExperiment$Gefuehl_Vor_SelberGutesTun)
+qqline(psychologieExperiment$Gefuehl_Vor_SelberGutesTun)
+
+qqnorm(psychologieExperiment$Gefuehl_Nach_SelberGutesTun)
+qqline(psychologieExperiment$Gefuehl_Nach_SelberGutesTun)
+
+qqnorm(psychologieExperiment$Gefuehl_Vor_AnderenGutesTun)
+qqline(psychologieExperiment$Gefuehl_Vor_AnderenGutesTun)
+
+qqnorm(psychologieExperiment$Gefuehl_Nach_AnderenGutesTun)
+qqline(psychologieExperiment$Gefuehl_Nach_AnderenGutesTun)
+
+# Shapiro-Wilk-Test für die Normalverteilung durchführen
+shapiro_test_vor_selber <- shapiro.test(psychologieExperiment$Gefuehl_Vor_SelberGutesTun)
+shapiro_test_nach_selber <- shapiro.test(psychologieExperiment$Gefuehl_Nach_SelberGutesTun)
+shapiro_test_vor_anderen <- shapiro.test(psychologieExperiment$Gefuehl_Vor_AnderenGutesTun)
+shapiro_test_nach_anderen <- shapiro.test(psychologieExperiment$Gefuehl_Nach_AnderenGutesTun)
+
+# Shapiro-Wilk-Testergebnisse ausgeben
+shapiro_test_vor_selber
+shapiro_test_nach_selber
+shapiro_test_vor_anderen
+shapiro_test_nach_anderen
+```
+Sind alle Daten normalverteilt?
+
+Die Ergebnisse des Shapiro-Wilk-Tests zeigen, dass der p-Wert für alle vier Variablen unter 0.05 liegt:
+
+- Gefühl Vor Selber Gutes Tun: p-Wert = `{r} shapiro_test_vor_selber$p.value`
+- Gefühl Nach Selber Gutes Tun: p-Wert = `{r} shapiro_test_nach_selber$p.value`
+- Gefühl Vor Anderen Gutes Tun: p-Wert = `{r} shapiro_test_vor_anderen$p.value`
+- Gefühl Nach Anderen Gutes Tun: p-Wert = `{r} shapiro_test_nach_anderen$p.value`
+
+Da alle p-Werte unter 0.05 liegen, können wir die Nullhypothese der Normalverteilung für alle Variablen ablehnen.
+
+Antwort: Nein, die Daten sind nicht normalverteilt.
+
+Beim t-Test hatten wir Gleichheit der Varianzen angenommen. Testet hier, ob diese Annahme korrekt war?
+```{r}
+
+library(car)  # Für den Levene-Test
+
+# Levene-Test für Gleichheit der Varianzen
+levene_test_result <- leveneTest(
+  c(psychologieExperiment$Gefuehl_Nach_SelberGutesTun, psychologieExperiment$Gefuehl_Vor_SelberGutesTun),
+  group = rep(c("Nach", "Vor"), each = nrow(psychologieExperiment))
+)
+
+# Ausgabe des Testergebnisses
+levene_test_result
+```
+ANTWORT: 
+
+Die Ausgabe des Levene-Tests zeigt Folgendes:
+
+```{r}
+levene_test_result$`Pr(>F)`[1]
+```
+
+- p-Wert des Levene-Tests: `{r} levene_test_result$`Pr(>F)`[1]`
+
+Interpretation:
+
+Der p-Wert ist deutlich grösser als 0.05, was darauf hindeutet, dass die Nullhypothese der Gleichheit der Varianzen nicht abgelehnt wird. Das bedeutet, dass es keinen statistisch signifikanten Unterschied in den Varianzen der Gruppen gibt.
+
+Antwort: Ja, die Annahme der Gleichheit der Varianzen beim t-Test war korrekt.
+
+Wie stark verändert sich der Median in den beiden Experimenten von Bevor zu Danach?
+
+```{r}
+# Berechnung der Mediane für die Bedingungen
+median_vor_selber <- median(psychologieExperiment$Gefuehl_Vor_SelberGutesTun, na.rm = TRUE)
+median_nach_selber <- median(psychologieExperiment$Gefuehl_Nach_SelberGutesTun, na.rm = TRUE)
+median_vor_anderen <- median(psychologieExperiment$Gefuehl_Vor_AnderenGutesTun, na.rm = TRUE)
+median_nach_anderen <- median(psychologieExperiment$Gefuehl_Nach_AnderenGutesTun, na.rm = TRUE)
+
+# Berechnung der Veränderungen der Mediane
+diff_median_selber <- median_nach_selber - median_vor_selber
+diff_median_anderen <- median_nach_anderen - median_vor_anderen
+
+# Ausgabe der Ergebnisse
+cat("Veränderung des Medians für Selber Gutes Tun:", diff_median_selber, "\n")
+cat("Veränderung des Medians für Anderen Gutes Tun:", diff_median_anderen, "\n")
+```
+ANTWORT: 
+
+
+Suche mit Entscheidungsbäumen, Chatbots, Internetsuche, etc. welcher statistische Test sich zum Vergleich der zentralen Tendenz dieser Daten eignet?
+ANTWORT: Wilcoxon-Vorzeichen-Rang-Test. Dieser vergleicht die Mediane von zwei abhängigen Stichproben. 
+
+
+Parameterfreier Tests, d.h. unabhängig von Verteilung der Daten
+```{r}
+# Wilcoxon-Vorzeichen-Rang-Tests für beide Experimente
+wilcox_test_selber <- wilcox.test(
+  psychologieExperiment$Gefuehl_Vor_SelberGutesTun, 
+  psychologieExperiment$Gefuehl_Nach_SelberGutesTun, 
+  paired = TRUE
+)
+
+wilcox_test_anderen <- wilcox.test(
+  psychologieExperiment$Gefuehl_Vor_AnderenGutesTun, 
+  psychologieExperiment$Gefuehl_Nach_AnderenGutesTun, 
+  paired = TRUE
+)
+
+# Ausgabe der Testergebnisse
+wilcox_test_selber
+wilcox_test_anderen
+
+```
+Wie interpretierst du die Tests?
+
+### Interpretation der Warnungen und Testergebnisse:
+
+#### Testergebnisse:
+- **Wilcoxon-Test für Selber Gutes Tun**:
+  - **V-Wert**: `{r} wilcox_test_selber$statistic`
+  - **p-Wert**: `{r} wilcox_test_selber$p.value`
+  
+Der p-Wert ist viel kleiner als 0.05, was bedeutet, dass die Veränderung der Mediane statistisch signifikant ist. Die Nullhypothese (kein Unterschied der zentralen Tendenz) kann abgelehnt werden, was darauf hinweist, dass das Experiment „Selber Gutes Tun“ eine signifikante Veränderung im Median bewirkt hat.
+
+- **Wilcoxon-Test für Anderen Gutes Tun**:
+  - **V-Wert**: `{r} wilcox_test_anderen$statistic`
+  - **p-Wert**: `{r} wilcox_test_anderen$p.value`
+
+Auch hier ist der p-Wert viel kleiner als 0.05. Die Nullhypothese kann abgelehnt werden, was zeigt, dass auch das Experiment „Anderen Gutes Tun“ eine signifikante Veränderung im Median bewirkt hat.
+
+### Gesamtfazit:
+Beide Experimente zeigen eine signifikante Veränderung der Mediane von „Bevor“ zu „Danach“. Die zentralen Tendenzen sind in beiden Fällen signifikant unterschiedlich. Dies unterstützt die Schlussfolgerung, dass die Handlung, sich selbst oder anderen etwas Gutes zu tun, eine positive Wirkung auf die Bewertung des Gefühls hat.
+
+

@@ -1,0 +1,421 @@
+# Übung 5 & 6: Verteilungen und Tests
+
+Erstellt mit R das Histogramm und die Verteilungsfunktion des Sommer-Niederschlags am Grossen St. Bernhard (Datei mit Saison-Mittelwerten). Tipp: In R kann die empirische Verteilungsfunktion mit der Funktion ecdf() erzeugt werden.
+
+```{r}
+meteodaten <- read.csv('../Data/meteodaten_saison.csv',
+                       sep = ',',
+                       header = TRUE)
+
+# Zeichne das Histogramm mit absoluter Häufigkeit
+hist(meteodaten$GrStBernhard_Niederschlagssumme,
+     main = "Histogramm und Empirische Verteilungsfunktion",
+     xlab = "Niederschlagssumme (mm)",
+     ylab = "Häufigkeit",
+     col = "lightblue",
+     freq = TRUE)  # Zeigt absolute Häufigkeit
+
+# Füge die empirische Verteilungsfunktion hinzu
+par(new = TRUE)  # Erlaube das Zeichnen eines neuen Plots auf der bestehenden Grafik
+plot(ecdf(meteodaten$GrStBernhard_Niederschlagssumme),
+     axes = FALSE,  # Deaktiviere Achsen für den zweiten Plot
+     xlab = "",
+     ylab = "",
+     main = "",  # Kein Titel, um Überlappung zu vermeiden
+     col = "red",
+     lwd = 2,
+     pch = NA)  # Entfernt die Punkte auf der Linie
+
+# Füge die rechte y-Achse hinzu
+axis(4, col = "red", col.axis = "red")  # 4 steht für die rechte Seite
+mtext("F(x)", side = 4, line = 3, col = "red")  # Beschriftung der rechten y-Achse
+```
+
+Lies aus dem Plot der Verteilungsfunktion ungefähr ab, welcher Niederschlag in 20% der Jahre überschritten wird?
+
+
+```{r}
+# Zeichne das Histogramm mit absoluter Häufigkeit
+hist(meteodaten$GrStBernhard_Niederschlagssumme,
+     main = "Histogramm und Empirische Verteilungsfunktion",
+     xlab = "Niederschlagssumme (mm)",
+     ylab = "Häufigkeit",
+     col = "lightblue",
+     freq = TRUE)  # Zeigt absolute Häufigkeit
+
+# Füge die empirische Verteilungsfunktion hinzu
+par(new = TRUE)  # Erlaube das Zeichnen eines neuen Plots auf der bestehenden Grafik
+plot(ecdf(meteodaten$GrStBernhard_Niederschlagssumme),
+     axes = FALSE,  # Deaktiviere Achsen für den zweiten Plot
+     xlab = "",
+     ylab = "",
+     main = "",  # Kein Titel, um Überlappung zu vermeiden
+     col = "red",
+     lwd = 2,
+     pch = NA)  # Entfernt die Punkte auf der Linie
+
+# Berechne den Wert, bei dem die Verteilungsfunktion 80% überschreitet
+niederschlag_80 <- quantile(meteodaten$GrStBernhard_Niederschlagssumme, 0.8)
+
+# Füge die rechte y-Achse hinzu
+axis(4, col = "red", col.axis = "red")  # 4 steht für die rechte Seite
+mtext("F(x)", side = 4, line = 3, col = "red")  # Beschriftung der rechten y-Achse
+
+# Zeichne eine vertikale Linie bei 80%
+abline(v = niederschlag_80, col = "blue", lty = 2)  # Vertikale Linie bei 80%-Quantil hinzufügen
+text(niederschlag_80, 0.5, paste("80%:", round(niederschlag_80, 1), "mm"), col = "blue", pos = 4)
+
+# Zeichne eine horizontale gestrichelte Linie bei 80%
+abline(h = 0.8, col = "blue", lty = 2)
+```
+
+ANTWORT: Die Niederschlagssumme, die in 20% der Jahre überschritten wird, beträgt `{r}  round(niederschlag_80, 1)` mm.
+
+
+## Statistische Tests mit Psychologieexperiment
+
+Daten einlesen
+
+```{r}
+psychologieExperiment <- read.table('../Data/Psycho_Exp_Ergebnisse2_2024-10-28.csv',
+                                    sep = ',',
+                                    header = TRUE,
+                                    na.strings = '999')
+
+# Spalten im DataFrame umbenennen (kürzere und schönere Namen)
+colnames(psychologieExperiment) <- c(
+  "Gefuehl_Vor_SelberGutesTun",
+  "Gefuehl_Nach_SelberGutesTun",
+  "Gefuehl_Vor_AnderenGutesTun",
+  "Gefuehl_Nach_AnderenGutesTun")
+```
+
+Gehen wir mal davon aus, dass die Mittelwerte interpretierbar seien. (Nächste Woche lernen wir weitere Test für Verteilungen kennen und Test, wenn die Normalverteilung nicht gegeben ist.) Dann könnten wir untersuchen, wie stark sich die Mittelwerte vor und nach dem Experiment unterscheiden und ob die Unterschiede statistisch signifikant sind.
+
+Stellt nun zunächst die Null- und Alternativhypothesen für beide Experimente (1. sich selber und 2. anderen etwas gutes tun) auf, ob etwas Gutes tun sich auf das Wohlbefinden auswirkt.
+
+**H~0~**: Die beiden Mittelwerte sind gleich
+
+**H~A~**: Jemandem oder uns selbst etwas Gutes zu tun, hat einen (positiven) Einfluss auf das Wohlbefinden
+
+Erstelle einen Boxplot, um die Verteilung der Daten anzusehen und einen ersten Eindruck zu erhalten
+
+```{r}
+boxplot(psychologieExperiment,
+        main = "Boxplot der Gefühle vor und nach dem Experiment",
+        ylab = "Gefühle",
+        col = c("lightblue", "lightgreen"),
+        names = c("Gefühl, vor dem man sich selbst etwas Gutes tut",
+                  "Gefühl, nach dem man sich selbst etwas Gutes tut",
+                  "Gefühl, vor dem man jemand anderem etwas Gutes tut",
+                  "Gefühl, nach dem man jemand anderem etwas Gutes tut"),
+        las = 2)
+```
+
+Berechne wie gross die Unterschiede der Mittelwerte sind?
+
+```{r}
+DiffSelberGutesTun <- mean(psychologieExperiment$Gefuehl_Nach_SelberGutesTun,
+                           na.rm = TRUE) -
+                      mean(psychologieExperiment$Gefuehl_Vor_SelberGutesTun,
+                           na.rm = TRUE)
+print(DiffSelberGutesTun)
+
+DiffAnderenGutesTun <- mean(psychologieExperiment$Gefuehl_Nach_AnderenGutesTun,
+                            na.rm = TRUE) -
+                       mean(psychologieExperiment$Gefuehl_Vor_AnderenGutesTun,
+                            na.rm = TRUE)
+print(DiffAnderenGutesTun)
+```
+Interpretiere die Unterschiede!
+
+ANTWORT: Beide Effekte sind positiv. Fast identisch grosse Effekte.
+
+
+Führe nun einen 2-Stichproben T-Test mit R durch. Schau dir mit der Hilfe unter ?t.test die Parameter der t.test Funktion in R an. Wähle entsprechend einen ein- oder zweiseitigen Test, das Konfidenzlevel mit 99% und gehe davon aus, dass die Varianzen beider Stichproben gleich sind. Recherchiere, ob es sich um abhängige oder unabhängige Stichproben handelt. Gibt den entsprechenden Parameter bei der Nutzung der t.test Funktion an.
+
+```{r}
+t.test(psychologieExperiment$Gefuehl_Nach_SelberGutesTun,
+       psychologieExperiment$Gefuehl_Vor_SelberGutesTun,
+       alternative = "greater",
+       paired = TRUE,
+       equal.var = TRUE,
+       conf.level = 0.99)
+t.test(psychologieExperiment$Gefuehl_Nach_AnderenGutesTun,
+       psychologieExperiment$Gefuehl_Vor_AnderenGutesTun,
+       alternative = "greater",
+       paired = TRUE,
+       equal.var = TRUE,
+       conf.level = 0.99)
+```
+
+Interpretiere die Ausgabe des Tests (Konfidenzintervalle besprechen wir nächste Woche).
+
+
+ANTWORT:
+
+Ihr könntest mit einem gleichen t-Test auch testen, ob der Effekt beider Experimente gleich gross ist, d.h. wirkt es sich gleich oder unterschiedlich auf das Befinden aus, ob man sich selbst oder anderen etwas Gutes tut. Wie würdet ihr hierfür vorgehen?
+
+1. Hypothesen aufstellen
+
+H~0~: Ob ich anderen oder mir selber tue underscheidet sich nicht in der Auswirkung auf mein Wohlbefinden.
+
+H~A~: Ob ich anderen oder mir selber tue unterscheidet sich in der Auswirkung auf mein Wohlbefinden.
+
+2. Berechnungen
+```{r}
+DiffAuswirkung <- DiffSelberGutesTun - DiffAnderenGutesTun
+print(DiffAuswirkung)
+```
+
+3. t-Test
+```{r}
+t.test(psychologieExperiment$Gefuehl_Nach_SelberGutesTun -
+         psychologieExperiment$Gefuehl_Vor_SelberGutesTun,
+       psychologieExperiment$Gefuehl_Nach_AnderenGutesTun -
+         psychologieExperiment$Gefuehl_Vor_AnderenGutesTun,
+       alternative = "greater",
+       paired = TRUE,
+       equal.var = TRUE,
+       conf.level = 0.99)
+```
+
+4. Interpretation aller ausgegebenen Ergebnisse der R t-test() Funktion.
+
+ANTWORT:
+
+Mit dem t-Wert von ca. 0.5 und einem p-Wert von ca. 0.3 können wir die Nullhypothese nicht ablehnen. Es gibt keinen statistisch signifikanten Unterschied zwischen den beiden Experimenten.
+
+## Chi^2 Verteilungstest zu Würfelexperiment
+
+```{r}
+# Daten einlesen
+wuerfel_daten <- read.table(
+  "../Data/alle_wuerfel.csv",
+  sep = ",",
+  header = TRUE
+)
+
+# Initialisierung eines Vektors für p-Werte
+p_werte <- rep(NA, 4)
+
+# Schleife durch die relevanten Spalten (Spalten 5 bis 32)
+for (spalte in 5:32) {
+  # Durchführung des Chi-Quadrat-Tests
+  chi_quadrat_test <- chisq.test(x = wuerfel_daten[, spalte],
+                                 p = wuerfel_daten[, 3])  # Erwartete Wahrscheinlichkeiten in Spalte 3
+
+  # p-Wert speichern
+  p_werte <- c(p_werte, chi_quadrat_test$p.value)
+
+  # Barplot für absolute Häufigkeiten
+  barplot(
+    wuerfel_daten[, 4],
+    names.arg = wuerfel_daten[, 1],
+    col = "grey",
+    ylim = c(0, 15),
+    main = colnames(wuerfel_daten)[spalte]
+  )
+
+  # Neuen Plot für die Vergleichsdaten auf derselben Grafik
+  par(new = TRUE)
+  barplot(
+    wuerfel_daten[, spalte],
+    col = rgb(1, 0, 0, 0.5, maxColorValue = 1),
+    ylim = c(0, 15)
+  )
+
+  # Legende hinzufügen, die den p-Wert anzeigt
+  legend(
+    "topleft",
+    paste("p-Wert:", round(chi_quadrat_test$p.value, 2),
+          ifelse(chi_quadrat_test$p.value < 0.05, "erfunden",
+                 ifelse(
+                   chi_quadrat_test$p.value > 0.9,
+                      "wahrscheinlich erfunden",
+                      "gewürfelt")
+                 )
+          )
+  )
+
+  # Anhalten für visuelle Überprüfung
+  # cat("Drücke Enter, um fortzufahren...")
+  # readline()
+}
+
+# Ergebniszeilen für die Interpretation der p-Werte hinzufügen
+interpretation <- ifelse(
+  p_werte < 0.05 | p_werte > 0.9,
+  "erfunden", "gewürfelt"
+)
+
+# p-Werte und die neue Interpretation an den DataFrame anhängen
+wuerfel_daten <- rbind(
+  wuerfel_daten,
+  p_werte,
+  interpretation
+)
+
+# Überarbeiteter DataFrame mit neuen Zeilen für p-Werte und ihre Interpretation
+```
+
+
+## Psychologie Experiment
+
+Daten einlesen
+```{r}
+psychologieExperiment <- read.table(
+  '../Data/Psycho_Exp_Ergebnisse2_2024-10-28.csv',
+  sep = ',',
+  header = TRUE,
+  na.strings = '999'
+)
+
+# Spalten im DataFrame umbenennen
+colnames(psychologieExperiment) <- c(
+  "Gefuehl_Vor_SelberGutesTun",
+  "Gefuehl_Nach_SelberGutesTun",
+  "Gefuehl_Vor_AnderenGutesTun",
+  "Gefuehl_Nach_AnderenGutesTun"
+)
+```
+
+Erstelle sogenannte QQ Plots und führe den Shapiro Test auf Normalverteilung durch
+```{r}
+# QQ-Plots für die vier Spalten erstellen
+
+qqnorm(psychologieExperiment$Gefuehl_Vor_SelberGutesTun)
+qqline(psychologieExperiment$Gefuehl_Vor_SelberGutesTun)
+
+qqnorm(psychologieExperiment$Gefuehl_Nach_SelberGutesTun)
+qqline(psychologieExperiment$Gefuehl_Nach_SelberGutesTun)
+
+qqnorm(psychologieExperiment$Gefuehl_Vor_AnderenGutesTun)
+qqline(psychologieExperiment$Gefuehl_Vor_AnderenGutesTun)
+
+qqnorm(psychologieExperiment$Gefuehl_Nach_AnderenGutesTun)
+qqline(psychologieExperiment$Gefuehl_Nach_AnderenGutesTun)
+
+# Shapiro-Wilk-Test für die Normalverteilung durchführen
+shapiro_test_vor_selber <- shapiro.test(psychologieExperiment$Gefuehl_Vor_SelberGutesTun)
+shapiro_test_nach_selber <- shapiro.test(psychologieExperiment$Gefuehl_Nach_SelberGutesTun)
+shapiro_test_vor_anderen <- shapiro.test(psychologieExperiment$Gefuehl_Vor_AnderenGutesTun)
+shapiro_test_nach_anderen <- shapiro.test(psychologieExperiment$Gefuehl_Nach_AnderenGutesTun)
+
+# Shapiro-Wilk-Testergebnisse ausgeben
+shapiro_test_vor_selber
+shapiro_test_nach_selber
+shapiro_test_vor_anderen
+shapiro_test_nach_anderen
+```
+Sind alle Daten normalverteilt?
+
+Die Ergebnisse des Shapiro-Wilk-Tests zeigen, dass der p-Wert für alle vier Variablen unter 0.05 liegt:
+
+- Gefühl Vor Selber Gutes Tun: p-Wert = `{r} shapiro_test_vor_selber$p.value`
+- Gefühl Nach Selber Gutes Tun: p-Wert = `{r} shapiro_test_nach_selber$p.value`
+- Gefühl Vor Anderen Gutes Tun: p-Wert = `{r} shapiro_test_vor_anderen$p.value`
+- Gefühl Nach Anderen Gutes Tun: p-Wert = `{r} shapiro_test_nach_anderen$p.value`
+
+Da alle p-Werte unter 0.05 liegen, können wir die Nullhypothese der Normalverteilung für alle Variablen ablehnen.
+
+Antwort: Nein, die Daten sind nicht normalverteilt.
+
+Beim t-Test hatten wir Gleichheit der Varianzen angenommen. Testet hier, ob diese Annahme korrekt war?
+```{r}
+
+library(car)  # Für den Levene-Test
+
+# Levene-Test für Gleichheit der Varianzen
+levene_test_result <- leveneTest(
+  c(psychologieExperiment$Gefuehl_Nach_SelberGutesTun, psychologieExperiment$Gefuehl_Vor_SelberGutesTun),
+  group = rep(c("Nach", "Vor"), each = nrow(psychologieExperiment))
+)
+
+# Ausgabe des Testergebnisses
+
+print(levene_test_result)
+
+pWertLevene <- levene_test_result$`Pr(>F)`[1]
+```
+ANTWORT:
+
+Die Ausgabe des Levene-Tests zeigt Folgendes:
+
+- p-Wert des Levene-Tests: `{r} pWertLevene`
+
+Interpretation:
+
+Der p-Wert ist deutlich grösser als 0.05, was darauf hindeutet, dass die Nullhypothese der Gleichheit der Varianzen nicht abgelehnt wird. Das bedeutet, dass es keinen statistisch signifikanten Unterschied in den Varianzen der Gruppen gibt.
+
+Antwort: Ja, die Annahme der Gleichheit der Varianzen beim t-Test war korrekt.
+
+Wie stark verändert sich der Median in den beiden Experimenten von Bevor zu Danach?
+
+```{r}
+# Berechnung der Mediane für die Bedingungen
+median_vor_selber <- median(psychologieExperiment$Gefuehl_Vor_SelberGutesTun, na.rm = TRUE)
+median_nach_selber <- median(psychologieExperiment$Gefuehl_Nach_SelberGutesTun, na.rm = TRUE)
+median_vor_anderen <- median(psychologieExperiment$Gefuehl_Vor_AnderenGutesTun, na.rm = TRUE)
+median_nach_anderen <- median(psychologieExperiment$Gefuehl_Nach_AnderenGutesTun, na.rm = TRUE)
+
+# Berechnung der Veränderungen der Mediane
+diff_median_selber <- median_nach_selber - median_vor_selber
+diff_median_anderen <- median_nach_anderen - median_vor_anderen
+
+# Ausgabe der Ergebnisse
+cat("Veränderung des Medians für Selber Gutes Tun:", diff_median_selber, "\n")
+cat("Veränderung des Medians für Anderen Gutes Tun:", diff_median_anderen, "\n")
+```
+ANTWORT:
+
+
+Suche mit Entscheidungsbäumen, Chatbots, Internetsuche, etc. welcher statistische Test sich zum Vergleich der zentralen Tendenz dieser Daten eignet?
+ANTWORT: Wilcoxon-Vorzeichen-Rang-Test. Dieser vergleicht die Mediane von zwei abhängigen Stichproben.
+
+
+Parameterfreier Tests, d.h. unabhängig von Verteilung der Daten
+```{r}
+# Wilcoxon-Vorzeichen-Rang-Tests für beide Experimente
+wilcox_test_selber <- wilcox.test(
+  psychologieExperiment$Gefuehl_Vor_SelberGutesTun,
+  psychologieExperiment$Gefuehl_Nach_SelberGutesTun,
+  paired = TRUE
+)
+
+wilcox_test_anderen <- wilcox.test(
+  psychologieExperiment$Gefuehl_Vor_AnderenGutesTun,
+  psychologieExperiment$Gefuehl_Nach_AnderenGutesTun,
+  paired = TRUE
+)
+
+# Ausgabe der Testergebnisse
+wilcox_test_selber
+wilcox_test_anderen
+
+```
+Wie interpretierst du die Tests?
+
+### Interpretation der Warnungen und Testergebnisse:
+
+#### Testergebnisse:
+- **Wilcoxon-Test für Selber Gutes Tun**:
+    - **V-Wert**: `{r} wilcox_test_selber$statistic`
+    - **p-Wert**: `{r} wilcox_test_selber$p.value`
+
+Der p-Wert ist viel kleiner als 0.05, was bedeutet, dass die Veränderung der Mediane statistisch signifikant ist. Die Nullhypothese (kein Unterschied der zentralen Tendenz) kann abgelehnt werden, was darauf hinweist, dass das Experiment „Selber Gutes Tun“ eine signifikante Veränderung im Median bewirkt hat.
+
+- **Wilcoxon-Test für Anderen Gutes Tun**:
+    - **V-Wert**: `{r} wilcox_test_anderen$statistic`
+    - **p-Wert**: `{r} wilcox_test_anderen$p.value`
+
+Auch hier ist der p-Wert viel kleiner als 0.05. Die Nullhypothese kann abgelehnt werden, was zeigt, dass auch das Experiment „Anderen Gutes Tun“ eine signifikante Veränderung im Median bewirkt hat.
+
+### Gesamtfazit:
+Beide Experimente zeigen eine signifikante Veränderung der Mediane von „Bevor“ zu „Danach“. Die zentralen Tendenzen sind in beiden Fällen signifikant unterschiedlich. Dies unterstützt die Schlussfolgerung, dass die Handlung, sich selbst oder anderen etwas Gutes zu tun, eine positive Wirkung auf die Bewertung des Gefühls hat.
+
+
+
+
+
+
