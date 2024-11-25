@@ -37,6 +37,7 @@ book:
     - statistische-tests.qmd
     # - wichtige_funktionen.qmd
   appendices:
+    - excercises/ex01.qmd
     - excercises/deskriptive-statistik.qmd
     - excercises/verteilungen-und-tests.qmd
 

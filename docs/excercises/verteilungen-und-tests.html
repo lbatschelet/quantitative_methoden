@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Appendix C — Übung 5 &amp; 6: Verteilungen und Tests – Quantitative Methoden</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../excercises/deskriptive-statistik.html" rel="prev">
+<link href="../code" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../excercises/ex01.html">Appendices</a></li><li class="breadcrumb-item"><a href="../excercises/verteilungen-und-tests.html"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Übung 5 &amp; 6: Verteilungen und Tests</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Quantitative Methoden</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://ko-fi.com/lukasbatschelet" title="Buy me a coffee" class="quarto-navigation-tool px-1" aria-label="Buy me a coffee"><i class="bi bi-cup-hot-fill"></i></a>
+    <a href="https://github.com/lbatschelet/quantitative_methoden" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Übersicht</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../grundlagen_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../plots_in_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../packages_and_libraries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages und Libraries</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../loops_and_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Schlaufen und Funktionen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statistische-datenanalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistische Datenanalyse</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../verteilungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Verteilungen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statistische-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistische Tests</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../excercises/ex01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Übung 1: Grundlagen R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../excercises/deskriptive-statistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../excercises/verteilungen-und-tests.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Übung 5 &amp; 6: Verteilungen und Tests</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#statistische-tests-mit-psychologieexperiment" id="toc-statistische-tests-mit-psychologieexperiment" class="nav-link active" data-scroll-target="#statistische-tests-mit-psychologieexperiment"><span class="header-section-number">C.1</span> Statistische Tests mit Psychologieexperiment</a></li>
+  <li><a href="#chi2-verteilungstest-zu-würfelexperiment" id="toc-chi2-verteilungstest-zu-würfelexperiment" class="nav-link" data-scroll-target="#chi2-verteilungstest-zu-würfelexperiment"><span class="header-section-number">C.2</span> Chi^2 Verteilungstest zu Würfelexperiment</a></li>
+  <li><a href="#psychologie-experiment" id="toc-psychologie-experiment" class="nav-link" data-scroll-target="#psychologie-experiment"><span class="header-section-number">C.3</span> Psychologie Experiment</a>
+  <ul class="collapse">
+  <li><a href="#interpretation-der-warnungen-und-testergebnisse" id="toc-interpretation-der-warnungen-und-testergebnisse" class="nav-link" data-scroll-target="#interpretation-der-warnungen-und-testergebnisse"><span class="header-section-number">C.3.1</span> Interpretation der Warnungen und Testergebnisse:</a></li>
+  <li><a href="#gesamtfazit" id="toc-gesamtfazit" class="nav-link" data-scroll-target="#gesamtfazit"><span class="header-section-number">C.3.2</span> Gesamtfazit:</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/excercises/verteilungen-und-tests.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../excercises/ex01.html">Appendices</a></li><li class="breadcrumb-item"><a href="../excercises/verteilungen-und-tests.html"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Übung 5 &amp; 6: Verteilungen und Tests</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Appendix C — Übung 5 &amp; 6: Verteilungen und Tests</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Erstellt mit R das Histogramm und die Verteilungsfunktion des Sommer-Niederschlags am Grossen St.&nbsp;Bernhard (Datei mit Saison-Mittelwerten). Tipp: In R kann die empirische Verteilungsfunktion mit der Funktion ecdf() erzeugt werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>meteodaten <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../Data/meteodaten_saison.csv'</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">sep =</span> <span class="st">','</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeichne das Histogramm mit absoluter Häufigkeit</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(meteodaten<span class="sc">$</span>GrStBernhard_Niederschlagssumme,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogramm und Empirische Verteilungsfunktion"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Niederschlagssumme (mm)"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Häufigkeit"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"lightblue"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">freq =</span> <span class="cn">TRUE</span>)  <span class="co"># Zeigt absolute Häufigkeit</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Füge die empirische Verteilungsfunktion hinzu</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">new =</span> <span class="cn">TRUE</span>)  <span class="co"># Erlaube das Zeichnen eines neuen Plots auf der bestehenden Grafik</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(meteodaten<span class="sc">$</span>GrStBernhard_Niederschlagssumme),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">FALSE</span>,  <span class="co"># Deaktiviere Achsen für den zweiten Plot</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">""</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">""</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">""</span>,  <span class="co"># Kein Titel, um Überlappung zu vermeiden</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"red"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="cn">NA</span>)  <span class="co"># Entfernt die Punkte auf der Linie</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Füge die rechte y-Achse hinzu</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">4</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)  <span class="co"># 4 steht für die rechte Seite</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"F(x)"</span>, <span class="at">side =</span> <span class="dv">4</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"red"</span>)  <span class="co"># Beschriftung der rechten y-Achse</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Lies aus dem Plot der Verteilungsfunktion ungefähr ab, welcher Niederschlag in 20% der Jahre überschritten wird?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeichne das Histogramm mit absoluter Häufigkeit</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(meteodaten<span class="sc">$</span>GrStBernhard_Niederschlagssumme,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogramm und Empirische Verteilungsfunktion"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Niederschlagssumme (mm)"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Häufigkeit"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"lightblue"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">freq =</span> <span class="cn">TRUE</span>)  <span class="co"># Zeigt absolute Häufigkeit</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Füge die empirische Verteilungsfunktion hinzu</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">new =</span> <span class="cn">TRUE</span>)  <span class="co"># Erlaube das Zeichnen eines neuen Plots auf der bestehenden Grafik</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(meteodaten<span class="sc">$</span>GrStBernhard_Niederschlagssumme),</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">FALSE</span>,  <span class="co"># Deaktiviere Achsen für den zweiten Plot</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">""</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">""</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">""</span>,  <span class="co"># Kein Titel, um Überlappung zu vermeiden</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"red"</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="cn">NA</span>)  <span class="co"># Entfernt die Punkte auf der Linie</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechne den Wert, bei dem die Verteilungsfunktion 80% überschreitet</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>niederschlag_80 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(meteodaten<span class="sc">$</span>GrStBernhard_Niederschlagssumme, <span class="fl">0.8</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Füge die rechte y-Achse hinzu</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">4</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)  <span class="co"># 4 steht für die rechte Seite</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"F(x)"</span>, <span class="at">side =</span> <span class="dv">4</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"red"</span>)  <span class="co"># Beschriftung der rechten y-Achse</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeichne eine vertikale Linie bei 80%</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> niederschlag_80, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)  <span class="co"># Vertikale Linie bei 80%-Quantil hinzufügen</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(niederschlag_80, <span class="fl">0.5</span>, <span class="fu">paste</span>(<span class="st">"80%:"</span>, <span class="fu">round</span>(niederschlag_80, <span class="dv">1</span>), <span class="st">"mm"</span>), <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">pos =</span> <span class="dv">4</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeichne eine horizontale gestrichelte Linie bei 80%</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.8</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>ANTWORT: Die Niederschlagssumme, die in 20% der Jahre überschritten wird, beträgt 647.2 mm.</p>
+<section id="statistische-tests-mit-psychologieexperiment" class="level2" data-number="C.1">
+<h2 data-number="C.1" class="anchored" data-anchor-id="statistische-tests-mit-psychologieexperiment"><span class="header-section-number">C.1</span> Statistische Tests mit Psychologieexperiment</h2>
+<p>Daten einlesen</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>psychologieExperiment <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">'../Data/Psycho_Exp_Ergebnisse2_2024-10-28.csv'</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">sep =</span> <span class="st">','</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">na.strings =</span> <span class="st">'999'</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Spalten im DataFrame umbenennen (kürzere und schönere Namen)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(psychologieExperiment) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Gefuehl_Vor_SelberGutesTun"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Gefuehl_Nach_SelberGutesTun"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Gefuehl_Vor_AnderenGutesTun"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Gefuehl_Nach_AnderenGutesTun"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Gehen wir mal davon aus, dass die Mittelwerte interpretierbar seien. (Nächste Woche lernen wir weitere Test für Verteilungen kennen und Test, wenn die Normalverteilung nicht gegeben ist.) Dann könnten wir untersuchen, wie stark sich die Mittelwerte vor und nach dem Experiment unterscheiden und ob die Unterschiede statistisch signifikant sind.</p>
+<p>Stellt nun zunächst die Null- und Alternativhypothesen für beide Experimente (1. sich selber und 2. anderen etwas gutes tun) auf, ob etwas Gutes tun sich auf das Wohlbefinden auswirkt.</p>
+<p><strong>H<sub>0</sub></strong>: Die beiden Mittelwerte sind gleich</p>
+<p><strong>H<sub>A</sub></strong>: Jemandem oder uns selbst etwas Gutes zu tun, hat einen (positiven) Einfluss auf das Wohlbefinden</p>
+<p>Erstelle einen Boxplot, um die Verteilung der Daten anzusehen und einen ersten Eindruck zu erhalten</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(psychologieExperiment,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Boxplot der Gefühle vor und nach dem Experiment"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Gefühle"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"lightblue"</span>, <span class="st">"lightgreen"</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"Gefühl, vor dem man sich selbst etwas Gutes tut"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Gefühl, nach dem man sich selbst etwas Gutes tut"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Gefühl, vor dem man jemand anderem etwas Gutes tut"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Gefühl, nach dem man jemand anderem etwas Gutes tut"</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">las =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Berechne wie gross die Unterschiede der Mittelwerte sind?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>DiffSelberGutesTun <span class="ot">&lt;-</span> <span class="fu">mean</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_SelberGutesTun,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">mean</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_SelberGutesTun,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(DiffSelberGutesTun)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.027027</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>DiffAnderenGutesTun <span class="ot">&lt;-</span> <span class="fu">mean</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_AnderenGutesTun,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">mean</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_AnderenGutesTun,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(DiffAnderenGutesTun)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.918919</code></pre>
+</div>
+</div>
+<p>Interpretiere die Unterschiede!</p>
+<p>ANTWORT: Beide Effekte sind positiv. Fast identisch grosse Effekte.</p>
+<p>Führe nun einen 2-Stichproben T-Test mit R durch. Schau dir mit der Hilfe unter ?t.test die Parameter der t.test Funktion in R an. Wähle entsprechend einen ein- oder zweiseitigen Test, das Konfidenzlevel mit 99% und gehe davon aus, dass die Varianzen beider Stichproben gleich sind. Recherchiere, ob es sich um abhängige oder unabhängige Stichproben handelt. Gibt den entsprechenden Parameter bei der Nutzung der t.test Funktion an.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_SelberGutesTun,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>       psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_SelberGutesTun,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">"greater"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">equal.var =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.99</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  psychologieExperiment$Gefuehl_Nach_SelberGutesTun and psychologieExperiment$Gefuehl_Vor_SelberGutesTun
+t = 9.8012, df = 36, p-value = 5.298e-12
+alternative hypothesis: true mean difference is greater than 0
+99 percent confidence interval:
+ 1.523537      Inf
+sample estimates:
+mean difference 
+       2.027027 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_AnderenGutesTun,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_AnderenGutesTun,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">"greater"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">equal.var =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.99</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  psychologieExperiment$Gefuehl_Nach_AnderenGutesTun and psychologieExperiment$Gefuehl_Vor_AnderenGutesTun
+t = 8.5716, df = 36, p-value = 1.61e-10
+alternative hypothesis: true mean difference is greater than 0
+99 percent confidence interval:
+ 1.373909      Inf
+sample estimates:
+mean difference 
+       1.918919 </code></pre>
+</div>
+</div>
+<p>Interpretiere die Ausgabe des Tests (Konfidenzintervalle besprechen wir nächste Woche).</p>
+<p>ANTWORT:</p>
+<p>Ihr könntest mit einem gleichen t-Test auch testen, ob der Effekt beider Experimente gleich gross ist, d.h. wirkt es sich gleich oder unterschiedlich auf das Befinden aus, ob man sich selbst oder anderen etwas Gutes tut. Wie würdet ihr hierfür vorgehen?</p>
+<ol type="1">
+<li>Hypothesen aufstellen</li>
+</ol>
+<p>H<sub>0</sub>: Ob ich anderen oder mir selber tue underscheidet sich nicht in der Auswirkung auf mein Wohlbefinden.</p>
+<p>H<sub>A</sub>: Ob ich anderen oder mir selber tue unterscheidet sich in der Auswirkung auf mein Wohlbefinden.</p>
+<ol start="2" type="1">
+<li>Berechnungen</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>DiffAuswirkung <span class="ot">&lt;-</span> DiffSelberGutesTun <span class="sc">-</span> DiffAnderenGutesTun</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(DiffAuswirkung)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1081081</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>t-Test</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_SelberGutesTun <span class="sc">-</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>         psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_SelberGutesTun,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>       psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_AnderenGutesTun <span class="sc">-</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>         psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_AnderenGutesTun,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">"greater"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">equal.var =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.99</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  psychologieExperiment$Gefuehl_Nach_SelberGutesTun - psychologieExperiment$Gefuehl_Vor_SelberGutesTun and psychologieExperiment$Gefuehl_Nach_AnderenGutesTun - psychologieExperiment$Gefuehl_Vor_AnderenGutesTun
+t = 0.48727, df = 36, p-value = 0.3145
+alternative hypothesis: true mean difference is greater than 0
+99 percent confidence interval:
+ -0.4320254        Inf
+sample estimates:
+mean difference 
+      0.1081081 </code></pre>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Interpretation aller ausgegebenen Ergebnisse der R t-test() Funktion.</li>
+</ol>
+<p>ANTWORT:</p>
+<p>Mit dem t-Wert von ca. 0.5 und einem p-Wert von ca. 0.3 können wir die Nullhypothese nicht ablehnen. Es gibt keinen statistisch signifikanten Unterschied zwischen den beiden Experimenten.</p>
+</section>
+<section id="chi2-verteilungstest-zu-würfelexperiment" class="level2" data-number="C.2">
+<h2 data-number="C.2" class="anchored" data-anchor-id="chi2-verteilungstest-zu-würfelexperiment"><span class="header-section-number">C.2</span> Chi^2 Verteilungstest zu Würfelexperiment</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten einlesen</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>wuerfel_daten <span class="ot">&lt;-</span> <span class="fu">read.table</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"../Data/alle_wuerfel.csv"</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">","</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">header =</span> <span class="cn">TRUE</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialisierung eines Vektors für p-Werte</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>p_werte <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Schleife durch die relevanten Spalten (Spalten 5 bis 32)</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (spalte <span class="cf">in</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">32</span>) {</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Durchführung des Chi-Quadrat-Tests</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  chi_quadrat_test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="at">x =</span> wuerfel_daten[, spalte],</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">p =</span> wuerfel_daten[, <span class="dv">3</span>])  <span class="co"># Erwartete Wahrscheinlichkeiten in Spalte 3</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># p-Wert speichern</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  p_werte <span class="ot">&lt;-</span> <span class="fu">c</span>(p_werte, chi_quadrat_test<span class="sc">$</span>p.value)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Barplot für absolute Häufigkeiten</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">barplot</span>(</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    wuerfel_daten[, <span class="dv">4</span>],</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">names.arg =</span> wuerfel_daten[, <span class="dv">1</span>],</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"grey"</span>,</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">15</span>),</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="fu">colnames</span>(wuerfel_daten)[spalte]</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Neuen Plot für die Vergleichsdaten auf derselben Grafik</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">new =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">barplot</span>(</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>    wuerfel_daten[, spalte],</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>, <span class="at">maxColorValue =</span> <span class="dv">1</span>),</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">15</span>)</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Legende hinzufügen, die den p-Wert anzeigt</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">legend</span>(</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>    <span class="st">"topleft"</span>,</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">"p-Wert:"</span>, <span class="fu">round</span>(chi_quadrat_test<span class="sc">$</span>p.value, <span class="dv">2</span>),</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>          <span class="fu">ifelse</span>(chi_quadrat_test<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">"erfunden"</span>,</span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">ifelse</span>(</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>                   chi_quadrat_test<span class="sc">$</span>p.value <span class="sc">&gt;</span> <span class="fl">0.9</span>,</span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"wahrscheinlich erfunden"</span>,</span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"gewürfelt"</span>)</span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>                 )</span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Anhalten für visuelle Überprüfung</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>  <span class="co"># cat("Drücke Enter, um fortzufahren...")</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>  <span class="co"># readline()</span></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein
+Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-7.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-8.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-9.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-10.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-11.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-12.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-13.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-14.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-15.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-16.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-17.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-18.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-19.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-20.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-21.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-22.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-23.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-24.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-25.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-26.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x = wuerfel_daten[, spalte], p = wuerfel_daten[, 3]):
+Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-27.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-9-28.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ergebniszeilen für die Interpretation der p-Werte hinzufügen</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>interpretation <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  p_werte <span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">|</span> p_werte <span class="sc">&gt;</span> <span class="fl">0.9</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"erfunden"</span>, <span class="st">"gewürfelt"</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co"># p-Werte und die neue Interpretation an den DataFrame anhängen</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>wuerfel_daten <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>  wuerfel_daten,</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>  p_werte,</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>  interpretation</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Überarbeiteter DataFrame mit neuen Zeilen für p-Werte und ihre Interpretation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="psychologie-experiment" class="level2" data-number="C.3">
+<h2 data-number="C.3" class="anchored" data-anchor-id="psychologie-experiment"><span class="header-section-number">C.3</span> Psychologie Experiment</h2>
+<p>Daten einlesen</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>psychologieExperiment <span class="ot">&lt;-</span> <span class="fu">read.table</span>(</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'../Data/Psycho_Exp_Ergebnisse2_2024-10-28.csv'</span>,</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">','</span>,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.strings =</span> <span class="st">'999'</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Spalten im DataFrame umbenennen</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(psychologieExperiment) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Gefuehl_Vor_SelberGutesTun"</span>,</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Gefuehl_Nach_SelberGutesTun"</span>,</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Gefuehl_Vor_AnderenGutesTun"</span>,</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Gefuehl_Nach_AnderenGutesTun"</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Erstelle sogenannte QQ Plots und führe den Shapiro Test auf Normalverteilung durch</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ-Plots für die vier Spalten erstellen</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_SelberGutesTun)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_SelberGutesTun)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_SelberGutesTun)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_SelberGutesTun)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_AnderenGutesTun)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_AnderenGutesTun)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-11-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_AnderenGutesTun)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_AnderenGutesTun)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="verteilungen-und-tests_files/figure-html/unnamed-chunk-11-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Shapiro-Wilk-Test für die Normalverteilung durchführen</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>shapiro_test_vor_selber <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_SelberGutesTun)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>shapiro_test_nach_selber <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_SelberGutesTun)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>shapiro_test_vor_anderen <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_AnderenGutesTun)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>shapiro_test_nach_anderen <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_AnderenGutesTun)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Shapiro-Wilk-Testergebnisse ausgeben</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>shapiro_test_vor_selber</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  psychologieExperiment$Gefuehl_Vor_SelberGutesTun
+W = 0.94075, p-value = 0.04874</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>shapiro_test_nach_selber</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  psychologieExperiment$Gefuehl_Nach_SelberGutesTun
+W = 0.88499, p-value = 0.001157</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>shapiro_test_vor_anderen</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  psychologieExperiment$Gefuehl_Vor_AnderenGutesTun
+W = 0.93818, p-value = 0.0404</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>shapiro_test_nach_anderen</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  psychologieExperiment$Gefuehl_Nach_AnderenGutesTun
+W = 0.8824, p-value = 0.0009906</code></pre>
+</div>
+</div>
+<p>Sind alle Daten normalverteilt?</p>
+<p>Die Ergebnisse des Shapiro-Wilk-Tests zeigen, dass der p-Wert für alle vier Variablen unter 0.05 liegt:</p>
+<ul>
+<li>Gefühl Vor Selber Gutes Tun: p-Wert = 0.0487385</li>
+<li>Gefühl Nach Selber Gutes Tun: p-Wert = 0.0011574</li>
+<li>Gefühl Vor Anderen Gutes Tun: p-Wert = 0.0404011</li>
+<li>Gefühl Nach Anderen Gutes Tun: p-Wert = 9.9057037^{-4}</li>
+</ul>
+<p>Da alle p-Werte unter 0.05 liegen, können wir die Nullhypothese der Normalverteilung für alle Variablen ablehnen.</p>
+<p>Antwort: Nein, die Daten sind nicht normalverteilt.</p>
+<p>Beim t-Test hatten wir Gleichheit der Varianzen angenommen. Testet hier, ob diese Annahme korrekt war?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)  <span class="co"># Für den Levene-Test</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Lade nötiges Paket: carData</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Levene-Test für Gleichheit der Varianzen</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>levene_test_result <span class="ot">&lt;-</span> <span class="fu">leveneTest</span>(</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_SelberGutesTun, psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_SelberGutesTun),</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Nach"</span>, <span class="st">"Vor"</span>), <span class="at">each =</span> <span class="fu">nrow</span>(psychologieExperiment))</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in
+leveneTest.default(c(psychologieExperiment$Gefuehl_Nach_SelberGutesTun, :
+rep(c("Nach", "Vor"), each = nrow(psychologieExperiment)) coerced to factor.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ausgabe des Testergebnisses</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(levene_test_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Levene's Test for Homogeneity of Variance (center = median)
+      Df F value Pr(&gt;F)
+group  1  0.0147 0.9039
+      72               </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>pWertLevene <span class="ot">&lt;-</span> levene_test_result<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>ANTWORT:</p>
+<p>Die Ausgabe des Levene-Tests zeigt Folgendes:</p>
+<ul>
+<li>p-Wert des Levene-Tests: 0.9039338</li>
+</ul>
+<p>Interpretation:</p>
+<p>Der p-Wert ist deutlich grösser als 0.05, was darauf hindeutet, dass die Nullhypothese der Gleichheit der Varianzen nicht abgelehnt wird. Das bedeutet, dass es keinen statistisch signifikanten Unterschied in den Varianzen der Gruppen gibt.</p>
+<p>Antwort: Ja, die Annahme der Gleichheit der Varianzen beim t-Test war korrekt.</p>
+<p>Wie stark verändert sich der Median in den beiden Experimenten von Bevor zu Danach?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnung der Mediane für die Bedingungen</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>median_vor_selber <span class="ot">&lt;-</span> <span class="fu">median</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_SelberGutesTun, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>median_nach_selber <span class="ot">&lt;-</span> <span class="fu">median</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_SelberGutesTun, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>median_vor_anderen <span class="ot">&lt;-</span> <span class="fu">median</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_AnderenGutesTun, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>median_nach_anderen <span class="ot">&lt;-</span> <span class="fu">median</span>(psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_AnderenGutesTun, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnung der Veränderungen der Mediane</span></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>diff_median_selber <span class="ot">&lt;-</span> median_nach_selber <span class="sc">-</span> median_vor_selber</span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>diff_median_anderen <span class="ot">&lt;-</span> median_nach_anderen <span class="sc">-</span> median_vor_anderen</span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Ausgabe der Ergebnisse</span></span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Veränderung des Medians für Selber Gutes Tun:"</span>, diff_median_selber, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Veränderung des Medians für Selber Gutes Tun: 2 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Veränderung des Medians für Anderen Gutes Tun:"</span>, diff_median_anderen, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Veränderung des Medians für Anderen Gutes Tun: 2 </code></pre>
+</div>
+</div>
+<p>ANTWORT:</p>
+<p>Suche mit Entscheidungsbäumen, Chatbots, Internetsuche, etc. welcher statistische Test sich zum Vergleich der zentralen Tendenz dieser Daten eignet? ANTWORT: Wilcoxon-Vorzeichen-Rang-Test. Dieser vergleicht die Mediane von zwei abhängigen Stichproben.</p>
+<p>Parameterfreier Tests, d.h. unabhängig von Verteilung der Daten</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wilcoxon-Vorzeichen-Rang-Tests für beide Experimente</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>wilcox_test_selber <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_SelberGutesTun,</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_SelberGutesTun,</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">paired =</span> <span class="cn">TRUE</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in
+wilcox.test.default(psychologieExperiment$Gefuehl_Vor_SelberGutesTun, : kann
+bei Bindungen keinen exakten p-Wert Berechnen</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in
+wilcox.test.default(psychologieExperiment$Gefuehl_Vor_SelberGutesTun, : kann
+den exakten p-Wert bei Nullen nicht berechnen</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_anderen <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  psychologieExperiment<span class="sc">$</span>Gefuehl_Vor_AnderenGutesTun,</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  psychologieExperiment<span class="sc">$</span>Gefuehl_Nach_AnderenGutesTun,</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">paired =</span> <span class="cn">TRUE</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in
+wilcox.test.default(psychologieExperiment$Gefuehl_Vor_AnderenGutesTun, : kann
+bei Bindungen keinen exakten p-Wert Berechnen</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in
+wilcox.test.default(psychologieExperiment$Gefuehl_Vor_AnderenGutesTun, : kann
+den exakten p-Wert bei Nullen nicht berechnen</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ausgabe der Testergebnisse</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>wilcox_test_selber</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  psychologieExperiment$Gefuehl_Vor_SelberGutesTun and psychologieExperiment$Gefuehl_Nach_SelberGutesTun
+V = 0, p-value = 2.768e-07
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_anderen</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  psychologieExperiment$Gefuehl_Vor_AnderenGutesTun and psychologieExperiment$Gefuehl_Nach_AnderenGutesTun
+V = 28, p-value = 2.051e-06
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+</div>
+<p>Wie interpretierst du die Tests?</p>
+<section id="interpretation-der-warnungen-und-testergebnisse" class="level3" data-number="C.3.1">
+<h3 data-number="C.3.1" class="anchored" data-anchor-id="interpretation-der-warnungen-und-testergebnisse"><span class="header-section-number">C.3.1</span> Interpretation der Warnungen und Testergebnisse:</h3>
+<section id="testergebnisse" class="level4" data-number="C.3.1.1">
+<h4 data-number="C.3.1.1" class="anchored" data-anchor-id="testergebnisse"><span class="header-section-number">C.3.1.1</span> Testergebnisse:</h4>
+<ul>
+<li><strong>Wilcoxon-Test für Selber Gutes Tun</strong>:
+<ul>
+<li><strong>V-Wert</strong>: 0</li>
+<li><strong>p-Wert</strong>: 2.7683169^{-7}</li>
+</ul></li>
+</ul>
+<p>Der p-Wert ist viel kleiner als 0.05, was bedeutet, dass die Veränderung der Mediane statistisch signifikant ist. Die Nullhypothese (kein Unterschied der zentralen Tendenz) kann abgelehnt werden, was darauf hinweist, dass das Experiment „Selber Gutes Tun“ eine signifikante Veränderung im Median bewirkt hat.</p>
+<ul>
+<li><strong>Wilcoxon-Test für Anderen Gutes Tun</strong>:
+<ul>
+<li><strong>V-Wert</strong>: 28</li>
+<li><strong>p-Wert</strong>: 2.0506755^{-6}</li>
+</ul></li>
+</ul>
+<p>Auch hier ist der p-Wert viel kleiner als 0.05. Die Nullhypothese kann abgelehnt werden, was zeigt, dass auch das Experiment „Anderen Gutes Tun“ eine signifikante Veränderung im Median bewirkt hat.</p>
+</section>
+</section>
+<section id="gesamtfazit" class="level3" data-number="C.3.2">
+<h3 data-number="C.3.2" class="anchored" data-anchor-id="gesamtfazit"><span class="header-section-number">C.3.2</span> Gesamtfazit:</h3>
+<p>Beide Experimente zeigen eine signifikante Veränderung der Mediane von „Bevor“ zu „Danach“. Die zentralen Tendenzen sind in beiden Fällen signifikant unterschiedlich. Dies unterstützt die Schlussfolgerung, dass die Handlung, sich selbst oder anderen etwas Gutes zu tun, eine positive Wirkung auf die Bewertung des Gefühls hat.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/quanti\.baets\.ch\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../excercises/deskriptive-statistik.html" class="pagination-link" aria-label="Übung 4: Deskriptive Statistik und Visualisierung">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Quantitative Methoden</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Made with ❤️ by <a href="https://lukasbatschelet.ch/">Lukas Batschelet</a></p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/excercises/verteilungen-und-tests.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://ko-fi.com/lukasbatschelet">☕️Buy me a coffee</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

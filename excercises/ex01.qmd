@@ -1,0 +1,257 @@
+---
+code-annotations: hover
+---
+
+# Übung 1: Grundlagen R
+
+## Vektoren
+
+Überlegt euch die erwarteten Lösungen vor dem Eintippen
+
+```{r}
+x <- c(5, 2, 1, 4)
+xx <- c(1, 10, 15, 18)
+y <- rep(1, 5)
+z <- c(TRUE, FALSE, TRUE, TRUE)
+```
+
+### Aufgabe a)
+
+```{r}
+#| label: aufgabe1a
+#| eval: FALSE
+sum(x)
+range(x)
+length(x)
+max(x)
+```
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+#| label: aufgabe1a-loesung
+sum(x)
+range(x)
+length(x)
+max(x)
+```
+
+:::
+
+### Aufgabe b)
+
+```{r}
+#| label: aufgabe1b
+#| eval: FALSE
+c(x, y, 13)
+```
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+#| label: aufgabe1b-loesung
+c(x, y, 13)
+```
+
+:::
+
+### Aufgabe c)
+
+```{r}
+#| label: aufgabe1c
+#| eval: FALSE
+x[4] * y[2]
+xx[2:4] + x[1:3]
+```
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+#| label: aufgabe1c-loesung
+x[4] * y[2]
+xx[2:4] + x[1:3]
+```
+
+:::
+
+### Aufgabe d)
+
+```{r}
+#| label: aufgabe1d
+#| eval: FALSE
+xx <= 12
+xx[xx <= 12]
+```
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+#| label: aufgabe1d-loesung
+xx <= 12
+xx[xx <= 12]
+```
+
+:::
+
+### Aufgabe e)
+
+```{r}
+#| label: aufgabe1e
+#| eval: FALSE
+plot(x, xx)
+plot(x[z], xx[z])
+```
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+#| label: aufgabe1e-loesung
+plot(x, xx)
+plot(x[z], xx[z])
+```
+
+:::
+
+## Zahlenfolgen
+
+Erzeugt mit den `rep()`und `seq()` Funktionen die folgenden Zahlenfolgen:
+
+### Aufgabe a)
+
+```
+1 2 3 4 5 6 7 8 9
+```
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+#| label: aufgabe2a-loesung
+#| eval: FALSE
+seq(1, 9)
+```
+
+:::
+
+### Aufgabe b)
+
+```
+"m" "w" "m" "w" "m" "w"
+```
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+#| label: aufgabe2b-loesung-a
+#| eval: FALSE
+rep(c("m", "w"), 3)
+```
+
+oder gleichwertig:
+
+```{r}
+#| label: aufgabe2b-loesung-b
+#| eval: FALSE
+rep(c("m", "w"), length = 6)
+```
+
+:::
+
+### Aufgabe c)
+
+```
+1 2 3 4 1 2 3 4 1 2 3 4
+```
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+#| label: aufgabe2c-loesung
+#| eval: FALSE
+rep(1:4, 3)
+```
+
+:::
+
+### Aufgabe d)
+
+```
+1 2 2 3 3 3 4 4 4 4
+```
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+```{r}
+#| label: aufgabe2d-loesung
+#| eval: FALSE
+rep(1:4, 1:4)
+```
+
+:::
+
+## Datei einlesen
+
+Lest die Datei [`meteodaten_saison.csv`](../Data/meteodaten_saison.csv) in R ein:
+
+```{r}
+#| label: aufgabe3
+#| eval: FALSE
+saison <- read.table("Pfad/zur/Datei.csv",
+                     sep = ",",
+                     header = TRUE)
+```
+
+Überprüft, ob der Import korrekt verlief.
+
+:::{.callout-tip title="Tip"}
+
+Der Pfad zur Datei kann relativ oder absolut sein.
+In aller Regel ist es einfacher, Daten in einem Unterordner (z.B. `Data`) zu speichern und dann nur den Dateinamen anzugeben.
+
+Wichtig ist das korrekte Setzten des Arbeitsverzeichnisses in RStudio:
+
+Session -> Set Working Directory -> To Source File Location
+
+Danach können Dateien relativ zum aktuellen Skriptpfad geladen werden.
+
+**Beispiel für einen relativen Pfad:**
+
+```{r}
+#| label: aufgabe3-loesung
+#| eval: FALSE
+saison <- read.table("Data/meteodaten_saison.csv",  #<1>
+                     sep = ",",                     #<2>
+                     header = TRUE)                 #<3>
+```
+1. Der Pfad zur Datei relativ zum aktuellen Skriptpfad.
+2. Das in der Datei verwendete Trennzeichen für die Spalten.
+3. Die Datei hat eine Kopfzeile.
+
+```{r}
+#| label: aufgabe3-loesung-web
+#| echo: FALSE
+# Hier ein zweites Mal so gesetzt wegen der Dateistruktur im Repository
+saison <- read.table("../Data/meteodaten_saison.csv",
+                     sep = ",",
+                     header = TRUE)
+```
+
+
+:::
+
+Anschliessend könnt ihr die Daten mit `str()`, `head()`, `summary()`, `tail()`, `class()`, etc. überprüfen.
+
+```{r}
+#| label: aufgabe3-loesung-2
+str(saison)
+```
+
+
+
+
+
+
+
+
+
+
+

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Appendix A — Übung 4: Deskriptive Statistik und Visualisierung – Quantitative Methoden</title>
+<title>Appendix B — Übung 4: Deskriptive Statistik und Visualisierung – Quantitative Methoden</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../excercises/verteilungen-und-tests.html" rel="next">
-<link href="../statistische-tests.html" rel="prev">
+<link href="../excercises/ex01.html" rel="prev">
 <link href="../code" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -116,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../excercises/deskriptive-statistik.html">Appendices</a></li><li class="breadcrumb-item"><a href="../excercises/deskriptive-statistik.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../excercises/ex01.html">Appendices</a></li><li class="breadcrumb-item"><a href="../excercises/deskriptive-statistik.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -209,14 +209,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../excercises/ex01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Übung 1: Grundlagen R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../excercises/deskriptive-statistik.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../excercises/verteilungen-und-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Übung 5 &amp; 6: Verteilungen und Tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Übung 5 &amp; 6: Verteilungen und Tests</span></span></a>
   </div>
 </li>
       </ul>
@@ -231,16 +237,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#histogramm-und-kennzahlen" id="toc-histogramm-und-kennzahlen" class="nav-link active" data-scroll-target="#histogramm-und-kennzahlen"><span class="header-section-number">A.1</span> Histogramm und Kennzahlen</a>
+  <li><a href="#histogramm-und-kennzahlen" id="toc-histogramm-und-kennzahlen" class="nav-link active" data-scroll-target="#histogramm-und-kennzahlen"><span class="header-section-number">B.1</span> Histogramm und Kennzahlen</a>
   <ul class="collapse">
-  <li><a href="#kennzahlen" id="toc-kennzahlen" class="nav-link" data-scroll-target="#kennzahlen"><span class="header-section-number">A.1.1</span> Kennzahlen</a></li>
+  <li><a href="#kennzahlen" id="toc-kennzahlen" class="nav-link" data-scroll-target="#kennzahlen"><span class="header-section-number">B.1.1</span> Kennzahlen</a></li>
   </ul></li>
-  <li><a href="#kontingenztabelle" id="toc-kontingenztabelle" class="nav-link" data-scroll-target="#kontingenztabelle"><span class="header-section-number">A.2</span> Kontingenztabelle</a></li>
-  <li><a href="#visualisierung-des-erwärmungstrends" id="toc-visualisierung-des-erwärmungstrends" class="nav-link" data-scroll-target="#visualisierung-des-erwärmungstrends"><span class="header-section-number">A.3</span> Visualisierung des Erwärmungstrends</a>
+  <li><a href="#kontingenztabelle" id="toc-kontingenztabelle" class="nav-link" data-scroll-target="#kontingenztabelle"><span class="header-section-number">B.2</span> Kontingenztabelle</a></li>
+  <li><a href="#visualisierung-des-erwärmungstrends" id="toc-visualisierung-des-erwärmungstrends" class="nav-link" data-scroll-target="#visualisierung-des-erwärmungstrends"><span class="header-section-number">B.3</span> Visualisierung des Erwärmungstrends</a>
   <ul class="collapse">
-  <li><a href="#liniendiagramm-mit-gleitendem-mittel" id="toc-liniendiagramm-mit-gleitendem-mittel" class="nav-link" data-scroll-target="#liniendiagramm-mit-gleitendem-mittel"><span class="header-section-number">A.3.1</span> Liniendiagramm mit Gleitendem Mittel</a></li>
-  <li><a href="#warming-stripes" id="toc-warming-stripes" class="nav-link" data-scroll-target="#warming-stripes"><span class="header-section-number">A.3.2</span> Warming Stripes</a></li>
-  <li><a href="#barplot-der-temperaturanomalien" id="toc-barplot-der-temperaturanomalien" class="nav-link" data-scroll-target="#barplot-der-temperaturanomalien"><span class="header-section-number">A.3.3</span> Barplot der Temperaturanomalien</a></li>
+  <li><a href="#liniendiagramm-mit-gleitendem-mittel" id="toc-liniendiagramm-mit-gleitendem-mittel" class="nav-link" data-scroll-target="#liniendiagramm-mit-gleitendem-mittel"><span class="header-section-number">B.3.1</span> Liniendiagramm mit Gleitendem Mittel</a></li>
+  <li><a href="#warming-stripes" id="toc-warming-stripes" class="nav-link" data-scroll-target="#warming-stripes"><span class="header-section-number">B.3.2</span> Warming Stripes</a></li>
+  <li><a href="#barplot-der-temperaturanomalien" id="toc-barplot-der-temperaturanomalien" class="nav-link" data-scroll-target="#barplot-der-temperaturanomalien"><span class="header-section-number">B.3.3</span> Barplot der Temperaturanomalien</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/excercises/deskriptive-statistik.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -248,9 +254,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../excercises/deskriptive-statistik.html">Appendices</a></li><li class="breadcrumb-item"><a href="../excercises/deskriptive-statistik.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../excercises/ex01.html">Appendices</a></li><li class="breadcrumb-item"><a href="../excercises/deskriptive-statistik.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Appendix A — Übung 4: Deskriptive Statistik und Visualisierung</h1>
+<h1 class="title">Appendix B — Übung 4: Deskriptive Statistik und Visualisierung</h1>
 </div>
 
 
@@ -274,8 +280,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">','</span>,</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="histogramm-und-kennzahlen" class="level2" data-number="A.1">
-<h2 data-number="A.1" class="anchored" data-anchor-id="histogramm-und-kennzahlen"><span class="header-section-number">A.1</span> Histogramm und Kennzahlen</h2>
+<section id="histogramm-und-kennzahlen" class="level2" data-number="B.1">
+<h2 data-number="B.1" class="anchored" data-anchor-id="histogramm-und-kennzahlen"><span class="header-section-number">B.1</span> Histogramm und Kennzahlen</h2>
 <p>Ihr möchtet die mittlere Jahresniederschlagssumme und die mittlere Jahrestemperatur sowie deren Varianz von Jahr zu Jahr bestimmen, um die Klimabedingungen in Bern zu beschreiben.</p>
 <p>Um die richtigen Kennzahlen (Mittelwert, Median, Modus, etc.) zu wählen, müssen wir die Verteilung der Daten kennen. Erstellt ein Histogramm der Jahresmitteltemperaturen und -niederschlag:</p>
 <div class="cell">
@@ -334,8 +340,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Beide Verteilungen sind ungefähr symmetrisch, da die Daten in der Mitte des Bereichs konzentriert sind und die Verteilung nach links und rechts ungefähr gleich ist. Dies ist aber mit so “wenigen” Daten nicht wirklich aussagekräftig. Das macht aber bei der Art der Daten Sinn, da die Temperatur und Niederschlagssumme in der Regel normalverteilt sind.</p>
-<section id="kennzahlen" class="level3" data-number="A.1.1">
-<h3 data-number="A.1.1" class="anchored" data-anchor-id="kennzahlen"><span class="header-section-number">A.1.1</span> Kennzahlen</h3>
+<section id="kennzahlen" class="level3" data-number="B.1.1">
+<h3 data-number="B.1.1" class="anchored" data-anchor-id="kennzahlen"><span class="header-section-number">B.1.1</span> Kennzahlen</h3>
 <p>Welche Kennzahlen zur Beschreibung des Mittels und der Streuung kommen aufgrund den Verteilung und Skala der Daten in Frage?</p>
 <p>Da die Daten normalverteilt sind, können wir den Mittelwert und die Standardabweichung verwenden, um die zentrale Tendenz und die Streuung der Daten zu beschreiben. Der Median ist auch eine gute Kennzahl, um die zentrale Tendenz zu beschreiben, da er robust gegenüber Ausreissern ist.</p>
 <ol start="3" type="1">
@@ -375,8 +381,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Der Unterschied zwischen Mittelwert und Median (0.05°C) ist sehr klein, was darauf hindeutet, dass die Verteilung der Daten symmetrisch ist. Die Spannweite der Daten beträgt 3.96 °C, was darauf hindeutet, dass die Daten relativ eng um den Mittelwert verteilt sind. Die Standardabweichung beträgt 0.82°C, was darauf hindeutet, dass die Daten relativ homogen um den Mittelwert verteilt sind.</p>
 </section>
 </section>
-<section id="kontingenztabelle" class="level2" data-number="A.2">
-<h2 data-number="A.2" class="anchored" data-anchor-id="kontingenztabelle"><span class="header-section-number">A.2</span> Kontingenztabelle</h2>
+<section id="kontingenztabelle" class="level2" data-number="B.2">
+<h2 data-number="B.2" class="anchored" data-anchor-id="kontingenztabelle"><span class="header-section-number">B.2</span> Kontingenztabelle</h2>
 <ol start="4" type="1">
 <li>Konvertiere die Spalte mit den Niederschlagssummen in Bern in Klassen, die jeweils 100 mm umfassen (Tipp: z.B. mit round() Funktion für Klassen: &lt;50mm, 50-150mm, 150-250mm, …) Erstelle die Kontingenztabelle für die Anzahl der Regensummen in den 100 mm Klassen in den vier Jahreszeiten (table() Funktion)</li>
 </ol>
@@ -425,13 +431,13 @@ Winter(DJF)     ?  ?   ?   ?   ?   ?   ?</code></pre>
 </div>
 </div>
 </section>
-<section id="visualisierung-des-erwärmungstrends" class="level2" data-number="A.3">
-<h2 data-number="A.3" class="anchored" data-anchor-id="visualisierung-des-erwärmungstrends"><span class="header-section-number">A.3</span> Visualisierung des Erwärmungstrends</h2>
+<section id="visualisierung-des-erwärmungstrends" class="level2" data-number="B.3">
+<h2 data-number="B.3" class="anchored" data-anchor-id="visualisierung-des-erwärmungstrends"><span class="header-section-number">B.3</span> Visualisierung des Erwärmungstrends</h2>
 <ol start="4" type="1">
 <li>Visualisiert die Erwärmungstrend der Station Bern mit einem Liniendiagramm, indem du die Jahresmitteltemperatur darstellst und die 31-jährige Gleitende Mittel (auch “running mean” genannt z.B. mit der Funktion <code>runmean()</code> aus der Bibliothek “caTools”) hinzufügst.</li>
 </ol>
-<section id="liniendiagramm-mit-gleitendem-mittel" class="level3" data-number="A.3.1">
-<h3 data-number="A.3.1" class="anchored" data-anchor-id="liniendiagramm-mit-gleitendem-mittel"><span class="header-section-number">A.3.1</span> Liniendiagramm mit Gleitendem Mittel</h3>
+<section id="liniendiagramm-mit-gleitendem-mittel" class="level3" data-number="B.3.1">
+<h3 data-number="B.3.1" class="anchored" data-anchor-id="liniendiagramm-mit-gleitendem-mittel"><span class="header-section-number">B.3.1</span> Liniendiagramm mit Gleitendem Mittel</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bibliothek caTools laden</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caTools)</span>
@@ -461,8 +467,8 @@ Winter(DJF)     ?  ?   ?   ?   ?   ?   ?</code></pre>
 </div>
 <p>Erstelle zusätzlich zwei Abbildungen der Temperaturanomalien wie <a href="https://www.meteoschweiz.admin.ch/klima/klimawandel.html">hier</a> und <a href="https://www.meteoschweiz.admin.ch/service-und-publikationen/applikationen/ext/climate-evolution-series-public.html">hier</a>:</p>
 </section>
-<section id="warming-stripes" class="level3" data-number="A.3.2">
-<h3 data-number="A.3.2" class="anchored" data-anchor-id="warming-stripes"><span class="header-section-number">A.3.2</span> Warming Stripes</h3>
+<section id="warming-stripes" class="level3" data-number="B.3.2">
+<h3 data-number="B.3.2" class="anchored" data-anchor-id="warming-stripes"><span class="header-section-number">B.3.2</span> Warming Stripes</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bibliothek</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Bibliothek</span></span>
@@ -491,8 +497,8 @@ Winter(DJF)     ?  ?   ?   ?   ?   ?   ?</code></pre>
 </div>
 </div>
 </section>
-<section id="barplot-der-temperaturanomalien" class="level3" data-number="A.3.3">
-<h3 data-number="A.3.3" class="anchored" data-anchor-id="barplot-der-temperaturanomalien"><span class="header-section-number">A.3.3</span> Barplot der Temperaturanomalien</h3>
+<section id="barplot-der-temperaturanomalien" class="level3" data-number="B.3.3">
+<h3 data-number="B.3.3" class="anchored" data-anchor-id="barplot-der-temperaturanomalien"><span class="header-section-number">B.3.3</span> Barplot der Temperaturanomalien</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bibliotheken</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -943,13 +949,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../statistische-tests.html" class="pagination-link" aria-label="Statistische Tests">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistische Tests</span></span>
+      <a href="../excercises/ex01.html" class="pagination-link" aria-label="Übung 1: Grundlagen R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Übung 1: Grundlagen R</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../excercises/verteilungen-und-tests.html" class="pagination-link" aria-label="Übung 5 &amp; 6: Verteilungen und Tests">
-        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Übung 5 &amp; 6: Verteilungen und Tests</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Übung 5 &amp; 6: Verteilungen und Tests</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
