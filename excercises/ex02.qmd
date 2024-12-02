@@ -58,50 +58,59 @@ abline(h = ...)
 
 ```{r}
 Jahreszeitentabelle <- read.table("Data/meteodaten_saison.csv",
-                                  header = TRUE,
-                                  sep = ",")
+                     header = TRUE,
+                     sep = ",")
 
 saison_fruehling <- Jahreszeitentabelle[Jahreszeitentabelle[, 2] == "Fruehling(MAM)", ]
 saison_sommer <- Jahreszeitentabelle[Jahreszeitentabelle$Saison == "Sommer(JJA)", ]
 saison_herbst <- Jahreszeitentabelle[Jahreszeitentabelle$Saison == "Herbst(SON)", ]
 saison_winter <- Jahreszeitentabelle[Jahreszeitentabelle$Saison == "Winter(DJF)", ]
 
+saison_helper <- data.frame(
+  saison_name = c("Fruehling", "Sommer", "Herbst", "Winter"),
+  saison_farbe = c("green", "red", "orange", "blue")
+)
+
 plot(saison_fruehling$Jahr,
      saison_fruehling$Bern_Mitteltemperatur,
      type = "line",
-     col = "green",
+
      xlab = "Jahr",
      ylab = "Mitteltemperatur",
      main = "Mitteltemperatur in Bern nach Jahreszeiten",
      ylim = c(-5, 25)
-)
+     )
 
 lines(saison_sommer$Jahr,
       saison_sommer$Bern_Mitteltemperatur,
-      col = "red"
+      col = saison_helper$saison_farbe[2]
 )
 
 lines(saison_herbst$Jahr,
       saison_herbst$Bern_Mitteltemperatur,
-      col = "orange"
+      col = saison_helper$saison_farbe[3]
 )
 
 lines(saison_winter$Jahr,
       saison_winter$Bern_Mitteltemperatur,
-      col = "blue"
+      col = saison_helper$saison_farbe[4]
 )
+
+
+
+
+
 
 legend("topright",
-       legend = c("Fruehling", "Sommer", "Herbst", "Winter"),
-       col = c("green", "red", "orange", "blue"),
+       legend = saison_helper$saison_name,
+       col = saison_helper$saison_farbe,
        lty = 1,
        cex = 0.8
-)
+       )
 
-abline(mean(saison_fruehling$Bern_Mitteltemperatur),  #<1>
-       0,                                             #<2>
-       col = "green"
-)
+abline(mean(saison_fruehling$Bern_Mitteltemperatur),
+       0,
+       col = "green")
 ```
 1. Schnittpunkt mit der y-Achse
 2. Steigung der Linie
@@ -126,7 +135,25 @@ plot(x, y)
 
 :::{.callout-tip title="Lösung" collapse="true"}
 
-Comming soon!
+```{r}
+#| label: jahresmittelwerte
+
+Jahreswerte <- aggregate(Jahreszeitentabelle$Bern_Mitteltemperatur,
+by = list(Jahreszeitentabelle$Jahr),
+FUN = mean)
+
+# Für bessere Lesbarkeit: umbenennen der generierten Spaltennamen
+colnames(Jahreswerte) <- c("Jahr", "Mitteltemperatur")
+
+plot(Jahreswerte$Jahr,
+Jahreswerte$Mitteltemperatur,
+col = "black",
+xlab = "Jahr",
+ylab = "Mitteltemperatur",
+ylim = c(7, 12),
+main = "Mitteltemperatur in Bern nach Jahren"
+)
+```
 
 :::
 
@@ -158,6 +185,7 @@ in **2 Zeilen** und **2 Spalten** geteilt werden.
 ylim = c(0, 1300)
 ```
 
+
 3. Setzt das Grafikausgabefenster zurück auf **1 Zeile** und **1 Spalte**:
 
 ```{r}
@@ -167,6 +195,52 @@ par(mfrow = c(1, 1))
 
 :::{.callout-tip title="Lösung" collapse="true"}
 
-Comming soon!
+```{r}
+#| label: boxplot
+
+zeitraum <- 1981:2010
+
+# Ausgabefenster in 2x2 aufteilen
+par(mfrow = c(2, 2))
+
+boxplot(Jahreszeitentabelle$Bern_Mitteltemperatur ~ Jahreszeitentabelle$Saison,
+        data = Jahreszeitentabelle[Jahreszeitentabelle$Jahr %in% zeitraum, ],
+        col = saison_helper$saison_farbe,
+        xlab = "Jahreszeiten",
+        ylab = "Mitteltemperatur",
+        main = "Mitteltemperatur in Bern nach Saison (1981-2010)",
+        ylim = c(-12, 22)
+)
+
+boxplot(Jahreszeitentabelle$GrStBernhard_Mitteltemperatur ~ Jahreszeitentabelle$Saison,
+        data = Jahreszeitentabelle[Jahreszeitentabelle$Jahr %in% zeitraum, ],
+        col = saison_helper$saison_farbe,
+        xlab = "Jahreszeiten",
+        ylab = "Mitteltemperatur",
+        main = "Mitteltemperatur auf dem GSB nach Saison (1981-2010)",
+        ylim = c(-12, 22)
+)
+
+boxplot(Jahreszeitentabelle$Bern_Niederschlagssumme ~ Jahreszeitentabelle$Saison,
+        data = Jahreszeitentabelle[Jahreszeitentabelle$Jahr %in% zeitraum, ],
+        col = saison_helper$saison_farbe,
+        xlab = "Jahreszeiten",
+        ylab = "Niederschlagssumme",
+        main = "Niederschlagssumme in Bern nach Saison (1981-2010)",
+        ylim = c(0, 1400)
+)
+
+boxplot(Jahreszeitentabelle$GrStBernhard_Niederschlagssumme ~ Jahreszeitentabelle$Saison,
+        data = Jahreszeitentabelle[Jahreszeitentabelle$Jahr %in% zeitraum, ],
+        col = saison_helper$saison_farbe,
+        xlab = "Jahreszeiten",
+        ylab = "Niederschlagssumme",
+        main = "Niederschlagssumme auf dem GSB nach Saison (1981-2010)",
+        ylim = c(0, 1400)
+)
+
+# Ausgabefenster zurücksetzen
+par(mfrow = c(1, 1))
+```
 
 :::
