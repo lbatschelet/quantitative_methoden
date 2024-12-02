@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.37">
@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Lukas Batschelet">
+<meta name="dcterms.date" content="2024-11-28">
 
-<title>Quantitative Methoden</title>
+<title>Appendix C — R-Übungen 3 – Quantitative Methoden</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +22,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./grundlagen_R.html" rel="next">
-<link href="./code" rel="icon">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7580570a2e354cd56757c689413fca0c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../excercises/deskriptive-statistik.html" rel="next">
+<link href="../excercises/ex02.html" rel="prev">
+<link href="../code" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-7580570a2e354cd56757c689413fca0c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -56,36 +92,36 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Keine Treffer",
-    "search-matching-documents-text": "Treffer",
-    "search-copy-link-title": "Link in die Suche kopieren",
-    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
-    "search-more-match-text": "weitere Treffer in diesem Dokument",
-    "search-more-matches-text": "weitere Treffer in diesem Dokument",
-    "search-clear-button-title": "Zurücksetzen",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Abbrechen",
-    "search-submit-button-title": "Abschicken",
-    "search-label": "Suchen"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
 
 </head>
 
-<body class="nav-sidebar floating fullcontent">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Übersicht</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../excercises/ex01.html">Appendices</a></li><li class="breadcrumb-item"><a href="../excercises/ex03.html"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">R-Übungen 3</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -97,11 +133,11 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Quantitative Methoden</a> 
+      <a href="../">Quantitative Methoden</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://ko-fi.com/lukasbatschelet" title="Buy me a coffee" class="quarto-navigation-tool px-1" aria-label="Buy me a coffee"><i class="bi bi-cup-hot-fill"></i></a>
     <a href="https://github.com/lbatschelet/quantitative_methoden" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Lesemodus umschalten">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -111,56 +147,56 @@ ul.task-list li input[type="checkbox"] {
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Suchen"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Übersicht</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./grundlagen_R.html" class="sidebar-item-text sidebar-link">
+  <a href="../grundlagen_R.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./plots_in_R.html" class="sidebar-item-text sidebar-link">
+  <a href="../plots_in_R.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./packages_and_libraries.html" class="sidebar-item-text sidebar-link">
+  <a href="../packages_and_libraries.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages und Libraries</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./loops_and_functions.html" class="sidebar-item-text sidebar-link">
+  <a href="../loops_and_functions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Schlaufen und Funktionen</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./statistische-datenanalyse.html" class="sidebar-item-text sidebar-link">
+  <a href="../statistische-datenanalyse.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistische Datenanalyse</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./verteilungen.html" class="sidebar-item-text sidebar-link">
+  <a href="../verteilungen.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Verteilungen</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./statistische-tests.html" class="sidebar-item-text sidebar-link">
+  <a href="../statistische-tests.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistische Tests</span></span></a>
   </div>
 </li>
@@ -168,38 +204,38 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./excercises/ex01.html" class="sidebar-item-text sidebar-link">
+  <a href="../excercises/ex01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Übung 1: Grundlagen R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./excercises/ex02.html" class="sidebar-item-text sidebar-link">
+  <a href="../excercises/ex02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R-Übungen 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./excercises/ex03.html" class="sidebar-item-text sidebar-link">
+  <a href="../excercises/ex03.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">R-Übungen 3</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./excercises/deskriptive-statistik.html" class="sidebar-item-text sidebar-link">
+  <a href="../excercises/deskriptive-statistik.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./excercises/verteilungen-und-tests.html" class="sidebar-item-text sidebar-link">
+  <a href="../excercises/verteilungen-und-tests.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Übung 5 &amp; 6: Verteilungen und Tests</span></span></a>
   </div>
 </li>
@@ -210,13 +246,36 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sommer-jja-temperaturanomalien" id="toc-sommer-jja-temperaturanomalien" class="nav-link active" data-scroll-target="#sommer-jja-temperaturanomalien"><span class="header-section-number">C.1</span> Sommer (JJA) Temperaturanomalien</a>
+  <ul class="collapse">
+  <li><a href="#aufgabe" id="toc-aufgabe" class="nav-link" data-scroll-target="#aufgabe"><span class="header-section-number">C.1.1</span> Aufgabe</a></li>
+  </ul></li>
+  <li><a href="#klimadiagramm" id="toc-klimadiagramm" class="nav-link" data-scroll-target="#klimadiagramm"><span class="header-section-number">C.2</span> Klimadiagramm</a>
+  <ul class="collapse">
+  <li><a href="#schritte" id="toc-schritte" class="nav-link" data-scroll-target="#schritte"><span class="header-section-number">C.2.1</span> Schritte</a></li>
+  </ul></li>
+  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots"><span class="header-section-number">C.3</span> Boxplots</a>
+  <ul class="collapse">
+  <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link" data-scroll-target="#aufgabe-1"><span class="header-section-number">C.3.1</span> Aufgabe</a></li>
+  </ul></li>
+  <li><a href="#r-als-gis-ersatz" id="toc-r-als-gis-ersatz" class="nav-link" data-scroll-target="#r-als-gis-ersatz"><span class="header-section-number">C.4</span> R als GIS-Ersatz</a>
+  <ul class="collapse">
+  <li><a href="#schritte-1" id="toc-schritte-1" class="nav-link" data-scroll-target="#schritte-1"><span class="header-section-number">C.4.1</span> Schritte</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/excercises/ex03.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../excercises/ex01.html">Appendices</a></li><li class="breadcrumb-item"><a href="../excercises/ex03.html"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">R-Übungen 3</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Quantitative Methoden</h1>
+<h1 class="title">Appendix C — R-Übungen 3</h1>
 </div>
 
 
@@ -224,16 +283,16 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Autor:in</div>
+    <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
              <p>Lukas Batschelet </p>
           </div>
   </div>
     
     <div>
-    <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
+    <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">14. Oktober 2024</p>
+      <p class="date">November 28, 2024</p>
     </div>
   </div>
   
@@ -245,25 +304,187 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Diese Website dient als Sammlung meiner Vorlesungsnotizen und Übungen für die Vorlesung <em>“Quantitative Methoden”</em> im Herbstsemester 2024.</p>
-<p>Diese Sammlung ist aktuell noch am Entstehen.</p>
-<div class="callout callout-style-default callout-warning callout-titled" title="Hinweis">
-<div class="callout-header d-flex align-content-center">
+<section id="sommer-jja-temperaturanomalien" class="level2" data-number="C.1">
+<h2 data-number="C.1" class="anchored" data-anchor-id="sommer-jja-temperaturanomalien"><span class="header-section-number">C.1</span> Sommer (JJA) Temperaturanomalien</h2>
+<section id="aufgabe" class="level3" data-number="C.1.1">
+<h3 data-number="C.1.1" class="anchored" data-anchor-id="aufgabe"><span class="header-section-number">C.1.1</span> Aufgabe</h3>
+<ul>
+<li>Berechnet die Sommer (JJA) Temperaturanomalien zur Referenzperiode 1961 bis 1990 in Bern <strong>mit Excel</strong>.</li>
+<li>Schreibt R-Code, um die gleiche Berechnung durchzuführen.</li>
+<li>Hinweis: Chatbots können neuerdings Datenanalysen ohne Programmierkenntnisse durchführen. Siehe: <a href="https://help.openai.com/en/articles/8437071-data-analysis-with-chatgpt">Data Analysis with ChatGPT</a></li>
+<li><strong>Aufgabe</strong>: Überprüft den generierten Code und diskutiert die <strong>Vorteile, Nachteile und Risiken</strong> der drei Methoden.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="klimadiagramm" class="level2" data-number="C.2">
+<h2 data-number="C.2" class="anchored" data-anchor-id="klimadiagramm"><span class="header-section-number">C.2</span> Klimadiagramm</h2>
+<section id="schritte" class="level3" data-number="C.2.1">
+<h3 data-number="C.2.1" class="anchored" data-anchor-id="schritte"><span class="header-section-number">C.2.1</span> Schritte</h3>
+<ol type="1">
+<li><strong>Datensatz laden</strong>:
+<ul>
+<li><code>meteodaten_tag.csv</code> (nach Excel-Export in R):</li>
+</ul></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"meteodaten_tag.csv"</span>, <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">"-"</span>, <span class="st">"NA"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li><p><strong>Datenstruktur überprüfen</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Prüfen, ob die Daten korrekt (z. B. numerisch) gelesen wurden.</p></li>
+<li><p><strong>Histogramm erstellen</strong>:</p>
+<ul>
+<li>Mit den Tagestemperaturen (z. B. mit feinen Abständen):</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>temp, <span class="at">breaks =</span> <span class="dv">40</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p><strong>Monatsmittelwerte berechnen</strong>:</p>
+<ul>
+<li>Temperatur und Bewölkung über alle Jahre (z. B. Mittelwerte für jeden Monat).</li>
+<li>Achtung: Fehlwerte berücksichtigen.</li>
+</ul></li>
+<li><p><strong>Plot erstellen</strong>:</p>
+<ul>
+<li>Zwei Barplots (Temperatur und Bewölkung) übereinander:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(temperature_means, <span class="at">main =</span> <span class="st">"Monatsmittelwerte Temperatur"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(cloud_cover_means, <span class="at">main =</span> <span class="st">"Monatsmittelwerte Bewölkung"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Erwartet: Welche Trends zeigen die Ergebnisse?</li>
+</ul></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="Lösung">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Hinweis
+Lösung
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Die Inhalte dieser Website können Lücken und Fehler enthalten. Die Inhalte werden laufend ergänzt und verbessert.</strong></p>
-<p>Fehler und Vorschläge können auf jeder Seite direkt über <em>Problem melden</em> auf Github gemeldet werden. Bitte das entsprechende Issue-Template verwenden.</p>
-<p>Falls bereits Erfahrung mit Github und quarto besteht, kann auch jeweils direkt die Seite bearbeitet werden. Anschliessend kann ein Pull-Request erstellt werden.</p>
+<p>Comming soon!</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="boxplots" class="level2" data-number="C.3">
+<h2 data-number="C.3" class="anchored" data-anchor-id="boxplots"><span class="header-section-number">C.3</span> Boxplots</h2>
+<section id="aufgabe-1" class="level3" data-number="C.3.1">
+<h3 data-number="C.3.1" class="anchored" data-anchor-id="aufgabe-1"><span class="header-section-number">C.3.1</span> Aufgabe</h3>
+<ul>
+<li><p>Wählt den Zeitraum <strong>2000-2001</strong> in den täglichen Daten, z. B.:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>zeit <span class="ot">&lt;-</span> meteodaten_tag[meteodaten_tag[, <span class="dv">1</span>] <span class="sc">&gt;=</span> <span class="dv">2000</span> <span class="sc">&amp;</span> meteodaten_tag[, <span class="dv">1</span>] <span class="sc">&lt;=</span> <span class="dv">2001</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p><strong>Boxplot erstellen</strong>:</p>
+<ul>
+<li><p>Temperaturen als Funktion der Bewölkung:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(temp <span class="sc">~</span> cloud_cover, <span class="at">data =</span> zeit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Achsen beschriften und Titel vergeben.</p></li>
+</ul></li>
+<li><p><strong>Analyse</strong>:</p>
+<ul>
+<li>Unter welchen Bewölkungsbedingungen ist die Spannweite/Varianz der Temperatur am größten?</li>
+<li>Findet den bewölkungsärmsten und bewölkungsreichsten Monat (im Mittel der zwei Jahre). Wie hoch ist die mittlere Bewölkung (in Oktas)?</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Lösung">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Lösung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Comming soon!</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="r-als-gis-ersatz" class="level2" data-number="C.4">
+<h2 data-number="C.4" class="anchored" data-anchor-id="r-als-gis-ersatz"><span class="header-section-number">C.4</span> R als GIS-Ersatz</h2>
+<section id="schritte-1" class="level3" data-number="C.4.1">
+<h3 data-number="C.4.1" class="anchored" data-anchor-id="schritte-1"><span class="header-section-number">C.4.1</span> Schritte</h3>
+<ol type="1">
+<li><strong>Paket installieren und laden</strong>:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"maps"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li><strong>Koordinaten herausfinden</strong>:
+<ul>
+<li>Für Genf und Gr. S. Bernhard (ca.).</li>
+</ul></li>
+<li><strong>Europakarte erstellen</strong>:
+<ul>
+<li>Leeren Plot erstellen:</li>
+</ul></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">30</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">35</span>, <span class="dv">60</span>), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">xlab =</span> <span class="st">"lon"</span>, <span class="at">ylab =</span> <span class="st">"lat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Weltkarte hinzufügen:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="st">"world"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li><strong>Stationen hinzufügen</strong>:
+<ul>
+<li>Stationen als Punkte plotten (mit unterschiedlichen Farben/Symbolen):</li>
+</ul></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x_coord, y_coord, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x_coord, y_coord, <span class="at">labels =</span> station_names, <span class="at">pos =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><strong>Hinweis</strong>: Für genaue Koordinaten verwendet Google!</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Lösung">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Lösung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Comming soon!</p>
+</div>
 </div>
 </div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -309,12 +530,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Kopiert");
+    button.setAttribute("title", "Copied!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Kopiert");
+      button.setAttribute("data-bs-title", "Copied!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -685,10 +906,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../excercises/ex02.html" class="pagination-link" aria-label="R-Übungen 2">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R-Übungen 2</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./grundlagen_R.html" class="pagination-link" aria-label="Grundlagen R">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../excercises/deskriptive-statistik.html" class="pagination-link" aria-label="Übung 4: Deskriptive Statistik und Visualisierung">
+        <span class="nav-page-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -700,7 +924,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
 <p>Made with ❤️ by <a href="https://lukasbatschelet.ch/">Lukas Batschelet</a></p>
-<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/excercises/ex03.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p><a href="https://ko-fi.com/lukasbatschelet">☕️Buy me a coffee</a></p>
 </div>

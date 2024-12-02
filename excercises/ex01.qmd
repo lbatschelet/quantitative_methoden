@@ -1,5 +1,7 @@
 ---
-code-annotations: hover
+author: "Lukas Batschelet"
+title: "Übung 1: Grundlagen R"
+date: "2024-11-25"
 ---
 
 # Übung 1: Grundlagen R
@@ -125,9 +127,17 @@ Erzeugt mit den `rep()`und `seq()` Funktionen die folgenden Zahlenfolgen:
 :::{.callout-tip title="Lösung" collapse="true"}
 
 ```{r}
-#| label: aufgabe2a-loesung
-#| eval: FALSE
+#| label: aufgabe2a-loesung-a
+#| eval: TRUE
 seq(1, 9)
+```
+
+oder gleichwertig:
+
+```{r}
+#| label: aufgabe2a-loesung-b
+#| eval: TRUE
+1:9
 ```
 
 :::
@@ -142,7 +152,7 @@ seq(1, 9)
 
 ```{r}
 #| label: aufgabe2b-loesung-a
-#| eval: FALSE
+#| eval: TRUE
 rep(c("m", "w"), 3)
 ```
 
@@ -150,7 +160,7 @@ oder gleichwertig:
 
 ```{r}
 #| label: aufgabe2b-loesung-b
-#| eval: FALSE
+#| eval: TRUE
 rep(c("m", "w"), length = 6)
 ```
 
@@ -166,7 +176,7 @@ rep(c("m", "w"), length = 6)
 
 ```{r}
 #| label: aufgabe2c-loesung
-#| eval: FALSE
+#| eval: TRUE
 rep(1:4, 3)
 ```
 
@@ -182,9 +192,10 @@ rep(1:4, 3)
 
 ```{r}
 #| label: aufgabe2d-loesung
-#| eval: FALSE
+#| eval: TRUE
 rep(1:4, 1:4)
 ```
+
 
 :::
 
@@ -195,10 +206,12 @@ Lest die Datei [`meteodaten_saison.csv`](../Data/meteodaten_saison.csv) in R ein
 ```{r}
 #| label: aufgabe3
 #| eval: FALSE
-saison <- read.table("Pfad/zur/Datei.csv",
-                     sep = ",",
-                     header = TRUE)
+saison <- read.table("Pfad/zur/Datei.csv",  #<1>
+                     sep = ",",             #<2>
+                     header = TRUE)         #<2>
 ```
+1. Setzt den korrekten Pfad zur Datei ein.
+2. Weitere Argumente für den Funktionsaufruf: `sep` (separator) gibt an welches Trennzeichen in der Datei verwendet wird und `header` ob die erste Zeile als Spaltennamen verwendet werden soll.
 
 Überprüft, ob der Import korrekt verlief.
 
@@ -217,24 +230,11 @@ Danach können Dateien relativ zum aktuellen Skriptpfad geladen werden.
 
 ```{r}
 #| label: aufgabe3-loesung
-#| eval: FALSE
-saison <- read.table("Data/meteodaten_saison.csv",  #<1>
-                     sep = ",",                     #<2>
-                     header = TRUE)                 #<3>
-```
-1. Der Pfad zur Datei relativ zum aktuellen Skriptpfad.
-2. Das in der Datei verwendete Trennzeichen für die Spalten.
-3. Die Datei hat eine Kopfzeile.
-
-```{r}
-#| label: aufgabe3-loesung-web
-#| echo: FALSE
-# Hier ein zweites Mal so gesetzt wegen der Dateistruktur im Repository
-saison <- read.table("../Data/meteodaten_saison.csv",
+#| eval: TRUE
+saison <- read.table("Data/meteodaten_saison.csv",
                      sep = ",",
                      header = TRUE)
 ```
-
 
 :::
 

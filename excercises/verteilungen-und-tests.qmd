@@ -3,7 +3,7 @@
 Erstellt mit R das Histogramm und die Verteilungsfunktion des Sommer-Niederschlags am Grossen St. Bernhard (Datei mit Saison-Mittelwerten). Tipp: In R kann die empirische Verteilungsfunktion mit der Funktion ecdf() erzeugt werden.
 
 ```{r}
-meteodaten <- read.csv('../Data/meteodaten_saison.csv',
+meteodaten <- read.csv('Data/meteodaten_saison.csv',
                        sep = ',',
                        header = TRUE)
 
@@ -77,7 +77,7 @@ ANTWORT: Die Niederschlagssumme, die in 20% der Jahre überschritten wird, betr�
 Daten einlesen
 
 ```{r}
-psychologieExperiment <- read.table('../Data/Psycho_Exp_Ergebnisse2_2024-10-28.csv',
+psychologieExperiment <- read.table('Data/Psycho_Exp_Ergebnisse2_2024-10-28.csv',
                                     sep = ',',
                                     header = TRUE,
                                     na.strings = '999')
@@ -191,7 +191,7 @@ Mit dem t-Wert von ca. 0.5 und einem p-Wert von ca. 0.3 können wir die Nullhypo
 ```{r}
 # Daten einlesen
 wuerfel_daten <- read.table(
-  "../Data/alle_wuerfel.csv",
+  "Data/alle_wuerfel.csv",
   sep = ",",
   header = TRUE
 )
@@ -265,7 +265,7 @@ wuerfel_daten <- rbind(
 Daten einlesen
 ```{r}
 psychologieExperiment <- read.table(
-  '../Data/Psycho_Exp_Ergebnisse2_2024-10-28.csv',
+  'Data/Psycho_Exp_Ergebnisse2_2024-10-28.csv',
   sep = ',',
   header = TRUE,
   na.strings = '999'

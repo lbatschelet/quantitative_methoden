@@ -1,6 +1,7 @@
 project:
   type: book
   output-dir: docs
+  execute-dir: project
 
 book:
   title: "Quantitative Methoden"
@@ -38,6 +39,8 @@ book:
     # - wichtige_funktionen.qmd
   appendices:
     - excercises/ex01.qmd
+    - excercises/ex02.qmd
+    - excercises/ex03.qmd
     - excercises/deskriptive-statistik.qmd
     - excercises/verteilungen-und-tests.qmd
 

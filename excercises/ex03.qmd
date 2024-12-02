@@ -1,0 +1,148 @@
+---
+title: "R-Übungen 3"
+author: "Lukas Batschelet"
+date: "2024-11-28"
+---
+
+
+## Sommer (JJA) Temperaturanomalien
+
+### Aufgabe
+- Berechnet die Sommer (JJA) Temperaturanomalien zur Referenzperiode 1961 bis 1990 in Bern **mit Excel**.
+- Schreibt R-Code, um die gleiche Berechnung durchzuführen.
+- Hinweis: Chatbots können neuerdings Datenanalysen ohne Programmierkenntnisse durchführen. Siehe:
+  [Data Analysis with ChatGPT](https://help.openai.com/en/articles/8437071-data-analysis-with-chatgpt)
+- **Aufgabe**: Überprüft den generierten Code und diskutiert die **Vorteile, Nachteile und Risiken** der drei Methoden.
+
+---
+
+## Klimadiagramm
+
+### Schritte
+
+1. **Datensatz laden**:
+   - `meteodaten_tag.csv` (nach Excel-Export in R):
+
+```{r}
+#| eval: FALSE
+data <- read.csv("meteodaten_tag.csv", na.strings = c("-", "NA"))
+```
+
+2. **Datenstruktur überprüfen**:
+
+   ```{r}
+   #| eval: FALSE
+   str(data)
+   ```
+
+   Prüfen, ob die Daten korrekt (z. B. numerisch) gelesen wurden.
+
+3. **Histogramm erstellen**:
+    - Mit den Tagestemperaturen (z. B. mit feinen Abständen):
+
+   ```{r}
+   #| eval: FALSE
+   hist(data$temp, breaks = 40)
+   ```
+
+4. **Monatsmittelwerte berechnen**:
+    - Temperatur und Bewölkung über alle Jahre (z. B. Mittelwerte für jeden Monat).
+    - Achtung: Fehlwerte berücksichtigen.
+
+5. **Plot erstellen**:
+    - Zwei Barplots (Temperatur und Bewölkung) übereinander:
+
+   ```{r}
+   #| eval: FALSE
+   par(mfrow = c(2, 1))
+   barplot(temperature_means, main = "Monatsmittelwerte Temperatur")
+   barplot(cloud_cover_means, main = "Monatsmittelwerte Bewölkung")
+   ```
+
+    - Erwartet: Welche Trends zeigen die Ergebnisse?
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+Comming soon!
+
+:::
+
+---
+
+## Boxplots
+
+### Aufgabe
+- Wählt den Zeitraum **2000-2001** in den täglichen Daten, z. B.:
+
+  ```{r}
+  #| eval: FALSE
+  zeit <- meteodaten_tag[meteodaten_tag[, 1] >= 2000 & meteodaten_tag[, 1] <= 2001, ]
+  ```
+
+- **Boxplot erstellen**:
+    - Temperaturen als Funktion der Bewölkung:
+
+      ```{r}
+      #| eval: FALSE
+      boxplot(temp ~ cloud_cover, data = zeit)
+      ```
+    - Achsen beschriften und Titel vergeben.
+
+- **Analyse**:
+    - Unter welchen Bewölkungsbedingungen ist die Spannweite/Varianz der Temperatur am größten?
+    - Findet den bewölkungsärmsten und bewölkungsreichsten Monat (im Mittel der zwei Jahre). Wie hoch ist die mittlere Bewölkung (in Oktas)?
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+Comming soon!
+
+:::
+
+---
+
+## R als GIS-Ersatz
+
+### Schritte
+
+1. **Paket installieren und laden**:
+
+```{r}
+#| eval: FALSE
+install.packages("maps")
+library(maps)
+```
+
+2. **Koordinaten herausfinden**:
+    - Für Genf und Gr. S. Bernhard (ca.).
+
+3. **Europakarte erstellen**:
+    - Leeren Plot erstellen:
+
+```{r}
+#| eval: FALSE
+plot(x = c(-5, 30), y = c(35, 60), type = "n", xlab = "lon", ylab = "lat")
+```
+
+   - Weltkarte hinzufügen:
+
+```{r}
+#| eval: FALSE
+map("world", add = TRUE)
+```
+
+4. **Stationen hinzufügen**:
+    - Stationen als Punkte plotten (mit unterschiedlichen Farben/Symbolen):
+
+```{r}
+#| eval: FALSE
+points(x_coord, y_coord, col = "red", pch = 19)
+text(x_coord, y_coord, labels = station_names, pos = 4)
+```
+
+- **Hinweis**: Für genaue Koordinaten verwendet Google!
+
+:::{.callout-tip title="Lösung" collapse="true"}
+
+Comming soon!
+
+:::

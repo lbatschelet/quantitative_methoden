@@ -4,7 +4,7 @@ Arbeite mit den saisonalen Meteodaten, die wir im R-Kurs eingelesen haben
 ```{r}
 #| label: read_data
 #|
-meteodaten <- read.csv('../Data/meteodaten_saison.csv',
+meteodaten <- read.csv('Data/meteodaten_saison.csv',
     sep = ',',
     header = TRUE)
 ```
