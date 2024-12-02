@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Lukas Batschelet">
 
-<title>6&nbsp; Statistische Datenanalyse – Quantitative Methoden</title>
+<title>5&nbsp; Schlaufen und Funktionen – Quantitative Methoden</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./verteilungen.html" rel="next">
-<link href="./loops_and_functions.html" rel="prev">
+<link href="./statistische-datenanalyse.html" rel="next">
+<link href="./packages_and_libraries.html" rel="prev">
 <link href="./code" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -90,49 +91,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -142,13 +114,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistische-datenanalyse.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistische Datenanalyse</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./loops_and_functions.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Schlaufen und Funktionen</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -164,7 +136,7 @@ window.Quarto = {
         <div class="sidebar-tools-main tools-wide">
     <a href="https://ko-fi.com/lukasbatschelet" title="Buy me a coffee" class="quarto-navigation-tool px-1" aria-label="Buy me a coffee"><i class="bi bi-cup-hot-fill"></i></a>
     <a href="https://github.com/lbatschelet/quantitative_methoden" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Lesemodus umschalten">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -174,7 +146,7 @@ window.Quarto = {
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Suchen"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -205,13 +177,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./loops_and_functions.html" class="sidebar-item-text sidebar-link">
+  <a href="./loops_and_functions.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Schlaufen und Funktionen</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./statistische-datenanalyse.html" class="sidebar-item-text sidebar-link active">
+  <a href="./statistische-datenanalyse.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistische Datenanalyse</span></span></a>
   </div>
 </li>
@@ -231,7 +203,7 @@ window.Quarto = {
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -275,34 +247,49 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#deskriptive-statistik" id="toc-deskriptive-statistik" class="nav-link active" data-scroll-target="#deskriptive-statistik"><span class="header-section-number">6.1</span> Deskriptive Statistik</a>
+  <li><a href="#schlaufen-und-funktionen" id="toc-schlaufen-und-funktionen" class="nav-link active" data-scroll-target="#schlaufen-und-funktionen"><span class="header-section-number">6</span> Schlaufen und Funktionen</a>
   <ul class="collapse">
-  <li><a href="#grundgesamtheit-vs.-stichprobe" id="toc-grundgesamtheit-vs.-stichprobe" class="nav-link" data-scroll-target="#grundgesamtheit-vs.-stichprobe"><span class="header-section-number">6.1.1</span> Grundgesamtheit vs.&nbsp;Stichprobe</a></li>
-  <li><a href="#skalen" id="toc-skalen" class="nav-link" data-scroll-target="#skalen"><span class="header-section-number">6.1.2</span> Skalen</a></li>
-  <li><a href="#lageparameter-masse-der-zentraltendenz" id="toc-lageparameter-masse-der-zentraltendenz" class="nav-link" data-scroll-target="#lageparameter-masse-der-zentraltendenz"><span class="header-section-number">6.1.3</span> Lageparameter / Masse der Zentraltendenz</a></li>
-  <li><a href="#streuungsparameter" id="toc-streuungsparameter" class="nav-link" data-scroll-target="#streuungsparameter"><span class="header-section-number">6.1.4</span> Streuungsparameter</a></li>
-  <li><a href="#kreuztabelle-kontingenztafel" id="toc-kreuztabelle-kontingenztafel" class="nav-link" data-scroll-target="#kreuztabelle-kontingenztafel"><span class="header-section-number">6.1.5</span> Kreuztabelle / Kontingenztafel</a></li>
+  <li><a href="#if-und-else" id="toc-if-und-else" class="nav-link" data-scroll-target="#if-und-else"><span class="header-section-number">6.1</span> <code>if()</code> und <code>else()</code></a>
+  <ul class="collapse">
+  <li><a href="#ifelse-als-vektoroperation" id="toc-ifelse-als-vektoroperation" class="nav-link" data-scroll-target="#ifelse-als-vektoroperation"><span class="header-section-number">6.1.1</span> <code>ifelse()</code> als Vektoroperation</a></li>
   </ul></li>
-  <li><a href="#schliessende-statistik" id="toc-schliessende-statistik" class="nav-link" data-scroll-target="#schliessende-statistik"><span class="header-section-number">6.2</span> Schliessende Statistik</a></li>
+  <li><a href="#schleifen" id="toc-schleifen" class="nav-link" data-scroll-target="#schleifen"><span class="header-section-number">6.2</span> Schleifen</a>
+  <ul class="collapse">
+  <li><a href="#for-schleife" id="toc-for-schleife" class="nav-link" data-scroll-target="#for-schleife"><span class="header-section-number">6.2.1</span> <code>for</code> Schleife</a></li>
+  </ul></li>
+  <li><a href="#eigene-funktionen" id="toc-eigene-funktionen" class="nav-link" data-scroll-target="#eigene-funktionen"><span class="header-section-number">6.3</span> Eigene Funktionen</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/statistische-datenanalyse.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/loops_and_functions.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistische Datenanalyse</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Schlaufen und Funktionen</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Autor:in</div>
+    <div class="quarto-title-meta-contents">
+             <p>Lukas Batschelet </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">14. Oktober 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -312,223 +299,120 @@ window.Quarto = {
 </header>
 
 
-<section id="deskriptive-statistik" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="deskriptive-statistik"><span class="header-section-number">6.1</span> Deskriptive Statistik</h2>
-<section id="grundgesamtheit-vs.-stichprobe" class="level3" data-number="6.1.1">
-<h3 data-number="6.1.1" class="anchored" data-anchor-id="grundgesamtheit-vs.-stichprobe"><span class="header-section-number">6.1.1</span> Grundgesamtheit vs.&nbsp;Stichprobe</h3>
-<section id="grundgesamtheit-mu" class="level4" data-number="6.1.1.1">
-<h4 data-number="6.1.1.1" class="anchored" data-anchor-id="grundgesamtheit-mu"><span class="header-section-number">6.1.1.1</span> Grundgesamtheit <span class="math inline">\(\mu\)</span></h4>
-<p>Die Grundgesamtheit ist die Gesamtheit aller möglichen Werte einer Variablen. Zum Beispiel kann die Grundgesamtheit die Gesamtheit aller Menschen in einem Land, die Gesamtheit aller Autos einer bestimmten Marke oder die Gesamtheit aller Messungen eines Experiments sein.</p>
-</section>
-<section id="stichprobe-barx" class="level4" data-number="6.1.1.2">
-<h4 data-number="6.1.1.2" class="anchored" data-anchor-id="stichprobe-barx"><span class="header-section-number">6.1.1.2</span> Stichprobe <span class="math inline">\(\bar{x}\)</span></h4>
-<p>Eine Stichprobe ist eine Teilmenge der Grundgesamtheit. Die Stichprobe wird verwendet, um Rückschlüsse auf die Grundgesamtheit zu ziehen. Die Stichprobe sollte repräsentativ für die Grundgesamtheit sein, um gültige Schlussfolgerungen ziehen zu können.</p>
-</section>
-</section>
-<section id="skalen" class="level3" data-number="6.1.2">
-<h3 data-number="6.1.2" class="anchored" data-anchor-id="skalen"><span class="header-section-number">6.1.2</span> Skalen</h3>
-<section id="kategoriale-variablen" class="level4" data-number="6.1.2.1">
-<h4 data-number="6.1.2.1" class="anchored" data-anchor-id="kategoriale-variablen"><span class="header-section-number">6.1.2.1</span> Kategoriale Variablen</h4>
-<section id="nominalskala" class="level5">
-<h5 class="anchored" data-anchor-id="nominalskala">Nominalskala</h5>
-<p>Nominalskalen sind die einfachste Form der Skala und werden verwendet, um Kategorien zu unterscheiden. Die Kategorien haben keine natürliche Reihenfolge oder Rangfolge. Beispiele für Nominalskalen sind Geschlecht, Augenfarbe oder Nationalität.</p>
-</section>
-<section id="ordinalskala" class="level5">
-<h5 class="anchored" data-anchor-id="ordinalskala">Ordinalskala</h5>
-<p>Ordinalskalen werden verwendet, um Kategorien zu unterscheiden, die eine natürliche Reihenfolge oder Rangfolge haben. Die Abstände zwischen den Kategorien sind jedoch nicht gleich. Beispiele für Ordinalskalen sind Schulnoten, sozioökonomischer Status oder Kundenzufriedenheit.</p>
-</section>
-</section>
-<section id="metrische-variablen" class="level4" data-number="6.1.2.2">
-<h4 data-number="6.1.2.2" class="anchored" data-anchor-id="metrische-variablen"><span class="header-section-number">6.1.2.2</span> Metrische Variablen</h4>
-<section id="intervallskala" class="level5">
-<h5 class="anchored" data-anchor-id="intervallskala">Intervallskala</h5>
-<p>Intervallskalen werden verwendet, um kontinuierliche Variablen zu messen, bei denen die Abstände zwischen den Werten gleich sind, aber kein absoluter Nullpunkt vorhanden ist. Beispiele für Intervallskalen sind Temperatur in Celsius oder IQ.</p>
-</section>
-<section id="verhältnisskala" class="level5">
-<h5 class="anchored" data-anchor-id="verhältnisskala">Verhältnisskala</h5>
-<p>Verhältnisskalen werden verwendet, um kontinuierliche Variablen zu messen, bei denen die Abstände zwischen den Werten gleich sind und ein absoluter Nullpunkt vorhanden ist. Beispiele für Verhältnisskalen sind Gewicht, Grösse oder Einkommen.</p>
-</section>
-</section>
-</section>
-<section id="lageparameter-masse-der-zentraltendenz" class="level3" data-number="6.1.3">
-<h3 data-number="6.1.3" class="anchored" data-anchor-id="lageparameter-masse-der-zentraltendenz"><span class="header-section-number">6.1.3</span> Lageparameter / Masse der Zentraltendenz</h3>
-<section id="modus" class="level4" data-number="6.1.3.1">
-<h4 data-number="6.1.3.1" class="anchored" data-anchor-id="modus"><span class="header-section-number">6.1.3.1</span> Modus</h4>
-<p>Der Modus ist der Wert, der am häufigsten in einer Variablen vorkommt. Es ist möglich, dass eine Variable mehrere Modi hat (unimodal, bimodal, multimodal).</p>
-</section>
-<section id="median" class="level4" data-number="6.1.3.2">
-<h4 data-number="6.1.3.2" class="anchored" data-anchor-id="median"><span class="header-section-number">6.1.3.2</span> Median</h4>
-<p>Der Median ist der Wert, der die Daten in zwei gleich grosse Teile teilt. Der Median ist robust gegenüber Ausreissern und wird verwendet, wenn die Daten nicht normalverteilt sind.</p>
-<p><span class="math display">\[
-\text{Median} = \begin{cases}
-      x_{\frac{n+1}{2}} &amp; \text{für ungerade Anzahl von Werten} \\
-      \frac{1}{2} (x_{\frac{n}{2}} + x_{\frac{n}{2}+1}) &amp; \text{für gerade Anzahl von Werten}
-   \end{cases}
-\]</span></p>
-</section>
-<section id="arithmetischer-mittelwert-barx" class="level4" data-number="6.1.3.3">
-<h4 data-number="6.1.3.3" class="anchored" data-anchor-id="arithmetischer-mittelwert-barx"><span class="header-section-number">6.1.3.3</span> Arithmetischer Mittelwert <span class="math inline">\(\bar{x}\)</span></h4>
-<p>Das arithmetische Mittel ist der Durchschnittswert einer Variablen und wird berechnet, indem alle Werte addiert und durch die Anzahl der Werte geteilt werden. Die Formel lautet:</p>
-<p><span class="math display">\[
-\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i = \frac{x_1 + x_2 + \ldots + x_n}{n}
-\]</span></p>
-<p>Wo <span class="math inline">\(\bar{x}\)</span> das arithmetische Mittel ist, <span class="math inline">\(n\)</span> die Anzahl der Werte und <span class="math inline">\(x_i\)</span> die einzelnen Werte.</p>
-</section>
-</section>
-<section id="streuungsparameter" class="level3" data-number="6.1.4">
-<h3 data-number="6.1.4" class="anchored" data-anchor-id="streuungsparameter"><span class="header-section-number">6.1.4</span> Streuungsparameter</h3>
-<section id="quantile-q" class="level4" data-number="6.1.4.1">
-<h4 data-number="6.1.4.1" class="anchored" data-anchor-id="quantile-q"><span class="header-section-number">6.1.4.1</span> Quantile <span class="math inline">\(q\%\)</span></h4>
-<p>Das <span class="math inline">\(q\%\)</span>-Quantil ist der Wert, unter dem <span class="math inline">\(q\%\)</span> der Daten liegen.</p>
-<section id="spezielle-quantile" class="level5">
-<h5 class="anchored" data-anchor-id="spezielle-quantile">Spezielle Quantile</h5>
-<ul>
-<li>Median ist <span class="math inline">\(Q_{0.5}\)</span></li>
-<li>Quartile: <span class="math inline">\(Q_{0.25}\)</span>, <span class="math inline">\(Q_{0.5}\)</span>, <span class="math inline">\(Q_{0.75}\)</span></li>
-<li>Whisker im Boxplot sind uneinheitlich definiert.</li>
-</ul>
-</section>
-</section>
-<section id="spannweite" class="level4" data-number="6.1.4.2">
-<h4 data-number="6.1.4.2" class="anchored" data-anchor-id="spannweite"><span class="header-section-number">6.1.4.2</span> Spannweite</h4>
-<p>Die Spannweite ist die Differenz zwischen dem grössten und dem kleinsten Wert einer Variablen. Die Spannweite ist anfällig gegenüber Ausreissern.</p>
-<p><span class="math display">\[
-\text{Spannweite} = x_{\text{max}} - x_{\text{min}}
-\]</span></p>
-</section>
-<section id="varianz-s2" class="level4" data-number="6.1.4.3">
-<h4 data-number="6.1.4.3" class="anchored" data-anchor-id="varianz-s2"><span class="header-section-number">6.1.4.3</span> Varianz <span class="math inline">\(s^2\)</span></h4>
-<p>Mittle quadratische Abweichungen vom Mittelwert.</p>
-<p><span class="math display">\[
-s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
-\]</span></p>
-</section>
-<section id="standardabweichung-s" class="level4" data-number="6.1.4.4">
-<h4 data-number="6.1.4.4" class="anchored" data-anchor-id="standardabweichung-s"><span class="header-section-number">6.1.4.4</span> Standardabweichung <span class="math inline">\(s\)</span></h4>
-<p>Die Standardabweichung ist die Quadratwurzel der Varianz und gibt an, wie stark die Werte einer Variablen um den Mittelwert streuen.</p>
-<p><span class="math display">\[
-s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
-\]</span></p>
-</section>
-<section id="schiefe" class="level4" data-number="6.1.4.5">
-<h4 data-number="6.1.4.5" class="anchored" data-anchor-id="schiefe"><span class="header-section-number">6.1.4.5</span> Schiefe</h4>
-<p>Einfaches Mass für die Asymmetrie der Verteilung.</p>
-<p><span class="math display">\[
-\text{Schiefe} = \frac{\text{arithm. Mittel} - \text{Median}}{\text{Standardabweichung}}
-\]</span></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="./resources/schiefe.jpg" class="img-fluid figure-img"></p>
-<figcaption>Schiefe der Verteilung</figcaption>
-</figure>
-</div>
-</section>
-</section>
-<section id="kreuztabelle-kontingenztafel" class="level3" data-number="6.1.5">
-<h3 data-number="6.1.5" class="anchored" data-anchor-id="kreuztabelle-kontingenztafel"><span class="header-section-number">6.1.5</span> Kreuztabelle / Kontingenztafel</h3>
-<ul>
-<li>Für nominale Daten</li>
-<li>Ordinale und metrische Daten können in nominale Daten transformiert werden (z.b. Grenzüberschreitung ja/nein)</li>
-</ul>
-<p><strong>Beispiel:</strong></p>
-<p>Es werden 2000 Personen darüber befragt, ob sie Produkt A oder B bevorzugen. Das Ergebnis wird nach Geschlecht des Befragten ausgewertet.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Produkt / Geschlecht</th>
-<th>Männlich</th>
-<th>Weiblich</th>
-<th>Summe</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A</td>
-<td>660</td>
-<td>440</td>
-<td>1100</td>
-</tr>
-<tr class="even">
-<td>B</td>
-<td>340</td>
-<td>560</td>
-<td>900</td>
-</tr>
-<tr class="odd">
-<td>Summe</td>
-<td>1000</td>
-<td>1000</td>
-<td>2000</td>
-</tr>
-</tbody>
-</table>
-<section id="freiheitsgrade" class="level4" data-number="6.1.5.1">
-<h4 data-number="6.1.5.1" class="anchored" data-anchor-id="freiheitsgrade"><span class="header-section-number">6.1.5.1</span> Freiheitsgrade</h4>
-<ul>
-<li>Anzahl Beobachtungen abzüglich Anzahl geschätzter Parameter.</li>
-<li>Beispiel: Standardabweichung aus Stichprobe mit <span class="math inline">\(n\)</span> Beobachtungen</li>
-</ul>
-<p><span class="math display">\[
-s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
-\]</span></p>
-<ul>
-<li>Der Mittelwert wurde bereits aus den Beobachtungen geschätzt. Wenn man den Mittwelwert und alle Beobachtungen ausser der letzten kennt (<span class="math inline">\(n-1\)</span>) dann kann man diese berechnen, es besteht also keine “Freiheit” mehr.</li>
-</ul>
+<section id="schlaufen-und-funktionen" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Schlaufen und Funktionen</h1>
+<section id="if-und-else" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="if-und-else"><span class="header-section-number">6.1</span> <code>if()</code> und <code>else()</code></h2>
+<p>Mit <code>if()</code> und <code>else()</code> können Bedingungen in R überprüft und entsprechende Aktionen ausgeführt werden. Die Syntax ist wie folgt:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grundgesamtheit erstellen</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardabweichung der Grundgesamtheit</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>population_sd <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((population <span class="sc">-</span> <span class="fu">mean</span>(population))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="dv">100000</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(population_sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 10.00343</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (Bedingung) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Aktion, wenn die Bedingung TRUE ist</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Aktion, wenn die Bedingung FALSE ist</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Eine Stichprobe aus der Grundgesamtheit ziehen</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">sample</span>(population, <span class="dv">30</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardabweichung der Stichprobe (mit n und n-1)</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>sample_sd_n <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((sample_data <span class="sc">-</span> <span class="fu">mean</span>(sample_data))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="dv">30</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>sample_sd_n_minus_1 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((sample_data <span class="sc">-</span> <span class="fu">mean</span>(sample_data))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="dv">30</span> <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sample_sd_n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Zum Beispiel:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">5</span>) {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(x, <span class="st">"ist grösser als 5"</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"x ist kleiner oder gleich 5"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.313784</code></pre>
+<pre><code>[1] "10 ist grösser als 5"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sample_sd_n_minus_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.473005</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Viele Stichproben ziehen und die Standardabweichung berechnen</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sample_sd_n_list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"numeric"</span>, <span class="dv">1000</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sample_sd_n_minus_1_list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"numeric"</span>, <span class="dv">1000</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  sample_data <span class="ot">&lt;-</span> <span class="fu">sample</span>(population, <span class="dv">30</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  sample_sd_n_list[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((sample_data <span class="sc">-</span> <span class="fu">mean</span>(sample_data))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="dv">30</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  sample_sd_n_minus_1_list[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((sample_data <span class="sc">-</span> <span class="fu">mean</span>(sample_data))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="dv">30</span> <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Mittelwerte der berechneten Standardabweichungen</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>mean_sd_n <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample_sd_n_list)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>mean_sd_n_minus_1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample_sd_n_minus_1_list)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mean_sd_n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.775538</code></pre>
+<p>Hier verwenden wir zusätzlich die Funktion <code>paste()</code>, um Text und Variablen zu kombinieren. Dies ist ohne nicht direkt möglich.</p>
+<section id="ifelse-als-vektoroperation" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="ifelse-als-vektoroperation"><span class="header-section-number">6.1.1</span> <code>ifelse()</code> als Vektoroperation</h3>
+<p><code>ifelse()</code> ist eine Funktion, die eine Bedingung auf einen Vektor anwendet und basierend auf der Bedingung Werte zurückgibt. Die Syntax ist wie folgt:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(Bedingung, Wert_wenn_TRUE, Wert_wenn_FALSE)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mean_sd_n_minus_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Zum Beispiel:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>vectorA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(vectorA <span class="sc">==</span> <span class="dv">3</span>, <span class="st">"Drei"</span>, <span class="st">"Nicht Drei"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.942653</code></pre>
+<pre><code>[1] "Nicht Drei" "Nicht Drei" "Drei"       "Nicht Drei" "Nicht Drei"</code></pre>
 </div>
 </div>
 </section>
 </section>
+<section id="schleifen" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="schleifen"><span class="header-section-number">6.2</span> Schleifen</h2>
+<p>Schleifen sind nützlich, um eine bestimmte Aktion mehrmals auszuführen. In R gibt es verschiedene Arten von Schleifen, darunter <code>for</code>, <code>while</code> und <code>repeat</code>.</p>
+<section id="for-schleife" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="for-schleife"><span class="header-section-number">6.2.1</span> <code>for</code> Schleife</h3>
+<p>Die <code>for</code> Schleife wird verwendet, um eine Aktion für jedes Element in einer Sequenz auszuführen. Die Syntax ist wie folgt:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (Element <span class="cf">in</span> Sequenz) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Aktion, die für jedes Element ausgeführt wird</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Zum Beispiel:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5</code></pre>
+</div>
+</div>
+<p><strong>Schleifen mit Laufindex</strong></p>
+<p>Laufindexe können in R auch ausserhalb der Schleife definiert werden. Zum Beispiel:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>original_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>result_vector <span class="ot">&lt;-</span> <span class="fu">vector</span>() <span class="co"># Leerer Vektor für das Ergebnis</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Laufindex definieren</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>j <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> original_vector) {</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  result_vector[j] <span class="ot">&lt;-</span> i <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> j <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>result_vector</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  2  4  6  8 10</code></pre>
+</div>
+</div>
+<p><em>Bemerkung: aus Python kennen wir <code>j++</code> oder <code>j += 1</code> um den Laufindex zu erhöhen. In R gibt es <strong>keinen</strong> solchen Shortcut.</em></p>
 </section>
-<section id="schliessende-statistik" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="schliessende-statistik"><span class="header-section-number">6.2</span> Schliessende Statistik</h2>
+</section>
+<section id="eigene-funktionen" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="eigene-funktionen"><span class="header-section-number">6.3</span> Eigene Funktionen</h2>
+<p>Funktionen sind nützlich, um wiederkehrende Aktionen zu kapseln und zu abstrahieren. In R können eigene Funktionen mit dem <code>function</code> Schlüsselwort definiert werden. Die Syntax ist wie folgt:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>funktion_name <span class="ot">&lt;-</span> <span class="cf">function</span>(Parameter1, Parameter2, ...) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Aktionen, die die Funktion ausführt</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(Ergebnis)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Zum Beispiel:</p>
+<p>Wir schreiben eine Funktion, die die Summe der Quadrate von zwei Zahlen berechnet.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>summe_quadrate <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  summe <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> y<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(summe)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die Funktion kann dann wie folgt aufgerufen werden:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summe_quadrate</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -575,12 +459,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Kopiert");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Kopiert");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -951,13 +835,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./loops_and_functions.html" class="pagination-link" aria-label="Schlaufen und Funktionen">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Schlaufen und Funktionen</span></span>
+      <a href="./packages_and_libraries.html" class="pagination-link" aria-label="Packages und Libraries">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages und Libraries</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./verteilungen.html" class="pagination-link" aria-label="Verteilungen">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Verteilungen</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./statistische-datenanalyse.html" class="pagination-link" aria-label="Statistische Datenanalyse">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistische Datenanalyse</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -969,7 +853,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
 <p>Made with ❤️ by <a href="https://lukasbatschelet.ch/">Lukas Batschelet</a></p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/statistische-datenanalyse.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/loops_and_functions.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p><a href="https://ko-fi.com/lukasbatschelet">☕️Buy me a coffee</a></p>
 </div>
