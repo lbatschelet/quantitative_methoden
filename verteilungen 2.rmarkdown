@@ -1,0 +1,133 @@
+# Verteilungen
+
+![Ereignisraum, Wahrscheinlichkeit, Zufallsvariable](resources/ereignisraum.jpg)
+
+- **Zufallsvariable**: Variable die den Ergebnissen eines Zufallsexperiments Werte (Realisierungen) zuordnet
+- **Wahrscheinlichkeit**: theoretische Häufigkeit, mit der ein Ereignis in einer grossen Anzahl gleicher, wiederholter, voneinander unabhängiger Zufallsexperimente auftritt (z.B. 0.5 für Zahl beim Münzwurf)
+- **Ereignisraum** $\Omega$: Alle theoretisch möglichen Ereignisse, denen sich Wahrscheinlichkeiten zuordnen lassen
+- **Elementarereignisse** $\omega$: Ergebnis eines Zufallsexperiments
+
+## Theoretische Verteilungen diskreter Zufallsvariablen
+
+### Diskrete Gleichverteilung
+
+
+
+
+```{r}
+#| label: fig-single-dice
+#| fig-cap: "Diskrete Wahrscheinlichkeits- und Verteilungsfunktionen für einen Würfel (Berechnet mit 100'000 Simulationen)"
+#| code-fold: true
+#| warning: false
+
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+
+# Funktion zum Berechnen der Wahrscheinlichkeits- und Verteilungsfunktionen
+simulate_dice <- function(n_dice) {
+  rolls <- replicate(100000, sum(sample(1:6, n_dice, replace = TRUE)))  # Simulation von n_dice Würfeln
+  df <- as.data.frame(table(rolls) / length(rolls)) %>%
+    rename(x = rolls, probability = Freq) %>%
+    mutate(x = as.numeric(as.character(x))) %>%
+    arrange(x) %>%
+    mutate(cumulative_probability = cumsum(probability))
+
+  # Zusätzliche Punkte für 0 und 1
+  df <- rbind(data.frame(x = 0, probability = 0, cumulative_probability = 0),
+              df,
+              data.frame(x = max(df$x) + 1, probability = 0, cumulative_probability = 1))
+  return(df)
+}
+
+# Daten für 1 Würfel
+df_1dice <- simulate_dice(1)
+
+# Plot für die Wahrscheinlichkeitsfunktion (PDF) von 1 Würfel
+plot_pdf_1 <- ggplot(df_1dice, aes(x = x, y = probability)) +
+  geom_bar(stat = "identity", fill = "skyblue", color = "black", width = 0.7) +
+  labs(title = "ein Würfel (PDF)", x = "x", y = expression(f(x))) +
+  theme_minimal() +
+  ylim(0, max(df_1dice$probability, na.rm = TRUE) * 1.1) +
+    xlim(0, 7)
+
+# Plot für die kumulative Verteilungsfunktion (CDF) von 1 Würfel
+plot_cdf_1 <- ggplot(df_1dice, aes(x = x, y = cumulative_probability)) +
+  geom_step(linewidth = 0.8, color = "black") +
+  labs(title = "ein Würfel (CDF)", x = "x", y = expression(F(x))) +
+  theme_minimal() +
+  ylim(0, 1) +
+  xlim(0, 7)
+
+# Anordnung der beiden Plots in einem 2x1-Layout
+grid.arrange(plot_pdf_1, plot_cdf_1, ncol = 2)
+```
+
+```{r}
+#| label: fig-multiple-dice
+#| fig-cap: "Diskrete Wahrscheinlichkeits- und Verteilungsfunktionen für 2, 3 und 4 Würfel (Berechnet mit 100'000 Simulationen)"
+#| code-fold: true
+#| warning: false
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+
+# Funktion zum Berechnen der Wahrscheinlichkeits- und Verteilungsfunktionen
+simulate_dice <- function(n_dice) {
+  rolls <- replicate(100000, sum(sample(1:6, n_dice, replace = TRUE)))  # Simulation von n_dice Würfeln
+  df <- as.data.frame(table(rolls) / length(rolls)) %>%
+    rename(x = rolls, probability = Freq) %>%
+    mutate(x = as.numeric(as.character(x))) %>%
+    arrange(x) %>%
+    mutate(cumulative_probability = cumsum(probability))
+  return(df)
+}
+
+# Daten für 2, 3 und 4 Würfel
+df_2dice <- simulate_dice(2)
+df_3dice <- simulate_dice(3)
+df_4dice <- simulate_dice(4)
+
+# Plots für die PDF und CDF von 2 Würfeln
+plot_pdf_2 <- ggplot(df_2dice, aes(x = x, y = probability)) +
+  geom_bar(stat = "identity", fill = "skyblue", color = "black", width = 0.7) +
+  labs(title = "zwei Würfel (PDF)", x = "x", y = expression(f(x))) +
+  theme_minimal() +
+  ylim(0, max(df_2dice$probability, na.rm = TRUE) * 1.1)
+
+plot_cdf_2 <- ggplot(df_2dice, aes(x = x, y = cumulative_probability)) +
+  geom_step(linewidth = 0.8, color = "black") +
+  labs(title = "zwei Würfel (CDF)", x = "x", y = expression(F(x))) +
+  theme_minimal() +
+  ylim(0, 1)
+
+# Plots für die PDF und CDF von 3 Würfeln
+plot_pdf_3 <- ggplot(df_3dice, aes(x = x, y = probability)) +
+  geom_bar(stat = "identity", fill = "skyblue", color = "black", width = 0.7) +
+  labs(title = "drei Würfel (PDF)", x = "x", y = expression(f(x))) +
+  theme_minimal() +
+  ylim(0, max(df_3dice$probability, na.rm = TRUE) * 1.1)
+
+plot_cdf_3 <- ggplot(df_3dice, aes(x = x, y = cumulative_probability)) +
+  geom_step(linewidth = 0.8, color = "black") +
+  labs(title = "drei Würfel (CDF)", x = "x", y = expression(F(x))) +
+  theme_minimal() +
+  ylim(0, 1)
+
+# Plots für die PDF und CDF von 4 Würfeln
+plot_pdf_4 <- ggplot(df_4dice, aes(x = x, y = probability)) +
+  geom_bar(stat = "identity", fill = "skyblue", color = "black", width = 0.7) +
+  labs(title = "vier Würfel (PDF)", x = "x", y = expression(f(x))) +
+  theme_minimal() +
+  ylim(0, max(df_4dice$probability, na.rm = TRUE) * 1.1)
+
+plot_cdf_4 <- ggplot(df_4dice, aes(x = x, y = cumulative_probability)) +
+  geom_step(linewidth = 0.8, color = "black") +
+  labs(title = "vier Würfel (CDF)", x = "x", y = expression(F(x))) +
+  theme_minimal() +
+  ylim(0, 1)
+
+# Anordnung der Plots in einem 3x2-Layout
+grid.arrange(plot_pdf_2, plot_pdf_3, plot_pdf_4, plot_cdf_2, plot_cdf_3, plot_cdf_4, ncol = 3, nrow = 2)
+```
+
