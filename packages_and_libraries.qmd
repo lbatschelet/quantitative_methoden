@@ -5,6 +5,14 @@ date: last-modified
 lang: de
 ---
 
+```{r}
+#| label: setup
+#| echo: false
+list.of.packages <- c("ggplot2", "plotly", "maps")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+```
+
 # Packages und Libraries
 
 In R gibt es ähnlich wie in Python und anderen Programmiersprachen die Möglichkeit, zusätzliche Funktionalitäten durch das Einbinden von Packages und Libraries zu nutzen. In R werden diese durch den Befehl `library()` eingebunden.

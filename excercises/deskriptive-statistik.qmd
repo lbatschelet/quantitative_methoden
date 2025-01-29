@@ -1,5 +1,13 @@
 # Übung 4: Deskriptive Statistik und Visualisierung
 
+```{r}
+#| label: setup
+#| echo: false
+list.of.packages <- c("caTools")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+```
+
 Arbeite mit den saisonalen Meteodaten, die wir im R-Kurs eingelesen haben
 ```{r}
 #| label: read_data

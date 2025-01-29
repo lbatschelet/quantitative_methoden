@@ -1,53 +1,155 @@
 # Statistische Tests
 
-Statistische Tests sind essenziell, um Hypothesen über Daten zu überprüfen. Sie ermöglichen es Forschenden, fundierte Aussagen darüber zu treffen, ob beobachtete Muster zufällig oder signifikant sind. Dieser Abschnitt erklärt grundlegende Konzepte wie p-Werte, t-Tests, Konfidenzintervalle und Hypothesen.
+Statistische Tests sind essenziell, um Hypothesen über Daten zu überprüfen.
+
+## Standardabweichung vs. Standardfehler
+
+Der **Standardfehler** ist ein Mass für die Genauigkeit eines Schätzers. Er ist definiert als die Standardabweichung der Schätzfunktion.
+
+$$
+s_{\overline{x}} = \sqrt{\frac{s^2}{n}}
+$$
+
+Wo $s_{\overline{x}}$ der Standardfehler des Mittelwerts ist, $s^2$ die Varianz der Stichprobe und $n$ die Anzahl der Beobachtungen.
+
+D.h. der Standardfehler ist gross, wenn die Varianz gross ist und/oder die Stichprobe klein ist.
+
+Die Standardfehler sind dank dem zentralen Grenzwertsatz normalverteilt.
+
+::: {.callout-note title="Beispiel"}
+
+Beim Start zum Engadiner Skimarathon wird ein Bus vermisst. Bei der Suche findest du einen Parkplatz einen Bus. Du schaust in den Bus und stellt fest, dass das durchschnittliche Alter der Personen vermutlich bei ca. 80 Jahren liegt.
+
+Die Teilnehmer am Skimarathon haben ein mittleres Alter von 40 Jahren mit einer Standardabweichung von 10 Jahren, wobei wir annehmen, dass die Alter ungefähr normalverteilt ist.
+
+Der Standardfehler misst nun die Genauigkeit des Schätzers, also wie genau der Mittelwert der Stichprobe den Mittelwert der Population schätzt.
+
+Im gefundenen Bus befinden sich 50 Personen mit einem durchschnittlichen Alter von 80 Jahren.
+
+Der Standardfehler des Mittelwerts beträgt:
+
+$$
+s_{\overline{x}} = \sqrt{\frac{s^2}{n}} = \sqrt{\frac{10^2}{50}} = \sqrt{2} \approx 1.41 \text{ Jahre}
+$$
+
+Die Differenz zwischen dem Mittelwert der Stichprobe und dem Mittelwert der Population beträgt 40 Jahre, und ist damit grösser als 28 Standardfehler.
+
+Aus der Normalverteilung können wir also schliessen, dass der Bus mit 99.9% Wahrscheinlichkeit nicht die Teilnehmer des Skimarathons enthält.
+:::
 
 ### Hypothesen
 
 Eine Hypothese ist eine testbare Aussage über eine Population. In der Statistik gibt es zwei Hauptarten von Hypothesen:
 
-- **Nullhypothese (H₀)**: Sie postuliert, dass es keinen Effekt oder Unterschied gibt. Zum Beispiel könnte H₀ aussagen, dass es keinen Unterschied zwischen den Mittelwerten zweier Gruppen gibt.
-- **Alternativhypothese (H₁)**: Diese Hypothese widerspricht der Nullhypothese und postuliert, dass es einen Effekt oder Unterschied gibt.
+#### Nullhypothese $H_0$
 
-Statistische Tests werden durchgeführt, um zu entscheiden, ob die Nullhypothese abgelehnt werden kann, basierend auf den Daten und einem vorgegebenen Signifikanzniveau (z. B. 0,05).
+Die Nullhypothese postuliert, dass es keinen Effekt oder Unterschied gibt. Zum Beispiel könnte H₀ aussagen, dass es keinen Unterschied zwischen den Mittelwerten zweier Gruppen gibt.
 
-### p-Werte
+#### Alternativhypothese $H_A$ oder $H_1$
 
-Der p-Wert gibt an, wie wahrscheinlich es ist, ein mindestens so extremes Ergebnis wie das beobachtete zu erhalten, wenn die Nullhypothese wahr ist. Ein kleiner p-Wert (typischerweise < 0,05) weist darauf hin, dass die Daten unwahrscheinlich unter der Nullhypothese sind und diese abgelehnt werden könnte.
+Die Alternativhypothese widerspricht der Nullhypothese und postuliert, dass es einen Effekt oder Unterschied gibt. Alternativhypothesen können *einseitig* (z.B. $H_1: \mu > \mu_0$) oder *zweiseitig* (z.B. $H_1: \mu \neq \mu_0$) sein.
 
-**Wichtige Punkte**:
+## Testtheorie
 
-- Ein p-Wert von 0,03 bedeutet, dass es eine 3%-ige Wahrscheinlichkeit gibt, ein solches Ergebnis zu beobachten, wenn H₀ wahr ist.
-- Der p-Wert ist keine direkte Wahrscheinlichkeit dafür, dass H₀ wahr oder falsch ist.
+1. **Hypothesen aufstellen**  
+   - Formuliere eine Nullhypothese $H_0$ (z.B. „kein Unterschied zwischen Mittelwerten“) und eine Alternativhypothese $H_1$ (z.B. „es gibt einen Unterschied“).
 
-### t-Test
+2. **Signifikanzniveau $\alpha$ festlegen**  
+   - Häufig $\alpha = 0.05$. Wenn dein p-Wert kleiner ist als 0.05, lehnst du $H_0$ ab (auf 5%-Niveau).
 
-Der t-Test wird verwendet, um zu prüfen, ob der Mittelwert einer Gruppe sich signifikant von dem einer anderen unterscheidet. Es gibt verschiedene Varianten des t-Tests:
+3. **Stichprobe erheben**  
+   - Daten sammeln (z.B. Zufallsstichprobe) und Kennwerte (Mittelwert, Varianz, etc.) berechnen.
 
-- **Unabhängiger t-Test**: Vergleicht die Mittelwerte zweier unabhängiger Gruppen.
-- **Gepaarter t-Test**: Vergleicht Mittelwerte von Daten, die paarweise verbunden sind (z. B. Vorher-Nachher-Vergleiche derselben Personen).
+4. **Teststatistik berechnen**  
+   - Beim **t-Test** rechnest du einen **t-Wert** (Teststatistik) aus. Dieser t-Wert sagt dir, wie viele „Standardfehler“ deine gemessene Differenz vom erwarteten Wert (unter $H_0$) entfernt ist.
 
-Der t-Wert ist eine Teststatistik, die die Differenz zwischen den Mittelwerten in Einheiten des Standardfehlers angibt. Ein größerer t-Wert weist auf eine größere Abweichung von der Nullhypothese hin.
+   $$ 
+   t = \frac{\overline{x} - \mu_0}{s_{\overline{x}}} 
+   $$
 
-### Konfidenzintervalle
+   - $\overline{x}$: Mittelwert deiner Stichprobe  
+   - $\mu_0$: unter $H_0$ vermuteter Populationsmittelwert (oder z.B. Differenz von 0 zwischen zwei Gruppen)  
+   - $s_{\overline{x}} = \frac{s}{\sqrt{n}}$: Standardfehler des Mittelwerts, basierend auf der Stichproben-Standardabweichung $s$ und der Stichprobengrösse $n$
 
-Ein Konfidenzintervall ist ein Bereich von Werten, der den wahren Wert eines Parameters mit einer bestimmten Wahrscheinlichkeit enthält. Ein 95%-Konfidenzintervall bedeutet, dass der wahre Parameterwert mit 95%-iger Wahrscheinlichkeit innerhalb dieses Intervalls liegt.
 
-**Wichtige Punkte**:
+::: {.callout-note title="t-Test"}
+Ein **t-Test** ist ein statistischer Test, der oft genutzt wird, um **Mittelwerte** zu vergleichen oder einen Mittelwert mit einem Referenzwert zu prüfen. Beispielsweise kannst du testen, ob das Durchschnittsgewicht einer Stichprobe signifikant von 70 kg abweicht ($H_0: \mu = 70$).  
 
-- Ein 95%-Konfidenzintervall für den Mittelwert von 10 bis 20 zeigt, dass der wahre Mittelwert in 95 von 100 Stichproben innerhalb dieses Bereichs liegt.
-- Das Konfidenzintervall beschreibt die Präzision der Schätzung, nicht die Wahrscheinlichkeit, dass ein bestimmter Wert in diesem Bereich liegt.
+Der **Kern** des t-Tests:
 
-### Weitere Statistische Tests
+1. Du berechnest den **t-Wert** als $\frac{\text{Abweichung des Mittelwerts}}{\text{Standardfehler}}$.  
+2. Aus diesem t-Wert und den Freiheitsgraden (z.B. $n-1$) bestimmt man den **p-Wert** mithilfe der t-Verteilung.  
+3. Ist der p-Wert kleiner als das vorab festgelegte Signifikanzniveau $\alpha$, so lehnt man $H_0$ ab.
 
-#### Chi-Quadrat-Test
+Ein typisches Beispiel ist der **Zweistichproben-t-Test** (unabhängige Gruppen), bei dem untersucht wird, ob sich zwei Mittelwerte (z.B. Gruppe A vs. Gruppe B) signifikant unterscheiden.
+:::
 
-Dieser Test wird verwendet, um zu prüfen, ob ein beobachteter Unterschied zwischen erwarteten und tatsächlichen Häufigkeiten signifikant ist. Er ist besonders nützlich bei kategorialen Daten.
+5. **p-Wert bestimmen und Entscheidung treffen**  
+   - Aus dem t-Wert (und den Freiheitsgraden $\text{df} = n-1$ oder ähnlich) kannst du den **p-Wert** ablesen (z.B. mittels t-Verteilungstabellen oder Software). Der p-Wert gibt an, wie wahrscheinlich (oder selten) eine so grosse oder grössere Abweichung zufällig auftreten würde, wenn $H_0$ wahr wäre.  
+   - **Richtlinie**: Ist der p-Wert kleiner als $\alpha$ (z.B. < 0.05), lehnen wir $H_0$ ab – das Ergebnis gilt als „statistisch signifikant“.
 
-#### ANOVA (Analyse der Varianz)
+### t-Wert vs. p-Wert
 
-Die ANOVA vergleicht die Mittelwerte von drei oder mehr Gruppen, um festzustellen, ob mindestens ein Mittelwert signifikant unterschiedlich ist.
+- Der **t-Wert** ist der numerische „Abstand“ deiner beobachteten Daten (Mittelwertdifferenz) vom Wert unter $H_0$, gemessen in Einheiten des Standardfehlers.  
+- Der **p-Wert** ist die Wahrscheinlichkeit, einen **t-Wert** (oder Teststatistik) zu erhalten, der *mindestens* so extrem ist wie dein beobachteter, *wenn* $H_0$ gilt.
 
-#### Regressionstests
+Oder vereinfacht:  
+- **t-Wert**: *„Wir sind 2.5 Standardfehler vom erwarteten Wert entfernt.“*  
+- **p-Wert**: *„Diese Abweichung kommt nur mit 1% Wahrscheinlichkeit zustande, wenn $H_0$ stimmt.“*
 
-Diese Tests analysieren die Beziehung zwischen einer abhängigen Variable und einer oder mehreren unabhängigen Variablen. Sie helfen, Vorhersagen zu treffen und den Einfluss der Prädiktoren zu bestimmen.
+Beide Werte gehören zusammen: Ohne t-Wert weisst du nicht, *wie* stark die Abweichung ist; ohne p-Wert weisst du nicht, wie (un)wahrscheinlich diese Abweichung unter der Nullhypothese wäre.
+
+### Fehlerarten
+
+| Testentscheidung  | $H_0$ nicht ablehnen    | $H_0$ ablehnen        |
+|-------------------|-------------------------|-----------------------|
+| $H_0$ wahr        | Richtige Entscheidung   | Fehler 1. Art         |
+| $H_0$ falsch      | Fehler 2. Art           | Richtige Entscheidung |
+
+- **Fehler 1. Art** (Alpha-Fehler): Wir lehnen $H_0$ ab, obwohl $H_0$ wahr ist.
+- **Fehler 2. Art** (Beta-Fehler): Wir nehmen $H_0$ an, obwohl $H_0$ falsch ist.
+- Es gibt keine Testverfahren, die beide Fehlerarten gleichzeitig minimieren können.
+- Das Signifikanzniveau $\alpha$ ist die Wahrscheinlichkeit für einen Fehler 1. Art.
+- Der Fehler 2. Art ist in der Regel weniger gravierend.
+
+
+### Mittwelwerte Testen
+
+- Mittelwert $\mu$ und Standardabweichung $\sigma$ aus $X_{\text{Mittel}}$ und $s_x$ schätzen.
+- Das führt bei kleinen Stichproben zu grossen Standardfehlern.
+- es ist unwahrscheinlich, dass die Stichprobe exakt das Mittel der Grundgesamtheit trifft.
+- Dadurch wird die Verteilung der Teststatistik $t$ breiter.
+
+::: {.callout-note title="Beispiel"}
+
+**Hypothesen**:
+
+- $H_0$: Erwartere Sept. bis Nov. Mitteltemperatur beträgt 9°C ($x = \mu_0$)
+- $H_1$: Erwartere Sept. bis Nov. Mitteltemperatur weicht signifikant von 9°C ab ($x \neq \mu_0$)
+
+**Teststatistik**:
+
+$$
+\begin{aligned}
+T &= \frac{\overline{x} - \mu_0}{s_{\overline{x}}} \\
+  &= \frac{\overline{x} - \mu_0}{\frac{s_x}{\sqrt{n}}} \\
+  &= \frac{8.75 - 9}{\frac{1.05}{\sqrt{111}}} \\
+  &= \frac{-0.25}{0.031} \\
+  &= -2.51
+\end{aligned}
+$$
+
+Wobei $\overline{x}$ der Mittelwert der Stichprobe ist, $\mu_0$ der Mittelwert der Grundgesamtheit ist, $s_x$ der Standardfehler ist und $n$ die Anzahl der Beobachtungen ist.
+
+:::
+
+![T-Verteilung](resources/T-Verteilung.png)
+
+Dieser Test ist ein zweiseitiger Test mit $\alpha = 0.05$. Das führt dazu, dass wir die Quantile so verteilen, dass "unten" 2.5% der Fläche und "oben" 2.5% der Fläche liegen.
+
+Bei einem einseitigen Test wäre $\alpha = 0.05$ und wir würden die Quantile so verteilen, dass "unten" 5% der Fläche und "oben" 95% der Fläche liegen.
+
+
+
+
+

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.37">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,10 +38,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7580570a2e354cd56757c689413fca0c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -70,6 +70,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -82,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistische-tests.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistische Tests</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./statistische-tests.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistische Tests</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -122,57 +151,79 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Übersicht</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grundlagen_R.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./plots_in_R.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./packages_and_libraries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages und Libraries</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./loops_and_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Schlaufen und Funktionen</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./statistische-datenanalyse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistische Datenanalyse</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./verteilungen.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Verteilungen</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./statistische-tests.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistische Tests</span></span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Einführung R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./grundlagen_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./plots_in_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./packages_and_libraries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages und Libraries</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./loops_and_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Schlaufen und Funktionen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Statistische Datenanalyse</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./deskriptive-statistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Deskriptive Statistik</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./verteilungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Verteilungen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./statistische-tests.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistische Tests</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./excercises/ex01.html" class="sidebar-item-text sidebar-link">
@@ -215,18 +266,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#hypothesen" id="toc-hypothesen" class="nav-link active" data-scroll-target="#hypothesen"><span class="header-section-number">8.0.1</span> Hypothesen</a></li>
-  <li><a href="#p-werte" id="toc-p-werte" class="nav-link" data-scroll-target="#p-werte"><span class="header-section-number">8.0.2</span> p-Werte</a></li>
-  <li><a href="#t-test" id="toc-t-test" class="nav-link" data-scroll-target="#t-test"><span class="header-section-number">8.0.3</span> t-Test</a></li>
-  <li><a href="#konfidenzintervalle" id="toc-konfidenzintervalle" class="nav-link" data-scroll-target="#konfidenzintervalle"><span class="header-section-number">8.0.4</span> Konfidenzintervalle</a></li>
-  <li><a href="#weitere-statistische-tests" id="toc-weitere-statistische-tests" class="nav-link" data-scroll-target="#weitere-statistische-tests"><span class="header-section-number">8.0.5</span> Weitere Statistische Tests</a></li>
+  <li><a href="#standardabweichung-vs.-standardfehler" id="toc-standardabweichung-vs.-standardfehler" class="nav-link active" data-scroll-target="#standardabweichung-vs.-standardfehler"><span class="header-section-number">8.1</span> Standardabweichung vs.&nbsp;Standardfehler</a>
+  <ul class="collapse">
+  <li><a href="#hypothesen" id="toc-hypothesen" class="nav-link" data-scroll-target="#hypothesen"><span class="header-section-number">8.1.1</span> Hypothesen</a></li>
+  </ul></li>
+  <li><a href="#testtheorie" id="toc-testtheorie" class="nav-link" data-scroll-target="#testtheorie"><span class="header-section-number">8.2</span> Testtheorie</a>
+  <ul class="collapse">
+  <li><a href="#t-wert-vs.-p-wert" id="toc-t-wert-vs.-p-wert" class="nav-link" data-scroll-target="#t-wert-vs.-p-wert"><span class="header-section-number">8.2.1</span> t-Wert vs.&nbsp;p-Wert</a></li>
+  <li><a href="#fehlerarten" id="toc-fehlerarten" class="nav-link" data-scroll-target="#fehlerarten"><span class="header-section-number">8.2.2</span> Fehlerarten</a></li>
+  <li><a href="#mittwelwerte-testen" id="toc-mittwelwerte-testen" class="nav-link" data-scroll-target="#mittwelwerte-testen"><span class="header-section-number">8.2.3</span> Mittwelwerte Testen</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/statistische-tests.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./statistische-tests.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistische Tests</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistische Tests</span></h1>
 </div>
@@ -245,56 +301,198 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Statistische Tests sind essenziell, um Hypothesen über Daten zu überprüfen. Sie ermöglichen es Forschenden, fundierte Aussagen darüber zu treffen, ob beobachtete Muster zufällig oder signifikant sind. Dieser Abschnitt erklärt grundlegende Konzepte wie p-Werte, t-Tests, Konfidenzintervalle und Hypothesen.</p>
-<section id="hypothesen" class="level3" data-number="8.0.1">
-<h3 data-number="8.0.1" class="anchored" data-anchor-id="hypothesen"><span class="header-section-number">8.0.1</span> Hypothesen</h3>
+<p>Statistische Tests sind essenziell, um Hypothesen über Daten zu überprüfen.</p>
+<section id="standardabweichung-vs.-standardfehler" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="standardabweichung-vs.-standardfehler"><span class="header-section-number">8.1</span> Standardabweichung vs.&nbsp;Standardfehler</h2>
+<p>Der <strong>Standardfehler</strong> ist ein Mass für die Genauigkeit eines Schätzers. Er ist definiert als die Standardabweichung der Schätzfunktion.</p>
+<p><span class="math display">\[
+s_{\overline{x}} = \sqrt{\frac{s^2}{n}}
+\]</span></p>
+<p>Wo <span class="math inline">\(s_{\overline{x}}\)</span> der Standardfehler des Mittelwerts ist, <span class="math inline">\(s^2\)</span> die Varianz der Stichprobe und <span class="math inline">\(n\)</span> die Anzahl der Beobachtungen.</p>
+<p>D.h. der Standardfehler ist gross, wenn die Varianz gross ist und/oder die Stichprobe klein ist.</p>
+<p>Die Standardfehler sind dank dem zentralen Grenzwertsatz normalverteilt.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Beispiel">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Beispiel
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Beim Start zum Engadiner Skimarathon wird ein Bus vermisst. Bei der Suche findest du einen Parkplatz einen Bus. Du schaust in den Bus und stellt fest, dass das durchschnittliche Alter der Personen vermutlich bei ca. 80 Jahren liegt.</p>
+<p>Die Teilnehmer am Skimarathon haben ein mittleres Alter von 40 Jahren mit einer Standardabweichung von 10 Jahren, wobei wir annehmen, dass die Alter ungefähr normalverteilt ist.</p>
+<p>Der Standardfehler misst nun die Genauigkeit des Schätzers, also wie genau der Mittelwert der Stichprobe den Mittelwert der Population schätzt.</p>
+<p>Im gefundenen Bus befinden sich 50 Personen mit einem durchschnittlichen Alter von 80 Jahren.</p>
+<p>Der Standardfehler des Mittelwerts beträgt:</p>
+<p><span class="math display">\[
+s_{\overline{x}} = \sqrt{\frac{s^2}{n}} = \sqrt{\frac{10^2}{50}} = \sqrt{2} \approx 1.41 \text{ Jahre}
+\]</span></p>
+<p>Die Differenz zwischen dem Mittelwert der Stichprobe und dem Mittelwert der Population beträgt 40 Jahre, und ist damit grösser als 28 Standardfehler.</p>
+<p>Aus der Normalverteilung können wir also schliessen, dass der Bus mit 99.9% Wahrscheinlichkeit nicht die Teilnehmer des Skimarathons enthält.</p>
+</div>
+</div>
+<section id="hypothesen" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="hypothesen"><span class="header-section-number">8.1.1</span> Hypothesen</h3>
 <p>Eine Hypothese ist eine testbare Aussage über eine Population. In der Statistik gibt es zwei Hauptarten von Hypothesen:</p>
+<section id="nullhypothese-h_0" class="level4" data-number="8.1.1.1">
+<h4 data-number="8.1.1.1" class="anchored" data-anchor-id="nullhypothese-h_0"><span class="header-section-number">8.1.1.1</span> Nullhypothese <span class="math inline">\(H_0\)</span></h4>
+<p>Die Nullhypothese postuliert, dass es keinen Effekt oder Unterschied gibt. Zum Beispiel könnte H₀ aussagen, dass es keinen Unterschied zwischen den Mittelwerten zweier Gruppen gibt.</p>
+</section>
+<section id="alternativhypothese-h_a-oder-h_1" class="level4" data-number="8.1.1.2">
+<h4 data-number="8.1.1.2" class="anchored" data-anchor-id="alternativhypothese-h_a-oder-h_1"><span class="header-section-number">8.1.1.2</span> Alternativhypothese <span class="math inline">\(H_A\)</span> oder <span class="math inline">\(H_1\)</span></h4>
+<p>Die Alternativhypothese widerspricht der Nullhypothese und postuliert, dass es einen Effekt oder Unterschied gibt. Alternativhypothesen können <em>einseitig</em> (z.B. <span class="math inline">\(H_1: \mu &gt; \mu_0\)</span>) oder <em>zweiseitig</em> (z.B. <span class="math inline">\(H_1: \mu \neq \mu_0\)</span>) sein.</p>
+</section>
+</section>
+</section>
+<section id="testtheorie" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="testtheorie"><span class="header-section-number">8.2</span> Testtheorie</h2>
+<ol type="1">
+<li><p><strong>Hypothesen aufstellen</strong></p>
 <ul>
-<li><strong>Nullhypothese (H₀)</strong>: Sie postuliert, dass es keinen Effekt oder Unterschied gibt. Zum Beispiel könnte H₀ aussagen, dass es keinen Unterschied zwischen den Mittelwerten zweier Gruppen gibt.</li>
-<li><strong>Alternativhypothese (H₁)</strong>: Diese Hypothese widerspricht der Nullhypothese und postuliert, dass es einen Effekt oder Unterschied gibt.</li>
-</ul>
-<p>Statistische Tests werden durchgeführt, um zu entscheiden, ob die Nullhypothese abgelehnt werden kann, basierend auf den Daten und einem vorgegebenen Signifikanzniveau (z. B. 0,05).</p>
-</section>
-<section id="p-werte" class="level3" data-number="8.0.2">
-<h3 data-number="8.0.2" class="anchored" data-anchor-id="p-werte"><span class="header-section-number">8.0.2</span> p-Werte</h3>
-<p>Der p-Wert gibt an, wie wahrscheinlich es ist, ein mindestens so extremes Ergebnis wie das beobachtete zu erhalten, wenn die Nullhypothese wahr ist. Ein kleiner p-Wert (typischerweise &lt; 0,05) weist darauf hin, dass die Daten unwahrscheinlich unter der Nullhypothese sind und diese abgelehnt werden könnte.</p>
-<p><strong>Wichtige Punkte</strong>:</p>
+<li>Formuliere eine Nullhypothese <span class="math inline">\(H_0\)</span> (z.B. „kein Unterschied zwischen Mittelwerten“) und eine Alternativhypothese <span class="math inline">\(H_1\)</span> (z.B. „es gibt einen Unterschied“).</li>
+</ul></li>
+<li><p><strong>Signifikanzniveau <span class="math inline">\(\alpha\)</span> festlegen</strong></p>
 <ul>
-<li>Ein p-Wert von 0,03 bedeutet, dass es eine 3%-ige Wahrscheinlichkeit gibt, ein solches Ergebnis zu beobachten, wenn H₀ wahr ist.</li>
-<li>Der p-Wert ist keine direkte Wahrscheinlichkeit dafür, dass H₀ wahr oder falsch ist.</li>
-</ul>
-</section>
-<section id="t-test" class="level3" data-number="8.0.3">
-<h3 data-number="8.0.3" class="anchored" data-anchor-id="t-test"><span class="header-section-number">8.0.3</span> t-Test</h3>
-<p>Der t-Test wird verwendet, um zu prüfen, ob der Mittelwert einer Gruppe sich signifikant von dem einer anderen unterscheidet. Es gibt verschiedene Varianten des t-Tests:</p>
+<li>Häufig <span class="math inline">\(\alpha = 0.05\)</span>. Wenn dein p-Wert kleiner ist als 0.05, lehnst du <span class="math inline">\(H_0\)</span> ab (auf 5%-Niveau).</li>
+</ul></li>
+<li><p><strong>Stichprobe erheben</strong></p>
 <ul>
-<li><strong>Unabhängiger t-Test</strong>: Vergleicht die Mittelwerte zweier unabhängiger Gruppen.</li>
-<li><strong>Gepaarter t-Test</strong>: Vergleicht Mittelwerte von Daten, die paarweise verbunden sind (z. B. Vorher-Nachher-Vergleiche derselben Personen).</li>
-</ul>
-<p>Der t-Wert ist eine Teststatistik, die die Differenz zwischen den Mittelwerten in Einheiten des Standardfehlers angibt. Ein größerer t-Wert weist auf eine größere Abweichung von der Nullhypothese hin.</p>
-</section>
-<section id="konfidenzintervalle" class="level3" data-number="8.0.4">
-<h3 data-number="8.0.4" class="anchored" data-anchor-id="konfidenzintervalle"><span class="header-section-number">8.0.4</span> Konfidenzintervalle</h3>
-<p>Ein Konfidenzintervall ist ein Bereich von Werten, der den wahren Wert eines Parameters mit einer bestimmten Wahrscheinlichkeit enthält. Ein 95%-Konfidenzintervall bedeutet, dass der wahre Parameterwert mit 95%-iger Wahrscheinlichkeit innerhalb dieses Intervalls liegt.</p>
-<p><strong>Wichtige Punkte</strong>:</p>
+<li>Daten sammeln (z.B. Zufallsstichprobe) und Kennwerte (Mittelwert, Varianz, etc.) berechnen.</li>
+</ul></li>
+<li><p><strong>Teststatistik berechnen</strong></p>
 <ul>
-<li>Ein 95%-Konfidenzintervall für den Mittelwert von 10 bis 20 zeigt, dass der wahre Mittelwert in 95 von 100 Stichproben innerhalb dieses Bereichs liegt.</li>
-<li>Das Konfidenzintervall beschreibt die Präzision der Schätzung, nicht die Wahrscheinlichkeit, dass ein bestimmter Wert in diesem Bereich liegt.</li>
+<li>Beim <strong>t-Test</strong> rechnest du einen <strong>t-Wert</strong> (Teststatistik) aus. Dieser t-Wert sagt dir, wie viele „Standardfehler“ deine gemessene Differenz vom erwarteten Wert (unter <span class="math inline">\(H_0\)</span>) entfernt ist.</li>
+</ul>
+<p><span class="math display">\[
+t = \frac{\overline{x} - \mu_0}{s_{\overline{x}}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\overline{x}\)</span>: Mittelwert deiner Stichprobe<br>
+</li>
+<li><span class="math inline">\(\mu_0\)</span>: unter <span class="math inline">\(H_0\)</span> vermuteter Populationsmittelwert (oder z.B. Differenz von 0 zwischen zwei Gruppen)<br>
+</li>
+<li><span class="math inline">\(s_{\overline{x}} = \frac{s}{\sqrt{n}}\)</span>: Standardfehler des Mittelwerts, basierend auf der Stichproben-Standardabweichung <span class="math inline">\(s\)</span> und der Stichprobengrösse <span class="math inline">\(n\)</span></li>
+</ul></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="t-Test">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+t-Test
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ein <strong>t-Test</strong> ist ein statistischer Test, der oft genutzt wird, um <strong>Mittelwerte</strong> zu vergleichen oder einen Mittelwert mit einem Referenzwert zu prüfen. Beispielsweise kannst du testen, ob das Durchschnittsgewicht einer Stichprobe signifikant von 70 kg abweicht (<span class="math inline">\(H_0: \mu = 70\)</span>).</p>
+<p>Der <strong>Kern</strong> des t-Tests:</p>
+<ol type="1">
+<li>Du berechnest den <strong>t-Wert</strong> als <span class="math inline">\(\frac{\text{Abweichung des Mittelwerts}}{\text{Standardfehler}}\)</span>.<br>
+</li>
+<li>Aus diesem t-Wert und den Freiheitsgraden (z.B. <span class="math inline">\(n-1\)</span>) bestimmt man den <strong>p-Wert</strong> mithilfe der t-Verteilung.<br>
+</li>
+<li>Ist der p-Wert kleiner als das vorab festgelegte Signifikanzniveau <span class="math inline">\(\alpha\)</span>, so lehnt man <span class="math inline">\(H_0\)</span> ab.</li>
+</ol>
+<p>Ein typisches Beispiel ist der <strong>Zweistichproben-t-Test</strong> (unabhängige Gruppen), bei dem untersucht wird, ob sich zwei Mittelwerte (z.B. Gruppe A vs.&nbsp;Gruppe B) signifikant unterscheiden.</p>
+</div>
+</div>
+<ol start="5" type="1">
+<li><strong>p-Wert bestimmen und Entscheidung treffen</strong>
+<ul>
+<li>Aus dem t-Wert (und den Freiheitsgraden <span class="math inline">\(\text{df} = n-1\)</span> oder ähnlich) kannst du den <strong>p-Wert</strong> ablesen (z.B. mittels t-Verteilungstabellen oder Software). Der p-Wert gibt an, wie wahrscheinlich (oder selten) eine so grosse oder grössere Abweichung zufällig auftreten würde, wenn <span class="math inline">\(H_0\)</span> wahr wäre.<br>
+</li>
+<li><strong>Richtlinie</strong>: Ist der p-Wert kleiner als <span class="math inline">\(\alpha\)</span> (z.B. &lt; 0.05), lehnen wir <span class="math inline">\(H_0\)</span> ab – das Ergebnis gilt als „statistisch signifikant“.</li>
+</ul></li>
+</ol>
+<section id="t-wert-vs.-p-wert" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="t-wert-vs.-p-wert"><span class="header-section-number">8.2.1</span> t-Wert vs.&nbsp;p-Wert</h3>
+<ul>
+<li>Der <strong>t-Wert</strong> ist der numerische „Abstand“ deiner beobachteten Daten (Mittelwertdifferenz) vom Wert unter <span class="math inline">\(H_0\)</span>, gemessen in Einheiten des Standardfehlers.<br>
+</li>
+<li>Der <strong>p-Wert</strong> ist die Wahrscheinlichkeit, einen <strong>t-Wert</strong> (oder Teststatistik) zu erhalten, der <em>mindestens</em> so extrem ist wie dein beobachteter, <em>wenn</em> <span class="math inline">\(H_0\)</span> gilt.</li>
+</ul>
+<p>Oder vereinfacht:<br>
+- <strong>t-Wert</strong>: <em>„Wir sind 2.5 Standardfehler vom erwarteten Wert entfernt.“</em><br>
+- <strong>p-Wert</strong>: <em>„Diese Abweichung kommt nur mit 1% Wahrscheinlichkeit zustande, wenn <span class="math inline">\(H_0\)</span> stimmt.“</em></p>
+<p>Beide Werte gehören zusammen: Ohne t-Wert weisst du nicht, <em>wie</em> stark die Abweichung ist; ohne p-Wert weisst du nicht, wie (un)wahrscheinlich diese Abweichung unter der Nullhypothese wäre.</p>
+</section>
+<section id="fehlerarten" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="fehlerarten"><span class="header-section-number">8.2.2</span> Fehlerarten</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Testentscheidung</th>
+<th><span class="math inline">\(H_0\)</span> nicht ablehnen</th>
+<th><span class="math inline">\(H_0\)</span> ablehnen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(H_0\)</span> wahr</td>
+<td>Richtige Entscheidung</td>
+<td>Fehler 1. Art</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H_0\)</span> falsch</td>
+<td>Fehler 2. Art</td>
+<td>Richtige Entscheidung</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Fehler 1. Art</strong> (Alpha-Fehler): Wir lehnen <span class="math inline">\(H_0\)</span> ab, obwohl <span class="math inline">\(H_0\)</span> wahr ist.</li>
+<li><strong>Fehler 2. Art</strong> (Beta-Fehler): Wir nehmen <span class="math inline">\(H_0\)</span> an, obwohl <span class="math inline">\(H_0\)</span> falsch ist.</li>
+<li>Es gibt keine Testverfahren, die beide Fehlerarten gleichzeitig minimieren können.</li>
+<li>Das Signifikanzniveau <span class="math inline">\(\alpha\)</span> ist die Wahrscheinlichkeit für einen Fehler 1. Art.</li>
+<li>Der Fehler 2. Art ist in der Regel weniger gravierend.</li>
 </ul>
 </section>
-<section id="weitere-statistische-tests" class="level3" data-number="8.0.5">
-<h3 data-number="8.0.5" class="anchored" data-anchor-id="weitere-statistische-tests"><span class="header-section-number">8.0.5</span> Weitere Statistische Tests</h3>
-<section id="chi-quadrat-test" class="level4" data-number="8.0.5.1">
-<h4 data-number="8.0.5.1" class="anchored" data-anchor-id="chi-quadrat-test"><span class="header-section-number">8.0.5.1</span> Chi-Quadrat-Test</h4>
-<p>Dieser Test wird verwendet, um zu prüfen, ob ein beobachteter Unterschied zwischen erwarteten und tatsächlichen Häufigkeiten signifikant ist. Er ist besonders nützlich bei kategorialen Daten.</p>
-</section>
-<section id="anova-analyse-der-varianz" class="level4" data-number="8.0.5.2">
-<h4 data-number="8.0.5.2" class="anchored" data-anchor-id="anova-analyse-der-varianz"><span class="header-section-number">8.0.5.2</span> ANOVA (Analyse der Varianz)</h4>
-<p>Die ANOVA vergleicht die Mittelwerte von drei oder mehr Gruppen, um festzustellen, ob mindestens ein Mittelwert signifikant unterschiedlich ist.</p>
-</section>
-<section id="regressionstests" class="level4" data-number="8.0.5.3">
-<h4 data-number="8.0.5.3" class="anchored" data-anchor-id="regressionstests"><span class="header-section-number">8.0.5.3</span> Regressionstests</h4>
-<p>Diese Tests analysieren die Beziehung zwischen einer abhängigen Variable und einer oder mehreren unabhängigen Variablen. Sie helfen, Vorhersagen zu treffen und den Einfluss der Prädiktoren zu bestimmen.</p>
+<section id="mittwelwerte-testen" class="level3" data-number="8.2.3">
+<h3 data-number="8.2.3" class="anchored" data-anchor-id="mittwelwerte-testen"><span class="header-section-number">8.2.3</span> Mittwelwerte Testen</h3>
+<ul>
+<li>Mittelwert <span class="math inline">\(\mu\)</span> und Standardabweichung <span class="math inline">\(\sigma\)</span> aus <span class="math inline">\(X_{\text{Mittel}}\)</span> und <span class="math inline">\(s_x\)</span> schätzen.</li>
+<li>Das führt bei kleinen Stichproben zu grossen Standardfehlern.</li>
+<li>es ist unwahrscheinlich, dass die Stichprobe exakt das Mittel der Grundgesamtheit trifft.</li>
+<li>Dadurch wird die Verteilung der Teststatistik <span class="math inline">\(t\)</span> breiter.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Beispiel">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Beispiel
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Hypothesen</strong>:</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: Erwartere Sept.&nbsp;bis Nov.&nbsp;Mitteltemperatur beträgt 9°C (<span class="math inline">\(x = \mu_0\)</span>)</li>
+<li><span class="math inline">\(H_1\)</span>: Erwartere Sept.&nbsp;bis Nov.&nbsp;Mitteltemperatur weicht signifikant von 9°C ab (<span class="math inline">\(x \neq \mu_0\)</span>)</li>
+</ul>
+<p><strong>Teststatistik</strong>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+T &amp;= \frac{\overline{x} - \mu_0}{s_{\overline{x}}} \\
+  &amp;= \frac{\overline{x} - \mu_0}{\frac{s_x}{\sqrt{n}}} \\
+  &amp;= \frac{8.75 - 9}{\frac{1.05}{\sqrt{111}}} \\
+  &amp;= \frac{-0.25}{0.031} \\
+  &amp;= -2.51
+\end{aligned}
+\]</span></p>
+<p>Wobei <span class="math inline">\(\overline{x}\)</span> der Mittelwert der Stichprobe ist, <span class="math inline">\(\mu_0\)</span> der Mittelwert der Grundgesamtheit ist, <span class="math inline">\(s_x\)</span> der Standardfehler ist und <span class="math inline">\(n\)</span> die Anzahl der Beobachtungen ist.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="resources/T-Verteilung.png" class="img-fluid figure-img"></p>
+<figcaption>T-Verteilung</figcaption>
+</figure>
+</div>
+<p>Dieser Test ist ein zweiseitiger Test mit <span class="math inline">\(\alpha = 0.05\)</span>. Das führt dazu, dass wir die Quantile so verteilen, dass “unten” 2.5% der Fläche und “oben” 2.5% der Fläche liegen.</p>
+<p>Bei einem einseitigen Test wäre <span class="math inline">\(\alpha = 0.05\)</span> und wir würden die Quantile so verteilen, dass “unten” 5% der Fläche und “oben” 95% der Fläche liegen.</p>
 
 
 </section>

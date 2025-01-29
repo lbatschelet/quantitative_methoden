@@ -1,5 +1,6 @@
 # Übung 5 & 6: Verteilungen und Tests
 
+
 Erstellt mit R das Histogramm und die Verteilungsfunktion des Sommer-Niederschlags am Grossen St. Bernhard (Datei mit Saison-Mittelwerten). Tipp: In R kann die empirische Verteilungsfunktion mit der Funktion ecdf() erzeugt werden.
 
 ```{r}

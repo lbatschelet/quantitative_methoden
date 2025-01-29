@@ -28,15 +28,18 @@ book:
         text: Buy me a coffee
   chapters:
     - index.qmd
-    # - computer_basics_and_entry_to_R.qmd
-    - grundlagen_R.qmd
-    - plots_in_R.qmd
-    - packages_and_libraries.qmd
-    - loops_and_functions.qmd
-    - statistische-datenanalyse.qmd
-    - verteilungen.qmd
-    - statistische-tests.qmd
-    # - wichtige_funktionen.qmd
+    - part: Einführung R
+      chapters:
+      # - computer_basics_and_entry_to_R.qmd
+      - grundlagen_R.qmd
+      - plots_in_R.qmd
+      - packages_and_libraries.qmd
+      - loops_and_functions.qmd
+    - part: Statistische Datenanalyse
+      chapters:
+      - deskriptive-statistik.qmd
+      - verteilungen.qmd
+      - statistische-tests.qmd
   appendices:
     - excercises/ex01.qmd
     - excercises/ex02.qmd
