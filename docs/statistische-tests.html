@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./excercises/ex01.html" rel="next">
+<link href="./korrelation.html" rel="next">
 <link href="./verteilungen.html" rel="prev">
 <link href="./code" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -213,6 +247,24 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistische Tests</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./korrelation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Korrelation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glossar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Glossar</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -276,6 +328,13 @@ window.Quarto = {
   <li><a href="#fehlerarten" id="toc-fehlerarten" class="nav-link" data-scroll-target="#fehlerarten"><span class="header-section-number">8.2.2</span> Fehlerarten</a></li>
   <li><a href="#mittwelwerte-testen" id="toc-mittwelwerte-testen" class="nav-link" data-scroll-target="#mittwelwerte-testen"><span class="header-section-number">8.2.3</span> Mittwelwerte Testen</a></li>
   </ul></li>
+  <li><a href="#konfidenzintervalle" id="toc-konfidenzintervalle" class="nav-link" data-scroll-target="#konfidenzintervalle"><span class="header-section-number">8.3</span> Konfidenzintervalle</a></li>
+  <li><a href="#überprüfung-auf-normalverteilung" id="toc-überprüfung-auf-normalverteilung" class="nav-link" data-scroll-target="#überprüfung-auf-normalverteilung"><span class="header-section-number">8.4</span> Überprüfung auf Normalverteilung</a>
+  <ul class="collapse">
+  <li><a href="#überprüfung-auf-normalverteilung-in-r" id="toc-überprüfung-auf-normalverteilung-in-r" class="nav-link" data-scroll-target="#überprüfung-auf-normalverteilung-in-r"><span class="header-section-number">8.4.1</span> Überprüfung auf Normalverteilung in R</a></li>
+  <li><a href="#chi2-test" id="toc-chi2-test" class="nav-link" data-scroll-target="#chi2-test"><span class="header-section-number">8.4.2</span> <span class="math inline">\(\chi^2\)</span>-Test</a></li>
+  </ul></li>
+  <li><a href="#testauswahl" id="toc-testauswahl" class="nav-link" data-scroll-target="#testauswahl"><span class="header-section-number">8.5</span> Testauswahl</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/statistische-tests.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -353,7 +412,7 @@ s_{\overline{x}} = \sqrt{\frac{s^2}{n}} = \sqrt{\frac{10^2}{50}} = \sqrt{2} \app
 <ul>
 <li>Formuliere eine Nullhypothese <span class="math inline">\(H_0\)</span> (z.B. „kein Unterschied zwischen Mittelwerten“) und eine Alternativhypothese <span class="math inline">\(H_1\)</span> (z.B. „es gibt einen Unterschied“).</li>
 </ul></li>
-<li><p><strong>Signifikanzniveau <span class="math inline">\(\alpha\)</span> festlegen</strong></p>
+<li><p><strong>Signifikanzniveau</strong> <span class="math inline">\(\alpha\)</span> festlegen</p>
 <ul>
 <li>Häufig <span class="math inline">\(\alpha = 0.05\)</span>. Wenn dein p-Wert kleiner ist als 0.05, lehnst du <span class="math inline">\(H_0\)</span> ab (auf 5%-Niveau).</li>
 </ul></li>
@@ -376,7 +435,7 @@ t = \frac{\overline{x} - \mu_0}{s_{\overline{x}}}
 <li><span class="math inline">\(s_{\overline{x}} = \frac{s}{\sqrt{n}}\)</span>: Standardfehler des Mittelwerts, basierend auf der Stichproben-Standardabweichung <span class="math inline">\(s\)</span> und der Stichprobengrösse <span class="math inline">\(n\)</span></li>
 </ul></li>
 </ol>
-<div class="callout callout-style-default callout-note callout-titled" title="t-Test">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -387,6 +446,7 @@ t-Test
 </div>
 <div class="callout-body-container callout-body">
 <p>Ein <strong>t-Test</strong> ist ein statistischer Test, der oft genutzt wird, um <strong>Mittelwerte</strong> zu vergleichen oder einen Mittelwert mit einem Referenzwert zu prüfen. Beispielsweise kannst du testen, ob das Durchschnittsgewicht einer Stichprobe signifikant von 70 kg abweicht (<span class="math inline">\(H_0: \mu = 70\)</span>).</p>
+<p><em>Voraussetzung</em> ist, dass die Daten metrisch, ohne Ausreisser und symetrisch verteilt sind.</p>
 <p>Der <strong>Kern</strong> des t-Tests:</p>
 <ol type="1">
 <li>Du berechnest den <strong>t-Wert</strong> als <span class="math inline">\(\frac{\text{Abweichung des Mittelwerts}}{\text{Standardfehler}}\)</span>.<br>
@@ -415,7 +475,7 @@ t-Test
 </ul>
 <p>Oder vereinfacht:<br>
 - <strong>t-Wert</strong>: <em>„Wir sind 2.5 Standardfehler vom erwarteten Wert entfernt.“</em><br>
-- <strong>p-Wert</strong>: <em>„Diese Abweichung kommt nur mit 1% Wahrscheinlichkeit zustande, wenn <span class="math inline">\(H_0\)</span> stimmt.“</em></p>
+- <strong>p-Wert</strong>: <em>„Diese Abweichung kommt nur mit 1% Wahrscheinlichkeit zustande, wenn</em> <span class="math inline">\(H_0\)</span> stimmt.“</p>
 <p>Beide Werte gehören zusammen: Ohne t-Wert weisst du nicht, <em>wie</em> stark die Abweichung ist; ohne p-Wert weisst du nicht, wie (un)wahrscheinlich diese Abweichung unter der Nullhypothese wäre.</p>
 </section>
 <section id="fehlerarten" class="level3" data-number="8.2.2">
@@ -493,9 +553,345 @@ T &amp;= \frac{\overline{x} - \mu_0}{s_{\overline{x}}} \\
 </div>
 <p>Dieser Test ist ein zweiseitiger Test mit <span class="math inline">\(\alpha = 0.05\)</span>. Das führt dazu, dass wir die Quantile so verteilen, dass “unten” 2.5% der Fläche und “oben” 2.5% der Fläche liegen.</p>
 <p>Bei einem einseitigen Test wäre <span class="math inline">\(\alpha = 0.05\)</span> und wir würden die Quantile so verteilen, dass “unten” 5% der Fläche und “oben” 95% der Fläche liegen.</p>
-
-
 </section>
+</section>
+<section id="konfidenzintervalle" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="konfidenzintervalle"><span class="header-section-number">8.3</span> Konfidenzintervalle</h2>
+<ul>
+<li>Masszahl für die Unsicherheit der Parameterschätzung</li>
+<li>Konfidenzintervalle sind Intervalle, die den wahren Wert einer Grundgesamtheit mit einer bestimmten Wahrscheinlichkeit schätzen.</li>
+<li>Eng verknüpft mit dem Signifikanzlevel <span class="math inline">\(\alpha\)</span></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Beispiel">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Beispiel
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+T = \frac{\overline{x} - \mu_0}{s_{\overline{x}}} \Rightarrow \mu \in \left\{\overline{x} \pm q_{T, 0.975} \cdot s_{\overline{x}}\right\}
+\]</span></p>
+<p>Wobei <span class="math inline">\(\overline{x}\)</span> der Mittelwert der Stichprobe ist, <span class="math inline">\(\mu_0\)</span> der Mittelwert der Grundgesamtheit ist, <span class="math inline">\(s_{\overline{x}}\)</span> der Standardfehler ist und <span class="math inline">\(q_{T, 0.975}\)</span> das 97.5%-Quantil der t-Verteilung mit <span class="math inline">\(n-1\)</span> Freiheitsgraden ist.</p>
+</div>
+</div>
+<ul>
+<li>Wie repräsentativ sind unsere Stichprobenergebnisse für die Grundgesamtheit?</li>
+</ul>
+<p><span class="math display">\[
+\begin{aligned}
+\mu_{\text{Obergrenze}} &amp;= \overline{x} + q_{1 - \alpha} \cdot \sqrt{\frac{s^2}{n}} \\
+\mu_{\text{Untergrenze}} &amp;= \overline{x} - q_{1 - \alpha} \cdot \sqrt{\frac{s^2}{n}} \\
+\end{aligned}
+\]</span></p>
+<p><strong>95%-Konfidenzintervall der erwarteten Temperatur aus dem vorherigen Beispiel</strong>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mu_{\text{Obergrenze}} &amp;= 8.75 \text{°C} + 1.98 \cdot 0.1 \text{°C} = 8.55 \text{°C} \\
+\mu_{\text{Untergrenze}} &amp;= 8.75 \text{°C} - 1.98 \cdot 0.1 \text{°C} = 8.8.95 \text{°C} \\
+\end{aligned}
+\]</span></p>
+<p>Wir beachten, dass <span class="math inline">\(9 \text{°C}\)</span> nicht im Konfidenzintervall liegt, was im Einvernehmen mit der Ablehnung der Nullhypothese <span class="math inline">\(H_0\)</span> liegt.</p>
+<p><strong>Daumenregel</strong>:</p>
+<p><span class="math display">\[
+\text{Konfidenzintervall} = \text{Stichprobenergebnis} \pm 2 \cdot \text{Standardfehler}
+\]</span></p>
+</section>
+<section id="überprüfung-auf-normalverteilung" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="überprüfung-auf-normalverteilung"><span class="header-section-number">8.4</span> Überprüfung auf Normalverteilung</h2>
+<p>Wir stellen auch hier entsprechende Hypothesen auf.</p>
+<p><span class="math display">\[
+\begin{aligned}
+H_0: &amp;\text{Daten sind normalverteilt} \\
+H_A: &amp;\text{Daten sind nicht normalverteilt}
+\end{aligned}
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Anmerkung">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Anmerkung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Dass wir hier mit der <span class="math inline">\(H_0\)</span> die Normalverteilung testen, ist nicht intuitiv. Aber wir testen hier nicht, ob die Daten normalverteilt sind, sondern ob sie <em>nicht</em> normalverteilt sind. Wenn wir das Gegenteil beweisen wollen, müssen wir das Gegenteil widerlegen.</p>
+<p>Eine Normalverteilung kann man nicht beweisen, sondern nur widerlegen.</p>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 43%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Test</th>
+<th>Vorteile</th>
+<th>Nachteile</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\chi^2\)</span>-Test</td>
+<td><ul>
+<li>geeignet für beliebig skalierte Variablen</li>
+</ul></td>
+<td><ul>
+<li><p>Gruppierung der Beobachtungen notwendig</p></li>
+<li><p>ungeeignet für kleine Stichproben</p></li>
+<li><p>quadratische Testgrösse, d.h. sensibel auf Ausreisser</p></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><strong>Kolmogorov-Smirnov-Test</strong></td>
+<td><ul>
+<li><p>geeignet für kleine Stichproben</p></li>
+<li><p>wie Chi-Quadrat auch zum Vergleich anderer Verteilungen geeignet</p></li>
+<li><p>nicht-parametrischer Test, d.h. nicht sensibel auf Ausreisser</p></li>
+</ul></td>
+<td><ul>
+<li>geringe Teststärke im Vergleich zu den folgenden Tests</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Cramér-von-Mises-Test</strong></td>
+<td><ul>
+<li>höhere Güte als KS-Test</li>
+</ul></td>
+<td><ul>
+<li>quadratische Testgrösse</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><strong>Lilliefors-Test</strong></td>
+<td><ul>
+<li><p>bessere Trennschärfe als KS-Test</p></li>
+<li><p>nicht-parametrischer Test</p></li>
+</ul></td>
+<td><ul>
+<li>nur zum Test auf Normalverteilung</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Anderson-Darling-Test</strong></td>
+<td><ul>
+<li>sehr hohe Güte bei Test auf Normalverteilung</li>
+</ul></td>
+<td><ul>
+<li><p>keine kategorialen Daten</p></li>
+<li><p>quadratische Testgrösse</p></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><strong>Shapiro-Wilk-Test</strong></td>
+<td><ul>
+<li>Test mit höchster Güte</li>
+</ul></td>
+<td><ul>
+<li><p>ausschliesslich Test auf Normalverteilung</p></li>
+<li><p>manuell schlecht durchführbar</p></li>
+<li><p>sensibel auf Ausreisser und viele identische Werte</p></li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<section id="überprüfung-auf-normalverteilung-in-r" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="überprüfung-auf-normalverteilung-in-r"><span class="header-section-number">8.4.1</span> Überprüfung auf Normalverteilung in R</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten generieren</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>normal_data <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)        <span class="co"># 500 normalverteilte Zufallszahlen</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>non_normal_data <span class="ot">&lt;-</span> normal_data<span class="sc">^</span><span class="dv">2</span> <span class="co"># quadrierte Zufallszahlen (nicht normalverteilt)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Shapiro-Wilk-Test für beide Datensätze</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>shapiro_result_normal <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(normal_data)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>shapiro_result_non_normal <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(non_normal_data)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Shapiro-Wilk-Test für normal_data:</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"W-Teststatistik:"</span>, <span class="fu">round</span>(shapiro_result_normal<span class="sc">$</span>statistic, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>W-Teststatistik: 0.9981 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"p-Wert:"</span>, <span class="fu">round</span>(shapiro_result_normal<span class="sc">$</span>p.value, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>p-Wert: 0.8639 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Shapiro-Wilk-Test für non_normal_data:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"W-Teststatistik:"</span>, <span class="fu">round</span>(shapiro_result_non_normal<span class="sc">$</span>statistic, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>W-Teststatistik: 0.708 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"p-Wert:"</span>, <span class="fu">round</span>(shapiro_result_non_normal<span class="sc">$</span>p.value, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>p-Wert: 0 </code></pre>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (shapiro_result_normal<span class="sc">$</span>p.value <span class="sc">&gt;</span> <span class="fl">0.05</span>) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Die Nullhypothese der Normalverteilung kann nicht verworfen werden. </span><span class="sc">\n</span><span class="st">`normal_data` ist normalverteilt.</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Die Nullhypothese der Normalverteilung wird verworfen. </span><span class="sc">\n</span><span class="st">`normal_data` ist **nicht** normalverteilt.</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p>Die Nullhypothese der Normalverteilung kann nicht verworfen werden. <code>normal_data</code> ist normalverteilt.</p>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (shapiro_result_non_normal<span class="sc">$</span>p.value <span class="sc">&gt;</span> <span class="fl">0.05</span>) {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Die Nullhypothese der Normalverteilung kann nicht verworfen werden. </span><span class="sc">\n</span><span class="st">`non_normal_data` ist normalverteilt.</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Die Nullhypothese der Normalverteilung wird verworfen. </span><span class="sc">\n</span><span class="st">`non_normal_data` ist **nicht** normalverteilt.</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p>Die Nullhypothese der Normalverteilung wird verworfen. <code>non_normal_data</code> ist <strong>nicht</strong> normalverteilt.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Layout für nebeneinanderstehende Plots definieren</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogramm</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(normal_data, </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogramm (Normalverteilung)"</span>, </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Werte"</span>, </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"lightblue"</span>, </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">border =</span> <span class="st">"white"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(non_normal_data, </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogramm (Nicht Normalverteilt)"</span>, </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Werte"</span>, </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"lightcoral"</span>, </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">border =</span> <span class="st">"white"</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Dichtefunktion</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(normal_data), </span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Dichtefunktion (Normalverteilung)"</span>, </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Werte"</span>, </span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"darkblue"</span>, </span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(non_normal_data), </span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Dichtefunktion (Nicht Normalverteilt)"</span>, </span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Werte"</span>, </span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"darkred"</span>, </span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="statistische-tests_files/figure-html/visual-comparison-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Visualisierung der Normalverteilung</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(normal_data, </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Boxplot (Normalverteilung)"</span>, </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"lightgreen"</span>, </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">horizontal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(non_normal_data, </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Boxplot (Nicht Normalverteilt)"</span>, </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"lightpink"</span>, </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">horizontal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ-Plot</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(normal_data, </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">"QQ-Plot (Normalverteilung)"</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(normal_data, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(non_normal_data, </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">"QQ-Plot (Nicht Normalverteilt)"</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(non_normal_data, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="statistische-tests_files/figure-html/visual-comparison-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Visualisierung der Normalverteilung</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Layout zurücksetzen</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="chi2-test" class="level3" data-number="8.4.2">
+<h3 data-number="8.4.2" class="anchored" data-anchor-id="chi2-test"><span class="header-section-number">8.4.2</span> <span class="math inline">\(\chi^2\)</span>-Test</h3>
+<ul>
+<li>Summe der quadrierten Abweichungen:</li>
+</ul>
+<p><span class="math display">\[
+\chi^2 = \sum_{i=1}^{k} \frac{(N_i - n_i)^2}{n_i}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(N_i\)</span>: beobachtete Häufigkeit in der Klasse <span class="math inline">\(i\)</span></li>
+<li><span class="math inline">\(n_i\)</span>: erwartete Häufigkeit in der Klasse <span class="math inline">\(i\)</span></li>
+<li><span class="math inline">\(k\)</span>: Anzahl der Klassen</li>
+</ul>
+<section id="chi2-verteilung" class="level4" data-number="8.4.2.1">
+<h4 data-number="8.4.2.1" class="anchored" data-anchor-id="chi2-verteilung"><span class="header-section-number">8.4.2.1</span> <span class="math inline">\(\chi^2\)</span>-Verteilung</h4>
+<ul>
+<li>stetige Wahrscheinlichkeitsverteilung mit der Anzahl Freiheitsgrade <span class="math inline">\(k\)</span> als einzigem Parameter</li>
+<li>Verteilung der Summe der Quadrate von <span class="math inline">\(k\)</span> unabhängigen und standardnormalverteilten Zufallsvariablen.</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Chi-Quadrat-Verteilung plotten</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">8</span>, <span class="at">length.out =</span> <span class="dv">500</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>df_values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Farben definieren</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"darkgreen"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>, <span class="st">"purple"</span>, <span class="st">"orange"</span>, <span class="st">"red"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">dchisq</span>(x, <span class="at">df =</span> <span class="dv">1</span>), <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> colors[<span class="dv">1</span>], </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>), <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="fu">expression</span>(f[k](x)), </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">expression</span>(chi<span class="sc">^</span><span class="dv">2</span><span class="sc">~</span><span class="st">"Verteilung"</span>))</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Weitere Linien hinzufügen</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(df_values)) {</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(x, <span class="fu">dchisq</span>(x, <span class="at">df =</span> df_values[i]), <span class="at">col =</span> colors[i], <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Legende hinzufügen</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">paste</span>(<span class="st">"k="</span>, df_values), </span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> colors, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">bty =</span> <span class="st">"n"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="statistische-tests_files/figure-html/chi-squared-distribution-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Chi-Quadrat-Verteilung</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="testauswahl" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="testauswahl"><span class="header-section-number">8.5</span> Testauswahl</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.methodenberatung.uzh.ch/static/entscheidbaum/entscheidbaum.jpg" class="img-fluid figure-img"></p>
+<figcaption>Testauswahl <em>Quelle: <a href="https://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html">Methodenberatung UZH</a></em></figcaption>
+</figure>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -923,8 +1319,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./excercises/ex01.html" class="pagination-link" aria-label="Übung 1: Grundlagen R">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Übung 1: Grundlagen R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./korrelation.html" class="pagination-link" aria-label="Korrelation">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Korrelation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

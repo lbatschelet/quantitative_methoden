@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de-CH" xml:lang="de-CH"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>10&nbsp; Regression – Quantitative Methoden</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./glossar.html" rel="next">
+<link href="./korrelation.html" rel="prev">
+<link href="./code" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Quantitative Methoden</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://ko-fi.com/lukasbatschelet" title="Buy me a coffee" class="quarto-navigation-tool px-1" aria-label="Buy me a coffee"><i class="bi bi-cup-hot-fill"></i></a>
+    <a href="https://github.com/lbatschelet/quantitative_methoden" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Lesemodus umschalten">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Suchen"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Übersicht</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Einführung R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./grundlagen_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./plots_in_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./packages_and_libraries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages und Libraries</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./loops_and_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Schlaufen und Funktionen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Statistische Datenanalyse</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./deskriptive-statistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Deskriptive Statistik</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./verteilungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Verteilungen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./statistische-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistische Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./korrelation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Korrelation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glossar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Glossar</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./excercises/ex01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Übung 1: Grundlagen R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./excercises/ex02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R-Übungen 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./excercises/ex03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">R-Übungen 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./excercises/deskriptive-statistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./excercises/verteilungen-und-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Übung 5 &amp; 6: Verteilungen und Tests</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#lineare-regression" id="toc-lineare-regression" class="nav-link active" data-scroll-target="#lineare-regression"><span class="header-section-number">10.1</span> Lineare Regression</a>
+  <ul class="collapse">
+  <li><a href="#grundidee" id="toc-grundidee" class="nav-link" data-scroll-target="#grundidee"><span class="header-section-number">10.1.1</span> Grundidee</a></li>
+  <li><a href="#das-problem-der-abweichungen-residuen" id="toc-das-problem-der-abweichungen-residuen" class="nav-link" data-scroll-target="#das-problem-der-abweichungen-residuen"><span class="header-section-number">10.1.2</span> Das Problem der Abweichungen (Residuen)</a></li>
+  <li><a href="#bestimmung-der-güte-der-anpassung" id="toc-bestimmung-der-güte-der-anpassung" class="nav-link" data-scroll-target="#bestimmung-der-güte-der-anpassung"><span class="header-section-number">10.1.3</span> Bestimmung der Güte der Anpassung</a></li>
+  <li><a href="#testen-der-signifikanz-der-regressionskoeffizienten" id="toc-testen-der-signifikanz-der-regressionskoeffizienten" class="nav-link" data-scroll-target="#testen-der-signifikanz-der-regressionskoeffizienten"><span class="header-section-number">10.1.4</span> Testen der Signifikanz der Regressionskoeffizienten</a></li>
+  <li><a href="#berechnung-der-linearen-regression-in-r" id="toc-berechnung-der-linearen-regression-in-r" class="nav-link" data-scroll-target="#berechnung-der-linearen-regression-in-r"><span class="header-section-number">10.1.5</span> Berechnung der linearen Regression in R</a></li>
+  </ul></li>
+  <li><a href="#multiple-regression" id="toc-multiple-regression" class="nav-link" data-scroll-target="#multiple-regression"><span class="header-section-number">10.2</span> Multiple Regression</a></li>
+  <li><a href="#multiple-regression-1" id="toc-multiple-regression-1" class="nav-link" data-scroll-target="#multiple-regression-1"><span class="header-section-number">10.3</span> Multiple Regression</a>
+  <ul class="collapse">
+  <li><a href="#ansatz" id="toc-ansatz" class="nav-link" data-scroll-target="#ansatz"><span class="header-section-number">10.3.1</span> Ansatz</a></li>
+  <li><a href="#beispiel-anzahl-der-kinder-in-abhängigkeit-von-ausbildung-und-einkommen" id="toc-beispiel-anzahl-der-kinder-in-abhängigkeit-von-ausbildung-und-einkommen" class="nav-link" data-scroll-target="#beispiel-anzahl-der-kinder-in-abhängigkeit-von-ausbildung-und-einkommen"><span class="header-section-number">10.3.2</span> Beispiel: Anzahl der Kinder in Abhängigkeit von Ausbildung und Einkommen</a></li>
+  <li><a href="#multiples-bestimmtheitsmass" id="toc-multiples-bestimmtheitsmass" class="nav-link" data-scroll-target="#multiples-bestimmtheitsmass"><span class="header-section-number">10.3.3</span> Multiples Bestimmtheitsmass</a></li>
+  <li><a href="#f-test" id="toc-f-test" class="nav-link" data-scroll-target="#f-test"><span class="header-section-number">10.3.4</span> F-Test</a></li>
+  <li><a href="#anwendungsbedingungen" id="toc-anwendungsbedingungen" class="nav-link" data-scroll-target="#anwendungsbedingungen"><span class="header-section-number">10.3.5</span> Anwendungsbedingungen</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/regression.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="lineare-regression" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="lineare-regression"><span class="header-section-number">10.1</span> Lineare Regression</h2>
+<p><strong>Ziel</strong>: Vorhersage einer metrischen abhängigen Variable (Kriterium) durch eine oder mehrere unabhängige Variablen (Prädiktoren).</p>
+<p><strong>Voraussetzungen</strong>:</p>
+<ul>
+<li>kausaler Zusammenhang zwischen Prädiktoren und Kriterium</li>
+<li>ein <strong>Modell</strong>, das die Zusammenhänge zwischen Prädiktoren und Kriterium beschreibt</li>
+</ul>
+<p>Bei einer Regressionsanalyse gibt es eine <strong>abhängige Varaible</strong> (<span class="math inline">\(y\)</span>) welche erklärt werden soll und <strong>eine oder mehrere unabhängige Variablen</strong> (<span class="math inline">\(x_1, x_2, \ldots, x_k\)</span>), die mit der zu erklärenden Variable in Verbindung stehen.</p>
+<p><span class="math display">\[
+y = a + b_1 x_1 + b_2 x_2 + \ldots + b_k x_k
+\]</span></p>
+<p><span class="math inline">\(a\)</span> ist eine <strong>Regressionskonstante</strong> und <span class="math inline">\(b_1, b_2, \ldots, b_k\)</span> sind die <strong>Regressionskoeffizienten</strong>.</p>
+<p>Für jede zunahme von <span class="math inline">\(x_i\)</span> um eine Einheit, nimmt <span class="math inline">\(y\)</span> um <span class="math inline">\(b_i\)</span> Einheiten zu.</p>
+<section id="grundidee" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="grundidee"><span class="header-section-number">10.1.1</span> Grundidee</h3>
+<p>Wir wollen eine Gerade der Form:</p>
+<p><span class="math display">\[
+\hat{y} = \beta_0 + \beta_1 \cdot x
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\hat{y}\)</span> = vorhergesagter Wert von <span class="math inline">\(y\)</span><br>
+</li>
+<li><span class="math inline">\(\beta_0\)</span> = <strong>Achsenabschnitt</strong> (Intercept)<br>
+</li>
+<li><span class="math inline">\(\beta_1\)</span> = <strong>Steigung</strong> der Regressionsgerade</li>
+</ul>
+<p>Die Parameter <span class="math inline">\(\beta_0\)</span> und <span class="math inline">\(\beta_1\)</span> bestimmen die Lage und Neigung der Regressionsgerade.</p>
+</section>
+<section id="das-problem-der-abweichungen-residuen" class="level3" data-number="10.1.2">
+<h3 data-number="10.1.2" class="anchored" data-anchor-id="das-problem-der-abweichungen-residuen"><span class="header-section-number">10.1.2</span> Das Problem der Abweichungen (Residuen)</h3>
+<p>Kein Modell beschreibt die Realität perfekt. Daher gibt es für jeden Datenpunkt eine <strong>Abweichung (Residuum)</strong>:</p>
+<p><span class="math display">\[
+e_i = y_i - \hat{y}_i
+\]</span></p>
+<ul>
+<li><span class="math inline">\(e_i\)</span> = Residuum des <span class="math inline">\(i\)</span>-ten Datenpunkts<br>
+</li>
+<li><span class="math inline">\(y_i\)</span> = tatsächlicher Wert<br>
+</li>
+<li><span class="math inline">\(\hat{y}_i\)</span> = vorhergesagter Wert durch die Regressionsgerade</li>
+</ul>
+<p>Das Ziel der linearen Regression ist es, diese Abweichungen so klein wie möglich zu halten.</p>
+<section id="erste-zufällige-anpassung" class="level4" data-number="10.1.2.1">
+<h4 data-number="10.1.2.1" class="anchored" data-anchor-id="erste-zufällige-anpassung"><span class="header-section-number">10.1.2.1</span> Erste (zufällige) Anpassung</h4>
+<p>Im ersten Schritt betrachten wir eine <strong>zufällige Regressionsgerade</strong>, die nicht gut zu den Daten passt. Die <strong>Residuen</strong> (grüne Linien) zeigen die Abstände zwischen den Datenpunkten und der Linie.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setzen des Seeds für reproduzierbare Ergebnisse</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Definieren der Farbe mit Opacity</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>dot_color <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>line_color <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>residual_color <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="fl">0.87</span>, <span class="fl">0.72</span>, <span class="fl">0.53</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">4</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> dot_color, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">20</span>, <span class="at">b =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">col =</span> line_color, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">segments</span>(x[i], y[i], x[i], <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">*</span> x[i] <span class="sc">+</span> <span class="dv">20</span>, <span class="at">col =</span> residual_color, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Gesamtlänge der Residuen berechnen und anzeigen</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>residual_sum_random <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">abs</span>(y <span class="sc">-</span> (<span class="sc">-</span><span class="fl">0.5</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">20</span>)))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(y), <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Residuen:"</span>, <span class="fu">round</span>(residual_sum_random, <span class="dv">2</span>)), <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">"blue2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression_files/figure-html/random-line-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Erster Ansatz: wir zeichnen eine beliebige Gerade und visualisieren die Residuen</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="logischer-verbesserungsschritt-linie-durch-den-schwerpunkt" class="level4" data-number="10.1.2.2">
+<h4 data-number="10.1.2.2" class="anchored" data-anchor-id="logischer-verbesserungsschritt-linie-durch-den-schwerpunkt"><span class="header-section-number">10.1.2.2</span> Logischer Verbesserungsschritt: Linie durch den Schwerpunkt</h4>
+<p>Statt zufällig eine bessere Linie zu raten, machen wir den <strong>logischen ersten Schritt</strong>: Wir zeichnen eine <strong>horizontale Linie durch den Schwerpunkt der Daten</strong>, d.h. die <strong>Mittelwerte von <span class="math inline">\(x\)</span> und <span class="math inline">\(y\)</span></strong>.</p>
+<p><strong>Wichtige Erkenntnis:</strong> Jede Regressionsgerade verläuft durch den Punkt <span class="math inline">\((\bar{x}, \bar{y})\)</span>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(latex2exp)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>mean_y <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> dot_color, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> mean_y, <span class="at">col =</span> line_color, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(mean_x, mean_y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(mean_x, mean_y, <span class="at">labels =</span> <span class="fu">TeX</span>(<span class="st">"$(</span><span class="sc">\\</span><span class="st">bar{x}, </span><span class="sc">\\</span><span class="st">bar{y})$"</span>), <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">segments</span>(x[i], y[i], x[i], mean_y, <span class="at">col =</span> residual_color, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Gesamtlänge der Residuen berechnen und anzeigen</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>residual_sum_mean <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">abs</span>(y <span class="sc">-</span> mean_y))</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(y), <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Residuen:"</span>, <span class="fu">round</span>(residual_sum_mean, <span class="dv">2</span>)), <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">"blue2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression_files/figure-html/mean-line-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Zweiter Schritt: Wir zeichnen eine horizontale Linie durch den Schwerpunkt der Daten</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="optimale-regressionsgerade-least-squares" class="level4" data-number="10.1.2.3">
+<h4 data-number="10.1.2.3" class="anchored" data-anchor-id="optimale-regressionsgerade-least-squares"><span class="header-section-number">10.1.2.3</span> Optimale Regressionsgerade (Least Squares)</h4>
+<p>Im letzten Schritt berechnen wir die <strong>optimale Regressionsgerade</strong> mithilfe der Methode der kleinsten Quadrate. Diese minimiert die Summe der quadrierten Abweichungen (Residuen).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Schrittweise Herleitung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>Modellgleichung:</strong></li>
+</ol>
+<p>Das lineare Regressionsmodell lautet:</p>
+<p><span class="math display">\[
+\hat{y} = \widehat{\beta_0} + \widehat{\beta_1} \cdot x
+\]</span></p>
+<ul>
+<li>Das Dach <span class="math inline">\(\widehat{\beta_0}\)</span> und <span class="math inline">\(\widehat{\beta_1}\)</span> bedeutet, dass es sich um Schätzwerte handelt.</li>
+</ul>
+<ol start="2" type="1">
+<li><strong>Definition der Fehler (Residuen):</strong></li>
+</ol>
+<p>Für jeden Datenpunkt ergibt sich das Residuum als Differenz zwischen dem beobachteten Wert <span class="math inline">\(y_i\)</span> und dem vorhergesagten Wert <span class="math inline">\(\hat{y}_i\)</span>:</p>
+<p><span class="math display">\[
+e_i = y_i - (\widehat{\beta_0} + \widehat{\beta_1} x_i)
+\]</span></p>
+<ol start="3" type="1">
+<li><strong>Zielfunktion – Summe der quadrierten Residuen (RSS):</strong></li>
+</ol>
+<p>Wir wollen die Summe der quadrierten Residuen minimieren:</p>
+<p><span class="math display">\[
+RSS = \sum_{i=1}^{n} (y_i - (\widehat{\beta_0} + \widehat{\beta_1} x_i))^2
+\]</span></p>
+<ol start="4" type="1">
+<li><strong>Optimierung durch partielle Ableitung:</strong></li>
+</ol>
+<p>Wir minimieren <span class="math inline">\(RSS\)</span>, indem wir die partiellen Ableitungen nach <span class="math inline">\(\beta_0\)</span> und <span class="math inline">\(\beta_1\)</span> berechnen und gleich null setzen:</p>
+<ul>
+<li><strong>Ableitung nach <span class="math inline">\(\beta_0\)</span>:</strong></li>
+</ul>
+<p><span class="math display">\[
+\frac{\partial RSS}{\partial \widehat{\beta_0}} = -2 \sum (y_i - \widehat{\beta_0} - \widehat{\beta_1} x_i) = 0
+\]</span></p>
+<ul>
+<li><strong>Ableitung nach <span class="math inline">\(\beta_1\)</span>:</strong></li>
+</ul>
+<p><span class="math display">\[
+\frac{\partial RSS}{\partial \widehat{\beta_1}} = -2 \sum x_i (y_i - \widehat{\beta_0} - \widehat{\beta_1} x_i) = 0
+\]</span></p>
+<ol start="5" type="1">
+<li><strong>Lösen des Gleichungssystems:</strong></li>
+</ol>
+<p>Durch Umformen der beiden Gleichungen erhalten wir die sogenannten <strong>Normalgleichungen</strong>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sum y_i &amp;= n \widehat{\beta_0} + \widehat{\beta_1} \sum x_i \\
+\sum x_i y_i &amp;= \widehat{\beta_0} \sum x_i + \widehat{\beta_1} \sum x_i^2
+\end{aligned}
+\]</span></p>
+<ol start="6" type="1">
+<li><strong>Endformeln für die Regressionskoeffizienten:</strong></li>
+</ol>
+<p>Nach weiteren Umformungen ergeben sich die optimalen Schätzwerte für <span class="math inline">\(\widehat{\beta_1}\)</span> und <span class="math inline">\(\widehat{\beta_0}\)</span>:</p>
+<ul>
+<li><strong>Steigung:</strong></li>
+</ul>
+<p><span class="math display">\[
+\widehat{\beta_1} = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}
+\]</span></p>
+<ul>
+<li><strong>Achsenabschnitt:</strong></li>
+</ul>
+<p><span class="math display">\[
+\widehat{\beta_0} = \bar{y} - \widehat{\beta_1} \cdot \bar{x}
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> dot_color, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model, <span class="at">col =</span> line_color, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">segments</span>(x[i], y[i], x[i], <span class="fu">predict</span>(model)[i], <span class="at">col =</span> residual_color, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Gesamtlänge der Residuen berechnen und anzeigen</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>residual_sum_optimal <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">abs</span>(y <span class="sc">-</span> <span class="fu">predict</span>(model)))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(y), <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Residuen:"</span>, <span class="fu">round</span>(residual_sum_optimal, <span class="dv">2</span>)), <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">"blue2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression_files/figure-html/optimal-line-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Dritter Schritt: Optimale Regressionsgerade (Methode der kleinsten Quadrate)</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="bestimmung-der-güte-der-anpassung" class="level3" data-number="10.1.3">
+<h3 data-number="10.1.3" class="anchored" data-anchor-id="bestimmung-der-güte-der-anpassung"><span class="header-section-number">10.1.3</span> Bestimmung der Güte der Anpassung</h3>
+<p>Die Güte der Anpassung wird durch den <strong>Bestimmtheitsmass</strong> <span class="math inline">\(R^2\)</span> beurteilt.</p>
+<p><span id="eq-r2"><span class="math display">\[
+R^2 = \frac{\text{erklärte Variation}}{\text{Gesamtvariation}} = \frac{\sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2}{\sum_{i=1}^{n} (Y_i - \bar{Y})^2} = 1 - \frac{\text{Residualsumme}}{\text{Gesamtvariation}}
+\tag{10.1}\]</span></span></p>
+<ul>
+<li><span class="math inline">\(\hat{Y}_i\)</span> = vorhergesagter Wert</li>
+<li><span class="math inline">\(\bar{Y}\)</span> = Mittelwert der abhängigen Variablen</li>
+<li><span class="math inline">\(Y_i\)</span> = beobachteter Wert</li>
+</ul>
+<p><span class="math inline">\(R^2\)</span> liegt immer zwischen 0 und 1. Je höher <span class="math inline">\(R^2\)</span>, desto besser passt das Modell zu den Daten.</p>
+</section>
+<section id="testen-der-signifikanz-der-regressionskoeffizienten" class="level3" data-number="10.1.4">
+<h3 data-number="10.1.4" class="anchored" data-anchor-id="testen-der-signifikanz-der-regressionskoeffizienten"><span class="header-section-number">10.1.4</span> Testen der Signifikanz der Regressionskoeffizienten</h3>
+<p><strong>Hypothesen</strong>:</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta_1 = 0\)</span> (KEINE lineare Abhängigkeit zwischen <span class="math inline">\(x\)</span> und <span class="math inline">\(y\)</span>)</li>
+<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\beta_1 \neq 0\)</span> (lineare Abhängigkeit zwischen <span class="math inline">\(x\)</span> und <span class="math inline">\(y\)</span>)</li>
+<li><span class="math inline">\(\beta_1\)</span> der Stichprobe variiert um den wahren Wert <span class="math inline">\(\beta_1\)</span> der Grundgesamtheit mit bestimmter Wahrscheinlichkeit:
+<ul>
+<li>einer Normalverteilung mit der Standardabweichung <span class="math inline">\(\sigma_{\beta_1}\)</span></li>
+<li><span class="math inline">\(\sigma_{\beta_1}\)</span> wird aus <span class="math inline">\(s_{\beta_1}\)</span> (Standardfehler von <span class="math inline">\(\beta_1\)</span>) geschätzt</li>
+<li>um die Schätzunsicherheiten bei kleinen Stichproben zu berücksichtigen, wird die t-Verteilung verwendet</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+T = \frac{\widehat{\beta}}{s_{\beta_1}}, \quad \text{mit} \quad s_{\beta_1} = \sqrt{\frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 / (n-2)}{\sum_{i=1}^{n} (X_i - \bar{X})^2}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(T\)</span> ist t-verteilt mit <span class="math inline">\(n-2\)</span> Freiheitsgraden, da wir den Regressionskoeffizienten <span class="math inline">\(\beta_1\)</span> und die Streuung <span class="math inline">\(\sigma_{\beta_1}\)</span> aus der Stichprobe schätzen</li>
+<li><span class="math inline">\(\beta_1\)</span> ist die Steigung der Regressionsgerade</li>
+<li><span class="math inline">\(s_{\beta_1}\)</span> ist der Standardfehler der Steigung</li>
+<li><span class="math inline">\(\widehat{\beta}\)</span> ist der geschätzte Regressionskoeffizient der Stichprobe</li>
+<li><span class="math inline">\(Y_i\)</span> ist der beobachtete Wert der abhängigen Variablen</li>
+<li><span class="math inline">\(\hat{Y}_i\)</span> ist der vorhergesagte Wert der abhängigen Variablen</li>
+<li><span class="math inline">\(X_i\)</span> ist der beobachtete Wert der unabhängigen Variablen</li>
+<li><span class="math inline">\(\bar{X}\)</span> ist der Mittelwert der unabhängigen Variablen</li>
+<li><span class="math inline">\(n\)</span> ist die Anzahl der Beobachtungen</li>
+</ul>
+<section id="konfidenzintervall-der-regressionskoeffizienten" class="level4" data-number="10.1.4.1">
+<h4 data-number="10.1.4.1" class="anchored" data-anchor-id="konfidenzintervall-der-regressionskoeffizienten"><span class="header-section-number">10.1.4.1</span> Konfidenzintervall der Regressionskoeffizienten</h4>
+<p><span class="math display">\[
+\beta_1 = \widehat{\beta_1} \pm q_t \cdot s_{\beta_1} \quad \text{mit} \quad q_t \text{ aus der T-Tabelle}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(t_{n-2}\)</span> ist der kritische Wert der t-Verteilung mit <span class="math inline">\(n-2\)</span> Freiheitsgraden</li>
+<li><span class="math inline">\(s_{\beta_1}\)</span> ist der Standardfehler der Steigung</li>
+<li><span class="math inline">\(\widehat{\beta_1}\)</span> ist der geschätzte Regressionskoeffizient der Stichprobe</li>
+</ul>
+</section>
+</section>
+<section id="berechnung-der-linearen-regression-in-r" class="level3" data-number="10.1.5">
+<h3 data-number="10.1.5" class="anchored" data-anchor-id="berechnung-der-linearen-regression-in-r"><span class="header-section-number">10.1.5</span> Berechnung der linearen Regression in R</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten erstellen</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">4</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineare Regression durchführen</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x)
+
+Coefficients:
+(Intercept)            x  
+      4.131        1.595  </code></pre>
+</div>
+</div>
+<p>Die Ausgabe der Funktion <code>lm()</code> zeigt uns:</p>
+<ol type="1">
+<li><strong>Call</strong>: Die verwendete Formel für die Regression
+<ul>
+<li><code>y ~ x</code> bedeutet: y wird durch x vorhergesagt</li>
+</ul></li>
+<li><strong>Coefficients</strong>: Die geschätzten Regressionskoeffizienten
+<ul>
+<li><strong>(Intercept)</strong>: <span class="math inline">\(\widehat{\beta_0}\)</span> = 4.131
+<ul>
+<li>Dies ist der y-Achsenabschnitt</li>
+<li>Der vorhergesagte y-Wert, wenn x = 0</li>
+</ul></li>
+<li><strong>x</strong>: <span class="math inline">\(\widehat{\beta_1}\)</span> = 1.595
+<ul>
+<li>Dies ist die Steigung der Geraden</li>
+<li>Für jede Einheit, die x zunimmt, steigt y um 1.595 Einheiten</li>
+</ul></li>
+</ul></li>
+</ol>
+<p>Für eine detailliertere Analyse können wir die Funktion <code>summary()</code> verwenden:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-7.6915 -2.4266 -0.3433  2.5292 10.5802 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)   4.1311     5.1598   0.801  0.43009   
+x             1.5948     0.4916   3.244  0.00305 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.147 on 28 degrees of freedom
+Multiple R-squared:  0.2732,    Adjusted R-squared:  0.2472 
+F-statistic: 10.52 on 1 and 28 DF,  p-value: 0.003047</code></pre>
+</div>
+</div>
+<p>Die <code>summary()</code> zeigt uns zusätzlich:</p>
+<ol type="1">
+<li><strong>Residuals</strong>: Verteilung der Abweichungen zwischen vorhergesagten und tatsächlichen Werten
+<ul>
+<li>Minimum: -7.691</li>
+<li>Maximum: 10.58</li>
+<li>Die Quartile zeigen, wie die Residuen verteilt sind</li>
+<li>Idealerweise symmetrisch um 0</li>
+</ul></li>
+<li><strong>Coefficients-Tabelle</strong>:
+<ul>
+<li><strong>Intercept</strong> (<span class="math inline">\(\widehat{\beta_0}\)</span> = 4.131):
+<ul>
+<li>Standardfehler: 5.16</li>
+<li>t-Wert: 0.801</li>
+<li>p-Wert: 0.43</li>
+<li>Signifikant auf dem nicht signifikant Niveau</li>
+</ul></li>
+<li><strong>Steigung</strong> (<span class="math inline">\(\widehat{\beta_1}\)</span> = 1.595):
+<ul>
+<li>Standardfehler: 0.492</li>
+<li>t-Wert: 3.244</li>
+<li>p-Wert: 0.003</li>
+<li>Signifikant auf dem 1% Niveau</li>
+</ul></li>
+</ul></li>
+<li><strong>Modellgüte</strong>:
+<ul>
+<li><span class="math inline">\(R^2\)</span> = 0.273
+<ul>
+<li>27.3% der Varianz in y wird durch x erklärt</li>
+</ul></li>
+<li>Adjustiertes <span class="math inline">\(R^2\)</span> = 0.247
+<ul>
+<li>Berücksichtigt die Anzahl der Prädiktoren</li>
+</ul></li>
+</ul></li>
+<li><strong>F-Test</strong>:
+<ul>
+<li>F-Wert: 10.523</li>
+<li>Freiheitsgrade: 1 und 28</li>
+<li>p-Wert: 0.00305</li>
+<li>Das Modell ist statistisch signifikant</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="multiple-regression" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="multiple-regression"><span class="header-section-number">10.2</span> Multiple Regression</h2>
+</section>
+<section id="multiple-regression-1" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="multiple-regression-1"><span class="header-section-number">10.3</span> Multiple Regression</h2>
+<p>In der einfachen linearen Regression versuchen wir, den Zusammenhang zwischen einer abhängigen Variable <span class="math inline">\(Y\)</span> und einem Prädiktor <span class="math inline">\(X_1\)</span> zu modellieren. Doch was passiert, wenn <span class="math inline">\(Y\)</span> nicht vollständig durch <span class="math inline">\(X_1\)</span> alleine erklärt werden kann?</p>
+<p>Stellen wir uns vor, wir haben Daten, bei denen wir vermuten, dass <span class="math inline">\(X_1\)</span> einen Einfluss auf <span class="math inline">\(Y\)</span> hat. Wir beginnen mit einer einfachen linearen Regression:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten simulieren</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> X1 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> X2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Einfache lineare Regression Y ~ X1</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>model_X1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X1)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(X1, Y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">105</span><span class="sc">/</span><span class="dv">255</span>, <span class="dv">89</span><span class="sc">/</span><span class="dv">255</span>, <span class="dv">205</span><span class="sc">/</span><span class="dv">255</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>), </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"X1"</span>, <span class="at">ylab =</span> <span class="st">"Y"</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model_X1, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression_files/figure-html/simple-regression-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Erste Regression: Y in Abhängigkeit von X1</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Wir erkennen, dass <span class="math inline">\(X_1\)</span> einen deutlichen Einfluss auf <span class="math inline">\(Y\)</span> hat. Doch die Vorhersagen des Modells sind nicht perfekt – es bleiben <strong>Residuen</strong> übrig, also Abweichungen zwischen den tatsächlichen Werten von <span class="math inline">\(Y\)</span> und den durch das Modell prognostizierten Werten.</p>
+<p>Diese Residuen sind nicht einfach nur zufälliges Rauschen. Sie könnten Hinweise darauf liefern, dass noch <strong>weitere Faktoren</strong> im Spiel sind, die wir bisher nicht berücksichtigt haben.</p>
+<p>Um das zu überprüfen, untersuchen wir, ob ein weiterer Prädiktor <span class="math inline">\(X_2\)</span> möglicherweise einen Teil dieser unerklärten Varianz in <span class="math inline">\(Y\)</span> aufklären kann. Dazu betrachten wir die Residuen der ersten Regression und analysieren, ob sie mit <span class="math inline">\(X_2\)</span> zusammenhängen:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechne die Residuen der ersten Regression</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>residuals_X1 <span class="ot">&lt;-</span> <span class="fu">resid</span>(model_X1)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression der Residuen auf X2</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>model_resid_X2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(residuals_X1 <span class="sc">~</span> X2)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(X2, residuals_X1, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">105</span><span class="sc">/</span><span class="dv">255</span>, <span class="dv">89</span><span class="sc">/</span><span class="dv">255</span>, <span class="dv">205</span><span class="sc">/</span><span class="dv">255</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>), </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"X2"</span>, <span class="at">ylab =</span> <span class="st">"Residuen von Y ~ X1"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model_resid_X2, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression_files/figure-html/residual-regression-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Zweite Regression: Residuen von Y ~ X1 in Abhängigkeit von X2</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Wir sehen, dass die Residuen tatsächlich einen Zusammenhang mit <span class="math inline">\(X_2\)</span> aufweisen. Das bedeutet, dass <span class="math inline">\(X_2\)</span> Varianz in <span class="math inline">\(Y\)</span> erklärt, die nicht durch <span class="math inline">\(X_1\)</span> erfasst wurde.</p>
+<p>Man könnte diesen Prozess theoretisch weiterführen: Nachdem wir den Einfluss von <span class="math inline">\(X_2\)</span> modelliert haben, könnten wir die neuen Residuen betrachten und versuchen, diese durch einen weiteren Prädiktor <span class="math inline">\(X_3\)</span> zu erklären. Und so weiter.</p>
+<p>Dieses schrittweise Vorgehen wirft jedoch ein Problem auf: Was passiert, wenn <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, …, <span class="math inline">\(X_k\)</span> miteinander korrelieren?</p>
+<ul>
+<li>In diesem Fall ist es schwierig, die individuellen Effekte der einzelnen Prädiktoren zu isolieren.</li>
+<li>Der Einfluss von <span class="math inline">\(X_2\)</span> könnte bereits teilweise in der ersten Regression durch <span class="math inline">\(X_1\)</span> berücksichtigt worden sein – und umgekehrt.</li>
+<li>Durch das schrittweise Vorgehen riskieren wir, <em>Doppelerklärungen</em> oder <em>verzerrte Effekte</em> zu erhalten.</li>
+</ul>
+<p>Wir brauchen einen Ansatz, der es uns ermöglicht, den Einfluss mehrerer Prädiktoren <em>gleichzeitig</em> zu berücksichtigen.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Beispiel
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Wir versuchen, den Abfluss eines Gebirgsbachs zu modellieren.</p>
+<ul>
+<li><span class="math inline">\(Y\)</span>: Abfluss</li>
+<li><span class="math inline">\(X_1\)</span>: Schneeschmelze</li>
+<li><span class="math inline">\(X_2\)</span>: Niederschlag</li>
+</ul>
+<p>Wenn wir den Abfluss <span class="math inline">\(Y\)</span> zunächst in Abhängigkeit von der Schneeschmelze <span class="math inline">\(X_1\)</span> modellieren, stellen wir fest, dass ein Teil der Varianz von <span class="math inline">\(Y\)</span> nicht erklärt wird. Wir vermuten, dass der Niederschlag <span class="math inline">\(X_2\)</span> einen zusätzlichen Einfluss haben könnte. Also modellieren wir die Residuen aus der ersten Regression in Abhängigkeit von <span class="math inline">\(X_2\)</span>.</p>
+<p>Doch hier entsteht ein Problem: <em>Schneeschmelze und Niederschlag sind oft korreliert.</em> Nach starken Niederschlägen folgt häufig eine beschleunigte Schneeschmelze. Wenn wir <span class="math inline">\(X_2\)</span> nur auf die Residuen von <span class="math inline">\(X_1\)</span> anwenden, übersehen wir möglicherweise den gemeinsamen Einfluss beider Faktoren.</p>
+<p>Das führt zu verzerrten Ergebnissen, da der Niederschlag sowohl einen direkten Einfluss auf den Abfluss hat als auch indirekt über die Schneeschmelze wirkt.</p>
+</div>
+</div>
+</div>
+<p><strong>Bemerkung:</strong> Wenn die Prädiktoren <em>nicht</em> korrelieren, ist die Regression der Residuen mit weiteren Variablen möglich.</p>
+<section id="ansatz" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="ansatz"><span class="header-section-number">10.3.1</span> Ansatz</h3>
+<ul>
+<li>Minimierung der Summe der quadrierten Residuen:</li>
+</ul>
+<p><span class="math display">\[
+\sum_{i=1}^{n} (Y_i - \widehat{\beta_0} - \widehat{\beta_1} X_{1i} - \widehat{\beta_2} X_{2i} - \ldots - \widehat{\beta_k} X_{ki})^2 \quad \rightarrow \quad \text{minimal}
+\]</span></p>
+<ul>
+<li>Dafür müssen die partiellen Ableitungen nach allen <span class="math inline">\(\beta_j\)</span> gleich null gesetzt werden</li>
+<li>Koeffizienten der multiplen Regression werden auch “partielle Regressionskoeffizienten” genannt</li>
+</ul>
+<p><span class="math display">\[
+\widehat{Y_i} = \widehat{\beta_0} + \widehat{\beta_1} X_{1i} + \widehat{\beta_2} X_{2i} + \ldots + \widehat{\beta_k} X_{ki}
+\]</span></p>
+<p>oder in Matrixnotation:</p>
+<p><span class="math display">\[
+\widehat{Y} = X \widehat{\beta} \quad \text{mit} \quad \widehat{Y} = \begin{bmatrix} \widehat{Y_1} \\ \widehat{Y_2} \\ \vdots \\ \widehat{Y_n} \end{bmatrix}, \quad \widehat{\beta} = \begin{bmatrix} \widehat{\beta_0} \\ \widehat{\beta_1} \\ \vdots \\ \widehat{\beta_k} \end{bmatrix} \quad \text{und} \quad X = \begin{bmatrix} 1 &amp; X_{11} &amp; X_{21} &amp; \ldots &amp; X_{k1} \\ 1 &amp; X_{12} &amp; X_{22} &amp; \ldots &amp; X_{k2} \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 1 &amp; X_{1n} &amp; X_{2n} &amp; \ldots &amp; X_{kn} \end{bmatrix}
+\]</span></p>
+</section>
+<section id="beispiel-anzahl-der-kinder-in-abhängigkeit-von-ausbildung-und-einkommen" class="level3" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="beispiel-anzahl-der-kinder-in-abhängigkeit-von-ausbildung-und-einkommen"><span class="header-section-number">10.3.2</span> Beispiel: Anzahl der Kinder in Abhängigkeit von Ausbildung und Einkommen</h3>
+<p>Wir haben Daten über 20 Personen, bei denen wir die Anzahl der Kinder, die Ausbildung und das Einkommen erfasst haben. Wir gehen davon aus, dass die Anzahl der Kinder abhängig ist von der Ausbildung und dem Einkommen. Ebenfalls gehen wir davon aus, dass die Ausbildung und das Einkommen miteinander korrelieren.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten definieren</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>Person <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>Kinder <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">14</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>Ausbildung <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">16</span>, <span class="dv">20</span>, <span class="dv">12</span>, <span class="dv">9</span>, <span class="dv">18</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">11</span>, <span class="dv">9</span>, <span class="dv">18</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">9</span>, <span class="dv">8</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>Einkommen <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">90</span>, <span class="dv">50</span>, <span class="dv">40</span>, <span class="dv">120</span>, <span class="dv">100</span>, <span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">30</span>, <span class="dv">100</span>, <span class="dv">40</span>, <span class="dv">90</span>, <span class="dv">40</span>, <span class="dv">40</span>, <span class="dv">120</span>, <span class="dv">100</span>, <span class="dv">60</span>, <span class="dv">40</span>, <span class="dv">10</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># DataFrame erstellen</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>anzahlKinderDaten <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Person, Kinder, Ausbildung, Einkommen)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># DataFrame anzeigen</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(anzahlKinderDaten)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Daten für das Beispiel</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Person</th>
+<th style="text-align: right;">Kinder</th>
+<th style="text-align: right;">Ausbildung</th>
+<th style="text-align: right;">Einkommen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">90</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">120</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">90</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">120</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">60</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">10</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Wir formulieren:</p>
+<p><span class="math display">\[
+\widehat{Y_i} = \widehat{\beta_0} + \widehat{\beta_1} X_{1} + \widehat{\beta_2} X_{2}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\widehat{Y_i}\)</span>: Vorhergesagte Anzahl der Kinder</li>
+<li><span class="math inline">\(\widehat{\beta_0}\)</span>: Achsenabschnitt</li>
+<li><span class="math inline">\(\widehat{\beta_1}\)</span>: Regressionskoeffizient für Ausbildung</li>
+<li><span class="math inline">\(\widehat{\beta_2}\)</span>: Regressionskoeffizient für Einkommen</li>
+</ul>
+<p>Wir führen eine multiple Regression durch:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>regressionsmodell <span class="ot">&lt;-</span> <span class="fu">lm</span>(Kinder <span class="sc">~</span> Ausbildung <span class="sc">+</span> Einkommen, <span class="at">data =</span> anzahlKinderDaten)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>und erhalten:</p>
+<ul>
+<li><span class="math inline">\(\widehat{\beta_0}\)</span> = 12.519</li>
+<li><span class="math inline">\(\widehat{\beta_1}\)</span> = -0.457</li>
+<li><span class="math inline">\(\widehat{\beta_2}\)</span> = -0.031</li>
+</ul>
+<p>Daraus ergibt sich die Regressionsgleichung:</p>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"$$"</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Y = "</span>, <span class="fu">round</span>(<span class="fu">coef</span>(regressionsmodell)[<span class="dv">1</span>], <span class="dv">3</span>), <span class="st">" + "</span>, <span class="fu">round</span>(<span class="fu">coef</span>(regressionsmodell)[<span class="dv">2</span>], <span class="dv">3</span>), <span class="st">" </span><span class="sc">\\</span><span class="st">cdot X_1 + "</span>, <span class="fu">round</span>(<span class="fu">coef</span>(regressionsmodell)[<span class="dv">3</span>], <span class="dv">3</span>), <span class="st">" </span><span class="sc">\\</span><span class="st">cdot X_2"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"$$"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p><span class="math display">\[ Y =  12.519  +  -0.457  \cdot X_1 +  -0.031  \cdot X_2 \]</span></p>
+<p>Daraus ergibt sich:</p>
+<table class="table-striped table-hover caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ausbildung</th>
+<th>Einkommen</th>
+<th>Anzahl der Kinder</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(\approx 12.52\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(10\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(\approx 7.95\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(10\)</span></td>
+<td><span class="math inline">\(100\)</span></td>
+<td><span class="math inline">\(\approx 4.9\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(20\)</span></td>
+<td><span class="math inline">\(200\)</span></td>
+<td><span class="math inline">\(\approx -2.72\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="Interpretation">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Interpretation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Um die Güte der Schätzung zu beurteilen, rufen wir die <code>summary()</code> Funktion auf:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regressionsmodell)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Kinder ~ Ausbildung + Einkommen, data = anzahlKinderDaten)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.1217 -1.7934 -0.1865  1.3497  5.4407 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 12.51855    2.17100   5.766 2.28e-05 ***
+Ausbildung  -0.45674    0.21658  -2.109   0.0501 .  
+Einkommen   -0.03053    0.02372  -1.287   0.2152    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.523 on 17 degrees of freedom
+Multiple R-squared:  0.5502,    Adjusted R-squared:  0.4973 
+F-statistic:  10.4 on 2 and 17 DF,  p-value: 0.001124</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="multiples-bestimmtheitsmass" class="level3" data-number="10.3.3">
+<h3 data-number="10.3.3" class="anchored" data-anchor-id="multiples-bestimmtheitsmass"><span class="header-section-number">10.3.3</span> Multiples Bestimmtheitsmass</h3>
+<p>Das multiple Bestimmtheitsmass <span class="math inline">\(R^2\)</span> (<a href="#eq-r2" class="quarto-xref">Gleichung&nbsp;<span>10.1</span></a>) ist ein Mass für die Güte der Anpassung des Regressionsmodells. Es gibt an, wie viel Varianz der abhängigen Variablen durch die unabhängigen Variablen erklärt wird.</p>
+<p><span class="math display">\[
+R^2 = 1 - \frac{\text{Residualsumme}}{\text{Gesamtvariation}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(R^2 = 1\)</span>, wenn alle Punkte auf der Regressions-Hyperebene liegen</li>
+<li><span class="math inline">\(R^2 = 0\)</span>, wenn das Modell keinerlei Erklärung für die Variation von Y liefert.</li>
+<li>Bei multipler Regression nimmt <span class="math inline">\(R^2\)</span> mit der Anzahl der unabhängigen Variablen zu. Deshalb nutzt man das angepasste Bestimmtheitsmass <span class="math inline">\(R^2_{adj}\)</span></li>
+</ul>
+<p><span class="math display">\[
+R^2_{adj} = \left(R^2 - \frac{m}{n-1}\right) \cdot \left(\frac{n-1}{n-m-1}\right) = 1 - (1 - R^2) \cdot \left(\frac{n-1}{n-m-1}\right)
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(m\)</span> ist die Anzahl der unabhängigen Variablen</p></li>
+<li><p><span class="math inline">\(n\)</span> ist die Anzahl der Beobachtungen</p></li>
+<li><p>Das angepasste Bestimmtheitsmass <span class="math inline">\(R^2_{adj}\)</span> ist immer kleiner als <span class="math inline">\(R^2\)</span> und nimmt mit zunehmender Anzahl Variablen ab, falls diese nichts zur Erklärung der Varianz beitragen.</p></li>
+</ul>
+</section>
+<section id="f-test" class="level3" data-number="10.3.4">
+<h3 data-number="10.3.4" class="anchored" data-anchor-id="f-test"><span class="header-section-number">10.3.4</span> F-Test</h3>
+<p>Der F-Test ist ein Hypothesentest, der die Güte des Regressionsmodells als Ganzes überprüft.</p>
+<p><span class="math display">\[
+F = \frac{\frac{R^2}{k}}{\frac{1-R^2}{n-(k+1)}} = \frac{\text{erklärte Varianz}}{\text{unerklärte Varianz}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(R^2\)</span> ist das multiple Bestimmtheitsmass</li>
+<li><span class="math inline">\(k\)</span> ist die Anzahl der unabhängigen Variablen</li>
+<li><span class="math inline">\(n\)</span> ist die Anzahl der Beobachtungen</li>
+</ul>
+<p>Der F-Wert sagt, ob das Modell besser ist als einfach die Annahme des Mittelwerts von <span class="math inline">\(Y\)</span> zu nehmen. D.h. ob</p>
+<p><span class="math display">\[
+H_0 : R^2 = 0
+\]</span></p>
+<p>abgelehnt werden kann.</p>
+</section>
+<section id="anwendungsbedingungen" class="level3" data-number="10.3.5">
+<h3 data-number="10.3.5" class="anchored" data-anchor-id="anwendungsbedingungen"><span class="header-section-number">10.3.5</span> Anwendungsbedingungen</h3>
+<ul>
+<li>Linearität</li>
+<li>Normalverteilung der Residuen</li>
+<li>Varianzhomogenität</li>
+<li>Keine oder wenige Ausreisser</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perfekte synthetische Daten generieren</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Perfekte lineare Beziehung mit normalverteiltem Fehlerterm</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> X1 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> X2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineares Regressionsmodell</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>perfektes_modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagnostische Plots</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>))  <span class="co"># Layout für 4 Plots</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(perfektes_modell)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression_files/figure-html/multiple-regression-residuals-plot-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Linearität</figcaption>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopiert");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/quanti\.baets\.ch\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./korrelation.html" class="pagination-link" aria-label="Korrelation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Korrelation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./glossar.html" class="pagination-link" aria-label="Glossar">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Glossar</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Quantitative Methoden</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Made with ❤️ by <a href="https://lukasbatschelet.ch/">Lukas Batschelet</a></p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/regression.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://ko-fi.com/lukasbatschelet">☕️Buy me a coffee</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

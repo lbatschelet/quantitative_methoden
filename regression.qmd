@@ -1,0 +1,598 @@
+---
+lang: "de-CH"
+---
+
+
+# Regression
+
+## Lineare Regression
+
+**Ziel**: Vorhersage einer metrischen abhängigen Variable (Kriterium) durch eine oder mehrere unabhängige Variablen (Prädiktoren).
+
+**Voraussetzungen**:
+
+- kausaler Zusammenhang zwischen Prädiktoren und Kriterium
+- ein **Modell**, das die Zusammenhänge zwischen Prädiktoren und Kriterium beschreibt
+
+Bei einer Regressionsanalyse gibt es eine **abhängige Varaible** ($y$) welche erklärt werden soll und **eine oder mehrere unabhängige Variablen** ($x_1, x_2, \ldots, x_k$), die mit der zu erklärenden Variable in Verbindung stehen.
+
+$$
+y = a + b_1 x_1 + b_2 x_2 + \ldots + b_k x_k
+$$
+
+$a$ ist eine **Regressionskonstante** und $b_1, b_2, \ldots, b_k$ sind die **Regressionskoeffizienten**.
+
+Für jede zunahme von $x_i$ um eine Einheit, nimmt $y$ um $b_i$ Einheiten zu.
+
+### Grundidee
+
+Wir wollen eine Gerade der Form:
+
+$$
+\hat{y} = \beta_0 + \beta_1 \cdot x
+$$
+
+- $\hat{y}$ = vorhergesagter Wert von $y$  
+- $\beta_0$ = **Achsenabschnitt** (Intercept)  
+- $\beta_1$ = **Steigung** der Regressionsgerade
+
+Die Parameter $\beta_0$ und $\beta_1$ bestimmen die Lage und Neigung der Regressionsgerade.
+
+### Das Problem der Abweichungen (Residuen)
+
+Kein Modell beschreibt die Realität perfekt. Daher gibt es für jeden Datenpunkt eine **Abweichung (Residuum)**:
+
+$$
+e_i = y_i - \hat{y}_i
+$$
+
+- $e_i$ = Residuum des $i$-ten Datenpunkts  
+- $y_i$ = tatsächlicher Wert  
+- $\hat{y}_i$ = vorhergesagter Wert durch die Regressionsgerade
+
+Das Ziel der linearen Regression ist es, diese Abweichungen so klein wie möglich zu halten.
+
+#### Erste (zufällige) Anpassung
+
+Im ersten Schritt betrachten wir eine **zufällige Regressionsgerade**, die nicht gut zu den Daten passt. Die **Residuen** (grüne Linien) zeigen die Abstände zwischen den Datenpunkten und der Linie.
+
+```{r}
+#| label: random-line
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Erster Ansatz: wir zeichnen eine beliebige Gerade und visualisieren die Residuen"
+
+# Setzen des Seeds für reproduzierbare Ergebnisse
+set.seed(42)
+
+# Definieren der Farbe mit Opacity
+dot_color <- rgb(0, 0, 1, alpha = 0.6)
+line_color <- rgb(0, 0, 1, alpha = 0.8)
+residual_color <- rgb(0.87, 0.72, 0.53, alpha = 0.5)
+
+x <- rnorm(30, mean = 10, sd = 2)
+y <- 2 * x + rnorm(30, mean = 0, sd = 4)
+
+plot(x, y, pch = 19, col = dot_color, xlab = "x", ylab = "y")
+abline(a = 20, b = -0.5, col = line_color, lwd = 2)
+for (i in 1:length(x)) {
+  segments(x[i], y[i], x[i], -0.5 * x[i] + 20, col = residual_color, lwd = 1.5)
+}
+
+# Gesamtlänge der Residuen berechnen und anzeigen
+residual_sum_random <- sum(abs(y - (-0.5 * x + 20)))
+text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_random, 2)), pos = 4, col = "blue2")
+```
+
+#### Logischer Verbesserungsschritt: Linie durch den Schwerpunkt
+
+Statt zufällig eine bessere Linie zu raten, machen wir den **logischen ersten Schritt**: Wir zeichnen eine **horizontale Linie durch den Schwerpunkt der Daten**, d.h. die **Mittelwerte von $x$ und $y$**.
+
+**Wichtige Erkenntnis:** Jede Regressionsgerade verläuft durch den Punkt $(\bar{x}, \bar{y})$.
+
+```{r}
+#| label: mean-line
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Zweiter Schritt: Wir zeichnen eine horizontale Linie durch den Schwerpunkt der Daten"
+
+library(latex2exp)
+
+mean_x <- mean(x)
+mean_y <- mean(y)
+
+plot(x, y, pch = 19, col = dot_color, xlab = "x", ylab = "y")
+abline(h = mean_y, col = line_color, lwd = 2)
+points(mean_x, mean_y, pch = 19, col = "red", cex = 1.5)
+text(mean_x, mean_y, labels = TeX("$(\\bar{x}, \\bar{y})$"), pos = 4, col = "red")
+for (i in 1:length(x)) {
+  segments(x[i], y[i], x[i], mean_y, col = residual_color, lwd = 1.5)
+}
+
+# Gesamtlänge der Residuen berechnen und anzeigen
+residual_sum_mean <- sum(abs(y - mean_y))
+text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_mean, 2)), pos = 4, col = "blue2")
+```
+
+#### Optimale Regressionsgerade (Least Squares)
+
+Im letzten Schritt berechnen wir die **optimale Regressionsgerade** mithilfe der Methode der kleinsten Quadrate. Diese minimiert die Summe der quadrierten Abweichungen (Residuen).
+
+::: {.callout-note collapse=true}
+##### Schrittweise Herleitung
+
+1. **Modellgleichung:**
+
+Das lineare Regressionsmodell lautet:
+
+$$
+\hat{y} = \widehat{\beta_0} + \widehat{\beta_1} \cdot x
+$$
+
+- Das Dach $\widehat{\beta_0}$ und $\widehat{\beta_1}$ bedeutet, dass es sich um Schätzwerte handelt.
+
+2. **Definition der Fehler (Residuen):**
+
+Für jeden Datenpunkt ergibt sich das Residuum als Differenz zwischen dem beobachteten Wert $y_i$ und dem vorhergesagten Wert $\hat{y}_i$:
+
+$$
+e_i = y_i - (\widehat{\beta_0} + \widehat{\beta_1} x_i)
+$$
+
+3. **Zielfunktion – Summe der quadrierten Residuen (RSS):**
+
+Wir wollen die Summe der quadrierten Residuen minimieren:
+
+$$
+RSS = \sum_{i=1}^{n} (y_i - (\widehat{\beta_0} + \widehat{\beta_1} x_i))^2
+$$
+
+4. **Optimierung durch partielle Ableitung:**
+
+Wir minimieren $RSS$, indem wir die partiellen Ableitungen nach $\beta_0$ und $\beta_1$ berechnen und gleich null setzen:
+
+- **Ableitung nach $\beta_0$:**
+
+$$
+\frac{\partial RSS}{\partial \widehat{\beta_0}} = -2 \sum (y_i - \widehat{\beta_0} - \widehat{\beta_1} x_i) = 0
+$$
+
+- **Ableitung nach $\beta_1$:**
+
+$$
+\frac{\partial RSS}{\partial \widehat{\beta_1}} = -2 \sum x_i (y_i - \widehat{\beta_0} - \widehat{\beta_1} x_i) = 0
+$$
+
+5. **Lösen des Gleichungssystems:**
+
+Durch Umformen der beiden Gleichungen erhalten wir die sogenannten **Normalgleichungen**:
+
+$$
+\begin{aligned}
+\sum y_i &= n \widehat{\beta_0} + \widehat{\beta_1} \sum x_i \\
+\sum x_i y_i &= \widehat{\beta_0} \sum x_i + \widehat{\beta_1} \sum x_i^2
+\end{aligned}
+$$
+
+6. **Endformeln für die Regressionskoeffizienten:**
+
+Nach weiteren Umformungen ergeben sich die optimalen Schätzwerte für $\widehat{\beta_1}$ und $\widehat{\beta_0}$:
+
+- **Steigung:**
+
+$$
+\widehat{\beta_1} = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}
+$$
+
+- **Achsenabschnitt:**
+
+$$
+\widehat{\beta_0} = \bar{y} - \widehat{\beta_1} \cdot \bar{x}
+$$
+
+:::
+
+
+```{r}
+#| label: optimal-line
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Dritter Schritt: Optimale Regressionsgerade (Methode der kleinsten Quadrate)"
+
+model <- lm(y ~ x)
+
+plot(x, y, pch = 19, col = dot_color, xlab = "x", ylab = "y")
+abline(model, col = line_color, lwd = 2)
+for (i in 1:length(x)) {
+  segments(x[i], y[i], x[i], predict(model)[i], col = residual_color, lwd = 1.5)
+}
+
+# Gesamtlänge der Residuen berechnen und anzeigen
+residual_sum_optimal <- sum(abs(y - predict(model)))
+text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_optimal, 2)), pos = 4, col = "blue2")
+```
+
+### Bestimmung der Güte der Anpassung
+
+
+
+Die Güte der Anpassung wird durch den **Bestimmtheitsmass** $R^2$ beurteilt.
+
+$$
+R^2 = \frac{\text{erklärte Variation}}{\text{Gesamtvariation}} = \frac{\sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2}{\sum_{i=1}^{n} (Y_i - \bar{Y})^2} = 1 - \frac{\text{Residualsumme}}{\text{Gesamtvariation}}
+$$ {#eq-r2}
+
+- $\hat{Y}_i$ = vorhergesagter Wert
+- $\bar{Y}$ = Mittelwert der abhängigen Variablen
+- $Y_i$ = beobachteter Wert
+
+$R^2$ liegt immer zwischen 0 und 1. Je höher $R^2$, desto besser passt das Modell zu den Daten.
+
+
+### Testen der Signifikanz der Regressionskoeffizienten
+
+**Hypothesen**:
+
+- $H_0$: $\beta_1 = 0$ (KEINE lineare Abhängigkeit zwischen $x$ und $y$)
+- $H_1$: $\beta_1 \neq 0$ (lineare Abhängigkeit zwischen $x$ und $y$)
+- $\beta_1$ der Stichprobe variiert um den wahren Wert $\beta_1$ der Grundgesamtheit mit bestimmter Wahrscheinlichkeit:
+  - einer Normalverteilung mit der Standardabweichung $\sigma_{\beta_1}$
+  - $\sigma_{\beta_1}$ wird aus $s_{\beta_1}$ (Standardfehler von $\beta_1$) geschätzt
+  - um die Schätzunsicherheiten bei kleinen Stichproben zu berücksichtigen, wird die t-Verteilung verwendet
+
+$$
+T = \frac{\widehat{\beta}}{s_{\beta_1}}, \quad \text{mit} \quad s_{\beta_1} = \sqrt{\frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 / (n-2)}{\sum_{i=1}^{n} (X_i - \bar{X})^2}}
+$$
+
+- $T$ ist t-verteilt mit $n-2$ Freiheitsgraden, da wir den Regressionskoeffizienten $\beta_1$ und die Streuung $\sigma_{\beta_1}$ aus der Stichprobe schätzen
+- $\beta_1$ ist die Steigung der Regressionsgerade
+- $s_{\beta_1}$ ist der Standardfehler der Steigung
+- $\widehat{\beta}$ ist der geschätzte Regressionskoeffizient der Stichprobe
+- $Y_i$ ist der beobachtete Wert der abhängigen Variablen
+- $\hat{Y}_i$ ist der vorhergesagte Wert der abhängigen Variablen
+- $X_i$ ist der beobachtete Wert der unabhängigen Variablen
+- $\bar{X}$ ist der Mittelwert der unabhängigen Variablen
+- $n$ ist die Anzahl der Beobachtungen
+
+#### Konfidenzintervall der Regressionskoeffizienten
+
+$$
+\beta_1 = \widehat{\beta_1} \pm q_t \cdot s_{\beta_1} \quad \text{mit} \quad q_t \text{ aus der T-Tabelle}
+$$
+
+- $t_{n-2}$ ist der kritische Wert der t-Verteilung mit $n-2$ Freiheitsgraden
+- $s_{\beta_1}$ ist der Standardfehler der Steigung
+- $\widehat{\beta_1}$ ist der geschätzte Regressionskoeffizient der Stichprobe
+
+### Berechnung der linearen Regression in R
+
+```{r}
+#| label: linear-regression-in-r
+#| echo: true
+
+# Daten erstellen
+x <- rnorm(30, mean = 10, sd = 2)
+y <- 2 * x + rnorm(30, mean = 0, sd = 4)
+
+# Lineare Regression durchführen
+model <- lm(y ~ x)
+model
+```
+
+Die Ausgabe der Funktion `lm()` zeigt uns:
+
+1. **Call**: Die verwendete Formel für die Regression
+   - `y ~ x` bedeutet: y wird durch x vorhergesagt
+
+2. **Coefficients**: Die geschätzten Regressionskoeffizienten
+   - **(Intercept)**: $\widehat{\beta_0}$ = `{r} round(model$coefficients[1], 3)`
+     - Dies ist der y-Achsenabschnitt
+     - Der vorhergesagte y-Wert, wenn x = 0
+   - **x**: $\widehat{\beta_1}$ = `{r} round(model$coefficients[2], 3)`
+     - Dies ist die Steigung der Geraden
+     - Für jede Einheit, die x zunimmt, steigt y um `{r} round(model$coefficients[2], 3)` Einheiten
+
+Für eine detailliertere Analyse können wir die Funktion `summary()` verwenden:
+
+```{r}
+#| label: regression-summary
+#| echo: true
+#| 
+summary(model)
+```
+
+Die `summary()` zeigt uns zusätzlich:
+
+1. **Residuals**: Verteilung der Abweichungen zwischen vorhergesagten und tatsächlichen Werten
+   - Minimum: `{r} round(summary(model)$residuals[which.min(summary(model)$residuals)], 3)`
+   - Maximum: `{r} round(summary(model)$residuals[which.max(summary(model)$residuals)], 3)`
+   - Die Quartile zeigen, wie die Residuen verteilt sind
+   - Idealerweise symmetrisch um 0
+
+2. **Coefficients-Tabelle**:
+   - **Intercept** ($\widehat{\beta_0}$ = `{r} round(coef(summary(model))[1,1], 3)`):
+     - Standardfehler: `{r} round(coef(summary(model))[1,2], 3)`
+     - t-Wert: `{r} round(coef(summary(model))[1,3], 3)`
+     - p-Wert: `{r} round(coef(summary(model))[1,4], 3)`
+     - Signifikant auf dem `{r} if(coef(summary(model))[1,4] < 0.001) {"0.1%"} else if(coef(summary(model))[1,4] < 0.01) {"1%"} else if(coef(summary(model))[1,4] < 0.05) {"5%"} else {"nicht signifikant"}` Niveau
+   - **Steigung** ($\widehat{\beta_1}$ = `{r} round(coef(summary(model))[2,1], 3)`):
+     - Standardfehler: `{r} round(coef(summary(model))[2,2], 3)`
+     - t-Wert: `{r} round(coef(summary(model))[2,3], 3)`
+     - p-Wert: `{r} round(coef(summary(model))[2,4], 3)`
+     - Signifikant auf dem `{r} if(coef(summary(model))[2,4] < 0.001) {"0.1%"} else if(coef(summary(model))[2,4] < 0.01) {"1%"} else if(coef(summary(model))[2,4] < 0.05) {"5%"} else {"nicht signifikant"}` Niveau
+
+3. **Modellgüte**:
+   - $R^2$ = `{r} round(summary(model)$r.squared, 3)` 
+     - `{r} round(summary(model)$r.squared * 100, 1)`% der Varianz in y wird durch x erklärt
+   - Adjustiertes $R^2$ = `{r} round(summary(model)$adj.r.squared, 3)`
+     - Berücksichtigt die Anzahl der Prädiktoren
+
+4. **F-Test**:
+   - F-Wert: `{r} round(summary(model)$fstatistic[1], 3)`
+   - Freiheitsgrade: `{r} summary(model)$fstatistic[2]` und `{r} summary(model)$fstatistic[3]`
+   - p-Wert: `{r} round(pf(summary(model)$fstatistic[1], summary(model)$fstatistic[2], summary(model)$fstatistic[3], lower.tail = FALSE), 5)`
+   - Das Modell ist `{r} if(pf(summary(model)$fstatistic[1], summary(model)$fstatistic[2], summary(model)$fstatistic[3], lower.tail = FALSE) < 0.05) {"statistisch signifikant"} else {"nicht statistisch signifikant"}`
+
+## Multiple Regression
+
+## Multiple Regression
+
+In der einfachen linearen Regression versuchen wir, den Zusammenhang zwischen einer abhängigen Variable $Y$ und einem Prädiktor $X_1$ zu modellieren. Doch was passiert, wenn $Y$ nicht vollständig durch $X_1$ alleine erklärt werden kann? 
+
+Stellen wir uns vor, wir haben Daten, bei denen wir vermuten, dass $X_1$ einen Einfluss auf $Y$ hat. Wir beginnen mit einer einfachen linearen Regression:
+
+```{r}
+#| label: simple-regression
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Erste Regression: Y in Abhängigkeit von X1"
+
+set.seed(42)
+# Daten simulieren
+n <- 100
+X1 <- rnorm(n, mean = 10, sd = 2)
+X2 <- rnorm(n, mean = 5, sd = 1.5)
+Y <- 3 * X1 + 2 * X2 + rnorm(n, sd = 3)
+
+# Einfache lineare Regression Y ~ X1
+model_X1 <- lm(Y ~ X1)
+
+# Plot
+plot(X1, Y, pch = 19, col = rgb(105/255, 89/255, 205/255, alpha = 0.5), 
+     xlab = "X1", ylab = "Y")
+abline(model_X1, col = "red", lwd = 2)
+```
+
+Wir erkennen, dass $X_1$ einen deutlichen Einfluss auf $Y$ hat. Doch die Vorhersagen des Modells sind nicht perfekt – es bleiben **Residuen** übrig, also Abweichungen zwischen den tatsächlichen Werten von $Y$ und den durch das Modell prognostizierten Werten.
+
+Diese Residuen sind nicht einfach nur zufälliges Rauschen. Sie könnten Hinweise darauf liefern, dass noch **weitere Faktoren** im Spiel sind, die wir bisher nicht berücksichtigt haben.
+
+Um das zu überprüfen, untersuchen wir, ob ein weiterer Prädiktor $X_2$ möglicherweise einen Teil dieser unerklärten Varianz in $Y$ aufklären kann. Dazu betrachten wir die Residuen der ersten Regression und analysieren, ob sie mit $X_2$ zusammenhängen:
+
+```{r}
+#| label: residual-regression
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Zweite Regression: Residuen von Y ~ X1 in Abhängigkeit von X2"
+
+# Berechne die Residuen der ersten Regression
+residuals_X1 <- resid(model_X1)
+
+# Regression der Residuen auf X2
+model_resid_X2 <- lm(residuals_X1 ~ X2)
+
+# Plot
+plot(X2, residuals_X1, pch = 19, col = rgb(105/255, 89/255, 205/255, alpha = 0.5), 
+     xlab = "X2", ylab = "Residuen von Y ~ X1")
+abline(model_resid_X2, col = "orange", lwd = 2)
+```
+
+Wir sehen, dass die Residuen tatsächlich einen Zusammenhang mit $X_2$ aufweisen. Das bedeutet, dass $X_2$ Varianz in $Y$ erklärt, die nicht durch $X_1$ erfasst wurde.
+
+Man könnte diesen Prozess theoretisch weiterführen: Nachdem wir den Einfluss von $X_2$ modelliert haben, könnten wir die neuen Residuen betrachten und versuchen, diese durch einen weiteren Prädiktor $X_3$ zu erklären. Und so weiter.
+
+Dieses schrittweise Vorgehen wirft jedoch ein Problem auf: Was passiert, wenn $X_1$, $X_2$, ..., $X_k$ miteinander korrelieren?
+
+- In diesem Fall ist es schwierig, die individuellen Effekte der einzelnen Prädiktoren zu isolieren.
+- Der Einfluss von $X_2$ könnte bereits teilweise in der ersten Regression durch $X_1$ berücksichtigt worden sein – und umgekehrt.
+- Durch das schrittweise Vorgehen riskieren wir, *Doppelerklärungen* oder *verzerrte Effekte* zu erhalten.
+
+Wir brauchen einen Ansatz, der es uns ermöglicht, den Einfluss mehrerer Prädiktoren *gleichzeitig* zu berücksichtigen.
+
+::: {.callout-note collapse=false}
+### Beispiel
+
+Wir versuchen, den Abfluss eines Gebirgsbachs zu modellieren.
+
+- $Y$: Abfluss
+- $X_1$: Schneeschmelze
+- $X_2$: Niederschlag
+
+Wenn wir den Abfluss $Y$ zunächst in Abhängigkeit von der Schneeschmelze $X_1$ modellieren, stellen wir fest, dass ein Teil der Varianz von $Y$ nicht erklärt wird. Wir vermuten, dass der Niederschlag $X_2$ einen zusätzlichen Einfluss haben könnte. Also modellieren wir die Residuen aus der ersten Regression in Abhängigkeit von $X_2$.
+
+Doch hier entsteht ein Problem: *Schneeschmelze und Niederschlag sind oft korreliert.* Nach starken Niederschlägen folgt häufig eine beschleunigte Schneeschmelze. Wenn wir $X_2$ nur auf die Residuen von $X_1$ anwenden, übersehen wir möglicherweise den gemeinsamen Einfluss beider Faktoren. 
+
+Das führt zu verzerrten Ergebnissen, da der Niederschlag sowohl einen direkten Einfluss auf den Abfluss hat als auch indirekt über die Schneeschmelze wirkt. 
+:::
+
+**Bemerkung:** Wenn die Prädiktoren *nicht* korrelieren, ist die Regression der Residuen mit weiteren Variablen möglich.
+
+### Ansatz
+
+- Minimierung der Summe der quadrierten Residuen:
+
+$$
+\sum_{i=1}^{n} (Y_i - \widehat{\beta_0} - \widehat{\beta_1} X_{1i} - \widehat{\beta_2} X_{2i} - \ldots - \widehat{\beta_k} X_{ki})^2 \quad \rightarrow \quad \text{minimal}
+$$
+
+- Dafür müssen die partiellen Ableitungen nach allen $\beta_j$ gleich null gesetzt werden
+- Koeffizienten der multiplen Regression werden auch "partielle Regressionskoeffizienten" genannt
+
+$$
+\widehat{Y_i} = \widehat{\beta_0} + \widehat{\beta_1} X_{1i} + \widehat{\beta_2} X_{2i} + \ldots + \widehat{\beta_k} X_{ki}
+$$
+
+oder in Matrixnotation:
+
+$$
+\widehat{Y} = X \widehat{\beta} \quad \text{mit} \quad \widehat{Y} = \begin{bmatrix} \widehat{Y_1} \\ \widehat{Y_2} \\ \vdots \\ \widehat{Y_n} \end{bmatrix}, \quad \widehat{\beta} = \begin{bmatrix} \widehat{\beta_0} \\ \widehat{\beta_1} \\ \vdots \\ \widehat{\beta_k} \end{bmatrix} \quad \text{und} \quad X = \begin{bmatrix} 1 & X_{11} & X_{21} & \ldots & X_{k1} \\ 1 & X_{12} & X_{22} & \ldots & X_{k2} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & X_{1n} & X_{2n} & \ldots & X_{kn} \end{bmatrix}
+$$
+
+
+### Beispiel: Anzahl der Kinder in Abhängigkeit von Ausbildung und Einkommen
+
+Wir haben Daten über 20 Personen, bei denen wir die Anzahl der Kinder, die Ausbildung und das Einkommen erfasst haben. Wir gehen davon aus, dass die Anzahl der Kinder abhängig ist von der Ausbildung und dem Einkommen. Ebenfalls gehen wir davon aus, dass die Ausbildung und das Einkommen miteinander korrelieren.
+
+```{r}
+#| label: multiple-regression-data
+#| echo: true
+#| code-fold: true
+#| tbl-cap: "Daten für das Beispiel"
+library(knitr)
+# Daten definieren
+Person <- 1:20
+Kinder <- c(2, 5, 1, 9, 6, 3, 0, 3, 7, 7, 2, 5, 1, 9, 6, 3, 0, 3, 7, 14)
+Ausbildung <- c(12, 16, 20, 12, 9, 18, 16, 14, 9, 12, 12, 10, 20, 11, 9, 18, 16, 14, 9, 8)
+Einkommen <- c(30, 40, 90, 50, 40, 120, 100, 10, 40, 30, 100, 40, 90, 40, 40, 120, 100, 60, 40, 10)
+
+# DataFrame erstellen
+anzahlKinderDaten <- data.frame(Person, Kinder, Ausbildung, Einkommen)
+
+# DataFrame anzeigen
+kable(anzahlKinderDaten)
+```
+
+Wir formulieren:
+
+$$
+\widehat{Y_i} = \widehat{\beta_0} + \widehat{\beta_1} X_{1} + \widehat{\beta_2} X_{2}
+$$
+
+- $\widehat{Y_i}$: Vorhergesagte Anzahl der Kinder
+- $\widehat{\beta_0}$: Achsenabschnitt
+- $\widehat{\beta_1}$: Regressionskoeffizient für Ausbildung
+- $\widehat{\beta_2}$: Regressionskoeffizient für Einkommen
+
+Wir führen eine multiple Regression durch:
+
+```{r}
+#| label: multiple-regression
+#| echo: true
+#| code-fold: false
+regressionsmodell <- lm(Kinder ~ Ausbildung + Einkommen, data = anzahlKinderDaten)
+```
+
+und erhalten:
+
+- $\widehat{\beta_0}$ = `{r} round(coef(regressionsmodell)[1], 3)`
+- $\widehat{\beta_1}$ = `{r} round(coef(regressionsmodell)[2], 3)`
+- $\widehat{\beta_2}$ = `{r} round(coef(regressionsmodell)[3], 3)`
+
+Daraus ergibt sich die Regressionsgleichung:
+
+```{r}
+#| label: multiple-regression-equation-latex-expression-builder
+#| echo: true
+#| code-fold: true
+#| output: asis
+cat("$$",
+    "Y = ", round(coef(regressionsmodell)[1], 3), " + ", round(coef(regressionsmodell)[2], 3), " \\cdot X_1 + ", round(coef(regressionsmodell)[3], 3), " \\cdot X_2",
+    "$$")
+```
+
+Daraus ergibt sich:
+
+| Ausbildung   | Einkommen   | Anzahl der Kinder                                                                                                         |
+|--------------|-------------|---------------------------------------------------------------------------------------------------------------------------|
+| $0$          | $0$         | $\approx `{r} round(coef(regressionsmodell)[1] + coef(regressionsmodell)[2] * 0 + coef(regressionsmodell)[3] * 0, 2)`$    |
+| $10$         | $0$         | $\approx `{r} round(coef(regressionsmodell)[1] + coef(regressionsmodell)[2] * 10 + coef(regressionsmodell)[3] * 0, 2)`$   |
+| $10$         | $100$       | $\approx `{r} round(coef(regressionsmodell)[1] + coef(regressionsmodell)[2] * 10 + coef(regressionsmodell)[3] * 100, 2)`$ |
+| $20$         | $200$       | $\approx `{r} round(coef(regressionsmodell)[1] + coef(regressionsmodell)[2] * 20 + coef(regressionsmodell)[3] * 200, 2)`$ |
+
+: {.striped .hover tbl-colwidths="[25,25,50]"}
+
+::: {.callout-note collapse=true title="Interpretation"}
+
+Um die Güte der Schätzung zu beurteilen, rufen wir die `summary()` Funktion auf:
+
+```{r}
+#| label: multiple-regression-validity
+#| echo: true
+#| code-fold: false
+summary(regressionsmodell)
+```
+
+:::
+
+### Multiples Bestimmtheitsmass
+
+Das multiple Bestimmtheitsmass $R^2$ (@eq-r2) ist ein Mass für die Güte der Anpassung des Regressionsmodells. Es gibt an, wie viel Varianz der abhängigen Variablen durch die unabhängigen Variablen erklärt wird.
+
+$$
+R^2 = 1 - \frac{\text{Residualsumme}}{\text{Gesamtvariation}}
+$$
+
+- $R^2 = 1$, wenn alle Punkte auf der Regressions-Hyperebene liegen
+- $R^2 = 0$, wenn das Modell keinerlei Erklärung für die Variation von Y liefert.
+- Bei multipler Regression nimmt $R^2$ mit der Anzahl der unabhängigen Variablen zu. Deshalb nutzt man das angepasste Bestimmtheitsmass $R^2_{adj}$
+
+$$
+R^2_{adj} = \left(R^2 - \frac{m}{n-1}\right) \cdot \left(\frac{n-1}{n-m-1}\right) = 1 - (1 - R^2) \cdot \left(\frac{n-1}{n-m-1}\right)
+$$
+
+- $m$ ist die Anzahl der unabhängigen Variablen
+- $n$ ist die Anzahl der Beobachtungen
+
+- Das angepasste Bestimmtheitsmass $R^2_{adj}$ ist immer kleiner als $R^2$ und nimmt mit zunehmender Anzahl Variablen ab, falls diese nichts zur Erklärung der Varianz beitragen.
+
+### F-Test
+
+Der F-Test ist ein Hypothesentest, der die Güte des Regressionsmodells als Ganzes überprüft.
+
+$$
+F = \frac{\frac{R^2}{k}}{\frac{1-R^2}{n-(k+1)}} = \frac{\text{erklärte Varianz}}{\text{unerklärte Varianz}}
+$$
+
+- $R^2$ ist das multiple Bestimmtheitsmass
+- $k$ ist die Anzahl der unabhängigen Variablen
+- $n$ ist die Anzahl der Beobachtungen
+
+Der F-Wert sagt, ob das Modell besser ist als einfach die Annahme des Mittelwerts von $Y$ zu nehmen. D.h. ob
+
+$$
+H_0 : R^2 = 0
+$$
+
+abgelehnt werden kann.
+
+### Anwendungsbedingungen
+
+- Linearität
+- Normalverteilung der Residuen
+- Varianzhomogenität
+- Keine oder wenige Ausreisser
+
+```{r}
+#| label: multiple-regression-residuals-plot
+#| echo: true
+#| code-fold: false
+#| fig-subcap: ["Linearität", "Normalverteilung der Residuen", "Varianzhomogenität", "Ausreißer"]
+
+# Perfekte synthetische Daten generieren
+set.seed(42)
+n <- 100
+X1 <- rnorm(n, mean = 10, sd = 2)
+X2 <- rnorm(n, mean = 5, sd = 1.5)
+
+# Perfekte lineare Beziehung mit normalverteiltem Fehlerterm
+Y <- 3 * X1 + 2 * X2 + rnorm(n, mean = 0, sd = 3)
+
+# Lineares Regressionsmodell
+perfektes_modell <- lm(Y ~ X1 + X2)
+
+# Diagnostische Plots
+par(mfrow = c(2, 2), mar = c(4, 4, 2, 1))  # Layout für 4 Plots
+plot(perfektes_modell)
+```
+
+

@@ -17,7 +17,6 @@ D.h. der Standardfehler ist gross, wenn die Varianz gross ist und/oder die Stich
 Die Standardfehler sind dank dem zentralen Grenzwertsatz normalverteilt.
 
 ::: {.callout-note title="Beispiel"}
-
 Beim Start zum Engadiner Skimarathon wird ein Bus vermisst. Bei der Suche findest du einen Parkplatz einen Bus. Du schaust in den Bus und stellt fest, dass das durchschnittliche Alter der Personen vermutlich bei ca. 80 Jahren liegt.
 
 Die Teilnehmer am Skimarathon haben ein mittleres Alter von 40 Jahren mit einer Standardabweichung von 10 Jahren, wobei wir annehmen, dass die Alter ungefähr normalverteilt ist.
@@ -51,81 +50,86 @@ Die Alternativhypothese widerspricht der Nullhypothese und postuliert, dass es e
 
 ## Testtheorie
 
-1. **Hypothesen aufstellen**  
-   - Formuliere eine Nullhypothese $H_0$ (z.B. „kein Unterschied zwischen Mittelwerten“) und eine Alternativhypothese $H_1$ (z.B. „es gibt einen Unterschied“).
+1.  **Hypothesen aufstellen**
 
-2. **Signifikanzniveau $\alpha$ festlegen**  
-   - Häufig $\alpha = 0.05$. Wenn dein p-Wert kleiner ist als 0.05, lehnst du $H_0$ ab (auf 5%-Niveau).
+    -   Formuliere eine Nullhypothese $H_0$ (z.B. „kein Unterschied zwischen Mittelwerten“) und eine Alternativhypothese $H_1$ (z.B. „es gibt einen Unterschied“).
 
-3. **Stichprobe erheben**  
-   - Daten sammeln (z.B. Zufallsstichprobe) und Kennwerte (Mittelwert, Varianz, etc.) berechnen.
+2.  **Signifikanzniveau** $\alpha$ festlegen
 
-4. **Teststatistik berechnen**  
-   - Beim **t-Test** rechnest du einen **t-Wert** (Teststatistik) aus. Dieser t-Wert sagt dir, wie viele „Standardfehler“ deine gemessene Differenz vom erwarteten Wert (unter $H_0$) entfernt ist.
+    -   Häufig $\alpha = 0.05$. Wenn dein p-Wert kleiner ist als 0.05, lehnst du $H_0$ ab (auf 5%-Niveau).
 
-   $$ 
-   t = \frac{\overline{x} - \mu_0}{s_{\overline{x}}} 
-   $$
+3.  **Stichprobe erheben**
 
-   - $\overline{x}$: Mittelwert deiner Stichprobe  
-   - $\mu_0$: unter $H_0$ vermuteter Populationsmittelwert (oder z.B. Differenz von 0 zwischen zwei Gruppen)  
-   - $s_{\overline{x}} = \frac{s}{\sqrt{n}}$: Standardfehler des Mittelwerts, basierend auf der Stichproben-Standardabweichung $s$ und der Stichprobengrösse $n$
+    -   Daten sammeln (z.B. Zufallsstichprobe) und Kennwerte (Mittelwert, Varianz, etc.) berechnen.
 
+4.  **Teststatistik berechnen**
 
-::: {.callout-note title="t-Test"}
-Ein **t-Test** ist ein statistischer Test, der oft genutzt wird, um **Mittelwerte** zu vergleichen oder einen Mittelwert mit einem Referenzwert zu prüfen. Beispielsweise kannst du testen, ob das Durchschnittsgewicht einer Stichprobe signifikant von 70 kg abweicht ($H_0: \mu = 70$).  
+    -   Beim **t-Test** rechnest du einen **t-Wert** (Teststatistik) aus. Dieser t-Wert sagt dir, wie viele „Standardfehler“ deine gemessene Differenz vom erwarteten Wert (unter $H_0$) entfernt ist.
+
+    $$ 
+    t = \frac{\overline{x} - \mu_0}{s_{\overline{x}}} 
+    $$
+
+    -   $\overline{x}$: Mittelwert deiner Stichprobe\
+    -   $\mu_0$: unter $H_0$ vermuteter Populationsmittelwert (oder z.B. Differenz von 0 zwischen zwei Gruppen)\
+    -   $s_{\overline{x}} = \frac{s}{\sqrt{n}}$: Standardfehler des Mittelwerts, basierend auf der Stichproben-Standardabweichung $s$ und der Stichprobengrösse $n$
+
+::: callout-note
+### t-Test
+
+Ein **t-Test** ist ein statistischer Test, der oft genutzt wird, um **Mittelwerte** zu vergleichen oder einen Mittelwert mit einem Referenzwert zu prüfen. Beispielsweise kannst du testen, ob das Durchschnittsgewicht einer Stichprobe signifikant von 70 kg abweicht ($H_0: \mu = 70$).
+
+*Voraussetzung* ist, dass die Daten metrisch, ohne Ausreisser und symetrisch verteilt sind.
 
 Der **Kern** des t-Tests:
 
-1. Du berechnest den **t-Wert** als $\frac{\text{Abweichung des Mittelwerts}}{\text{Standardfehler}}$.  
-2. Aus diesem t-Wert und den Freiheitsgraden (z.B. $n-1$) bestimmt man den **p-Wert** mithilfe der t-Verteilung.  
-3. Ist der p-Wert kleiner als das vorab festgelegte Signifikanzniveau $\alpha$, so lehnt man $H_0$ ab.
+1.  Du berechnest den **t-Wert** als $\frac{\text{Abweichung des Mittelwerts}}{\text{Standardfehler}}$.\
+2.  Aus diesem t-Wert und den Freiheitsgraden (z.B. $n-1$) bestimmt man den **p-Wert** mithilfe der t-Verteilung.\
+3.  Ist der p-Wert kleiner als das vorab festgelegte Signifikanzniveau $\alpha$, so lehnt man $H_0$ ab.
 
 Ein typisches Beispiel ist der **Zweistichproben-t-Test** (unabhängige Gruppen), bei dem untersucht wird, ob sich zwei Mittelwerte (z.B. Gruppe A vs. Gruppe B) signifikant unterscheiden.
 :::
 
-5. **p-Wert bestimmen und Entscheidung treffen**  
-   - Aus dem t-Wert (und den Freiheitsgraden $\text{df} = n-1$ oder ähnlich) kannst du den **p-Wert** ablesen (z.B. mittels t-Verteilungstabellen oder Software). Der p-Wert gibt an, wie wahrscheinlich (oder selten) eine so grosse oder grössere Abweichung zufällig auftreten würde, wenn $H_0$ wahr wäre.  
-   - **Richtlinie**: Ist der p-Wert kleiner als $\alpha$ (z.B. < 0.05), lehnen wir $H_0$ ab – das Ergebnis gilt als „statistisch signifikant“.
+5.  **p-Wert bestimmen und Entscheidung treffen**
+    -   Aus dem t-Wert (und den Freiheitsgraden $\text{df} = n-1$ oder ähnlich) kannst du den **p-Wert** ablesen (z.B. mittels t-Verteilungstabellen oder Software). Der p-Wert gibt an, wie wahrscheinlich (oder selten) eine so grosse oder grössere Abweichung zufällig auftreten würde, wenn $H_0$ wahr wäre.\
+    -   **Richtlinie**: Ist der p-Wert kleiner als $\alpha$ (z.B. \< 0.05), lehnen wir $H_0$ ab – das Ergebnis gilt als „statistisch signifikant“.
 
 ### t-Wert vs. p-Wert
 
-- Der **t-Wert** ist der numerische „Abstand“ deiner beobachteten Daten (Mittelwertdifferenz) vom Wert unter $H_0$, gemessen in Einheiten des Standardfehlers.  
-- Der **p-Wert** ist die Wahrscheinlichkeit, einen **t-Wert** (oder Teststatistik) zu erhalten, der *mindestens* so extrem ist wie dein beobachteter, *wenn* $H_0$ gilt.
+-   Der **t-Wert** ist der numerische „Abstand“ deiner beobachteten Daten (Mittelwertdifferenz) vom Wert unter $H_0$, gemessen in Einheiten des Standardfehlers.\
+-   Der **p-Wert** ist die Wahrscheinlichkeit, einen **t-Wert** (oder Teststatistik) zu erhalten, der *mindestens* so extrem ist wie dein beobachteter, *wenn* $H_0$ gilt.
 
-Oder vereinfacht:  
-- **t-Wert**: *„Wir sind 2.5 Standardfehler vom erwarteten Wert entfernt.“*  
-- **p-Wert**: *„Diese Abweichung kommt nur mit 1% Wahrscheinlichkeit zustande, wenn $H_0$ stimmt.“*
+Oder vereinfacht:\
+- **t-Wert**: *„Wir sind 2.5 Standardfehler vom erwarteten Wert entfernt.“*\
+- **p-Wert**: *„Diese Abweichung kommt nur mit 1% Wahrscheinlichkeit zustande, wenn* $H_0$ stimmt.“
 
 Beide Werte gehören zusammen: Ohne t-Wert weisst du nicht, *wie* stark die Abweichung ist; ohne p-Wert weisst du nicht, wie (un)wahrscheinlich diese Abweichung unter der Nullhypothese wäre.
 
 ### Fehlerarten
 
-| Testentscheidung  | $H_0$ nicht ablehnen    | $H_0$ ablehnen        |
-|-------------------|-------------------------|-----------------------|
-| $H_0$ wahr        | Richtige Entscheidung   | Fehler 1. Art         |
-| $H_0$ falsch      | Fehler 2. Art           | Richtige Entscheidung |
+| Testentscheidung | $H_0$ nicht ablehnen  | $H_0$ ablehnen        |
+|------------------|-----------------------|-----------------------|
+| $H_0$ wahr       | Richtige Entscheidung | Fehler 1. Art         |
+| $H_0$ falsch     | Fehler 2. Art         | Richtige Entscheidung |
 
-- **Fehler 1. Art** (Alpha-Fehler): Wir lehnen $H_0$ ab, obwohl $H_0$ wahr ist.
-- **Fehler 2. Art** (Beta-Fehler): Wir nehmen $H_0$ an, obwohl $H_0$ falsch ist.
-- Es gibt keine Testverfahren, die beide Fehlerarten gleichzeitig minimieren können.
-- Das Signifikanzniveau $\alpha$ ist die Wahrscheinlichkeit für einen Fehler 1. Art.
-- Der Fehler 2. Art ist in der Regel weniger gravierend.
-
+-   **Fehler 1. Art** (Alpha-Fehler): Wir lehnen $H_0$ ab, obwohl $H_0$ wahr ist.
+-   **Fehler 2. Art** (Beta-Fehler): Wir nehmen $H_0$ an, obwohl $H_0$ falsch ist.
+-   Es gibt keine Testverfahren, die beide Fehlerarten gleichzeitig minimieren können.
+-   Das Signifikanzniveau $\alpha$ ist die Wahrscheinlichkeit für einen Fehler 1. Art.
+-   Der Fehler 2. Art ist in der Regel weniger gravierend.
 
 ### Mittwelwerte Testen
 
-- Mittelwert $\mu$ und Standardabweichung $\sigma$ aus $X_{\text{Mittel}}$ und $s_x$ schätzen.
-- Das führt bei kleinen Stichproben zu grossen Standardfehlern.
-- es ist unwahrscheinlich, dass die Stichprobe exakt das Mittel der Grundgesamtheit trifft.
-- Dadurch wird die Verteilung der Teststatistik $t$ breiter.
+-   Mittelwert $\mu$ und Standardabweichung $\sigma$ aus $X_{\text{Mittel}}$ und $s_x$ schätzen.
+-   Das führt bei kleinen Stichproben zu grossen Standardfehlern.
+-   es ist unwahrscheinlich, dass die Stichprobe exakt das Mittel der Grundgesamtheit trifft.
+-   Dadurch wird die Verteilung der Teststatistik $t$ breiter.
 
 ::: {.callout-note title="Beispiel"}
-
 **Hypothesen**:
 
-- $H_0$: Erwartere Sept. bis Nov. Mitteltemperatur beträgt 9°C ($x = \mu_0$)
-- $H_1$: Erwartere Sept. bis Nov. Mitteltemperatur weicht signifikant von 9°C ab ($x \neq \mu_0$)
+-   $H_0$: Erwartere Sept. bis Nov. Mitteltemperatur beträgt 9°C ($x = \mu_0$)
+-   $H_1$: Erwartere Sept. bis Nov. Mitteltemperatur weicht signifikant von 9°C ab ($x \neq \mu_0$)
 
 **Teststatistik**:
 
@@ -140,7 +144,6 @@ T &= \frac{\overline{x} - \mu_0}{s_{\overline{x}}} \\
 $$
 
 Wobei $\overline{x}$ der Mittelwert der Stichprobe ist, $\mu_0$ der Mittelwert der Grundgesamtheit ist, $s_x$ der Standardfehler ist und $n$ die Anzahl der Beobachtungen ist.
-
 :::
 
 ![T-Verteilung](resources/T-Verteilung.png)
@@ -149,7 +152,237 @@ Dieser Test ist ein zweiseitiger Test mit $\alpha = 0.05$. Das führt dazu, dass
 
 Bei einem einseitigen Test wäre $\alpha = 0.05$ und wir würden die Quantile so verteilen, dass "unten" 5% der Fläche und "oben" 95% der Fläche liegen.
 
+## Konfidenzintervalle
+
+-   Masszahl für die Unsicherheit der Parameterschätzung
+-   Konfidenzintervalle sind Intervalle, die den wahren Wert einer Grundgesamtheit mit einer bestimmten Wahrscheinlichkeit schätzen.
+-   Eng verknüpft mit dem Signifikanzlevel $\alpha$
+
+::: {.callout-note title="Beispiel"}
+$$
+T = \frac{\overline{x} - \mu_0}{s_{\overline{x}}} \Rightarrow \mu \in \left\{\overline{x} \pm q_{T, 0.975} \cdot s_{\overline{x}}\right\}
+$$
+
+Wobei $\overline{x}$ der Mittelwert der Stichprobe ist, $\mu_0$ der Mittelwert der Grundgesamtheit ist, $s_{\overline{x}}$ der Standardfehler ist und $q_{T, 0.975}$ das 97.5%-Quantil der t-Verteilung mit $n-1$ Freiheitsgraden ist.
+:::
+
+-   Wie repräsentativ sind unsere Stichprobenergebnisse für die Grundgesamtheit?
+
+$$
+\begin{aligned}
+\mu_{\text{Obergrenze}} &= \overline{x} + q_{1 - \alpha} \cdot \sqrt{\frac{s^2}{n}} \\
+\mu_{\text{Untergrenze}} &= \overline{x} - q_{1 - \alpha} \cdot \sqrt{\frac{s^2}{n}} \\
+\end{aligned}
+$$
+
+**95%-Konfidenzintervall der erwarteten Temperatur aus dem vorherigen Beispiel**:
+
+$$
+\begin{aligned}
+\mu_{\text{Obergrenze}} &= 8.75 \text{°C} + 1.98 \cdot 0.1 \text{°C} = 8.55 \text{°C} \\
+\mu_{\text{Untergrenze}} &= 8.75 \text{°C} - 1.98 \cdot 0.1 \text{°C} = 8.8.95 \text{°C} \\
+\end{aligned}
+$$
+
+Wir beachten, dass $9 \text{°C}$ nicht im Konfidenzintervall liegt, was im Einvernehmen mit der Ablehnung der Nullhypothese $H_0$ liegt.
+
+**Daumenregel**:
+
+$$
+\text{Konfidenzintervall} = \text{Stichprobenergebnis} \pm 2 \cdot \text{Standardfehler}
+$$
+
+## Überprüfung auf Normalverteilung
+
+Wir stellen auch hier entsprechende Hypothesen auf.
+
+$$
+\begin{aligned}
+H_0: &\text{Daten sind normalverteilt} \\
+H_A: &\text{Daten sind nicht normalverteilt}
+\end{aligned}
+$$
+
+::: {.callout-note title="Anmerkung" collapse="true"}
+Dass wir hier mit der $H_0$ die Normalverteilung testen, ist nicht intuitiv. Aber wir testen hier nicht, ob die Daten normalverteilt sind, sondern ob sie *nicht* normalverteilt sind. Wenn wir das Gegenteil beweisen wollen, müssen wir das Gegenteil widerlegen.
+
+Eine Normalverteilung kann man nicht beweisen, sondern nur widerlegen.
+:::
+
++-----------------------------+----------------------------------------------------------------------+------------------------------------------------------------+
+| Test                        | Vorteile                                                             | Nachteile                                                  |
++=============================+======================================================================+============================================================+
+| $\chi^2$-Test               | -   geeignet für beliebig skalierte Variablen                        | -   Gruppierung der Beobachtungen notwendig                |
+|                             |                                                                      |                                                            |
+|                             |                                                                      | -   ungeeignet für kleine Stichproben                      |
+|                             |                                                                      |                                                            |
+|                             |                                                                      | -   quadratische Testgrösse, d.h. sensibel auf Ausreisser  |
++-----------------------------+----------------------------------------------------------------------+------------------------------------------------------------+
+| **Kolmogorov-Smirnov-Test** | -   geeignet für kleine Stichproben                                  | -   geringe Teststärke im Vergleich zu den folgenden Tests |
+|                             |                                                                      |                                                            |
+|                             | -   wie Chi-Quadrat auch zum Vergleich anderer Verteilungen geeignet |                                                            |
+|                             |                                                                      |                                                            |
+|                             | -   nicht-parametrischer Test, d.h. nicht sensibel auf Ausreisser    |                                                            |
++-----------------------------+----------------------------------------------------------------------+------------------------------------------------------------+
+| **Cramér-von-Mises-Test**   | -   höhere Güte als KS-Test                                          | -   quadratische Testgrösse                                |
++-----------------------------+----------------------------------------------------------------------+------------------------------------------------------------+
+| **Lilliefors-Test**         | -   bessere Trennschärfe als KS-Test                                 | -   nur zum Test auf Normalverteilung                      |
+|                             |                                                                      |                                                            |
+|                             | -   nicht-parametrischer Test                                        |                                                            |
++-----------------------------+----------------------------------------------------------------------+------------------------------------------------------------+
+| **Anderson-Darling-Test**   | -   sehr hohe Güte bei Test auf Normalverteilung                     | -   keine kategorialen Daten                               |
+|                             |                                                                      |                                                            |
+|                             |                                                                      | -   quadratische Testgrösse                                |
++-----------------------------+----------------------------------------------------------------------+------------------------------------------------------------+
+| **Shapiro-Wilk-Test**       | -   Test mit höchster Güte                                           | -   ausschliesslich Test auf Normalverteilung              |
+|                             |                                                                      |                                                            |
+|                             |                                                                      | -   manuell schlecht durchführbar                          |
+|                             |                                                                      |                                                            |
+|                             |                                                                      | -   sensibel auf Ausreisser und viele identische Werte     |
++-----------------------------+----------------------------------------------------------------------+------------------------------------------------------------+
+
+### Überprüfung auf Normalverteilung in R
+
+```{r}
+#| label: data-generation
+#| echo: true
+# Daten generieren
+set.seed(123)
+normal_data <- rnorm(500)        # 500 normalverteilte Zufallszahlen
+non_normal_data <- normal_data^2 # quadrierte Zufallszahlen (nicht normalverteilt)
+
+# Shapiro-Wilk-Test für beide Datensätze
+shapiro_result_normal <- shapiro.test(normal_data)
+shapiro_result_non_normal <- shapiro.test(non_normal_data)
+
+# Shapiro-Wilk-Test für normal_data:
+cat("W-Teststatistik:", round(shapiro_result_normal$statistic, 4), "\n")
+cat("p-Wert:", round(shapiro_result_normal$p.value, 4), "\n")
+
+# Shapiro-Wilk-Test für non_normal_data:
+cat("W-Teststatistik:", round(shapiro_result_non_normal$statistic, 4), "\n")
+cat("p-Wert:", round(shapiro_result_non_normal$p.value, 4), "\n")
+```
+
+```{r}
+#| label: textual-output
+#| code-fold: true
+#| output: asis
+
+if (shapiro_result_normal$p.value > 0.05) {
+  cat("Die Nullhypothese der Normalverteilung kann nicht verworfen werden. \n`normal_data` ist normalverteilt.\n\n")
+} else {
+  cat("Die Nullhypothese der Normalverteilung wird verworfen. \n`normal_data` ist **nicht** normalverteilt.\n\n")
+}
+
+if (shapiro_result_non_normal$p.value > 0.05) {
+  cat("Die Nullhypothese der Normalverteilung kann nicht verworfen werden. \n`non_normal_data` ist normalverteilt.\n\n")
+} else {
+  cat("Die Nullhypothese der Normalverteilung wird verworfen. \n`non_normal_data` ist **nicht** normalverteilt.\n\n")
+}
+```
+
+```{r}
+#| label: visual-comparison
+#| code-fold: true
+#| fig-cap: "Visualisierung der Normalverteilung"
+# Layout für nebeneinanderstehende Plots definieren
+par(mfrow = c(2, 2), mar = c(4, 4, 2, 1))
+
+# Histogramm
+hist(normal_data, 
+     main = "Histogramm (Normalverteilung)", 
+     xlab = "Werte", 
+     col = "lightblue", 
+     border = "white")
+hist(non_normal_data, 
+     main = "Histogramm (Nicht Normalverteilt)", 
+     xlab = "Werte", 
+     col = "lightcoral", 
+     border = "white")
+
+# Dichtefunktion
+plot(density(normal_data), 
+     main = "Dichtefunktion (Normalverteilung)", 
+     xlab = "Werte", 
+     col = "darkblue", 
+     lwd = 2)
+plot(density(non_normal_data), 
+     main = "Dichtefunktion (Nicht Normalverteilt)", 
+     xlab = "Werte", 
+     col = "darkred", 
+     lwd = 2)
+
+# Boxplot
+boxplot(normal_data, 
+        main = "Boxplot (Normalverteilung)", 
+        col = "lightgreen", 
+        horizontal = TRUE)
+boxplot(non_normal_data, 
+        main = "Boxplot (Nicht Normalverteilt)", 
+        col = "lightpink", 
+        horizontal = TRUE)
+
+# QQ-Plot
+qqnorm(normal_data, 
+       main = "QQ-Plot (Normalverteilung)")
+qqline(normal_data, col = "red", lwd = 2)
+
+qqnorm(non_normal_data, 
+       main = "QQ-Plot (Nicht Normalverteilt)")
+qqline(non_normal_data, col = "red", lwd = 2)
+
+# Layout zurücksetzen
+par(mfrow = c(1, 1))
+```
+
+### $\chi^2$-Test
+
+-   Summe der quadrierten Abweichungen:
+
+$$
+\chi^2 = \sum_{i=1}^{k} \frac{(N_i - n_i)^2}{n_i}
+$$
+
+-   $N_i$: beobachtete Häufigkeit in der Klasse $i$
+-   $n_i$: erwartete Häufigkeit in der Klasse $i$
+-   $k$: Anzahl der Klassen
 
 
+#### $\chi^2$-Verteilung
+
+- stetige Wahrscheinlichkeitsverteilung mit der Anzahl Freiheitsgrade $k$ als einzigem Parameter
+- Verteilung der Summe der Quadrate von $k$ unabhängigen und standardnormalverteilten Zufallsvariablen.
+
+```{r}
+#| label: chi-squared-distribution
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Chi-Quadrat-Verteilung"
+# Chi-Quadrat-Verteilung plotten
+x <- seq(0, 8, length.out = 500)
+df_values <- c(1, 2, 3, 4, 6, 9)
+
+# Farben definieren
+colors <- c("darkgreen", "green", "blue", "purple", "orange", "red")
+
+# Plot erstellen
+plot(x, dchisq(x, df = 1), type = "l", lwd = 2, col = colors[1], 
+     ylim = c(0, 0.5), xlab = "x", ylab = expression(f[k](x)), 
+     main = expression(chi^2~"Verteilung"))
+
+# Weitere Linien hinzufügen
+for (i in 2:length(df_values)) {
+  lines(x, dchisq(x, df = df_values[i]), col = colors[i], lwd = 2)
+}
+
+# Legende hinzufügen
+legend("topright", legend = paste("k=", df_values), 
+       col = colors, lwd = 2, bty = "n")
+```
+
+## Testauswahl
+
+![Testauswahl *Quelle: [Methodenberatung UZH](https://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html)*](https://www.methodenberatung.uzh.ch/static/entscheidbaum/entscheidbaum.jpg)
 
 

@@ -1,0 +1,164 @@
+# Glossar
+
+## Mittelwert $\bar{x}$ oder $\mu$
+
+- **Symbol:** $\bar{x}$ (Stichprobe) oder $\mu$ (Population)  
+- **Beschreibung:** Der Mittelwert ist der Durchschnitt aller Werte in einer Stichprobe oder Population. Er gibt an, wo das Zentrum der Daten liegt.
+- **Formel:**  
+$$
+\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
+$$
+- **Anwendung:** Wird verwendet, um den typischen Wert in Datensätzen zu beschreiben, z.B. den durchschnittlichen Lohn in einer Population.
+- **R-Code:**  
+```r
+mean(x)
+```
+
+## Median $x_{0.5}$
+
+- **Symbol:** $x_{0.5}$  
+- **Beschreibung:** Der Median ist der Wert, der die Daten in zwei gleiche Hälften teilt. Er ist robust gegen Ausreißer und gibt einen durchschnittlichen Wert an, der nicht durch Extremwerte beeinflusst wird.
+- **Formel:**  
+$$
+x_{0.5} = \begin{cases} 
+x_{(n+1)/2} & \text{falls } n \text{ ungerade} \\
+\frac{x_{n/2} + x_{n/2+1}}{2} & \text{falls } n \text{ gerade}
+\end{cases}
+$$
+
+- **Anwendung:** Wird verwendet, um den typischen Wert in Datensätzen zu beschreiben, z.B. den durchschnittlichen Lohn in einer Population.
+- **R-Code:**  
+```r
+median(x)
+```
+
+## Varianz $s^2$, $\sigma^2$
+
+- **Symbol:** $s^2$ (Stichprobe), $\sigma^2$ (Population)  
+- **Beschreibung:** Die Varianz misst die durchschnittliche quadratische Abweichung der Werte vom Mittelwert und beschreibt die Streuung der Daten.
+- **Formel (Stichprobe):**  
+$$
+s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
+$$
+- **Formel (Population):**  
+$$
+\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2
+$$
+- **Anwendung:** Wichtig zur Berechnung der Standardabweichung und zur Analyse der Datenstreuung.
+- **R-Code:**  
+```r
+var(x)
+# Für Population: var(x) * (n-1)/n
+```
+
+---
+
+## Standardabweichung $s$, $\sigma$
+
+- **Symbol:** $s$ (Stichprobe), $\sigma$ (Population)  
+- **Beschreibung:** Die Standardabweichung ist die Wurzel der Varianz und beschreibt die durchschnittliche Abweichung der Werte vom Mittelwert.
+- **Formel:**  
+$$
+s = \sqrt{s^2}, \quad \sigma = \sqrt{\sigma^2}
+$$
+- **Anwendung:** Zeigt, wie weit die Daten im Durchschnitt um den Mittelwert streuen. Häufig verwendet in der deskriptiven Statistik.
+- **R-Code:**  
+```r
+sd(x)
+```
+
+---
+
+## Standardfehler $SE$
+
+- **Symbol:** $SE$  
+- **Beschreibung:** Der Standardfehler des Mittelwerts misst, wie genau der Mittelwert einer Stichprobe den wahren Mittelwert der Population schätzt.
+- **Formel:**  
+$$
+SE = \frac{s}{\sqrt{n}}
+$$
+- **Anwendung:** Grundlage für Konfidenzintervalle und Hypothesentests.
+- **R-Code:**  
+```r
+sd(x) / sqrt(length(x))
+```
+
+---
+
+## t-Wert $t$
+
+- **Symbol:** $t$  
+- **Beschreibung:** Der t-Wert misst, wie stark ein beobachteter Wert vom erwarteten Wert (unter der Nullhypothese) abweicht, gemessen in Standardfehlern.
+- **Formel (für Mittelwert-Test):**  
+$$
+t = \frac{\bar{x} - \mu_0}{SE}
+$$
+- **Anwendung:** Verwendung in t-Tests, um Hypothesen über Mittelwerte zu überprüfen.
+- **R-Code:**  
+```r
+t.test(x, mu = 50)$statistic
+```
+
+---
+
+## p-Wert $p$
+
+- **Symbol:** $p$  
+- **Beschreibung:** Der p-Wert gibt die Wahrscheinlichkeit an, ein Ergebnis zu beobachten, das mindestens so extrem ist wie das tatsächliche Ergebnis, wenn die Nullhypothese wahr ist.
+- **Formel (zweiseitig):**  
+$$
+p = 2 \cdot P(T > |t|)
+$$
+- **Anwendung:** Dient zur Entscheidungsfindung in Hypothesentests. Ein kleiner p-Wert deutet darauf hin, dass das Ergebnis signifikant ist.
+- **R-Code:**  
+```r
+t.test(x, mu = 50)$p.value
+```
+
+---
+
+## Freiheitsgrade $df$
+
+- **Symbol:** $df$  
+- **Beschreibung:** Freiheitsgrade geben an, wie viele Werte in einer Berechnung frei variieren können, ohne dass eine Bedingung verletzt wird.
+- **Formel (für einfache Stichprobe):**  
+$$
+df = n - 1
+$$
+- **Anwendung:** Wichtig bei der Bestimmung der kritischen Werte für t- und F-Tests.
+- **R-Code:**  
+```r
+length(x) - 1
+```
+
+---
+
+## Regressionskoeffizient $\hat{\beta}$
+
+- **Symbol:** $\hat{\beta}$  
+- **Beschreibung:** Der Regressionskoeffizient misst den Einfluss eines Prädiktors auf die abhängige Variable in einem linearen Regressionsmodell.
+- **Formel (lineare Regression):**  
+$$
+Y = \beta_0 + \beta_1 X + \varepsilon
+$$
+- **Anwendung:** Analyse von Zusammenhängen zwischen Variablen in Regressionsmodellen.
+- **R-Code:**  
+```r
+lm(Y ~ X)$coefficients
+```
+
+---
+
+## Standardisiertes Residuum $r_i$
+
+- **Symbol:** $r_i$  
+- **Beschreibung:** Das standardisierte Residuum misst die Abweichung eines beobachteten Werts vom vorhergesagten Wert in Standardabweichungseinheiten.
+- **Formel:**  
+$$
+r_i = \frac{e_i}{SE(e_i)}
+$$
+- **Anwendung:** Identifikation von Ausreißern in Regressionsmodellen.
+- **R-Code:**  
+```r
+rstandard(lm(Y ~ X))
+```

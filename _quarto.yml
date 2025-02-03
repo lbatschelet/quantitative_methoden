@@ -5,7 +5,7 @@ project:
 
 book:
   title: "Quantitative Methoden"
-  language: de
+  language: "de-CH"
   reader-mode: true
   page-footer:
     left: |
@@ -40,6 +40,9 @@ book:
       - deskriptive-statistik.qmd
       - verteilungen.qmd
       - statistische-tests.qmd
+      - korrelation.qmd
+      - regression.qmd
+      - glossar.qmd
   appendices:
     - excercises/ex01.qmd
     - excercises/ex02.qmd

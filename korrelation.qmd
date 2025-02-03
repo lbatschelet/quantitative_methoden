@@ -1,0 +1,375 @@
+---
+title: "Korrelation"
+---
+
+```{r}
+#| label: correlation-grid
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Korrelation zwischen zwei Variablen"
+# Funktion zur Generierung von korrelierten Daten
+generate_data <- function(n, rho) {
+  library(MASS)
+  mu <- c(0, 0)
+  sigma <- matrix(c(1, rho, rho, 1), ncol = 2)
+  mvrnorm(n, mu, sigma)
+}
+
+# Layout für 2x2 Plots
+par(mfrow = c(2, 2), mar = c(4, 4, 2, 1))
+
+# Verschiedene Korrelationswerte
+cor_values <- c(0.9, 0.5, 0, -0.999)
+
+# Plots erstellen
+for (rho in cor_values) {
+  data <- generate_data(500, rho)
+  plot(data, 
+       main = paste("r =", rho),
+       xlab = "x", 
+       ylab = "y", 
+       pch = 19, 
+       col = rgb(0, 0, 1, 0.5))
+}
+```
+
+-   Die Korrelation beschreibt den statistischen Zusammenhang zwischen zwei Variablen. Sie misst, ob und wie stark zwei Variablen gemeinsam variieren.
+    -   **Positive Korrelation:** Beide Variablen nehmen gleichzeitig zu oder ab (z.B. Körpergröße und Gewicht).
+    -   **Negative Korrelation:** Eine Variable nimmt zu, während die andere abnimmt (z.B. Anzahl Lernstunden und Fehleranzahl in einem Test).
+
+1.  **Unterschied zwischen Korrelation und Kausalität:**
+    -   **Korrelation ≠ Kausalität:** Nur weil zwei Variablen korrelieren, bedeutet das nicht, dass die eine Variable die andere verursacht.
+    -   **Die Korrelation sagt nichts über die Kausalität, oder die Richtung der Wirkung.**
+    -   **Beispiele für Scheinzusammenhänge:**
+        -   Der Konsum von Speiseeis korreliert mit der Anzahl von Sonnenbrandfällen. Ursache ist die höhere Sonneneinstrahlung im Sommer, nicht das Eis selbst.
+
+### Von der Kovarianz zur Korrelation
+
+1.  **Das Produkt der Abweichungen:**
+    -   Zentrale Frage: **"Variieren zwei Variablen gemeinsam?"**
+    -   Formel:\
+        $$
+        (X_i - \bar{X}) \cdot (Y_i - \bar{Y})
+        $$
+        -   **Positives Produkt:** Beide Abweichungen haben das gleiche Vorzeichen (gleichsinnige Variation).
+        -   **Negatives Produkt:** Abweichungen haben unterschiedliche Vorzeichen (gegensätzliche Variation).
+2.  **Kovarianz: Bedeutung und Berechnung:**
+    -   Die **Kovarianz** misst die durchschnittliche gemeinsame Abweichung zweier Variablen von ihren Mittelwerten.
+    -   Formel der Stichprobenkovarianz: $$
+        \text{Cov}(X, Y) = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})
+        $$
+    -   **Interpretation:**
+        -   **Positive Kovarianz:** Tendenz zu gleichsinniger Variation.
+        -   **Negative Kovarianz:** Tendenz zu gegensätzlicher Variation.
+        -   **Nahe 0:** Kein linearer Zusammenhang.
+3.  **Normierung zur Berechnung des Korrelationskoeffizienten:**
+    -   Problem der Kovarianz: **Abhängig von den Einheiten der Variablen.**
+    -   Lösung: **Normierung** durch die Standardabweichungen von $X$ und $Y$: $$
+        r = \frac{\text{Cov}(X, Y)}{\sigma_X \cdot \sigma_Y}
+        $$
+    -   Ergebnis ist der **Korrelationskoeffizient** ($r$), der immer zwischen **-1 und +1** liegt.
+
+## Der Pearson-Korrelationskoeffizient
+
+$$
+\rho_{X,Y} = \frac{\sum_{i=1}^N (X_i - \mu_x)(Y_i - \mu_y)}{\sqrt{\sum_{i=1}^N (X_i - \mu_x)^2 \sum_{i=1}^N (Y_i - \mu_y)^2}}
+$$
+
+-   $\rho$ ist der Standardbuchstabe für den Korrelationskoeffizienten der Grundgesamtheit.
+-   $r$ ist der Standardbuchstabe für den Korrelationskoeffizienten der Stichprobe.
+
+::: {.callout-note collapse="true"}
+### Herleitung
+
+1.  Idee: Produkt der Anomalien
+
+$$
+\begin{aligned}
+X_i ^d &= X_i - \mu_x \\
+Y_i ^d &= Y_i - \mu_y \\
+\sum_{i=1}^N (X_i - \mu_x)(Y_i - \mu_y) &= \sum_{i=1}^N X_i ^d Y_i ^d
+\end{aligned}
+$$
+
+Wo $X_i ^d$ die Abweichung von $X_i$ vom Mittelwert $\mu_x$ der Variable $X$ ist und $Y_i ^d$ die Abweichung von $Y_i$ vom Mittelwert $\mu_y$ der Variable $Y$ ist.
+
+**Problem:** Die Summe der Produkte der Abweichungen ist abhängig von der Stichprobengrösse $N$.
+
+2.  Division durch Stichprobengrösse Kovarianz zwischen $X$ und $Y$
+
+$$
+\sigma_{x,y} = \frac{i=1}{N-1} (X_i - \mu_x)(Y_i - \mu_y)
+$$
+
+**Problem:** Die Kovarianz ist abhängig von den Einheiten der Variablen.
+
+3.  Standardisierung durch die Standardabweichungen der Variablen $X$ und $Y$
+
+$$
+\rho_{X,Y} = \frac{\sum_{i=1}^N \frac{(X_i - \mu_x)}{\sigma_x} \frac{(Y_i - \mu_y)}{\sigma_y}}{N}
+$$
+
+wo:
+
+$$
+\begin{aligned}
+\sigma_x &= \sqrt{\frac{\sum_{i=1}^N (X_i - \mu_x)^2}{N}} \text{ ,und} \\
+\sigma_y &= \sqrt{\frac{\sum_{i=1}^N (Y_i - \mu_y)^2}{N}}
+\end{aligned}
+$$
+
+4.  Ergebnis ist der Pearson-Korrelationskoeffizient $\rho_{x,y}$
+
+$$
+\rho_{X,Y} = \frac{\sum_{i=1}^N (X_i - \mu_x)(Y_i - \mu_y)}{\sqrt{\sum_{i=1}^N (X_i - \mu_x)^2 \sum_{i=1}^N (Y_i - \mu_y)^2}}
+$$
+:::
+
+In R lässt sich der Pearson-Korrelationskoeffizient mit der Funktion `cor()` berechnen. So lassen sich schnell und einfach Korrelationen zwischen zwei Variablen berechnen.
+
+```{r}
+#| label: simple-correlation
+#| echo: true
+a <- c(1, 2, 3, 4, 5)
+b <- c(2, 3, 4, 5, 6)
+cor(a, b)
+```
+
+```{r}
+#| label: simple-correlation-examples
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Beispiele für Pearson-Korrelationen"
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Hohe Korrelation (r nahe bei 1)
+x_high <- rnorm(30, mean = 5, sd = 1)
+y_high <- 2 * x_high + rnorm(30, mean = 0, sd = 0.5)
+r_high <- cor(x_high, y_high)
+
+# Niedrige Korrelation (r nahe bei 0)
+x_low <- rnorm(30, mean = 5, sd = 1)
+y_low <- rnorm(30, mean = 5, sd = 1)
+r_low <- cor(x_low, y_low)
+
+# Plots nebeneinander
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+
+# Plot mit hoher Korrelation
+plot(x_high, y_high, 
+     main = paste("Hohe Korrelation\nr =", round(r_high, 3)), 
+     xlab = "x", ylab = "y", 
+     pch = 19, col = rgb(0, 0, 1, 0.5))
+
+# Plot mit niedriger Korrelation
+plot(x_low, y_low, 
+     main = paste("Niedrige Korrelation\nr =", round(r_low, 3)), 
+     xlab = "x", ylab = "y", 
+     pch = 19, col = rgb(0, 0, 1, 0.5))
+```
+
+Wenn wir unseren Datensatz um einer Ausreisser ergänzen sehen wir schnell, dass der Pearson-Korrelationskoeffizient sehr stark beeinflusst wird.
+
+```{r}
+#| label: outlier-influence
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Einfluss von Ausreissern auf den Pearson-Korrelationskoeffizienten"
+
+# Berechnung des Pearson-Korrelationskoeffizienten
+
+# Daten ohne Ausreißer generieren
+x <- runif(30, 1, 10)
+y <- runif(30, 1, 10)
+
+# Korrelationskoeffizient ohne Ausreißer
+r_no_outlier <- cor(x, y)
+
+# Daten mit Ausreißer hinzufügen
+x_outlier <- c(x, 20)
+y_outlier <- c(y, 25)
+
+# Pearson-Korrelationskoeffizient mit Ausreißer
+r_with_outlier <- cor(x_outlier, y_outlier)
+
+# Plots nebeneinander
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+
+# Plot ohne Ausreißer
+plot(x, y, 
+     main = paste("Ohne Ausreißer\nr =", round(r_no_outlier, 3)), 
+     xlab = "x", ylab = "y", 
+     pch = 19, col = rgb(0, 0, 1, 0.5), xlim = c(0, 22), ylim = c(0, 27))
+
+# Plot mit Ausreißer
+plot(x_outlier, y_outlier, 
+     main = paste("Mit Ausreißer\nr =", round(r_with_outlier, 3)), 
+     xlab = "x", ylab = "y", 
+     pch = 19, col = c(rep(rgb(0, 0, 1, 0.5), 30), rgb(1, 0, 0, 0.5)), xlim = c(0, 22), ylim = c(0, 27))
+```
+
+## Der Spearman-Rangkorrelationskoeffizient
+
+-   Für ordinal skalierte Daten kann der Rang eines Objekts in zwei Variablen verwendet werden:
+
+$$
+\rho = 1 - \frac{6 \sum_{i=1}^N (r_i - s_i)^2}{n^3 - n}
+$$
+
+-   $r_i$ ist der Rang der $i$-ten Beobachtung in der ersten Variable.
+-   Vereinfachte Formel, wenn jeder Rang nur einmal vorkommt
+-   Der Spearman-Rangkorrelationskoeffizient wird sehr oft acuh für metrische Daten verwendet, da er robust gegenüber Ausreissern ist. Im Zweifel sollte man den Spearman-Rangkorrelationskoeffizienten verwenden.
+
+```{r}
+#| label: spearman-outlier-synthetic
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Einfluss von Ausreissern auf beide Korrelationskoeffizienten"
+
+# Synthetische Daten generieren
+x <- rnorm(100, mean = 10, sd = 1)
+y <- 0.8 * x + rnorm(100, mean = 0, sd = 0.5)
+
+# Funktion zur Berechnung von Pearson- und Spearman-Korrelation
+correlations <- function(x, y) {
+  list(
+    pearson = round(cor(x, y, method = "pearson"), 2),
+    spearman = round(cor(x, y, method = "spearman"), 2)
+  )
+}
+
+# Layout für 2x2 Plots
+par(mfrow = c(2, 2), mar = c(4, 4, 2, 1))
+
+# 1. Plot (ohne Ausreißer)
+cor_vals <- correlations(x, y)
+plot(x, y, pch = 19, col = rgb(0, 0, 1, 0.5),
+     main = paste0("r(Spearman) = ", cor_vals$spearman, 
+                   "\nr(Pearson) = ", cor_vals$pearson),
+     xlab = "x", ylab = "y")
+
+# 2. Plot (Ausreißer unten rechts)
+x2 <- c(x, 12)
+y2 <- c(y, -3)
+cor_vals2 <- correlations(x2, y2)
+plot(x2, y2, pch = c(rep(19, 100), 19), col = c(rep(rgb(0, 0, 1, 0.5), 100), rgb(1, 0, 0, 0.5)),
+     main = paste0("r(Spearman) = ", cor_vals2$spearman, 
+                   "\nr(Pearson) = ", cor_vals2$pearson),
+     xlab = "x", ylab = "y")
+
+# 3. Plot (Ausreißer oben links)
+x3 <- c(x, 7.5)
+y3 <- c(y, 1.5)
+cor_vals3 <- correlations(x3, y3)
+plot(x3, y3, pch = c(rep(19, 100), 19), col = c(rep(rgb(0, 0, 1, 0.5), 100), rgb(1, 0, 0, 0.5)),
+     main = paste0("r(Spearman) = ", cor_vals3$spearman, 
+                   "\nr(Pearson) = ", cor_vals3$pearson),
+     xlab = "x", ylab = "y")
+
+# 4. Plot (zwei Ausreißer oben links und unten rechts)
+x4 <- c(x, 7.5, 12)
+y4 <- c(y, 1.5, -3)
+cor_vals4 <- correlations(x4, y4)
+plot(x4, y4, pch = c(rep(19, 100), 19, 19), col = c(rep(rgb(0, 0, 1, 0.5), 100), rgb(1, 0, 0, 0.5), rgb(1, 0, 0, 0.5)),
+     main = paste0("r(Spearman) = ", cor_vals4$spearman, 
+                   "\nr(Pearson) = ", cor_vals4$pearson),
+     xlab = "x", ylab = "y")
+```
+
+```{r}
+#| label: spearman-nonlinearity
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Einfluss von Nicht-Linearitäten auf beide Korrelationskoeffizienten"
+
+# Set seed for reproducibility
+set.seed(42)
+
+# Basisdaten generieren
+x <- runif(100, 7, 12)  # x-Werte im Bereich 7 bis 12
+
+# 1. Lineare Beziehung
+y_linear <- 0.8 * x + rnorm(100, mean = 0, sd = 0.5)
+
+# 2. U-förmige (quadratische) Beziehung
+y_quadratic <- -1 * (x - 9.5)^2 + 8 + rnorm(100, mean = 0, sd = 0.5)
+
+# 3. Logarithmische Beziehung
+y_logarithmic <- log(x - 6.5) + rnorm(100, mean = 0, sd = 0.3)
+
+# 4. Exponentielle Beziehung
+y_exponential <- exp((x - 10) / 3) + rnorm(100, mean = 0, sd = 0.5)
+
+# Funktion zur Berechnung von Pearson- und Spearman-Korrelation
+correlations <- function(x, y) {
+  list(
+    pearson = round(cor(x, y, method = "pearson"), 2),
+    spearman = round(cor(x, y, method = "spearman"), 2)
+  )
+}
+
+# Layout für 2x2 Plots
+par(mfrow = c(2, 2), mar = c(4, 4, 2, 1))
+
+# Farben definieren
+colors <- rgb(0, 0, 1, 0.5)
+
+# 1. Plot (lineare Beziehung)
+cor_vals1 <- correlations(x, y_linear)
+plot(x, y_linear, pch = 19, col = colors,
+     main = paste0("r(Spearman) = ", cor_vals1$spearman, 
+                   "\nr(Pearson) = ", cor_vals1$pearson),
+     xlab = "x", ylab = "y")
+
+# 2. Plot (quadratische Beziehung)
+cor_vals2 <- correlations(x, y_quadratic)
+plot(x, y_quadratic, pch = 19, col = colors,
+     main = paste0("r(Spearman) = ", cor_vals2$spearman, 
+                   "\nr(Pearson) = ", cor_vals2$pearson),
+     xlab = "x", ylab = "y")
+
+# 3. Plot (logarithmische Beziehung)
+cor_vals3 <- correlations(x, y_logarithmic)
+plot(x, y_logarithmic, pch = 19, col = colors,
+     main = paste0("r(Spearman) = ", cor_vals3$spearman, 
+                   "\nr(Pearson) = ", cor_vals3$pearson),
+     xlab = "x", ylab = "y")
+
+# 4. Plot (exponentielle Beziehung)
+cor_vals4 <- correlations(x, y_exponential)
+plot(x, y_exponential, pch = 19, col = colors,
+     main = paste0("r(Spearman) = ", cor_vals4$spearman, 
+                   "\nr(Pearson) = ", cor_vals4$pearson),
+     xlab = "x", ylab = "y")
+```
+
+## Vergleich der Korrelationskoeffizienten
+
++--------------------------------------------------+---------------------------------------------------------+------------------------------------------------------------+
+| Kriterium                                        | Pearson                                                 | Spearman                                                   |
++==================================================+=========================================================+============================================================+
+| **Art des Zusammenhangs**                        | - Misst lineare Zusammenhänge                           | - Misst monotone Zusammenhänge (linear oder nicht-linear)  |
++--------------------------------------------------+---------------------------------------------------------+------------------------------------------------------------+
+| **Anwendung**                                    | - Häufig in der Statistik für metrische Variablen       | - Ideal für Rangdaten oder nicht normalverteilte Daten     |
++--------------------------------------------------+---------------------------------------------------------+------------------------------------------------------------+
+| **Voraussetzungen**                              | - Normalverteilung der Variablen                        | - Keine Normalverteilung erforderlich                      |
+|                                                  | - Linearität                                            | - Monotone Beziehung erforderlich                          |
++--------------------------------------------------+---------------------------------------------------------+------------------------------------------------------------+
+| **Datentypen**                                   | - Metrische (intervall- oder verhältnisskalierte) Daten | - Ordinal-, Intervall- und Verhältnisskalen                |
++--------------------------------------------------+---------------------------------------------------------+------------------------------------------------------------+
+| **Sensitivität gegenüber Ausreissern**           | - Sehr empfindlich gegenüber Ausreissern                | - Robust gegenüber Ausreissern                             |
++--------------------------------------------------+---------------------------------------------------------+------------------------------------------------------------+
+| **Robustheit bei nicht-linearen Zusammenhängen** | - Nicht robust bei nicht-linearen Zusammenhängen        | - Robust bei nicht-linearen, aber monotonen Zusammenhängen |
++--------------------------------------------------+---------------------------------------------------------+------------------------------------------------------------+
+| **Skalenniveau**                                 | - Intervall- oder verhältnisskaliert                    | - Mindestens ordinalskaliert                               |
++--------------------------------------------------+---------------------------------------------------------+------------------------------------------------------------+
+| **Berechnungsgrundlage**                         | - Kovarianz, normiert durch Standardabweichung          | - Berechnet auf Basis von Rangdifferenzen                  |
++--------------------------------------------------+---------------------------------------------------------+------------------------------------------------------------+
+| **Vorteile**                                     | - Einfach zu interpretieren                             | - Robust gegenüber Ausreissern                             |
+|                                                  | - Weit verbreitet                                       | - Geeignet für nicht-lineare monotone Beziehungen          |
++--------------------------------------------------+---------------------------------------------------------+------------------------------------------------------------+
+| **Nachteile**                                    | - Nicht robust gegenüber Ausreissern                    | - Weniger empfindlich bei linearen Zusammenhängen          |
+|                                                  | - Nicht geeignet für nicht-lineare Zusammenhänge        | - Informationsverlust durch Rangkodierung                  |
++--------------------------------------------------+---------------------------------------------------------+------------------------------------------------------------+
