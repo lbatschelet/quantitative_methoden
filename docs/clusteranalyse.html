@@ -262,7 +262,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fehlermasse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">fehlermasse.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fehlermasse</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -286,7 +286,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./neuronale-netze.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">neuronale-netze.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Neuronale Netze</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -355,7 +355,10 @@ window.Quarto = {
    
   <ul>
   <li><a href="#schwellenwertanalyse" id="toc-schwellenwertanalyse" class="nav-link active" data-scroll-target="#schwellenwertanalyse"><span class="header-section-number">12.1</span> Schwellenwertanalyse</a></li>
-  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering"><span class="header-section-number">12.2</span> k-Means-Clustering</a></li>
+  <li><a href="#nicht-hierarchische-verfahren" id="toc-nicht-hierarchische-verfahren" class="nav-link" data-scroll-target="#nicht-hierarchische-verfahren"><span class="header-section-number">12.2</span> Nicht-hierarchische Verfahren</a>
+  <ul class="collapse">
+  <li><a href="#k-means" id="toc-k-means" class="nav-link" data-scroll-target="#k-means"><span class="header-section-number">12.2.1</span> k-Means</a></li>
+  </ul></li>
   <li><a href="#hierarchisches-clustering" id="toc-hierarchisches-clustering" class="nav-link" data-scroll-target="#hierarchisches-clustering"><span class="header-section-number">12.3</span> Hierarchisches Clustering</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/clusteranalyse.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></nav>
@@ -440,8 +443,15 @@ window.Quarto = {
 <h2 data-number="12.1" class="anchored" data-anchor-id="schwellenwertanalyse"><span class="header-section-number">12.1</span> Schwellenwertanalyse</h2>
 <p>Eine einfachste Methode zur Klassifizierung ist die Schwellenwertanalyse. Diese erfordert theoretische oder empirische Kenntnisse über die zu klassifizierenden Objekte und nutzt subjektie Schwellenwerte.</p>
 </section>
-<section id="k-means-clustering" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="k-means-clustering"><span class="header-section-number">12.2</span> k-Means-Clustering</h2>
+<section id="nicht-hierarchische-verfahren" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="nicht-hierarchische-verfahren"><span class="header-section-number">12.2</span> Nicht-hierarchische Verfahren</h2>
+<ul>
+<li>Werte so lange immer wieder auf die Cluster verteilt, bis die Summe der Abstände von zugehörigen Cluster-Mitten minimal ist</li>
+<li>Vorteil: Werte werden flexibel auf Cluster verteilt</li>
+<li>Nachteil: Anzahl der Cluster muss a-priori vorgegeben werden</li>
+</ul>
+<section id="k-means" class="level3" data-number="12.2.1">
+<h3 data-number="12.2.1" class="anchored" data-anchor-id="k-means"><span class="header-section-number">12.2.1</span> k-Means</h3>
 <ol type="1">
 <li>Initialisierung: <span class="math inline">\(k\)</span> Clusterzentren auf <span class="math inline">\(k\)</span> zufällige, aber unterschiedliche Positionen im <span class="math inline">\(p\)</span>-dimensionalen Raum setzen, möglichst so dass die Abstände zwischen initialen Clusterzentren maximal sind. Jedem Clusterzentrum wird eine eindeutige Klassennummer (1 bis <span class="math inline">\(k\)</span>) zugewiesen.</li>
 <li>Klassifizierung: Finde für jeden Datenpunkt das nächste Clusterzentrum und weise dem Datenpunkt die Klassennummer dieses Clusterzentrums zu.</li>
@@ -486,8 +496,14 @@ window.Quarto = {
 </div>
 </div>
 </section>
+</section>
 <section id="hierarchisches-clustering" class="level2" data-number="12.3">
 <h2 data-number="12.3" class="anchored" data-anchor-id="hierarchisches-clustering"><span class="header-section-number">12.3</span> Hierarchisches Clustering</h2>
+<ul>
+<li>iterative Vorgehensweise, bei der die Cluster des letzten Schrittes immer weiter zusammengefasst werden</li>
+<li>Nachteil: Einmal klassifizierte Werte verbleiben in dem Cluster auch wenn sich die Eigenschaften des Cluster im Laufe der Verfahrensschritte verändern</li>
+<li>Vorteil: Anzahl der Cluster muss nicht a-priori vorgegeben werden</li>
+</ul>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -992,8 +1008,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./fehlermasse.html" class="pagination-link" aria-label="fehlermasse.html">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">fehlermasse.html</span></span>
+      <a href="./fehlermasse.html" class="pagination-link" aria-label="Fehlermasse">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fehlermasse</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

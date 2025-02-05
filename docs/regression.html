@@ -262,7 +262,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fehlermasse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">fehlermasse.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fehlermasse</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -286,7 +286,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./neuronale-netze.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">neuronale-netze.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Neuronale Netze</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1239,7 +1239,7 @@ H_0 : R^2 = 0
 <span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagnostische Plots</span></span>
 <span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>dot_color <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(perfektes_modell, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(perfektes_modell, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell fig-cap-location-top quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
@@ -1248,6 +1248,32 @@ H_0 : R^2 = 0
 <figure class="figure">
 <p><img src="regression_files/figure-html/multiple-regression-residuals-plot-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Linearität: Die Residuen streuen zufällig um die Nulllinie. Kein systematisches Muster erkennbar – ein Hinweis auf eine lineare Beziehung.</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression_files/figure-html/multiple-regression-residuals-plot-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Normalverteilung der Residuen: Die Punkte liegen nahe der Diagonale im Q-Q-Plot. Dies zeigt, dass die Residuen normalverteilt sind.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression_files/figure-html/multiple-regression-residuals-plot-3.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Varianzhomogenität: Die Punkte im Scale-Location-Plot sind gleichmässig verteilt, ohne Trichterform. Das deutet auf konstante Varianz (Homoskedastizität) hin.</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression_files/figure-html/multiple-regression-residuals-plot-4.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Ausreisser: Im Leverage-Plot gibt es keine Punkte mit hoher Cook’s Distance. Dies zeigt, dass es keine einflussreichen Ausreisser gibt.</figcaption>
 </figure>
 </div>
 </div>
@@ -2009,8 +2035,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./fehlermasse.html" class="pagination-link" aria-label="fehlermasse.html">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">fehlermasse.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./fehlermasse.html" class="pagination-link" aria-label="Fehlermasse">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fehlermasse</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
