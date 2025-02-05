@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lukas Batschelet">
+
+<title>2&nbsp; Grundlagen R – Quantitative Methoden</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./plots_in_R.html" rel="next">
+<link href="./index.html" rel="prev">
+<link href="./code" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./grundlagen_R.html">Einführung R</a></li><li class="breadcrumb-item"><a href="./grundlagen_R.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Quantitative Methoden</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://ko-fi.com/lukasbatschelet" title="Buy me a coffee" class="quarto-navigation-tool px-1" aria-label="Buy me a coffee"><i class="bi bi-cup-hot-fill"></i></a>
+    <a href="https://github.com/lbatschelet/quantitative_methoden" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Lesemodus umschalten">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Suchen"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Übersicht</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Einführung R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./grundlagen_R.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./plots_in_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./packages_and_libraries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages und Libraries</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./loops_and_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Schlaufen und Funktionen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Statistische Datenanalyse</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./deskriptive-statistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Deskriptive Statistik</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./verteilungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Verteilungen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./statistische-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistische Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./korrelation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Korrelation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fehlermasse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fehlermasse</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clusteranalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clusteranalyse</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hauptkomponentenanalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hauptkomponentenanalyse</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./extremwertstatistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Extremwertstatistik</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./neuronale-netze.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Neuronale Netze</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fallen-der-statistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallen der Statistik</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glossar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Glossar</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./excercises/ex01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Übung 1: Grundlagen R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./excercises/ex02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R-Übungen 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./excercises/ex03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">R-Übungen 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./excercises/deskriptive-statistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Übung 4: Deskriptive Statistik und Visualisierung</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./excercises/verteilungen-und-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Übung 5 &amp; 6: Verteilungen und Tests</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#grundlagen-r" id="toc-grundlagen-r" class="nav-link active" data-scroll-target="#grundlagen-r"><span class="header-section-number">3</span> Grundlagen R</a>
+  <ul class="collapse">
+  <li><a href="#grundsätzliches-zu-r" id="toc-grundsätzliches-zu-r" class="nav-link" data-scroll-target="#grundsätzliches-zu-r"><span class="header-section-number">3.1</span> Grundsätzliches zu R</a>
+  <ul class="collapse">
+  <li><a href="#zuweisungsoperator" id="toc-zuweisungsoperator" class="nav-link" data-scroll-target="#zuweisungsoperator"><span class="header-section-number">3.1.1</span> Zuweisungsoperator</a></li>
+  <li><a href="#kommentare" id="toc-kommentare" class="nav-link" data-scroll-target="#kommentare"><span class="header-section-number">3.1.2</span> Kommentare</a></li>
+  <li><a href="#ausgabe" id="toc-ausgabe" class="nav-link" data-scroll-target="#ausgabe"><span class="header-section-number">3.1.3</span> Ausgabe</a></li>
+  </ul></li>
+  <li><a href="#datentypen" id="toc-datentypen" class="nav-link" data-scroll-target="#datentypen"><span class="header-section-number">3.2</span> Datentypen</a>
+  <ul class="collapse">
+  <li><a href="#sec-type-vector" id="toc-sec-type-vector" class="nav-link" data-scroll-target="#sec-type-vector"><span class="header-section-number">3.2.1</span> Vektoren</a></li>
+  <li><a href="#sec-type-data-frames" id="toc-sec-type-data-frames" class="nav-link" data-scroll-target="#sec-type-data-frames"><span class="header-section-number">3.2.2</span> Data Frames</a></li>
+  </ul></li>
+  <li><a href="#daten-importieren-und-exportieren" id="toc-daten-importieren-und-exportieren" class="nav-link" data-scroll-target="#daten-importieren-und-exportieren"><span class="header-section-number">3.3</span> Daten importieren und exportieren</a>
+  <ul class="collapse">
+  <li><a href="#csv-dateien" id="toc-csv-dateien" class="nav-link" data-scroll-target="#csv-dateien"><span class="header-section-number">3.3.1</span> CSV-Dateien</a></li>
+  </ul></li>
+  <li><a href="#daten-als-.csv--und-.txt-dateien-exportieren" id="toc-daten-als-.csv--und-.txt-dateien-exportieren" class="nav-link" data-scroll-target="#daten-als-.csv--und-.txt-dateien-exportieren"><span class="header-section-number">3.4</span> Daten als .csv- und .txt-Dateien exportieren</a>
+  <ul class="collapse">
+  <li><a href="#csv-dateien-1" id="toc-csv-dateien-1" class="nav-link" data-scroll-target="#csv-dateien-1"><span class="header-section-number">3.4.1</span> <code>.csv</code>-Dateien</a></li>
+  <li><a href="#txt-dateien" id="toc-txt-dateien" class="nav-link" data-scroll-target="#txt-dateien"><span class="header-section-number">3.4.2</span> <code>.txt</code>-Dateien</a></li>
+  </ul></li>
+  <li><a href="#umgang-mit-fehlwerten" id="toc-umgang-mit-fehlwerten" class="nav-link" data-scroll-target="#umgang-mit-fehlwerten"><span class="header-section-number">3.5</span> Umgang mit Fehlwerten</a>
+  <ul class="collapse">
+  <li><a href="#fehlwerte-in-funktionsaufrufen-behandeln" id="toc-fehlwerte-in-funktionsaufrufen-behandeln" class="nav-link" data-scroll-target="#fehlwerte-in-funktionsaufrufen-behandeln"><span class="header-section-number">3.5.1</span> Fehlwerte in Funktionsaufrufen behandeln</a></li>
+  <li><a href="#fehlwerte-im-dateiimport-behandeln" id="toc-fehlwerte-im-dateiimport-behandeln" class="nav-link" data-scroll-target="#fehlwerte-im-dateiimport-behandeln"><span class="header-section-number">3.5.2</span> Fehlwerte im Dateiimport behandeln</a></li>
+  <li><a href="#fehlwerte-identifizieren" id="toc-fehlwerte-identifizieren" class="nav-link" data-scroll-target="#fehlwerte-identifizieren"><span class="header-section-number">3.5.3</span> Fehlwerte identifizieren</a></li>
+  <li><a href="#fehlwerte-ersetzen" id="toc-fehlwerte-ersetzen" class="nav-link" data-scroll-target="#fehlwerte-ersetzen"><span class="header-section-number">3.5.4</span> Fehlwerte ersetzen</a></li>
+  </ul></li>
+  <li><a href="#übungen" id="toc-übungen" class="nav-link" data-scroll-target="#übungen"><span class="header-section-number">3.6</span> Übungen</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/grundlagen_R.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./grundlagen_R.html">Einführung R</a></li><li class="breadcrumb-item"><a href="./grundlagen_R.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor:in</div>
+    <div class="quarto-title-meta-contents">
+             <p>Lukas Batschelet </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">5. Februar 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="grundlagen-r" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Grundlagen R</h1>
+<section id="grundsätzliches-zu-r" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="grundsätzliches-zu-r"><span class="header-section-number">3.1</span> Grundsätzliches zu R</h2>
+<section id="zuweisungsoperator" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="zuweisungsoperator"><span class="header-section-number">3.1.1</span> Zuweisungsoperator</h3>
+<p>In R werden Werte Variablen mit dem <code>&lt;-</code> Operator zugewiesen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variablen erstellen und Wert zuweisen</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Zuweisung kann auch umgekehrt erfolgen</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="ot">-&gt;</span> b</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Das gleiche funktioniert grundsätzlich aber auch mit dem = Operator</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Allerdings wird der &lt;- Operator bevorzugt</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>c <span class="ot">=</span> <span class="dv">10</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="kommentare" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="kommentare"><span class="header-section-number">3.1.2</span> Kommentare</h3>
+<p>Kommentare in R werden mit einem <code>#</code> eingeleitet. Sie können entweder in einer eigenen Zeile stehen oder am Ende einer Codezeile.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Das ist ein Kommentar</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># Das ist auch ein Kommentar</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ausgabe" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="ausgabe"><span class="header-section-number">3.1.3</span> Ausgabe</h3>
+<p>In R können Werte entweder mit der <code>print()</code> Funktion oder einfach durch Eingabe des Variablennamens ausgegeben werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ausgabe von Variablen</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(a)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="datentypen" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="datentypen"><span class="header-section-number">3.2</span> Datentypen</h2>
+<p>In R gibt es verschiedene Datentypen. Die wichtigsten sind:</p>
+<ul>
+<li>Numerische Werte (z.B. <code>5</code>, <code>3.14</code>)</li>
+<li>Zeichenketten (Strings) (z.B. <code>"Hallo Welt"</code>)</li>
+<li>Logische Werte (<code>TRUE</code>, <code>FALSE</code>)</li>
+<li>Vektoren (<em>in Python Listen</em>) (z.B. c(1, 2, 3))<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+<li>Data Frames (<em>ähnlich wie Tabellen</em>, Mischen von Datentypen möglich)</li>
+<li>Matrizen (<em>ähnlich wie in der Mathematik</em>, keine Mischung von Datentypen möglich)</li>
+</ul>
+<section id="sec-type-vector" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="sec-type-vector"><span class="header-section-number">3.2.1</span> Vektoren</h3>
+<p>Da Vektoren eine der grundlegenden Datenstrukturen in R sind, werden wir uns diese genauer ansehen.</p>
+<p>Sie können mit der <code>c()</code> Funktion erstellt werden. Vektoren sind grundsätzlich ähnlich wie Objekte vom Typ <code>list</code> in Python. Vektoren können sämtliche Datentypen enthalten, jedoch nur <em>einen Datentyp pro Vektor</em>.</p>
+<p>Auf Vektoren können verschiedene Operationen durchgeführt werden, wie z.B. Addition, Subtraktion, Multiplikation, Division, etc.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vektor erstellen</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>vectorA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Länge des Vektors</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(vectorA)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logischer Vergleich</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>vectorA <span class="sc">&gt;=</span> <span class="dv">3</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Arithmetische Operationen</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>vectorA <span class="sc">+</span> <span class="dv">5</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  6  7  8  9 10</code></pre>
+</div>
+</div>
+<p>Wenn wir nun den Vektor <code>vectorA</code> erneut ausgeben, beobachten wir, dass die Operationen nicht den ursprünglichen Vektor verändert haben.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>vectorA</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+</div>
+<p>Um den Vektor zu verändern, müssen wir den veränderten Vektor entweder einer neuen Variablen zuweisen oder den Vektor direkt überschreiben.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vektor einer neuen Variablen zuweisen</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>vectorB <span class="ot">&lt;-</span> vectorA <span class="sc">+</span> <span class="dv">5</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Vektor ausgeben</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>vectorB</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  6  7  8  9 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wir können den Vektor auch direkt überschreiben</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>vectorA <span class="ot">&lt;-</span> vectorA <span class="sc">+</span> <span class="dv">5</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Vektor ausgeben</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>vectorA</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  6  7  8  9 10</code></pre>
+</div>
+</div>
+<section id="indizierung" class="level4" data-number="3.2.1.1">
+<h4 data-number="3.2.1.1" class="anchored" data-anchor-id="indizierung"><span class="header-section-number">3.2.1.1</span> Indizierung</h4>
+<p>Vektoren können indiziert werden, um auf bestimmte Elemente zuzugreifen.</p>
+<p><strong>Die Indizierung beginnt in R bei 1.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstes Element des Vektors</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>vectorA[<span class="dv">1</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+<p>Wir können auch auf mehrere Elemente gleichzeitig zugreifen. Wenn wir z.B. auf das zweite bis vierte Element des Vektors zugreifen wollen, können wir dies mit dem <code>:</code> Operator tun.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zweites bis viertes Element des Vektors</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>vectorA[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7 8 9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternativ können wir auch einzelne Elemente überspringen</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>vectorA[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  6  8 10</code></pre>
+</div>
+</div>
+</section>
+<section id="vektoren-konkatenieren" class="level4" data-number="3.2.1.2">
+<h4 data-number="3.2.1.2" class="anchored" data-anchor-id="vektoren-konkatenieren"><span class="header-section-number">3.2.1.2</span> Vektoren konkatenieren</h4>
+<p>Vektoren können auch konkateniert werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vektoren erstellen</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>vectorA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Vektoren konkatenieren</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>vectorC <span class="ot">&lt;-</span> <span class="fu">c</span>(vectorA, vectorB)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Vektor ausgeben</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>vectorC</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+</div>
+</section>
+<section id="vektoren-addieren" class="level4" data-number="3.2.1.3">
+<h4 data-number="3.2.1.3" class="anchored" data-anchor-id="vektoren-addieren"><span class="header-section-number">3.2.1.3</span> Vektoren addieren</h4>
+<p>Vektoren können auch addiert werden. Hierbei werden die Vektoren elementweise addiert.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vektoren addieren</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>vectorA <span class="sc">+</span> vectorB</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  7  9 11 13 15</code></pre>
+</div>
+</div>
+</section>
+<section id="wichtige-funktionen-für-vektoren" class="level4" data-number="3.2.1.4">
+<h4 data-number="3.2.1.4" class="anchored" data-anchor-id="wichtige-funktionen-für-vektoren"><span class="header-section-number">3.2.1.4</span> Wichtige Funktionen für Vektoren</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 47%">
+<col style="width: 18%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+<th>Beispiel</th>
+<th>Ausgabe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>length()</code></td>
+<td>Länge des Vektors</td>
+<td><code>length(vectorA)</code></td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td><code>sum()</code></td>
+<td>Summe der Elemente des Vektors</td>
+<td><code>sum(vectorA)</code></td>
+<td>15</td>
+</tr>
+<tr class="odd">
+<td><code>mean()</code></td>
+<td>Durchschnitt der Elemente des Vektors</td>
+<td><code>mean(vectorA)</code></td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td><code>var()</code></td>
+<td>Varianz der Elemente des Vektors</td>
+<td><code>var(vectorA)</code></td>
+<td>2.5</td>
+</tr>
+<tr class="odd">
+<td><code>sd()</code></td>
+<td>Standardabweichung der Elemente des Vektors</td>
+<td><code>sd(vectorA)</code></td>
+<td>1.5811388</td>
+</tr>
+<tr class="even">
+<td><code>min()</code></td>
+<td>Minimum des Vektors</td>
+<td><code>min(vectorA)</code></td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><code>max()</code></td>
+<td>Maximum des Vektors</td>
+<td><code>max(vectorA)</code></td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td><code>range()</code></td>
+<td>Bereich des Vektors</td>
+<td><code>range(vectorA)</code></td>
+<td>1, 5</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="sec-type-data-frames" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="sec-type-data-frames"><span class="header-section-number">3.2.2</span> Data Frames</h3>
+<p>In Data Frames können <a href="@sec-type-vector">Vektoren</a> unterschiedlicher Datentypen kombiniert werden. Sie sind ähnlich wie Tabellen in relationalen Datenbanken.</p>
+<p>Data Frames können mit der <code>data.frame()</code> Funktion direkt erstellt werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Frame erstellen</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>dataFrameA <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>, <span class="st">"David"</span>),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">married =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Frame ausgeben</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>dataFrameA</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     name age married
+1   Alice  25    TRUE
+2     Bob  30   FALSE
+3 Charlie  35    TRUE
+4   David  40    TRUE</code></pre>
+</div>
+</div>
+<p>Wichtig ist, dass die Vektoren, die im Data Frame kombiniert werden sollen, die gleiche Länge haben müssen und dass die Vektoren nur <em>einen Datentyp pro Vektor</em> enthalten dürfen.</p>
+<p>Wir beobachten auch hier, dass die Vektoren in der Initialisierung des Data Frames wieder mit der <code>c()</code> Funktion erstellt werden.</p>
+<section id="indizierung-1" class="level4" data-number="3.2.2.1">
+<h4 data-number="3.2.2.1" class="anchored" data-anchor-id="indizierung-1"><span class="header-section-number">3.2.2.1</span> Indizierung</h4>
+<p>Data Frames können indiziert werden, um auf bestimmte Elemente zuzugreifen.</p>
+<p>Die Indizierung erfolgt ähnlich wie bei Vektoren, jedoch mit dem Unterschied, dass wir zusätzlich auch die gewünschte Spalte angeben müssen. Dies erfolgt durch die Angabe der Zeilen- und Spaltennummer in eckigen Klammern.</p>
+<p>Wenn wir eine ganze Zeile ausgeben wollen, geben wir nur die Zeilennummer an und lassen die Spaltennummer weg.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erste Zeile des Data Frames</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>dataFrameA[<span class="dv">1</span>, ]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   name age married
+1 Alice  25    TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zweite Zeile und dritte Spalte des Data Frames</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>dataFrameA[<span class="dv">2</span>, <span class="dv">3</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>Wir können mit dem <code>$</code> Operator auch direkter auf bestimmte Spalten zugreifen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spalte "name" des Data Frames</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>dataFrameA<span class="sc">$</span>name</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Alice"   "Bob"     "Charlie" "David"  </code></pre>
+</div>
+</div>
+</section>
+<section id="auswahl-aus-data-frames-wieder-als-data-frame" class="level4" data-number="3.2.2.2">
+<h4 data-number="3.2.2.2" class="anchored" data-anchor-id="auswahl-aus-data-frames-wieder-als-data-frame"><span class="header-section-number">3.2.2.2</span> Auswahl aus Data Frames wieder als Data Frame</h4>
+<p>Wir können subsetting verwenden, um einen Teil des Data Frames auszuwählen und diesen wieder als Data Frame zu speichern.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Auswahl der Spalten "name" und "age" als Data Frame</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>dataFrameB <span class="ot">&lt;-</span> dataFrameA[, <span class="fu">c</span>(<span class="st">"name"</span>, <span class="st">"age"</span>)]</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Frame ausgeben</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>dataFrameB</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     name age
+1   Alice  25
+2     Bob  30
+3 Charlie  35
+4   David  40</code></pre>
+</div>
+</div>
+</section>
+<section id="wichtige-funktionen-für-data-frames" class="level4" data-number="3.2.2.3">
+<h4 data-number="3.2.2.3" class="anchored" data-anchor-id="wichtige-funktionen-für-data-frames"><span class="header-section-number">3.2.2.3</span> Wichtige Funktionen für Data Frames</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 47%">
+<col style="width: 18%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+<th>Beispiel</th>
+<th>Ausgabe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>nrow()</code></td>
+<td>Anzahl der Zeilen des Data Frames</td>
+<td><code>nrow(dataFrameA)</code></td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td><code>ncol()</code></td>
+<td>Anzahl der Spalten des Data Frames</td>
+<td><code>ncol(dataFrameA)</code></td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td><code>colnames()</code></td>
+<td>Spaltennamen des Data Frames</td>
+<td><code>colnames(dataFrameA)</code></td>
+<td>name, age, married</td>
+</tr>
+<tr class="even">
+<td><code>rownames()</code></td>
+<td>Zeilennamen des Data Frames</td>
+<td><code>rownames(dataFrameA)</code></td>
+<td>1, 2, 3, 4</td>
+</tr>
+<tr class="odd">
+<td><code>summary()</code></td>
+<td>Zusammenfassung des Data Frames</td>
+<td><code>summary(dataFrameA)</code></td>
+<td>Length:4 , Class :character , Mode :character , NA, NA, NA, Min. :25.00 , 1st Qu.:28.75 , Median :32.50 , Mean :32.50 , 3rd Qu.:36.25 , Max. :40.00 , Mode :logical , FALSE:1 , TRUE :3 , NA, NA, NA</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="daten-importieren-und-exportieren" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="daten-importieren-und-exportieren"><span class="header-section-number">3.3</span> Daten importieren und exportieren</h2>
+<p>In R können Daten aus verschiedenen Dateiformaten importiert und exportiert werden. Dazu gehören z.B. CSV-Dateien, Excel-Dateien, JSON-Dateien, etc.</p>
+<section id="csv-dateien" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="csv-dateien"><span class="header-section-number">3.3.1</span> CSV-Dateien</h3>
+<p>CSV-Dateien können mit der <code>read.csv()</code> Funktion in R eingelesen werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CSV-Datei einlesen</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>meteodaten <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'Data/meteodaten_saison.csv'</span>, <span class="at">sep =</span> <span class="st">','</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In diesem Beispiel wird die CSV-Datei <code>meteodaten_saison.csv</code> eingelesen. Der Parameter <code>sep = ','</code> gibt an, dass die Werte in der CSV-Datei durch Kommas getrennt sind. Der Parameter <code>header = TRUE</code> gibt an, dass die erste Zeile der CSV-Datei die Spaltennamen enthält.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Achtung">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Der Pfad zur Datei muss entweder absolut (Bsp.: <code>C:/Users/username/Documents/data.csv</code>) oder relativ zum aktuellen Arbeitsverzeichnis (Bsp.: <code>Data/data.csv</code>) angegeben werden.</p>
+<p>In aller Regel ist es sinnvoll, den Pfad relativ zum aktuellen Arbeitsverzeichnis anzugeben. Das aktuelle Arbeitsverzeichnis kann in der Terminalkonsole mit dem Befehl <code>getwd()</code> abgefragt werden, und mit dem Befehl <code>setwd()</code> kann das Arbeitsverzeichnis geändert werden.</p>
+<p>Eine gängige (und hier angewandte) Praxis ist es, ein Unterverzeichnis <code>Data</code> im Projektverzeichnis anzulegen und dort alle Daten abzulegen.</p>
+<p>Der einfachste Weg ist es im Explorer einen Ordner anzulegen in welchem alle Skripte gespeichert werden. In diesem Ordner kann dann ein Unterordner <code>Data</code> erstellt werden, in welchem die Daten abgelegt werden.</p>
+<p><strong>In RStudio kann das Arbeitsverzeichnis über das Menü <code>Session -&gt; Set Working Directory -&gt; Choose Directory...</code> gesetzt werden.</strong></p>
+</div>
+</div>
+<section id="wichtige-funktionen-für-datenimport" class="level4" data-number="3.3.1.1">
+<h4 data-number="3.3.1.1" class="anchored" data-anchor-id="wichtige-funktionen-für-datenimport"><span class="header-section-number">3.3.1.1</span> Wichtige Funktionen für Datenimport</h4>
+<details>
+<summary>
+<strong><code>str()</code></strong>: Zeigt die Struktur des Data Frames an.
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(meteodaten)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   492 obs. of  6 variables:
+ $ Jahr                           : int  1901 1901 1901 1901 1902 1902 1902 1902 1903 1903 ...
+ $ Saison                         : chr  "Fruehling(MAM)" "Herbst(SON)" "Sommer(JJA)" "Winter(DJF)" ...
+ $ Bern_Mitteltemperatur          : num  7.73 7.4 16.8 -2.73 7.53 ...
+ $ Bern_Niederschlagssumme        : num  278 245 381 112 323 ...
+ $ GrStBernhard_Mitteltemperatur  : num  -4 -0.8 6.3 -10.6 -3.63 ...
+ $ GrStBernhard_Niederschlagssumme: num  495 521 285 356 448 ...</code></pre>
+</div>
+</div>
+</details>
+<details>
+<summary>
+<strong><code>head()</code></strong>: Zeigt die ersten Zeilen des Data Frames an.
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(meteodaten)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Jahr         Saison Bern_Mitteltemperatur Bern_Niederschlagssumme
+1 1901 Fruehling(MAM)              7.733333                   277.8
+2 1901    Herbst(SON)              7.400000                   244.9
+3 1901    Sommer(JJA)             16.800000                   381.1
+4 1901    Winter(DJF)             -2.733333                   112.4
+5 1902 Fruehling(MAM)              7.533333                   323.2
+6 1902    Herbst(SON)              7.466667                   231.7
+  GrStBernhard_Mitteltemperatur GrStBernhard_Niederschlagssumme
+1                     -4.000000                           494.7
+2                     -0.800000                           520.8
+3                      6.300000                           285.2
+4                    -10.600000                           356.2
+5                     -3.633333                           448.1
+6                     -1.000000                           335.6</code></pre>
+</div>
+</div>
+</details>
+<details>
+<summary>
+<strong><code>tail()</code></strong>: Zeigt die letzten Zeilen des Data Frames an.
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(meteodaten)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Jahr         Saison Bern_Mitteltemperatur Bern_Niederschlagssumme
+487 2022    Sommer(JJA)             20.000000                   238.3
+488 2022    Winter(DJF)              2.233333                   184.7
+489 2023 Fruehling(MAM)              9.533333                   272.5
+490 2023    Herbst(SON)             11.966667                   371.2
+491 2023    Sommer(JJA)             20.000000                   203.1
+492 2023    Winter(DJF)              2.700000                   233.1
+    GrStBernhard_Mitteltemperatur GrStBernhard_Niederschlagssumme
+487                     10.266667                           256.8
+488                     -4.966667                           270.0
+489                     -1.666667                           388.4
+490                      2.966667                           553.3
+491                      9.200000                           288.4
+492                     -5.333333                           228.7</code></pre>
+</div>
+</div>
+</details>
+<details>
+<summary>
+<strong><code>summary()</code></strong>: Gibt eine Zusammenfassung des Data Frames aus.
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(meteodaten)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Jahr         Saison          Bern_Mitteltemperatur
+ Min.   :1901   Length:492         Min.   :-4.500       
+ 1st Qu.:1931   Class :character   1st Qu.: 4.883       
+ Median :1962   Mode  :character   Median : 8.750       
+ Mean   :1962                      Mean   : 8.715       
+ 3rd Qu.:1993                      3rd Qu.:12.750       
+ Max.   :2023                      Max.   :21.100       
+ Bern_Niederschlagssumme GrStBernhard_Mitteltemperatur
+ Min.   : 47.9           Min.   :-11.2000             
+ 1st Qu.:185.7           1st Qu.: -5.1000             
+ Median :243.2           Median : -1.4000             
+ Mean   :253.3           Mean   : -0.9232             
+ 3rd Qu.:308.9           3rd Qu.:  3.2750             
+ Max.   :600.1           Max.   : 10.5333             
+ GrStBernhard_Niederschlagssumme
+ Min.   : 125.9                 
+ 1st Qu.: 383.1                 
+ Median : 491.5                 
+ Mean   : 513.9                 
+ 3rd Qu.: 619.2                 
+ Max.   :1351.6                 </code></pre>
+</div>
+</div>
+</details>
+<details>
+<summary>
+<strong>Indizierung</strong>: Mit der Indizierung können bestimmte Zeilen und Spalten des Data Frames ausgewählt werden.
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>meteodaten[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,] <span class="co"># Ersten 10 Zeilen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Jahr         Saison Bern_Mitteltemperatur Bern_Niederschlagssumme
+1  1901 Fruehling(MAM)              7.733333                   277.8
+2  1901    Herbst(SON)              7.400000                   244.9
+3  1901    Sommer(JJA)             16.800000                   381.1
+4  1901    Winter(DJF)             -2.733333                   112.4
+5  1902 Fruehling(MAM)              7.533333                   323.2
+6  1902    Herbst(SON)              7.466667                   231.7
+7  1902    Sommer(JJA)             16.466667                   295.9
+8  1902    Winter(DJF)             -0.800000                   193.9
+9  1903 Fruehling(MAM)              7.433333                   177.6
+10 1903    Herbst(SON)              8.766667                   267.3
+   GrStBernhard_Mitteltemperatur GrStBernhard_Niederschlagssumme
+1                     -4.0000000                           494.7
+2                     -0.8000000                           520.8
+3                      6.3000000                           285.2
+4                    -10.6000000                           356.2
+5                     -3.6333333                           448.1
+6                     -1.0000000                           335.6
+7                      5.3000000                           242.7
+8                     -7.4000000                           341.2
+9                     -4.4666667                           409.7
+10                    -0.4666667                           507.1</code></pre>
+</div>
+</div>
+</details>
+</section>
+</section>
+</section>
+<section id="daten-als-.csv--und-.txt-dateien-exportieren" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="daten-als-.csv--und-.txt-dateien-exportieren"><span class="header-section-number">3.4</span> Daten als .csv- und .txt-Dateien exportieren</h2>
+<p>Daten können mit der <code>write.csv()</code> Funktion als CSV-Dateien und mit der <code>write.table()</code> Funktion als Textdateien exportiert werden.</p>
+<section id="csv-dateien-1" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="csv-dateien-1"><span class="header-section-number">3.4.1</span> <code>.csv</code>-Dateien</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CSV-Datei exportieren</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(meteodaten,</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">file =</span> <span class="st">"meteodaten.csv"</span>,</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 88%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>x</code></td>
+<td>Das Data Frame, das exportiert werden soll.</td>
+</tr>
+<tr class="even">
+<td><code>file</code></td>
+<td>Dateiname und Speicherort. Auch hier können absolute und relative Dateipfade verwendet werden.</td>
+</tr>
+<tr class="odd">
+<td><code>row.names</code></td>
+<td>Gibt an, ob die Zeilennummern in der CSV-Datei gespeichert werden sollen.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="txt-dateien" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="txt-dateien"><span class="header-section-number">3.4.2</span> <code>.txt</code>-Dateien</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Textdatei exportieren</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(meteodaten, <span class="co"># Das Data Frame, das exportiert werden soll</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">file =</span> <span class="st">"meteodaten.txt"</span>, <span class="co"># Dateiname und Speicherort</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="co"># Tabulator als Trennzeichen</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">eol =</span> <span class="st">"</span><span class="sc">\r</span><span class="st">"</span>, <span class="co"># Zeilenumbruch</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">na =</span> <span class="st">"NA"</span>, <span class="co"># Wert für fehlende Daten</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">col.names =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 88%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>x</code></td>
+<td>Das Data Frame, das exportiert werden soll.</td>
+</tr>
+<tr class="even">
+<td><code>file</code></td>
+<td>Dateiname und Speicherort. Auch hier können absolute und relative Dateipfade verwendet werden.</td>
+</tr>
+<tr class="odd">
+<td><code>sep</code></td>
+<td>Trennzeichen für die Spalten.</td>
+</tr>
+<tr class="even">
+<td><code>eol</code></td>
+<td>Zeilenumbruch. Kann je nach Betriebssystem erforderlich sein.</td>
+</tr>
+<tr class="odd">
+<td><code>na</code></td>
+<td>Wert für fehlende Daten.</td>
+</tr>
+<tr class="even">
+<td><code>row.names</code></td>
+<td>Gibt an, ob die Zeilennummern in der Textdatei gespeichert werden sollen.</td>
+</tr>
+<tr class="odd">
+<td><code>col.names</code></td>
+<td>Gibt an, ob die Spaltennamen in der Textdatei gespeichert werden sollen.</td>
+</tr>
+</tbody>
+</table>
+<p>Wie sonst auch, haben die meisten Parameter Standardwerte, die nicht explizit angegeben werden müssen.</p>
+</section>
+</section>
+<section id="umgang-mit-fehlwerten" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="umgang-mit-fehlwerten"><span class="header-section-number">3.5</span> Umgang mit Fehlwerten</h2>
+<p>Fehlwerte sind in Datenanalysen ein häufiges Problem. In R werden Fehlwerte standardmässig mit <code>NA</code> (Not Available) dargestellt.</p>
+<section id="fehlwerte-in-funktionsaufrufen-behandeln" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="fehlwerte-in-funktionsaufrufen-behandeln"><span class="header-section-number">3.5.1</span> Fehlwerte in Funktionsaufrufen behandeln</h3>
+<p>Erstellen wir ein Beispiel-Vektor mit Fehlwerten:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>vektor_mit_na <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wenn wir nun z.B. die Summe des Vektors berechnen, erhalten wir:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(vektor_mit_na)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p>Die Ausgabe ist NA, da R nicht weiss, wie es mit dem Fehlwert umgehen soll.</p>
+<p>Wir können in diversen Funktionen definieren, wie mit Fehlwerten umgegangen werden soll. Dazu können wir den <code>na.rm</code> Parameter verwenden. (rm = remove) Dieser Parameter ist standardmässig auf <code>FALSE</code> gesetzt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(vektor_mit_na,</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+</div>
+<p>Die Ausgabe ist 12, da der Fehlwert ignoriert wird.</p>
+<p>Dies funktioniert auch bei anderen Funktionen, wie z.B. <code>mean()</code>, <code>var()</code>, <code>sd()</code>, etc.</p>
+</section>
+<section id="fehlwerte-im-dateiimport-behandeln" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="fehlwerte-im-dateiimport-behandeln"><span class="header-section-number">3.5.2</span> Fehlwerte im Dateiimport behandeln</h3>
+<p>Beim Import von Daten können wir mit dem Parameter <code>na.strings</code> definieren, welche Werte als Fehlwerte interpretiert werden sollen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CSV-Datei einlesen</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>meteodaten <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'Data/meteodaten_saison.csv'</span>,</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">sep =</span> <span class="st">','</span>,</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">"NA"</span>, <span class="st">"N/A"</span>, <span class="st">"na"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In diesem Beispiel definieren wir, dass die Werte <code>"NA"</code>, <code>"N/A"</code> und <code>"na"</code> als Fehlwerte interpretiert werden sollen.</p>
+</section>
+<section id="fehlwerte-identifizieren" class="level3" data-number="3.5.3">
+<h3 data-number="3.5.3" class="anchored" data-anchor-id="fehlwerte-identifizieren"><span class="header-section-number">3.5.3</span> Fehlwerte identifizieren</h3>
+<p>Fehlwerte können mit der <code>is.na()</code> Funktion identifiziert und mit der <code>na.omit()</code> Funktion entfernt werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fehlwerte identifizieren</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(vektor_mit_na)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE  TRUE FALSE FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fehlwerte entfernen</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>vektor_ohne_na <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(vektor_mit_na)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Der Vektor ist nun: 1, 2, 4, 5.</p>
+<section id="überprüfen-auf-gleichheit" class="level4" data-number="3.5.3.1">
+<h4 data-number="3.5.3.1" class="anchored" data-anchor-id="überprüfen-auf-gleichheit"><span class="header-section-number">3.5.3.1</span> Überprüfen auf Gleichheit</h4>
+<p>Fehlwerte müssen mit <code>is.na()</code> überprüft werden, da sie nicht mit <code>==</code> verglichen werden können.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Überprüfen auf Gleichheit</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>vektor_mit_na <span class="sc">==</span> <span class="cn">NA</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA NA NA NA NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Überprüfen auf Gleichheit mit is.na()</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(vektor_mit_na)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE  TRUE FALSE FALSE</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="fehlwerte-ersetzen" class="level3" data-number="3.5.4">
+<h3 data-number="3.5.4" class="anchored" data-anchor-id="fehlwerte-ersetzen"><span class="header-section-number">3.5.4</span> Fehlwerte ersetzen</h3>
+<p>Mit der <code>replace()</code> Funktion können Fehlwerte am einfachsten ersetzt werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector mit falschen Fehlwerten</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>vektor_mit_falschen_na <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">999</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fehlwerte ersetzen</span></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>vektor_mit_korrigierten_na <span class="ot">&lt;-</span> <span class="fu">replace</span>(vektor_mit_falschen_na,</span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>                                      vektor_mit_falschen_na <span class="sc">==</span> <span class="sc">-</span><span class="dv">999</span>,</span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>                                      <span class="cn">NA</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Der Vektor ist nun: 1, 2, NA, 4, 5.</p>
+</section>
+</section>
+<section id="übungen" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="übungen"><span class="header-section-number">3.6</span> Übungen</h2>
+<p>Berechne die Sommer (JJA) Temperaturanomalien zur Referenzperiode 1961 bis 1990 in Bern.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten einlesen</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>meteodaten <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'Data/meteodaten_saison.csv'</span>, <span class="at">sep =</span> <span class="st">','</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten filtern</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>saison_sommer <span class="ot">&lt;-</span> meteodaten[meteodaten<span class="sc">$</span>Saison <span class="sc">==</span> <span class="st">"Sommer(JJA)"</span>, ]</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Referenzwert der Periode 1961 bis 1990 berechnen</span></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>referenzwert <span class="ot">&lt;-</span> <span class="fu">mean</span>(</span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>    saison_sommer<span class="sc">$</span>Bern_Mitteltemperatur[saison_sommer<span class="sc">$</span>Jahr <span class="sc">&gt;=</span> <span class="dv">1961</span></span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>    <span class="sc">&amp;</span> saison_sommer<span class="sc">$</span>Jahr <span class="sc">&lt;=</span> <span class="dv">1990</span>])</span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Sommer (JJA) Temperaturanomalien berechnen und direkt im data frame speichern</span></span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>saison_sommer<span class="sc">$</span>Bern_Mitteltemperatur_anomalie <span class="ot">&lt;-</span></span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>    saison_sommer<span class="sc">$</span>Bern_Mitteltemperatur <span class="sc">-</span> referenzwert</span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(saison_sommer<span class="sc">$</span>Jahr,</span>
+<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a>    saison_sommer<span class="sc">$</span>Bern_Mitteltemperatur_anomalie,</span>
+<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Jahr"</span>,</span>
+<span id="cb66-21"><a href="#cb66-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Temperaturanomalie (°C)"</span>,</span>
+<span id="cb66-22"><a href="#cb66-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Sommer (JJA) Temperaturanomalien in Bern"</span>)</span>
+<span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-24"><a href="#cb66-24" aria-hidden="true" tabindex="-1"></a><span class="co"># null-Linie hinzufügen</span></span>
+<span id="cb66-25"><a href="#cb66-25" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grundlagen_R_files/figure-html/exercise-3.1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Kleine Anmerkung: Hier wird der Vektor mit der <code>c()</code> Funktion erstellt. Diese Funktion wird verwendet, um Werte zu kombinieren (<em>combine</em>).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Wenn die Vektoren unterschiedliche Längen haben, wird der kürzere Vektor so oft wiederholt, bis er die Länge des längeren Vektors hat. Wenn die Länge des längeren Vektors kein Vielfaches der Länge des kürzeren Vektors ist, wird eine Warnung ausgegeben.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Der Vergleich von Fehlwerten mit <code>==</code> ergibt immer <code>NA</code>, da R nicht weiss, ob der Fehlwert gleich einem anderen Wert ist oder nicht.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopiert");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/quanti\.baets\.ch\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Übersicht">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Übersicht</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./plots_in_R.html" class="pagination-link" aria-label="Einfache Plots erstellen">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Einfache Plots erstellen</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Quantitative Methoden</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Made with ❤️ by <a href="https://lukasbatschelet.ch/">Lukas Batschelet</a></p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/grundlagen_R.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://ko-fi.com/lukasbatschelet">☕️Buy me a coffee</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
