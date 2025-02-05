@@ -1,5 +1,6 @@
 ---
 lang: "de-CH"
+code-annotations: hover
 ---
 
 
@@ -567,32 +568,264 @@ abgelehnt werden kann.
 
 ### Anwendungsbedingungen
 
-- Linearität
-- Normalverteilung der Residuen
-- Varianzhomogenität
-- Keine oder wenige Ausreisser
+In der linearen Regression ist es ein häufiger Irrtum, dass die **Prädiktorvariablen ($X$)** oder die **abhängige Variable ($Y$)** normalverteilt sein müssen. Das ist nicht der Fall – die Regression funktioniert auch mit nicht-normalverteilten Variablen.
 
+Was jedoch für bestimmte statistische Tests wichtig ist, ist die **Normalverteilung der Residuen ($\varepsilon$)**. Diese Voraussetzung gilt insbesondere für:
+
+- **t-Tests:** Überprüfen, ob ein Regressionskoeffizient ($\beta$) signifikant von null verschieden ist, also ob ein Prädiktor einen echten Einfluss auf $Y$ hat.  
+- **F-Tests:** Prüfen, ob das gesamte Regressionsmodell eine signifikante Vorhersagekraft besitzt.  
+
+Diese Tests liefern einen **p-Wert**, der angibt, wie wahrscheinlich ein beobachteter Effekt zufällig entstanden ist (**Signifikanzbewertung**).
+
+Damit die Normalverteilung der Residuen überhaupt sinnvoll geprüft werden kann, müssen zwei wichtige Voraussetzungen erfüllt sein:
+
+1. **Linearität:** Der Zusammenhang zwischen den Prädiktoren ($X$) und der abhängigen Variable ($Y$) sollte linear sein.  
+2. **Homoskedastizität:** Die Varianz der Residuen sollte über alle Werte von $X$ hinweg konstant sein (keine Trichterform in den Residuenplots).
+
+Ohne diese Bedingungen ist die Verteilung der Residuen verzerrt, was zu fehlerhaften Testergebnissen führt.
+
+#### Optimale Residuendiagnostik mit geeigneten Daten
 ```{r}
 #| label: multiple-regression-residuals-plot
 #| echo: true
-#| code-fold: false
-#| fig-subcap: ["Linearität", "Normalverteilung der Residuen", "Varianzhomogenität", "Ausreißer"]
+#| code-fold: true
+#| layout-ncol: 2
+#| fig-cap-location: top
+#| fig-subcap: [
+#|   "Linearität: Die Residuen streuen zufällig um die Nulllinie. Kein systematisches Muster erkennbar – ein Hinweis auf eine lineare Beziehung.",
+#|   "Normalverteilung der Residuen: Die Punkte liegen nahe der Diagonale im Q-Q-Plot. Dies zeigt, dass die Residuen normalverteilt sind.",
+#|   "Varianzhomogenität: Die Punkte im Scale-Location-Plot sind gleichmässig verteilt, ohne Trichterform. Das deutet auf konstante Varianz (Homoskedastizität) hin.",
+#|   "Ausreisser: Im Leverage-Plot gibt es keine Punkte mit hoher Cook's Distance. Dies zeigt, dass es keine einflussreichen Ausreisser gibt."
+#| ]
 
-# Perfekte synthetische Daten generieren
-set.seed(42)
-n <- 100
-X1 <- rnorm(n, mean = 10, sd = 2)
+library(ggplot2)
+
+# Synthetische Daten perfekt simulieren
+n <- 500
+X1 <- rnorm(n, mean = 10, sd = 2)    # Normalverteilte Prädiktoren
 X2 <- rnorm(n, mean = 5, sd = 1.5)
 
-# Perfekte lineare Beziehung mit normalverteiltem Fehlerterm
-Y <- 3 * X1 + 2 * X2 + rnorm(n, mean = 0, sd = 3)
+X1 <- scale(X1, center = TRUE, scale = FALSE)
+X2 <- scale(X2, center = TRUE, scale = FALSE)
+
+# Perfekte lineare Beziehung
+# Fehler sind normalverteilt mit konstanter Varianz
+errors <- rnorm(n, mean = 0, sd = 1)  # Normalverteilte Residuen
+
+# Lineares Modell
+Y <- 3 * X1 + 2 * X2 + errors
 
 # Lineares Regressionsmodell
 perfektes_modell <- lm(Y ~ X1 + X2)
 
 # Diagnostische Plots
-par(mfrow = c(2, 2), mar = c(4, 4, 2, 1))  # Layout für 4 Plots
-plot(perfektes_modell)
+dot_color <- rgb(0, 0, 1, 0.5)
+plot(perfektes_modell, col = dot_color, pch = 19)
 ```
+
+#### Negative Residuendiagnostik mit schlechten Daten
+
+```{r}
+#| label: negative-regression-diagnostics
+#| echo: true
+#| code-fold: true
+#| layout-ncol: 2
+#| fig-cap-location: top
+#| fig-subcap: [
+#|   "Nicht-Linearität: Die Residuen zeigen ein gebogenes Muster. Dies deutet darauf hin, dass das Modell die wahre Beziehung nicht korrekt abbildet.",
+#|   "Nicht-Normalverteilte Residuen: Im Q-Q-Plot weichen die Punkte deutlich von der Diagonalen ab. Dies deutet auf eine Verletzung der Normalverteilungsannahme hin.",
+#|   "Heteroskedastizität: Im Scale-Location-Plot ist ein trichterförmiges Muster zu erkennen. Dies weist auf eine zunehmende Varianz der Residuen hin.",
+#|   "Ausreisser: Im Residuals vs Leverage-Plot sind Punkte mit hoher Cook's Distance sichtbar. Sie haben einen starken Einfluss auf das Modell."
+#| ]
+
+set.seed(123)
+
+# Nicht-Linearität
+n <- 500
+X_nl <- rnorm(n, mean = 0, sd = 1)
+Y_nl <- 2 * X_nl^2 + rnorm(n, 0, 1)
+modell_nl <- lm(Y_nl ~ X_nl)  # Falsch spezifiziert (linear)
+
+# Nicht-normalverteilte Residuen
+X_nn <- rnorm(n)
+Y_nn <- 3 * X_nn + rexp(n, rate = 1)  # Exponentiell verteilte Fehler
+modell_nn <- lm(Y_nn ~ X_nn)
+
+# Heteroskedastizität
+X_het <- rnorm(n)
+Y_het <- 4 * X_het + rnorm(n, 0, sd = abs(X_het) * 2)
+modell_het <- lm(Y_het ~ X_het)
+
+# Ausreisser
+X_out <- rnorm(n)
+Y_out <- 5 * X_out + rnorm(n, 0, 1)
+Y_out[c(50, 100)] <- Y_out[c(50, 100)] + 20  # Ausreisser hinzufügen
+modell_out <- lm(Y_out ~ X_out)
+
+# Diagnostische Plots (jeweils der relevante)
+plot(modell_nl, which = 1, col = dot_color, pch = 19)   # Nicht-Linearität: Residuals vs Fitted
+plot(modell_nn, which = 2, col = dot_color, pch = 19)   # Nicht-normalverteilte Residuen: Q-Q-Plot
+plot(modell_het, which = 3, col = dot_color, pch = 19)  # Heteroskedastizität: Scale-Location
+plot(modell_out, which = 5, col = dot_color, pch = 19)  # Ausreisser: Residuals vs Leverage
+```
+
+
+#### Heteroskedastizität
+
+Heteroskedastizität beschreibt die Tatsache, dass die Varianz der Residuen nicht konstant ist. Das bedeutet, dass die Residuen nicht gleichmässig um den Mittelwert streuen, sondern eine zunehmende oder abnehmende Varianz aufweisen.
+
+Ursachen dafür können sein:
+
+- Messfehler werden über die Zeit kleiner
+- Befragungen vor und nach dem Lernprozess
+- Verhalten ist abhängig vom Einkommen, so dass reichere Personen mehr Wahlmöglichkeiten haben als ärmere
+- Bei aggregierten Werten sind Klassen mit kleinem $n$ unsicherer und streuen mehr als Klassen mit grossem $n$
+
+Tests:
+
+- Zerlegung der Daten und Vergleich von Subsets (z.B. Zeitperioden)
+- Goldfeld-Quandt-Test (univariate Regression)
+- White-Test (multiple Regression)
+
+Behandlung:
+
+- Methode der *gewichteten* kleinsten Quadrate. Werte bekommen dort weniger Gewicht, wo die Streuung gross ist.
+
+#### (Multi-)Kollinearität
+
+Kollinearität beschreibt die Tatsache, dass zwei oder mehrere Prädiktoren in einem Regressionsmodell stark miteinander korrelieren.
+
+- Die unabhängigen Variablen dürfen untereinander nicht perfekt korrelieren ($i \neq j: \text{corr}(X_i, X_j) = 1$) d.h. es darf keine Linearkombination anderer unabhängiger Variablen sein.
+- Matrix ist sonst nicht invertierbar.
+
+Folgen:
+
+- Schätzungen der Regressionsparameter sind unzuverlässig
+- Standardfehler der Regressionskoeffizienten sind gross
+- t-Werte sind klein
+
+Anzeichen:
+
+- Resultate werden stark vom Weglassen einer Beobachtung beeinflusst
+- Vorzeichen der Regressionskoeffizienten ist anders als erwartet
+- Hohe Korrelationen der unabhängigen Variablen ($> |0.8|$) deuten auf mögliche Kollinearität hin
+- **Varianzinflationsfaktor** (VIF) misst die Abhängigkeit der Varianz des geschätzten Regressionskoeffizienten aufgrund der Korrelation zwischen unabhängigen Variablen. VIF-Werte $> 10$ gelten als kritisch.
+  - `vif()`
+
+Behandlung:
+
+- Weglassen von korrelierenden Prädiktoren
+- Neue Prädiktoren finden
+- Hauptkomponentenanalyse (PCA): Reduktion der Dimensionalität der Daten durch PCA, um unkorrelierte Hauptkomponenten zu erhalten.
+
+### Modellvalidierung (Kreuzvalidierung)
+
+Die **Kreuzvalidierung** ist eine Methode zur **Bewertung der Vorhersagegüte** eines Regressionsmodells. Dabei wird der Datensatz in mehrere Teilmengen (sogenannte **Folds**) aufgeteilt. Das Modell wird wiederholt auf verschiedenen Kombinationen von Trainings- und Testdaten geschätzt, um zu überprüfen, wie gut es auf **unbekannte Daten** generalisiert.
+
+#### Vorgehensweise bei der K-Fold-Kreuzvalidierung:
+1. **Aufteilung der Daten:** Der Datensatz wird in $k$ gleich grosse Teilmengen (Folds) aufgeteilt.  
+2. **Modelltraining:** In jeder der $k$ Iterationen wird das Modell mit $(k-1)$ Folds trainiert.  
+3. **Modelltest:** Der verbliebene Fold dient als Testdatensatz zur Bewertung des Modells.  
+4. **Ergebnissynthese:** Die Gütekriterien (z.B. **mittlerer quadratischer Fehler** (MSE), **$R^2$**) werden über alle Iterationen gemittelt.
+
+Diese Methode liefert eine **robustere Schätzung** der Modellgüte als eine einfache Trainings-Test-Aufteilung.
+
+
+::: {.callout-tip collapse=false}
+#### Beispiel einer Multiplen Regression
+
+In diesem Beispiel verwenden wir den Datensatz `mtcars`, um ein **multiples lineares Regressionsmodell** zu erstellen. Unser Ziel ist es, den **Benzinverbrauch** (`mpg`) von Fahrzeugen basierend auf mehreren Einflussgrößen vorherzusagen.
+
+##### Datensatz und Ziel
+
+- **Datensatz:** `mtcars` mit 32 Fahrzeugen  
+- **Zielvariable:** `mpg` (Miles per Gallon, Benzinverbrauch)  
+- **Prädiktoren:**  
+  - `wt` (Gewicht des Fahrzeugs in 1000 Pfund)  
+  - `hp` (Motorleistung in PS)  
+  - `cyl` (Anzahl Zylinder)  
+
+Wir möchten überprüfen, wie gut diese Variablen den Benzinverbrauch gemeinsam vorhersagen.
+
+##### Durchführung der 5-Fold-Kreuzvalidierung
+
+Für die **5-Fold-Kreuzvalidierung** wird der Datensatz in 5 gleich große Teilmengen (Folds) aufgeteilt. In jeder der 5 Iterationen wird das Modell mit 4 Folds trainiert und mit dem verbleibenden Fold getestet. Die Gütekriterien werden über alle Iterationen gemittelt.
+
+```{r}
+#| label: multiple-regression-cv
+#| echo: true
+#| code-fold: false
+#| output: false
+#| fig-cap: "5-Fold-Kreuzvalidierung zur Bewertung des multiplen Regressionsmodells"
+
+# Daten und benötigte Pakete laden
+data(mtcars)
+library(caret)
+
+# Kreuzvalidierung mit 5 Folds
+cv_control <- trainControl(method = "cv", number = 5) # <1>
+
+# Training des multiplen Regressionsmodells mit Kreuzvalidierung
+cv_model <- train(            
+    mpg ~ wt + hp + cyl,      # <2>
+    data = mtcars,            # <3>
+    method = "lm",            # <4>
+    trControl = cv_control    # <5>
+)
+
+# Ergebnisse anzeigen
+cv_model
+```
+1. `cv_control`: Definiert die Kreuzvalidierung mit 5 Folds.
+2. `mpg ~ wt + hp + cyl`: Definiert die abhängige Variable (`mpg`) und die unabhängigen Variablen (`wt`, `hp`, `cyl`).
+3. `data = mtcars`: Definiert den Datensatz, der für das Modelltraining verwendet wird.
+4. `method = "lm"`: Definiert das Regressionsmodell als lineare Regression.
+5. `trControl = cv_control`: Definiert die Kreuzvalidierung mit 5 Folds.
+
+```{r}
+#| label: multiple-regression-cv-results
+#| echo: false
+#| code-fold: false
+#| output: true
+
+cv_model
+```
+
+##### Ergebnisse der Kreuzvalidierung
+
+Nach der Durchführung der Kreuzvalidierung liefert das Modell folgende Kennwerte:
+
+- **RMSE (Root Mean Squared Error):** `r round(cv_model$results$RMSE, 3)`  
+  Der **RMSE** misst den durchschnittlichen quadratischen Fehler der Vorhersagen. Ein niedriger Wert deutet auf eine gute Modellanpassung hin.
+
+- **$R^2$ (Bestimmtheitsmaß):** `r round(cv_model$results$Rsquared, 3)`  
+  Der **$R^2$-Wert** zeigt, wie viel der Varianz von `mpg` durch die Prädiktoren `wt`, `hp` und `cyl` erklärt werden kann. Werte nahe 1 deuten auf eine hohe Erklärungskraft des Modells hin.
+
+- **MAE (Mean Absolute Error):** `r round(cv_model$results$MAE, 3)`  
+  Der **MAE** misst den durchschnittlichen absoluten Vorhersagefehler. Im Gegensatz zum RMSE ist er weniger empfindlich gegenüber Ausreißern.
+
+##### Interpretation der Ergebnisse
+
+Das Modell zeigt folgende Leistungswerte:
+
+- **Vorhersagegenauigkeit (RMSE):** Der RMSE beträgt `r round(cv_model$results$RMSE, 3)`.  
+  - Ein RMSE < 3 deutet auf eine **gute Anpassung** des Modells hin.  
+  - Werte > 5 würden auf eine **ungenügende Modellanpassung** hindeuten.  
+  - In diesem Fall ist der Wert `r ifelse(cv_model$results$RMSE < 3, "zufriedenstellend", "verbesserungswürdig")`.
+
+- **Erklärte Varianz ($R^2$):** Der $R^2$-Wert beträgt `r round(cv_model$results$Rsquared, 3)`.  
+  - Ein $R^2$ > 0.7 gilt als **sehr gut**, da mehr als 70 % der Varianz von `mpg` durch die Prädiktoren erklärt wird.  
+  - Ein Wert < 0.5 würde darauf hindeuten, dass das Modell wichtige Prädiktoren vermissen könnte.  
+  - Hier zeigt der Wert `r ifelse(cv_model$results$Rsquared > 0.7, "eine starke Erklärungskraft", "eine moderate Erklärungskraft")`.
+
+- **Durchschnittlicher Fehler (MAE):** Der MAE beträgt `r round(cv_model$results$MAE, 3)`.  
+  - Ein MAE < 3 deutet darauf hin, dass die **durchschnittlichen Vorhersagefehler gering** sind.  
+  - Werte > 5 könnten auf **systematische Fehler** im Modell hinweisen.  
+  - In unserem Fall ist der Fehler `r ifelse(cv_model$results$MAE < 3, "akzeptabel", "relativ hoch")`.
+
+##### Fazit
+
+Das multiple Regressionsmodell erklärt einen großen Anteil der Varianz von `mpg` und liefert eine präzise Vorhersage. Die Kreuzvalidierung zeigt, dass das Modell auch bei unbekannten Daten **stabile Ergebnisse** liefert. Eventuelle Optimierungen könnten durch die Einbeziehung weiterer Prädiktoren oder Interaktionsterme erreicht werden.
+:::
 
 

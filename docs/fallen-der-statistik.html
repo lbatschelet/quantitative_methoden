@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de-CH" xml:lang="de-CH"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Lukas Batschelet">
 
-<title>Quantitative Methoden</title>
+<title>16&nbsp; Fallen der Statistik – Quantitative Methoden</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./grundlagen_R.html" rel="next">
+<link href="./glossar.html" rel="next">
+<link href="./neuronale-netze.html" rel="prev">
 <link href="./code" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -69,11 +103,13 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Suchen"
   }
 }</script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
 
 </head>
 
-<body class="nav-sidebar floating fullcontent">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -82,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Übersicht</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./fallen-der-statistik.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallen der Statistik</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
@@ -118,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Übersicht</span></span></a>
   </div>
 </li>
@@ -228,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./fallen-der-statistik.html" class="sidebar-item-text sidebar-link">
+  <a href="./fallen-der-statistik.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallen der Statistik</span></span></a>
   </div>
 </li>
@@ -286,32 +322,31 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#p-werte" id="toc-p-werte" class="nav-link active" data-scroll-target="#p-werte"><span class="header-section-number">16.1</span> p-Werte</a></li>
+  <li><a href="#simpsons-paradoxon" id="toc-simpsons-paradoxon" class="nav-link" data-scroll-target="#simpsons-paradoxon"><span class="header-section-number">16.2</span> Simpsons Paradoxon</a></li>
+  <li><a href="#probleme-mit-seltenen-ereignissen" id="toc-probleme-mit-seltenen-ereignissen" class="nav-link" data-scroll-target="#probleme-mit-seltenen-ereignissen"><span class="header-section-number">16.3</span> Probleme mit seltenen Ereignissen</a></li>
+  <li><a href="#falsche-interpretation-wahrnehmung" id="toc-falsche-interpretation-wahrnehmung" class="nav-link" data-scroll-target="#falsche-interpretation-wahrnehmung"><span class="header-section-number">16.4</span> Falsche Interpretation / Wahrnehmung</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/fallen-der-statistik.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./fallen-der-statistik.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallen der Statistik</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Quantitative Methoden</h1>
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallen der Statistik</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Autor:in</div>
-    <div class="quarto-title-meta-contents">
-             <p>Lukas Batschelet </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">29. Januar 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -321,27 +356,241 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Diese Website dient als Sammlung meiner Vorlesungsnotizen und Übungen für die Vorlesung <em>“Quantitative Methoden”</em> im Herbstsemester 2024.</p>
-<p>Diese Sammlung ist aktuell noch am Entstehen.</p>
-<div class="callout callout-style-default callout-warning callout-titled" title="Hinweis">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<blockquote class="blockquote">
+<p>“It’s called a 95% confidence interval it misses 5% of the time”</p>
+</blockquote>
+<ul>
+<li>Wenn genug Hypothesen getestet werden, findet man zufällig ein positives Ergebnis</li>
+<li>Aber Datenerhebung ist teuer und nur ein Test wäre Verschwendung, deshalb:
+<ol type="1">
+<li>vor der Studie definierte Haupthypothese aufstellen und in Publikation bennen</li>
+<li>später weitere explorative Hypothesen aufstellen und ebenfalls so kennzeichenen</li>
+<li>eventuell Signifikanzlevel anpassen (z.B. 0.01 statt 0.05)</li>
+</ol></li>
+</ul>
+<section id="p-werte" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="p-werte"><span class="header-section-number">16.1</span> p-Werte</h2>
+<blockquote class="blockquote">
+<p>“The effect of the drug on blood pressure was statistically significant (p = 0.02)”</p>
+</blockquote>
+<ul>
+<li>Ein p-Wert von &lt; 0.05 bedeutet die Ablehnung der Nullhypothese</li>
+<li>Die Nullhypothese sagt normalerweise, dass es keine Korrelation oder einen Unterschied zwischen A und B gibt</li>
+<li>ABER:
+<ul>
+<li><em>“It is foolish to ask ‘Are the effects of A and B different?’ They are always different for some decimal place”</em></li>
+<li>Wir sind nicht wirklich an “statistischer Signifikanz” interessiert, sondern an physikalisch oder sozial signifikanten Effekten.</li>
+<li>Aber wie gross war der Effekt</li>
+</ul></li>
+</ul>
+</section>
+<section id="simpsons-paradoxon" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="simpsons-paradoxon"><span class="header-section-number">16.2</span> Simpsons Paradoxon</h2>
+<table class="table-striped table-hover caption-top table">
+<caption>Unaufgesplittete Daten aus einer Medikamentenstudie.</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th>Control</th>
+<th>Treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Alive</td>
+<td>60</td>
+<td>200</td>
+</tr>
+<tr class="even">
+<td>Dead</td>
+<td>60</td>
+<td>200</td>
+</tr>
+<tr class="odd">
+<td>Rate</td>
+<td>50%</td>
+<td>50%</td>
+</tr>
+</tbody>
+</table>
+<p>Wenn wir diese Daten betrachten, sehen wir, dass das Medikament wirkungslos ist.</p>
+<p>Wenn wir die Daten nach Geschlecht aufsplitten, sehen wir einen anderen Effekt:</p>
+<table class="table-striped table-hover caption-top table">
+<caption>Aufgesplittete Daten nur für Männer.</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th>Control</th>
+<th>Treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Alive</td>
+<td>40</td>
+<td>80</td>
+</tr>
+<tr class="even">
+<td>Dead</td>
+<td>30</td>
+<td>50</td>
+</tr>
+<tr class="odd">
+<td>Rate</td>
+<td>43%</td>
+<td>38%</td>
+</tr>
+</tbody>
+</table>
+<p>Das Medikament hat einen positiven Effekt. Was erwarten wir, wenn die Daten für Frauen betrachtet werden?</p>
+<table class="table-striped table-hover caption-top table">
+<caption>Aufgesplittete Daten nur für Frauen.</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th>Control</th>
+<th>Treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Alive</td>
+<td>20</td>
+<td>120</td>
+</tr>
+<tr class="even">
+<td>Dead</td>
+<td>30</td>
+<td>150</td>
+</tr>
+<tr class="odd">
+<td>Rate</td>
+<td>60%</td>
+<td>55%</td>
+</tr>
+</tbody>
+</table>
+<p>Das Medikament hat ebenfalls einen positiven Effekt. Wie kann das sein?</p>
+<p>Einzelpersonen der Gruppen bekommen ein unterschiedliches Gewicht in Prozent am Ausgang.</p>
+</section>
+<section id="probleme-mit-seltenen-ereignissen" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="probleme-mit-seltenen-ereignissen"><span class="header-section-number">16.3</span> Probleme mit seltenen Ereignissen</h2>
+<ul>
+<li>Umfragen haben eine Tendenz, seltene Ereignisse zu unterschätzen</li>
+</ul>
+</section>
+<section id="falsche-interpretation-wahrnehmung" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="falsche-interpretation-wahrnehmung"><span class="header-section-number">16.4</span> Falsche Interpretation / Wahrnehmung</h2>
+<p>Wahrscheinlichkeit, dass mindestens zwei Personen am gleichen Tag Geburtstag haben nach Anzahl Personen.</p>
+<div class="cell panel-input card bg-light p-2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1" data-startfrom="73" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 72;"><span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>viewof numPeople <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> </span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">value</span><span class="op">:</span> <span class="dv">23</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Anzahl Personen:"</span> }</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
 </div>
-<div class="callout-title-container flex-fill">
-Hinweis
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p><strong>Die Inhalte dieser Website können Lücken und Fehler enthalten. Die Inhalte werden laufend ergänzt und verbessert.</strong></p>
-<p>Fehler und Vorschläge können auf jeder Seite direkt über <em>Problem melden</em> auf Github gemeldet werden. Bitte das entsprechende Issue-Template verwenden.</p>
-<p>Falls bereits Erfahrung mit Github und quarto besteht, kann auch jeweils direkt die Seite bearbeitet werden. Anschliessend kann ein Pull-Request erstellt werden.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2" data-startfrom="84" data-source-offset="-37"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 83;"><span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">birthdayProbability</span>(n) {</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> prob <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>    prob <span class="op">*=</span> (<span class="dv">365</span> <span class="op">-</span> i) <span class="op">/</span> <span class="dv">365</span><span class="op">;</span></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">1</span> <span class="op">-</span> prob<span class="op">;</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="co">// Daten für den Plot generieren</span></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({ <span class="dt">length</span><span class="op">:</span> <span class="dv">99</span> }<span class="op">,</span> (_<span class="op">,</span> i) <span class="kw">=&gt;</span> ({</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>  <span class="dt">numPeople</span><span class="op">:</span> i <span class="op">+</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>  <span class="dt">probability</span><span class="op">:</span> <span class="fu">birthdayProbability</span>(i <span class="op">+</span> <span class="dv">2</span>)</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>}))<span class="op">;</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="co">// Aktuelle Wahrscheinlichkeit berechnen</span></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>currentProb <span class="op">=</span> <span class="fu">birthdayProbability</span>(numPeople)<span class="op">;</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="co">// Plot erstellen</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(data<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"numPeople"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"probability"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"blue"</span> })<span class="op">,</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>      [{ numPeople<span class="op">,</span> <span class="dt">probability</span><span class="op">:</span> currentProb }]<span class="op">,</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>      { <span class="dt">x</span><span class="op">:</span> <span class="st">"numPeople"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"probability"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"red"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">5</span> }</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Textanzeige unten rechts</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>      [{ <span class="dt">label</span><span class="op">:</span> <span class="vs">`Wahrscheinlichkeit: </span><span class="sc">${</span>(currentProb <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">%`</span> }]<span class="op">,</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>      {</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">60</span><span class="op">,</span> </span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span> </span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> <span class="st">"label"</span><span class="op">,</span> </span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> <span class="st">"black"</span><span class="op">,</span> </span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>        <span class="dt">dy</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> </span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>        <span class="dt">dx</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>        <span class="dt">anchor</span><span class="op">:</span> <span class="st">"end"</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Anzahl Personen"</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">2</span><span class="op">,</span> <span class="dv">100</span>] }<span class="op">,</span></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Wahrscheinlichkeit"</span><span class="op">,</span> <span class="dt">tickFormat</span><span class="op">:</span> <span class="st">"%"</span> }<span class="op">,</span></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">600</span><span class="op">,</span></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">400</span></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
 </div>
 </div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<p>Bereits bei 23 Personen liegt die Wahrscheinlichkeit bei über 50 %, dass zwei Personen am gleichen Tag Geburtstag haben. Dies verdeutlicht, wie unsere Intuition bei Wahrscheinlichkeiten oft trügt.</p>
 
 
+</section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBudW1QZW9wbGUgPSBJbnB1dHMucmFuZ2UoXG4gIFsyLCAxMDBdLCBcbiAgeyB2YWx1ZTogMjMsIHN0ZXA6IDEsIGxhYmVsOiBcIkFuemFobCBQZXJzb25lbjpcIiB9XG4pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBCZXJlY2hudW5nIGRlciBXYWhyc2NoZWlubGljaGtlaXRcbmZ1bmN0aW9uIGJpcnRoZGF5UHJvYmFiaWxpdHkobikge1xuICBsZXQgcHJvYiA9IDE7XG4gIGZvciAobGV0IGkgPSAwOyBpIDwgbjsgaSsrKSB7XG4gICAgcHJvYiAqPSAoMzY1IC0gaSkgLyAzNjU7XG4gIH1cbiAgcmV0dXJuIDEgLSBwcm9iO1xufVxuXG4vLyBEYXRlbiBmw7xyIGRlbiBQbG90IGdlbmVyaWVyZW5cbmRhdGEgPSBBcnJheS5mcm9tKHsgbGVuZ3RoOiA5OSB9LCAoXywgaSkgPT4gKHtcbiAgbnVtUGVvcGxlOiBpICsgMixcbiAgcHJvYmFiaWxpdHk6IGJpcnRoZGF5UHJvYmFiaWxpdHkoaSArIDIpXG59KSk7XG5cbi8vIEFrdHVlbGxlIFdhaHJzY2hlaW5saWNoa2VpdCBiZXJlY2huZW5cbmN1cnJlbnRQcm9iID0gYmlydGhkYXlQcm9iYWJpbGl0eShudW1QZW9wbGUpO1xuXG4vLyBQbG90IGVyc3RlbGxlblxuUGxvdC5wbG90KHtcbiAgbWFya3M6IFtcbiAgICBQbG90LmxpbmUoZGF0YSwgeyB4OiBcIm51bVBlb3BsZVwiLCB5OiBcInByb2JhYmlsaXR5XCIsIHN0cm9rZTogXCJibHVlXCIgfSksXG4gICAgUGxvdC5kb3QoXG4gICAgICBbeyBudW1QZW9wbGUsIHByb2JhYmlsaXR5OiBjdXJyZW50UHJvYiB9XSxcbiAgICAgIHsgeDogXCJudW1QZW9wbGVcIiwgeTogXCJwcm9iYWJpbGl0eVwiLCBmaWxsOiBcInJlZFwiLCByOiA1IH1cbiAgICApLFxuICAgIC8vIFRleHRhbnplaWdlIHVudGVuIHJlY2h0c1xuICAgIFBsb3QudGV4dChcbiAgICAgIFt7IGxhYmVsOiBgV2FocnNjaGVpbmxpY2hrZWl0OiAkeyhjdXJyZW50UHJvYiAqIDEwMCkudG9GaXhlZCgxKX0lYCB9XSxcbiAgICAgIHtcbiAgICAgICAgeDogNjAsIFxuICAgICAgICB5OiAwLjUsIFxuICAgICAgICB0ZXh0OiBcImxhYmVsXCIsIFxuICAgICAgICBmaWxsOiBcImJsYWNrXCIsIFxuICAgICAgICBkeTogMTAsIFxuICAgICAgICBkeDogMTAsXG4gICAgICAgIGZvbnRTaXplOiAxNCxcbiAgICAgICAgYW5jaG9yOiBcImVuZFwiXG4gICAgICB9XG4gICAgKVxuICBdLFxuICB4OiB7IGxhYmVsOiBcIkFuemFobCBQZXJzb25lblwiLCBkb21haW46IFsyLCAxMDBdIH0sXG4gIHk6IHsgbGFiZWw6IFwiV2FocnNjaGVpbmxpY2hrZWl0XCIsIHRpY2tGb3JtYXQ6IFwiJVwiIH0sXG4gIHdpZHRoOiA2MDAsXG4gIGhlaWdodDogNDAwXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdudW1QZW9wbGUnKSJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -700,25 +949,64 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       };
     }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
           }
-        });
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
       }
   const findCites = (el) => {
     const parentEl = el.parentElement;
@@ -761,10 +1049,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./neuronale-netze.html" class="pagination-link" aria-label="neuronale-netze.html">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">neuronale-netze.html</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./grundlagen_R.html" class="pagination-link" aria-label="Grundlagen R">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./glossar.html" class="pagination-link" aria-label="Glossar">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Glossar</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -776,7 +1067,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
 <p>Made with ❤️ by <a href="https://lukasbatschelet.ch/">Lukas Batschelet</a></p>
-<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/fallen-der-statistik.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p><a href="https://ko-fi.com/lukasbatschelet">☕️Buy me a coffee</a></p>
 </div>

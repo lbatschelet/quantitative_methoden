@@ -261,8 +261,44 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./fehlermasse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">fehlermasse.html</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clusteranalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clusteranalyse</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hauptkomponentenanalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hauptkomponentenanalyse</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./extremwertstatistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Extremwertstatistik</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./neuronale-netze.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">neuronale-netze.html</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fallen-der-statistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallen der Statistik</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./glossar.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Glossar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Glossar</span></span></a>
   </div>
 </li>
       </ul>
@@ -322,17 +358,6 @@ window.Quarto = {
   <li><a href="#der-pearson-korrelationskoeffizient" id="toc-der-pearson-korrelationskoeffizient" class="nav-link" data-scroll-target="#der-pearson-korrelationskoeffizient"><span class="header-section-number">9.1</span> Der Pearson-Korrelationskoeffizient</a></li>
   <li><a href="#der-spearman-rangkorrelationskoeffizient" id="toc-der-spearman-rangkorrelationskoeffizient" class="nav-link" data-scroll-target="#der-spearman-rangkorrelationskoeffizient"><span class="header-section-number">9.2</span> Der Spearman-Rangkorrelationskoeffizient</a></li>
   <li><a href="#vergleich-der-korrelationskoeffizienten" id="toc-vergleich-der-korrelationskoeffizienten" class="nav-link" data-scroll-target="#vergleich-der-korrelationskoeffizienten"><span class="header-section-number">9.3</span> Vergleich der Korrelationskoeffizienten</a></li>
-  <li><a href="#hypothesentests-für-korrelationen" id="toc-hypothesentests-für-korrelationen" class="nav-link" data-scroll-target="#hypothesentests-für-korrelationen"><span class="header-section-number">9.4</span> Hypothesentests für Korrelationen</a>
-  <ul class="collapse">
-  <li><a href="#null--und-alternativhypothese" id="toc-null--und-alternativhypothese" class="nav-link" data-scroll-target="#null--und-alternativhypothese"><span class="header-section-number">9.4.1</span> Null- und Alternativhypothese</a></li>
-  <li><a href="#t-test-für-den-korrelationskoeffizienten" id="toc-t-test-für-den-korrelationskoeffizienten" class="nav-link" data-scroll-target="#t-test-für-den-korrelationskoeffizienten"><span class="header-section-number">9.4.2</span> t-Test für den Korrelationskoeffizienten</a></li>
-  <li><a href="#beispiel-in-r" id="toc-beispiel-in-r" class="nav-link" data-scroll-target="#beispiel-in-r"><span class="header-section-number">9.4.3</span> Beispiel in R</a></li>
-  </ul></li>
-  <li><a href="#besondere-themen" id="toc-besondere-themen" class="nav-link" data-scroll-target="#besondere-themen"><span class="header-section-number">9.5</span> Besondere Themen</a>
-  <ul class="collapse">
-  <li><a href="#korrelation-von-zeitreihen" id="toc-korrelation-von-zeitreihen" class="nav-link" data-scroll-target="#korrelation-von-zeitreihen"><span class="header-section-number">9.5.1</span> Korrelation von Zeitreihen</a></li>
-  <li><a href="#varianz-kovarianz-matrix" id="toc-varianz-kovarianz-matrix" class="nav-link" data-scroll-target="#varianz-kovarianz-matrix"><span class="header-section-number">9.5.2</span> Varianz-Kovarianz-Matrix</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/korrelation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -868,73 +893,8 @@ Y_i ^d &amp;= Y_i - \mu_y \\
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hypothesentests-für-korrelationen" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="hypothesentests-für-korrelationen"><span class="header-section-number">9.4</span> Hypothesentests für Korrelationen</h2>
-<section id="null--und-alternativhypothese" class="level3" data-number="9.4.1">
-<h3 data-number="9.4.1" class="anchored" data-anchor-id="null--und-alternativhypothese"><span class="header-section-number">9.4.1</span> Null- und Alternativhypothese</h3>
-<ul>
-<li>H0: Kein Zusammenhang (r = 0)</li>
-<li>HA: Es besteht ein Zusammenhang (r ≠ 0)</li>
-</ul>
-</section>
-<section id="t-test-für-den-korrelationskoeffizienten" class="level3" data-number="9.4.2">
-<h3 data-number="9.4.2" class="anchored" data-anchor-id="t-test-für-den-korrelationskoeffizienten"><span class="header-section-number">9.4.2</span> t-Test für den Korrelationskoeffizienten</h3>
-<ul>
-<li>Teststatistik und Berechnung</li>
-<li>Signifikanzbewertung</li>
-</ul>
-</section>
-<section id="beispiel-in-r" class="level3" data-number="9.4.3">
-<h3 data-number="9.4.3" class="anchored" data-anchor-id="beispiel-in-r"><span class="header-section-number">9.4.3</span> Beispiel in R</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test auf Signifikanz der Korrelation</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(x, y, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's product-moment correlation
-
-data:  x and y
-t = -0.79113, df = 98, p-value = 0.4308
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.2718274  0.1186115
-sample estimates:
-        cor 
--0.07966258 </code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="besondere-themen" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="besondere-themen"><span class="header-section-number">9.5</span> Besondere Themen</h2>
-<section id="korrelation-von-zeitreihen" class="level3" data-number="9.5.1">
-<h3 data-number="9.5.1" class="anchored" data-anchor-id="korrelation-von-zeitreihen"><span class="header-section-number">9.5.1</span> Korrelation von Zeitreihen</h3>
-<ul>
-<li>Definition von Autokorrelation</li>
-<li>Einfluss von Trends und Saisonalität</li>
-</ul>
-</section>
-<section id="varianz-kovarianz-matrix" class="level3" data-number="9.5.2">
-<h3 data-number="9.5.2" class="anchored" data-anchor-id="varianz-kovarianz-matrix"><span class="header-section-number">9.5.2</span> Varianz-Kovarianz-Matrix</h3>
-<ul>
-<li>Definition</li>
-<li>Bedeutung in der Statistik</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Varianz-Kovarianz-Matrix in R</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">nrow=</span><span class="dv">4</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          [,1]      [,2]      [,3]
-[1,] 1.0000000 0.6454972 0.2886751
-[2,] 0.6454972 1.0000000 0.8944272
-[3,] 0.2886751 0.8944272 1.0000000</code></pre>
-</div>
-</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

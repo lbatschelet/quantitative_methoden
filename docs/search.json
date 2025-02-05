@@ -344,7 +344,7 @@
     "href": "deskriptive-statistik.html#kreuztabelle-kontingenztafel",
     "title": "6  Deskriptive Statistik",
     "section": "6.5 Kreuztabelle / Kontingenztafel",
-    "text": "6.5 Kreuztabelle / Kontingenztafel\n\nFür nominale Daten\nOrdinale und metrische Daten können in nominale Daten transformiert werden (z.b. Grenzüberschreitung ja/nein)\n\nBeispiel:\nEs werden 2000 Personen darüber befragt, ob sie Produkt A oder B bevorzugen. Das Ergebnis wird nach Geschlecht des Befragten ausgewertet.\n\n\n\nProdukt / Geschlecht\nMännlich\nWeiblich\nSumme\n\n\n\n\nA\n660\n440\n1100\n\n\nB\n340\n560\n900\n\n\nSumme\n1000\n1000\n2000\n\n\n\n\n6.5.1 Freiheitsgrade\n\nAnzahl Beobachtungen abzüglich Anzahl geschätzter Parameter.\nBeispiel: Standardabweichung aus Stichprobe mit \\(n\\) Beobachtungen\n\n\\[\ns = \\sqrt{\\frac{1}{n-1} \\sum_{i=1}^{n} (x_i - \\bar{x})^2}\n\\]\n\nDer Mittelwert wurde bereits aus den Beobachtungen geschätzt. Wenn man den Mittwelwert und alle Beobachtungen ausser der letzten kennt (\\(n-1\\)) dann kann man diese berechnen, es besteht also keine “Freiheit” mehr.\n\n\n# Population erstellen\npopulation &lt;- rnorm(100000, mean = 0, sd = 10)\npopulation_sd &lt;- sqrt(sum((population - mean(population))^2) / length(population))\n\n# Viele Stichproben ziehen, aber mit kleinerer Stichprobengröße\nn_samples &lt;- 1000\nsample_size &lt;- 10  # kleinere Stichprobengröße\nmean_sd_n &lt;- 0\nmean_sd_n_minus_1 &lt;- 0\n\nfor(i in 1:n_samples) {\n    sample_data &lt;- sample(population, sample_size)\n    mean_sd_n &lt;- mean_sd_n + sqrt(sum((sample_data - mean(sample_data))^2) / sample_size)\n    mean_sd_n_minus_1 &lt;- mean_sd_n_minus_1 + sqrt(sum((sample_data - mean(sample_data))^2) / (sample_size-1))\n}\n\nmean_sd_n &lt;- mean_sd_n / n_samples\nmean_sd_n_minus_1 &lt;- mean_sd_n_minus_1 / n_samples\n\n# Prozentuale Abweichungen berechnen\nbias_n &lt;- (mean_sd_n - population_sd) / population_sd * 100\nbias_n_minus_1 &lt;- (mean_sd_n_minus_1 - population_sd) / population_sd * 100\n\n\nWahre Standardabweichung der Population: 10.01\nDurchschnittliche Schätzung mit n: 9.24 (Abweichung: -7.67%)\nDurchschnittliche Schätzung mit n-1: 9.74 (Abweichung: -2.68%)\n\nDer Effekt der Freiheitsgrade ist besonders bei kleinen Stichproben bedeutsam. Bei einer Stichprobengröße von n=10 führt die Berechnung mit n zu einer systematischen Unterschätzung von etwa 7%, während die Korrektur mit n-1 die Unterschätzung auf etwa 2% reduziert. Bei größeren Stichproben wird dieser Unterschied kleiner, da ein einzelner Freiheitsgrad weniger ins Gewicht fällt (bei n=100 macht ein Freiheitsgrad nur noch 1% aus, bei n=10 sind es 10%).",
+    "text": "6.5 Kreuztabelle / Kontingenztafel\n\nFür nominale Daten\nOrdinale und metrische Daten können in nominale Daten transformiert werden (z.b. Grenzüberschreitung ja/nein)\n\nBeispiel:\nEs werden 2000 Personen darüber befragt, ob sie Produkt A oder B bevorzugen. Das Ergebnis wird nach Geschlecht des Befragten ausgewertet.\n\n\n\nProdukt / Geschlecht\nMännlich\nWeiblich\nSumme\n\n\n\n\nA\n660\n440\n1100\n\n\nB\n340\n560\n900\n\n\nSumme\n1000\n1000\n2000\n\n\n\n\n6.5.1 Freiheitsgrade\n\nAnzahl Beobachtungen abzüglich Anzahl geschätzter Parameter.\nBeispiel: Standardabweichung aus Stichprobe mit \\(n\\) Beobachtungen\n\n\\[\ns = \\sqrt{\\frac{1}{n-1} \\sum_{i=1}^{n} (x_i - \\bar{x})^2}\n\\]\n\nDer Mittelwert wurde bereits aus den Beobachtungen geschätzt. Wenn man den Mittwelwert und alle Beobachtungen ausser der letzten kennt (\\(n-1\\)) dann kann man diese berechnen, es besteht also keine “Freiheit” mehr.\n\n\n# Population erstellen\npopulation &lt;- rnorm(100000, mean = 0, sd = 10)\npopulation_sd &lt;- sqrt(sum((population - mean(population))^2) / length(population))\n\n# Viele Stichproben ziehen, aber mit kleinerer Stichprobengröße\nn_samples &lt;- 1000\nsample_size &lt;- 10  # kleinere Stichprobengröße\nmean_sd_n &lt;- 0\nmean_sd_n_minus_1 &lt;- 0\n\nfor(i in 1:n_samples) {\n    sample_data &lt;- sample(population, sample_size)\n    mean_sd_n &lt;- mean_sd_n + sqrt(sum((sample_data - mean(sample_data))^2) / sample_size)\n    mean_sd_n_minus_1 &lt;- mean_sd_n_minus_1 + sqrt(sum((sample_data - mean(sample_data))^2) / (sample_size-1))\n}\n\nmean_sd_n &lt;- mean_sd_n / n_samples\nmean_sd_n_minus_1 &lt;- mean_sd_n_minus_1 / n_samples\n\n# Prozentuale Abweichungen berechnen\nbias_n &lt;- (mean_sd_n - population_sd) / population_sd * 100\nbias_n_minus_1 &lt;- (mean_sd_n_minus_1 - population_sd) / population_sd * 100\n\n\nWahre Standardabweichung der Population: 9.94\nDurchschnittliche Schätzung mit n: 9.21 (Abweichung: -7.38%)\nDurchschnittliche Schätzung mit n-1: 9.71 (Abweichung: -2.37%)\n\nDer Effekt der Freiheitsgrade ist besonders bei kleinen Stichproben bedeutsam. Bei einer Stichprobengröße von n=10 führt die Berechnung mit n zu einer systematischen Unterschätzung von etwa 7%, während die Korrektur mit n-1 die Unterschätzung auf etwa 2% reduziert. Bei größeren Stichproben wird dieser Unterschied kleiner, da ein einzelner Freiheitsgrad weniger ins Gewicht fällt (bei n=100 macht ein Freiheitsgrad nur noch 1% aus, bei n=10 sind es 10%).",
     "crumbs": [
       "Statistische Datenanalyse",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Deskriptive Statistik</span>"
@@ -483,28 +483,6 @@
     ]
   },
   {
-    "objectID": "korrelation.html#hypothesentests-für-korrelationen",
-    "href": "korrelation.html#hypothesentests-für-korrelationen",
-    "title": "9  Korrelation",
-    "section": "9.4 Hypothesentests für Korrelationen",
-    "text": "9.4 Hypothesentests für Korrelationen\n\n9.4.1 Null- und Alternativhypothese\n\nH0: Kein Zusammenhang (r = 0)\nHA: Es besteht ein Zusammenhang (r ≠ 0)\n\n\n\n9.4.2 t-Test für den Korrelationskoeffizienten\n\nTeststatistik und Berechnung\nSignifikanzbewertung\n\n\n\n9.4.3 Beispiel in R\n\n# Test auf Signifikanz der Korrelation\ncor.test(x, y, method = \"pearson\")\n\n\n    Pearson's product-moment correlation\n\ndata:  x and y\nt = -0.79113, df = 98, p-value = 0.4308\nalternative hypothesis: true correlation is not equal to 0\n95 percent confidence interval:\n -0.2718274  0.1186115\nsample estimates:\n        cor \n-0.07966258",
-    "crumbs": [
-      "Statistische Datenanalyse",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Korrelation</span>"
-    ]
-  },
-  {
-    "objectID": "korrelation.html#besondere-themen",
-    "href": "korrelation.html#besondere-themen",
-    "title": "9  Korrelation",
-    "section": "9.5 Besondere Themen",
-    "text": "9.5 Besondere Themen\n\n9.5.1 Korrelation von Zeitreihen\n\nDefinition von Autokorrelation\nEinfluss von Trends und Saisonalität\n\n\n\n9.5.2 Varianz-Kovarianz-Matrix\n\nDefinition\nBedeutung in der Statistik\n\n\n# Varianz-Kovarianz-Matrix in R\nA &lt;- matrix(c(2,3,1,-1,1,1,0,4,2,-1,0,0), nrow=4, byrow=TRUE)\ncor(A)\n\n          [,1]      [,2]      [,3]\n[1,] 1.0000000 0.6454972 0.2886751\n[2,] 0.6454972 1.0000000 0.8944272\n[3,] 0.2886751 0.8944272 1.0000000",
-    "crumbs": [
-      "Statistische Datenanalyse",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Korrelation</span>"
-    ]
-  },
-  {
     "objectID": "regression.html",
     "href": "regression.html",
     "title": "10  Regression",
@@ -542,131 +520,340 @@
     "href": "regression.html#multiple-regression-1",
     "title": "10  Regression",
     "section": "10.3 Multiple Regression",
-    "text": "10.3 Multiple Regression\nIn der einfachen linearen Regression versuchen wir, den Zusammenhang zwischen einer abhängigen Variable \\(Y\\) und einem Prädiktor \\(X_1\\) zu modellieren. Doch was passiert, wenn \\(Y\\) nicht vollständig durch \\(X_1\\) alleine erklärt werden kann?\nStellen wir uns vor, wir haben Daten, bei denen wir vermuten, dass \\(X_1\\) einen Einfluss auf \\(Y\\) hat. Wir beginnen mit einer einfachen linearen Regression:\n\n\nCode\nset.seed(42)\n# Daten simulieren\nn &lt;- 100\nX1 &lt;- rnorm(n, mean = 10, sd = 2)\nX2 &lt;- rnorm(n, mean = 5, sd = 1.5)\nY &lt;- 3 * X1 + 2 * X2 + rnorm(n, sd = 3)\n\n# Einfache lineare Regression Y ~ X1\nmodel_X1 &lt;- lm(Y ~ X1)\n\n# Plot\nplot(X1, Y, pch = 19, col = rgb(105/255, 89/255, 205/255, alpha = 0.5), \n     xlab = \"X1\", ylab = \"Y\")\nabline(model_X1, col = \"red\", lwd = 2)\n\n\n\n\n\nErste Regression: Y in Abhängigkeit von X1\n\n\n\n\nWir erkennen, dass \\(X_1\\) einen deutlichen Einfluss auf \\(Y\\) hat. Doch die Vorhersagen des Modells sind nicht perfekt – es bleiben Residuen übrig, also Abweichungen zwischen den tatsächlichen Werten von \\(Y\\) und den durch das Modell prognostizierten Werten.\nDiese Residuen sind nicht einfach nur zufälliges Rauschen. Sie könnten Hinweise darauf liefern, dass noch weitere Faktoren im Spiel sind, die wir bisher nicht berücksichtigt haben.\nUm das zu überprüfen, untersuchen wir, ob ein weiterer Prädiktor \\(X_2\\) möglicherweise einen Teil dieser unerklärten Varianz in \\(Y\\) aufklären kann. Dazu betrachten wir die Residuen der ersten Regression und analysieren, ob sie mit \\(X_2\\) zusammenhängen:\n\n\nCode\n# Berechne die Residuen der ersten Regression\nresiduals_X1 &lt;- resid(model_X1)\n\n# Regression der Residuen auf X2\nmodel_resid_X2 &lt;- lm(residuals_X1 ~ X2)\n\n# Plot\nplot(X2, residuals_X1, pch = 19, col = rgb(105/255, 89/255, 205/255, alpha = 0.5), \n     xlab = \"X2\", ylab = \"Residuen von Y ~ X1\")\nabline(model_resid_X2, col = \"orange\", lwd = 2)\n\n\n\n\n\nZweite Regression: Residuen von Y ~ X1 in Abhängigkeit von X2\n\n\n\n\nWir sehen, dass die Residuen tatsächlich einen Zusammenhang mit \\(X_2\\) aufweisen. Das bedeutet, dass \\(X_2\\) Varianz in \\(Y\\) erklärt, die nicht durch \\(X_1\\) erfasst wurde.\nMan könnte diesen Prozess theoretisch weiterführen: Nachdem wir den Einfluss von \\(X_2\\) modelliert haben, könnten wir die neuen Residuen betrachten und versuchen, diese durch einen weiteren Prädiktor \\(X_3\\) zu erklären. Und so weiter.\nDieses schrittweise Vorgehen wirft jedoch ein Problem auf: Was passiert, wenn \\(X_1\\), \\(X_2\\), …, \\(X_k\\) miteinander korrelieren?\n\nIn diesem Fall ist es schwierig, die individuellen Effekte der einzelnen Prädiktoren zu isolieren.\nDer Einfluss von \\(X_2\\) könnte bereits teilweise in der ersten Regression durch \\(X_1\\) berücksichtigt worden sein – und umgekehrt.\nDurch das schrittweise Vorgehen riskieren wir, Doppelerklärungen oder verzerrte Effekte zu erhalten.\n\nWir brauchen einen Ansatz, der es uns ermöglicht, den Einfluss mehrerer Prädiktoren gleichzeitig zu berücksichtigen.\n\n\n\n\n\n\nBeispiel\n\n\n\n\n\nWir versuchen, den Abfluss eines Gebirgsbachs zu modellieren.\n\n\\(Y\\): Abfluss\n\\(X_1\\): Schneeschmelze\n\\(X_2\\): Niederschlag\n\nWenn wir den Abfluss \\(Y\\) zunächst in Abhängigkeit von der Schneeschmelze \\(X_1\\) modellieren, stellen wir fest, dass ein Teil der Varianz von \\(Y\\) nicht erklärt wird. Wir vermuten, dass der Niederschlag \\(X_2\\) einen zusätzlichen Einfluss haben könnte. Also modellieren wir die Residuen aus der ersten Regression in Abhängigkeit von \\(X_2\\).\nDoch hier entsteht ein Problem: Schneeschmelze und Niederschlag sind oft korreliert. Nach starken Niederschlägen folgt häufig eine beschleunigte Schneeschmelze. Wenn wir \\(X_2\\) nur auf die Residuen von \\(X_1\\) anwenden, übersehen wir möglicherweise den gemeinsamen Einfluss beider Faktoren.\nDas führt zu verzerrten Ergebnissen, da der Niederschlag sowohl einen direkten Einfluss auf den Abfluss hat als auch indirekt über die Schneeschmelze wirkt.\n\n\n\nBemerkung: Wenn die Prädiktoren nicht korrelieren, ist die Regression der Residuen mit weiteren Variablen möglich.\n\n10.3.1 Ansatz\n\nMinimierung der Summe der quadrierten Residuen:\n\n\\[\n\\sum_{i=1}^{n} (Y_i - \\widehat{\\beta_0} - \\widehat{\\beta_1} X_{1i} - \\widehat{\\beta_2} X_{2i} - \\ldots - \\widehat{\\beta_k} X_{ki})^2 \\quad \\rightarrow \\quad \\text{minimal}\n\\]\n\nDafür müssen die partiellen Ableitungen nach allen \\(\\beta_j\\) gleich null gesetzt werden\nKoeffizienten der multiplen Regression werden auch “partielle Regressionskoeffizienten” genannt\n\n\\[\n\\widehat{Y_i} = \\widehat{\\beta_0} + \\widehat{\\beta_1} X_{1i} + \\widehat{\\beta_2} X_{2i} + \\ldots + \\widehat{\\beta_k} X_{ki}\n\\]\noder in Matrixnotation:\n\\[\n\\widehat{Y} = X \\widehat{\\beta} \\quad \\text{mit} \\quad \\widehat{Y} = \\begin{bmatrix} \\widehat{Y_1} \\\\ \\widehat{Y_2} \\\\ \\vdots \\\\ \\widehat{Y_n} \\end{bmatrix}, \\quad \\widehat{\\beta} = \\begin{bmatrix} \\widehat{\\beta_0} \\\\ \\widehat{\\beta_1} \\\\ \\vdots \\\\ \\widehat{\\beta_k} \\end{bmatrix} \\quad \\text{und} \\quad X = \\begin{bmatrix} 1 & X_{11} & X_{21} & \\ldots & X_{k1} \\\\ 1 & X_{12} & X_{22} & \\ldots & X_{k2} \\\\ \\vdots & \\vdots & \\vdots & \\ddots & \\vdots \\\\ 1 & X_{1n} & X_{2n} & \\ldots & X_{kn} \\end{bmatrix}\n\\]\n\n\n10.3.2 Beispiel: Anzahl der Kinder in Abhängigkeit von Ausbildung und Einkommen\nWir haben Daten über 20 Personen, bei denen wir die Anzahl der Kinder, die Ausbildung und das Einkommen erfasst haben. Wir gehen davon aus, dass die Anzahl der Kinder abhängig ist von der Ausbildung und dem Einkommen. Ebenfalls gehen wir davon aus, dass die Ausbildung und das Einkommen miteinander korrelieren.\n\n\nCode\nlibrary(knitr)\n# Daten definieren\nPerson &lt;- 1:20\nKinder &lt;- c(2, 5, 1, 9, 6, 3, 0, 3, 7, 7, 2, 5, 1, 9, 6, 3, 0, 3, 7, 14)\nAusbildung &lt;- c(12, 16, 20, 12, 9, 18, 16, 14, 9, 12, 12, 10, 20, 11, 9, 18, 16, 14, 9, 8)\nEinkommen &lt;- c(30, 40, 90, 50, 40, 120, 100, 10, 40, 30, 100, 40, 90, 40, 40, 120, 100, 60, 40, 10)\n\n# DataFrame erstellen\nanzahlKinderDaten &lt;- data.frame(Person, Kinder, Ausbildung, Einkommen)\n\n# DataFrame anzeigen\nkable(anzahlKinderDaten)\n\n\n\nDaten für das Beispiel\n\n\nPerson\nKinder\nAusbildung\nEinkommen\n\n\n\n\n1\n2\n12\n30\n\n\n2\n5\n16\n40\n\n\n3\n1\n20\n90\n\n\n4\n9\n12\n50\n\n\n5\n6\n9\n40\n\n\n6\n3\n18\n120\n\n\n7\n0\n16\n100\n\n\n8\n3\n14\n10\n\n\n9\n7\n9\n40\n\n\n10\n7\n12\n30\n\n\n11\n2\n12\n100\n\n\n12\n5\n10\n40\n\n\n13\n1\n20\n90\n\n\n14\n9\n11\n40\n\n\n15\n6\n9\n40\n\n\n16\n3\n18\n120\n\n\n17\n0\n16\n100\n\n\n18\n3\n14\n60\n\n\n19\n7\n9\n40\n\n\n20\n14\n8\n10\n\n\n\n\n\nWir formulieren:\n\\[\n\\widehat{Y_i} = \\widehat{\\beta_0} + \\widehat{\\beta_1} X_{1} + \\widehat{\\beta_2} X_{2}\n\\]\n\n\\(\\widehat{Y_i}\\): Vorhergesagte Anzahl der Kinder\n\\(\\widehat{\\beta_0}\\): Achsenabschnitt\n\\(\\widehat{\\beta_1}\\): Regressionskoeffizient für Ausbildung\n\\(\\widehat{\\beta_2}\\): Regressionskoeffizient für Einkommen\n\nWir führen eine multiple Regression durch:\n\nregressionsmodell &lt;- lm(Kinder ~ Ausbildung + Einkommen, data = anzahlKinderDaten)\n\nund erhalten:\n\n\\(\\widehat{\\beta_0}\\) = 12.519\n\\(\\widehat{\\beta_1}\\) = -0.457\n\\(\\widehat{\\beta_2}\\) = -0.031\n\nDaraus ergibt sich die Regressionsgleichung:\n\nCode\ncat(\"$$\",\n    \"Y = \", round(coef(regressionsmodell)[1], 3), \" + \", round(coef(regressionsmodell)[2], 3), \" \\\\cdot X_1 + \", round(coef(regressionsmodell)[3], 3), \" \\\\cdot X_2\",\n    \"$$\")\n\n\\[ Y =  12.519  +  -0.457  \\cdot X_1 +  -0.031  \\cdot X_2 \\]\nDaraus ergibt sich:\n\n\n\n\n\n\n\n\nAusbildung\nEinkommen\nAnzahl der Kinder\n\n\n\n\n\\(0\\)\n\\(0\\)\n\\(\\approx 12.52\\)\n\n\n\\(10\\)\n\\(0\\)\n\\(\\approx 7.95\\)\n\n\n\\(10\\)\n\\(100\\)\n\\(\\approx 4.9\\)\n\n\n\\(20\\)\n\\(200\\)\n\\(\\approx -2.72\\)\n\n\n\n\n\n\n\n\n\nInterpretation\n\n\n\n\n\nUm die Güte der Schätzung zu beurteilen, rufen wir die summary() Funktion auf:\n\nsummary(regressionsmodell)\n\n\nCall:\nlm(formula = Kinder ~ Ausbildung + Einkommen, data = anzahlKinderDaten)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-4.1217 -1.7934 -0.1865  1.3497  5.4407 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 12.51855    2.17100   5.766 2.28e-05 ***\nAusbildung  -0.45674    0.21658  -2.109   0.0501 .  \nEinkommen   -0.03053    0.02372  -1.287   0.2152    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 2.523 on 17 degrees of freedom\nMultiple R-squared:  0.5502,    Adjusted R-squared:  0.4973 \nF-statistic:  10.4 on 2 and 17 DF,  p-value: 0.001124\n\n\n\n\n\n\n\n10.3.3 Multiples Bestimmtheitsmass\nDas multiple Bestimmtheitsmass \\(R^2\\) (Gleichung 10.1) ist ein Mass für die Güte der Anpassung des Regressionsmodells. Es gibt an, wie viel Varianz der abhängigen Variablen durch die unabhängigen Variablen erklärt wird.\n\\[\nR^2 = 1 - \\frac{\\text{Residualsumme}}{\\text{Gesamtvariation}}\n\\]\n\n\\(R^2 = 1\\), wenn alle Punkte auf der Regressions-Hyperebene liegen\n\\(R^2 = 0\\), wenn das Modell keinerlei Erklärung für die Variation von Y liefert.\nBei multipler Regression nimmt \\(R^2\\) mit der Anzahl der unabhängigen Variablen zu. Deshalb nutzt man das angepasste Bestimmtheitsmass \\(R^2_{adj}\\)\n\n\\[\nR^2_{adj} = \\left(R^2 - \\frac{m}{n-1}\\right) \\cdot \\left(\\frac{n-1}{n-m-1}\\right) = 1 - (1 - R^2) \\cdot \\left(\\frac{n-1}{n-m-1}\\right)\n\\]\n\n\\(m\\) ist die Anzahl der unabhängigen Variablen\n\\(n\\) ist die Anzahl der Beobachtungen\nDas angepasste Bestimmtheitsmass \\(R^2_{adj}\\) ist immer kleiner als \\(R^2\\) und nimmt mit zunehmender Anzahl Variablen ab, falls diese nichts zur Erklärung der Varianz beitragen.\n\n\n\n10.3.4 F-Test\nDer F-Test ist ein Hypothesentest, der die Güte des Regressionsmodells als Ganzes überprüft.\n\\[\nF = \\frac{\\frac{R^2}{k}}{\\frac{1-R^2}{n-(k+1)}} = \\frac{\\text{erklärte Varianz}}{\\text{unerklärte Varianz}}\n\\]\n\n\\(R^2\\) ist das multiple Bestimmtheitsmass\n\\(k\\) ist die Anzahl der unabhängigen Variablen\n\\(n\\) ist die Anzahl der Beobachtungen\n\nDer F-Wert sagt, ob das Modell besser ist als einfach die Annahme des Mittelwerts von \\(Y\\) zu nehmen. D.h. ob\n\\[\nH_0 : R^2 = 0\n\\]\nabgelehnt werden kann.\n\n\n10.3.5 Anwendungsbedingungen\n\nLinearität\nNormalverteilung der Residuen\nVarianzhomogenität\nKeine oder wenige Ausreisser\n\n\n# Perfekte synthetische Daten generieren\nset.seed(42)\nn &lt;- 100\nX1 &lt;- rnorm(n, mean = 10, sd = 2)\nX2 &lt;- rnorm(n, mean = 5, sd = 1.5)\n\n# Perfekte lineare Beziehung mit normalverteiltem Fehlerterm\nY &lt;- 3 * X1 + 2 * X2 + rnorm(n, mean = 0, sd = 3)\n\n# Lineares Regressionsmodell\nperfektes_modell &lt;- lm(Y ~ X1 + X2)\n\n# Diagnostische Plots\npar(mfrow = c(2, 2), mar = c(4, 4, 2, 1))  # Layout für 4 Plots\nplot(perfektes_modell)\n\n\n\n\nLinearität",
+    "text": "10.3 Multiple Regression\nIn der einfachen linearen Regression versuchen wir, den Zusammenhang zwischen einer abhängigen Variable \\(Y\\) und einem Prädiktor \\(X_1\\) zu modellieren. Doch was passiert, wenn \\(Y\\) nicht vollständig durch \\(X_1\\) alleine erklärt werden kann?\nStellen wir uns vor, wir haben Daten, bei denen wir vermuten, dass \\(X_1\\) einen Einfluss auf \\(Y\\) hat. Wir beginnen mit einer einfachen linearen Regression:\n\n\nCode\nset.seed(42)\n# Daten simulieren\nn &lt;- 100\nX1 &lt;- rnorm(n, mean = 10, sd = 2)\nX2 &lt;- rnorm(n, mean = 5, sd = 1.5)\nY &lt;- 3 * X1 + 2 * X2 + rnorm(n, sd = 3)\n\n# Einfache lineare Regression Y ~ X1\nmodel_X1 &lt;- lm(Y ~ X1)\n\n# Plot\nplot(X1, Y, pch = 19, col = rgb(105/255, 89/255, 205/255, alpha = 0.5), \n     xlab = \"X1\", ylab = \"Y\")\nabline(model_X1, col = \"red\", lwd = 2)\n\n\n\n\n\nErste Regression: Y in Abhängigkeit von X1\n\n\n\n\nWir erkennen, dass \\(X_1\\) einen deutlichen Einfluss auf \\(Y\\) hat. Doch die Vorhersagen des Modells sind nicht perfekt – es bleiben Residuen übrig, also Abweichungen zwischen den tatsächlichen Werten von \\(Y\\) und den durch das Modell prognostizierten Werten.\nDiese Residuen sind nicht einfach nur zufälliges Rauschen. Sie könnten Hinweise darauf liefern, dass noch weitere Faktoren im Spiel sind, die wir bisher nicht berücksichtigt haben.\nUm das zu überprüfen, untersuchen wir, ob ein weiterer Prädiktor \\(X_2\\) möglicherweise einen Teil dieser unerklärten Varianz in \\(Y\\) aufklären kann. Dazu betrachten wir die Residuen der ersten Regression und analysieren, ob sie mit \\(X_2\\) zusammenhängen:\n\n\nCode\n# Berechne die Residuen der ersten Regression\nresiduals_X1 &lt;- resid(model_X1)\n\n# Regression der Residuen auf X2\nmodel_resid_X2 &lt;- lm(residuals_X1 ~ X2)\n\n# Plot\nplot(X2, residuals_X1, pch = 19, col = rgb(105/255, 89/255, 205/255, alpha = 0.5), \n     xlab = \"X2\", ylab = \"Residuen von Y ~ X1\")\nabline(model_resid_X2, col = \"orange\", lwd = 2)\n\n\n\n\n\nZweite Regression: Residuen von Y ~ X1 in Abhängigkeit von X2\n\n\n\n\nWir sehen, dass die Residuen tatsächlich einen Zusammenhang mit \\(X_2\\) aufweisen. Das bedeutet, dass \\(X_2\\) Varianz in \\(Y\\) erklärt, die nicht durch \\(X_1\\) erfasst wurde.\nMan könnte diesen Prozess theoretisch weiterführen: Nachdem wir den Einfluss von \\(X_2\\) modelliert haben, könnten wir die neuen Residuen betrachten und versuchen, diese durch einen weiteren Prädiktor \\(X_3\\) zu erklären. Und so weiter.\nDieses schrittweise Vorgehen wirft jedoch ein Problem auf: Was passiert, wenn \\(X_1\\), \\(X_2\\), …, \\(X_k\\) miteinander korrelieren?\n\nIn diesem Fall ist es schwierig, die individuellen Effekte der einzelnen Prädiktoren zu isolieren.\nDer Einfluss von \\(X_2\\) könnte bereits teilweise in der ersten Regression durch \\(X_1\\) berücksichtigt worden sein – und umgekehrt.\nDurch das schrittweise Vorgehen riskieren wir, Doppelerklärungen oder verzerrte Effekte zu erhalten.\n\nWir brauchen einen Ansatz, der es uns ermöglicht, den Einfluss mehrerer Prädiktoren gleichzeitig zu berücksichtigen.\n\n\n\n\n\n\nBeispiel\n\n\n\n\n\nWir versuchen, den Abfluss eines Gebirgsbachs zu modellieren.\n\n\\(Y\\): Abfluss\n\\(X_1\\): Schneeschmelze\n\\(X_2\\): Niederschlag\n\nWenn wir den Abfluss \\(Y\\) zunächst in Abhängigkeit von der Schneeschmelze \\(X_1\\) modellieren, stellen wir fest, dass ein Teil der Varianz von \\(Y\\) nicht erklärt wird. Wir vermuten, dass der Niederschlag \\(X_2\\) einen zusätzlichen Einfluss haben könnte. Also modellieren wir die Residuen aus der ersten Regression in Abhängigkeit von \\(X_2\\).\nDoch hier entsteht ein Problem: Schneeschmelze und Niederschlag sind oft korreliert. Nach starken Niederschlägen folgt häufig eine beschleunigte Schneeschmelze. Wenn wir \\(X_2\\) nur auf die Residuen von \\(X_1\\) anwenden, übersehen wir möglicherweise den gemeinsamen Einfluss beider Faktoren.\nDas führt zu verzerrten Ergebnissen, da der Niederschlag sowohl einen direkten Einfluss auf den Abfluss hat als auch indirekt über die Schneeschmelze wirkt.\n\n\n\nBemerkung: Wenn die Prädiktoren nicht korrelieren, ist die Regression der Residuen mit weiteren Variablen möglich.\n\n10.3.1 Ansatz\n\nMinimierung der Summe der quadrierten Residuen:\n\n\\[\n\\sum_{i=1}^{n} (Y_i - \\widehat{\\beta_0} - \\widehat{\\beta_1} X_{1i} - \\widehat{\\beta_2} X_{2i} - \\ldots - \\widehat{\\beta_k} X_{ki})^2 \\quad \\rightarrow \\quad \\text{minimal}\n\\]\n\nDafür müssen die partiellen Ableitungen nach allen \\(\\beta_j\\) gleich null gesetzt werden\nKoeffizienten der multiplen Regression werden auch “partielle Regressionskoeffizienten” genannt\n\n\\[\n\\widehat{Y_i} = \\widehat{\\beta_0} + \\widehat{\\beta_1} X_{1i} + \\widehat{\\beta_2} X_{2i} + \\ldots + \\widehat{\\beta_k} X_{ki}\n\\]\noder in Matrixnotation:\n\\[\n\\widehat{Y} = X \\widehat{\\beta} \\quad \\text{mit} \\quad \\widehat{Y} = \\begin{bmatrix} \\widehat{Y_1} \\\\ \\widehat{Y_2} \\\\ \\vdots \\\\ \\widehat{Y_n} \\end{bmatrix}, \\quad \\widehat{\\beta} = \\begin{bmatrix} \\widehat{\\beta_0} \\\\ \\widehat{\\beta_1} \\\\ \\vdots \\\\ \\widehat{\\beta_k} \\end{bmatrix} \\quad \\text{und} \\quad X = \\begin{bmatrix} 1 & X_{11} & X_{21} & \\ldots & X_{k1} \\\\ 1 & X_{12} & X_{22} & \\ldots & X_{k2} \\\\ \\vdots & \\vdots & \\vdots & \\ddots & \\vdots \\\\ 1 & X_{1n} & X_{2n} & \\ldots & X_{kn} \\end{bmatrix}\n\\]\n\n\n10.3.2 Beispiel: Anzahl der Kinder in Abhängigkeit von Ausbildung und Einkommen\nWir haben Daten über 20 Personen, bei denen wir die Anzahl der Kinder, die Ausbildung und das Einkommen erfasst haben. Wir gehen davon aus, dass die Anzahl der Kinder abhängig ist von der Ausbildung und dem Einkommen. Ebenfalls gehen wir davon aus, dass die Ausbildung und das Einkommen miteinander korrelieren.\n\n\nCode\nlibrary(knitr)\n# Daten definieren\nPerson &lt;- 1:20\nKinder &lt;- c(2, 5, 1, 9, 6, 3, 0, 3, 7, 7, 2, 5, 1, 9, 6, 3, 0, 3, 7, 14)\nAusbildung &lt;- c(12, 16, 20, 12, 9, 18, 16, 14, 9, 12, 12, 10, 20, 11, 9, 18, 16, 14, 9, 8)\nEinkommen &lt;- c(30, 40, 90, 50, 40, 120, 100, 10, 40, 30, 100, 40, 90, 40, 40, 120, 100, 60, 40, 10)\n\n# DataFrame erstellen\nanzahlKinderDaten &lt;- data.frame(Person, Kinder, Ausbildung, Einkommen)\n\n# DataFrame anzeigen\nkable(anzahlKinderDaten)\n\n\n\nDaten für das Beispiel\n\n\nPerson\nKinder\nAusbildung\nEinkommen\n\n\n\n\n1\n2\n12\n30\n\n\n2\n5\n16\n40\n\n\n3\n1\n20\n90\n\n\n4\n9\n12\n50\n\n\n5\n6\n9\n40\n\n\n6\n3\n18\n120\n\n\n7\n0\n16\n100\n\n\n8\n3\n14\n10\n\n\n9\n7\n9\n40\n\n\n10\n7\n12\n30\n\n\n11\n2\n12\n100\n\n\n12\n5\n10\n40\n\n\n13\n1\n20\n90\n\n\n14\n9\n11\n40\n\n\n15\n6\n9\n40\n\n\n16\n3\n18\n120\n\n\n17\n0\n16\n100\n\n\n18\n3\n14\n60\n\n\n19\n7\n9\n40\n\n\n20\n14\n8\n10\n\n\n\n\n\nWir formulieren:\n\\[\n\\widehat{Y_i} = \\widehat{\\beta_0} + \\widehat{\\beta_1} X_{1} + \\widehat{\\beta_2} X_{2}\n\\]\n\n\\(\\widehat{Y_i}\\): Vorhergesagte Anzahl der Kinder\n\\(\\widehat{\\beta_0}\\): Achsenabschnitt\n\\(\\widehat{\\beta_1}\\): Regressionskoeffizient für Ausbildung\n\\(\\widehat{\\beta_2}\\): Regressionskoeffizient für Einkommen\n\nWir führen eine multiple Regression durch:\n\nregressionsmodell &lt;- lm(Kinder ~ Ausbildung + Einkommen, data = anzahlKinderDaten)\n\nund erhalten:\n\n\\(\\widehat{\\beta_0}\\) = 12.519\n\\(\\widehat{\\beta_1}\\) = -0.457\n\\(\\widehat{\\beta_2}\\) = -0.031\n\nDaraus ergibt sich die Regressionsgleichung:\n\nCode\ncat(\"$$\",\n    \"Y = \", round(coef(regressionsmodell)[1], 3), \" + \", round(coef(regressionsmodell)[2], 3), \" \\\\cdot X_1 + \", round(coef(regressionsmodell)[3], 3), \" \\\\cdot X_2\",\n    \"$$\")\n\n\\[ Y =  12.519  +  -0.457  \\cdot X_1 +  -0.031  \\cdot X_2 \\]\nDaraus ergibt sich:\n\n\n\n\n\n\n\n\nAusbildung\nEinkommen\nAnzahl der Kinder\n\n\n\n\n\\(0\\)\n\\(0\\)\n\\(\\approx 12.52\\)\n\n\n\\(10\\)\n\\(0\\)\n\\(\\approx 7.95\\)\n\n\n\\(10\\)\n\\(100\\)\n\\(\\approx 4.9\\)\n\n\n\\(20\\)\n\\(200\\)\n\\(\\approx -2.72\\)\n\n\n\n\n\n\n\n\n\nInterpretation\n\n\n\n\n\nUm die Güte der Schätzung zu beurteilen, rufen wir die summary() Funktion auf:\n\nsummary(regressionsmodell)\n\n\nCall:\nlm(formula = Kinder ~ Ausbildung + Einkommen, data = anzahlKinderDaten)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-4.1217 -1.7934 -0.1865  1.3497  5.4407 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 12.51855    2.17100   5.766 2.28e-05 ***\nAusbildung  -0.45674    0.21658  -2.109   0.0501 .  \nEinkommen   -0.03053    0.02372  -1.287   0.2152    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 2.523 on 17 degrees of freedom\nMultiple R-squared:  0.5502,    Adjusted R-squared:  0.4973 \nF-statistic:  10.4 on 2 and 17 DF,  p-value: 0.001124\n\n\n\n\n\n\n\n10.3.3 Multiples Bestimmtheitsmass\nDas multiple Bestimmtheitsmass \\(R^2\\) (Gleichung 10.1) ist ein Mass für die Güte der Anpassung des Regressionsmodells. Es gibt an, wie viel Varianz der abhängigen Variablen durch die unabhängigen Variablen erklärt wird.\n\\[\nR^2 = 1 - \\frac{\\text{Residualsumme}}{\\text{Gesamtvariation}}\n\\]\n\n\\(R^2 = 1\\), wenn alle Punkte auf der Regressions-Hyperebene liegen\n\\(R^2 = 0\\), wenn das Modell keinerlei Erklärung für die Variation von Y liefert.\nBei multipler Regression nimmt \\(R^2\\) mit der Anzahl der unabhängigen Variablen zu. Deshalb nutzt man das angepasste Bestimmtheitsmass \\(R^2_{adj}\\)\n\n\\[\nR^2_{adj} = \\left(R^2 - \\frac{m}{n-1}\\right) \\cdot \\left(\\frac{n-1}{n-m-1}\\right) = 1 - (1 - R^2) \\cdot \\left(\\frac{n-1}{n-m-1}\\right)\n\\]\n\n\\(m\\) ist die Anzahl der unabhängigen Variablen\n\\(n\\) ist die Anzahl der Beobachtungen\nDas angepasste Bestimmtheitsmass \\(R^2_{adj}\\) ist immer kleiner als \\(R^2\\) und nimmt mit zunehmender Anzahl Variablen ab, falls diese nichts zur Erklärung der Varianz beitragen.\n\n\n\n10.3.4 F-Test\nDer F-Test ist ein Hypothesentest, der die Güte des Regressionsmodells als Ganzes überprüft.\n\\[\nF = \\frac{\\frac{R^2}{k}}{\\frac{1-R^2}{n-(k+1)}} = \\frac{\\text{erklärte Varianz}}{\\text{unerklärte Varianz}}\n\\]\n\n\\(R^2\\) ist das multiple Bestimmtheitsmass\n\\(k\\) ist die Anzahl der unabhängigen Variablen\n\\(n\\) ist die Anzahl der Beobachtungen\n\nDer F-Wert sagt, ob das Modell besser ist als einfach die Annahme des Mittelwerts von \\(Y\\) zu nehmen. D.h. ob\n\\[\nH_0 : R^2 = 0\n\\]\nabgelehnt werden kann.\n\n\n10.3.5 Anwendungsbedingungen\nIn der linearen Regression ist es ein häufiger Irrtum, dass die Prädiktorvariablen (\\(X\\)) oder die abhängige Variable (\\(Y\\)) normalverteilt sein müssen. Das ist nicht der Fall – die Regression funktioniert auch mit nicht-normalverteilten Variablen.\nWas jedoch für bestimmte statistische Tests wichtig ist, ist die Normalverteilung der Residuen (\\(\\varepsilon\\)). Diese Voraussetzung gilt insbesondere für:\n\nt-Tests: Überprüfen, ob ein Regressionskoeffizient (\\(\\beta\\)) signifikant von null verschieden ist, also ob ein Prädiktor einen echten Einfluss auf \\(Y\\) hat.\n\nF-Tests: Prüfen, ob das gesamte Regressionsmodell eine signifikante Vorhersagekraft besitzt.\n\nDiese Tests liefern einen p-Wert, der angibt, wie wahrscheinlich ein beobachteter Effekt zufällig entstanden ist (Signifikanzbewertung).\nDamit die Normalverteilung der Residuen überhaupt sinnvoll geprüft werden kann, müssen zwei wichtige Voraussetzungen erfüllt sein:\n\nLinearität: Der Zusammenhang zwischen den Prädiktoren (\\(X\\)) und der abhängigen Variable (\\(Y\\)) sollte linear sein.\n\nHomoskedastizität: Die Varianz der Residuen sollte über alle Werte von \\(X\\) hinweg konstant sein (keine Trichterform in den Residuenplots).\n\nOhne diese Bedingungen ist die Verteilung der Residuen verzerrt, was zu fehlerhaften Testergebnissen führt.\n\n10.3.5.1 Optimale Residuendiagnostik mit geeigneten Daten\n\nCode\nlibrary(ggplot2)\n\n# Synthetische Daten perfekt simulieren\nn &lt;- 500\nX1 &lt;- rnorm(n, mean = 10, sd = 2)    # Normalverteilte Prädiktoren\nX2 &lt;- rnorm(n, mean = 5, sd = 1.5)\n\nX1 &lt;- scale(X1, center = TRUE, scale = FALSE)\nX2 &lt;- scale(X2, center = TRUE, scale = FALSE)\n\n# Perfekte lineare Beziehung\n# Fehler sind normalverteilt mit konstanter Varianz\nerrors &lt;- rnorm(n, mean = 0, sd = 1)  # Normalverteilte Residuen\n\n# Lineares Modell\nY &lt;- 3 * X1 + 2 * X2 + errors\n\n# Lineares Regressionsmodell\nperfektes_modell &lt;- lm(Y ~ X1 + X2)\n\n# Diagnostische Plots\ndot_color &lt;- rgb(0, 0, 1, 0.5)\nggplot(perfektes_modell, col = dot_color, pch = 19)\n\n\n\n\n\n\n\nLinearität: Die Residuen streuen zufällig um die Nulllinie. Kein systematisches Muster erkennbar – ein Hinweis auf eine lineare Beziehung.\n\n\n\n\n\n\n\n10.3.5.2 Negative Residuendiagnostik mit schlechten Daten\n\nCode\nset.seed(123)\n\n# Nicht-Linearität\nn &lt;- 500\nX_nl &lt;- rnorm(n, mean = 0, sd = 1)\nY_nl &lt;- 2 * X_nl^2 + rnorm(n, 0, 1)\nmodell_nl &lt;- lm(Y_nl ~ X_nl)  # Falsch spezifiziert (linear)\n\n# Nicht-normalverteilte Residuen\nX_nn &lt;- rnorm(n)\nY_nn &lt;- 3 * X_nn + rexp(n, rate = 1)  # Exponentiell verteilte Fehler\nmodell_nn &lt;- lm(Y_nn ~ X_nn)\n\n# Heteroskedastizität\nX_het &lt;- rnorm(n)\nY_het &lt;- 4 * X_het + rnorm(n, 0, sd = abs(X_het) * 2)\nmodell_het &lt;- lm(Y_het ~ X_het)\n\n# Ausreisser\nX_out &lt;- rnorm(n)\nY_out &lt;- 5 * X_out + rnorm(n, 0, 1)\nY_out[c(50, 100)] &lt;- Y_out[c(50, 100)] + 20  # Ausreisser hinzufügen\nmodell_out &lt;- lm(Y_out ~ X_out)\n\n# Diagnostische Plots (jeweils der relevante)\nplot(modell_nl, which = 1, col = dot_color, pch = 19)   # Nicht-Linearität: Residuals vs Fitted\nplot(modell_nn, which = 2, col = dot_color, pch = 19)   # Nicht-normalverteilte Residuen: Q-Q-Plot\nplot(modell_het, which = 3, col = dot_color, pch = 19)  # Heteroskedastizität: Scale-Location\nplot(modell_out, which = 5, col = dot_color, pch = 19)  # Ausreisser: Residuals vs Leverage\n\n\n\n\n\n\n\nNicht-Linearität: Die Residuen zeigen ein gebogenes Muster. Dies deutet darauf hin, dass das Modell die wahre Beziehung nicht korrekt abbildet.\n\n\n\n\n\n\n\nNicht-Normalverteilte Residuen: Im Q-Q-Plot weichen die Punkte deutlich von der Diagonalen ab. Dies deutet auf eine Verletzung der Normalverteilungsannahme hin.\n\n\n\n\n\n\n\n\n\nHeteroskedastizität: Im Scale-Location-Plot ist ein trichterförmiges Muster zu erkennen. Dies weist auf eine zunehmende Varianz der Residuen hin.\n\n\n\n\n\n\n\nAusreisser: Im Residuals vs Leverage-Plot sind Punkte mit hoher Cook’s Distance sichtbar. Sie haben einen starken Einfluss auf das Modell.\n\n\n\n\n\n\n\n10.3.5.3 Heteroskedastizität\nHeteroskedastizität beschreibt die Tatsache, dass die Varianz der Residuen nicht konstant ist. Das bedeutet, dass die Residuen nicht gleichmässig um den Mittelwert streuen, sondern eine zunehmende oder abnehmende Varianz aufweisen.\nUrsachen dafür können sein:\n\nMessfehler werden über die Zeit kleiner\nBefragungen vor und nach dem Lernprozess\nVerhalten ist abhängig vom Einkommen, so dass reichere Personen mehr Wahlmöglichkeiten haben als ärmere\nBei aggregierten Werten sind Klassen mit kleinem \\(n\\) unsicherer und streuen mehr als Klassen mit grossem \\(n\\)\n\nTests:\n\nZerlegung der Daten und Vergleich von Subsets (z.B. Zeitperioden)\nGoldfeld-Quandt-Test (univariate Regression)\nWhite-Test (multiple Regression)\n\nBehandlung:\n\nMethode der gewichteten kleinsten Quadrate. Werte bekommen dort weniger Gewicht, wo die Streuung gross ist.\n\n\n\n10.3.5.4 (Multi-)Kollinearität\nKollinearität beschreibt die Tatsache, dass zwei oder mehrere Prädiktoren in einem Regressionsmodell stark miteinander korrelieren.\n\nDie unabhängigen Variablen dürfen untereinander nicht perfekt korrelieren (\\(i \\neq j: \\text{corr}(X_i, X_j) = 1\\)) d.h. es darf keine Linearkombination anderer unabhängiger Variablen sein.\nMatrix ist sonst nicht invertierbar.\n\nFolgen:\n\nSchätzungen der Regressionsparameter sind unzuverlässig\nStandardfehler der Regressionskoeffizienten sind gross\nt-Werte sind klein\n\nAnzeichen:\n\nResultate werden stark vom Weglassen einer Beobachtung beeinflusst\nVorzeichen der Regressionskoeffizienten ist anders als erwartet\nHohe Korrelationen der unabhängigen Variablen (\\(&gt; |0.8|\\)) deuten auf mögliche Kollinearität hin\nVarianzinflationsfaktor (VIF) misst die Abhängigkeit der Varianz des geschätzten Regressionskoeffizienten aufgrund der Korrelation zwischen unabhängigen Variablen. VIF-Werte \\(&gt; 10\\) gelten als kritisch.\n\nvif()\n\n\nBehandlung:\n\nWeglassen von korrelierenden Prädiktoren\nNeue Prädiktoren finden\nHauptkomponentenanalyse (PCA): Reduktion der Dimensionalität der Daten durch PCA, um unkorrelierte Hauptkomponenten zu erhalten.\n\n\n\n\n10.3.6 Modellvalidierung (Kreuzvalidierung)\nDie Kreuzvalidierung ist eine Methode zur Bewertung der Vorhersagegüte eines Regressionsmodells. Dabei wird der Datensatz in mehrere Teilmengen (sogenannte Folds) aufgeteilt. Das Modell wird wiederholt auf verschiedenen Kombinationen von Trainings- und Testdaten geschätzt, um zu überprüfen, wie gut es auf unbekannte Daten generalisiert.\n\n10.3.6.1 Vorgehensweise bei der K-Fold-Kreuzvalidierung:\n\nAufteilung der Daten: Der Datensatz wird in \\(k\\) gleich grosse Teilmengen (Folds) aufgeteilt.\n\nModelltraining: In jeder der \\(k\\) Iterationen wird das Modell mit \\((k-1)\\) Folds trainiert.\n\nModelltest: Der verbliebene Fold dient als Testdatensatz zur Bewertung des Modells.\n\nErgebnissynthese: Die Gütekriterien (z.B. mittlerer quadratischer Fehler (MSE), \\(R^2\\)) werden über alle Iterationen gemittelt.\n\nDiese Methode liefert eine robustere Schätzung der Modellgüte als eine einfache Trainings-Test-Aufteilung.\n\n\n\n\n\n\nBeispiel einer Multiplen Regression\n\n\n\n\n\nIn diesem Beispiel verwenden wir den Datensatz mtcars, um ein multiples lineares Regressionsmodell zu erstellen. Unser Ziel ist es, den Benzinverbrauch (mpg) von Fahrzeugen basierend auf mehreren Einflussgrößen vorherzusagen.\n\nDatensatz und Ziel\n\nDatensatz: mtcars mit 32 Fahrzeugen\n\nZielvariable: mpg (Miles per Gallon, Benzinverbrauch)\n\nPrädiktoren:\n\nwt (Gewicht des Fahrzeugs in 1000 Pfund)\n\nhp (Motorleistung in PS)\n\ncyl (Anzahl Zylinder)\n\n\nWir möchten überprüfen, wie gut diese Variablen den Benzinverbrauch gemeinsam vorhersagen.\n\n\nDurchführung der 5-Fold-Kreuzvalidierung\nFür die 5-Fold-Kreuzvalidierung wird der Datensatz in 5 gleich große Teilmengen (Folds) aufgeteilt. In jeder der 5 Iterationen wird das Modell mit 4 Folds trainiert und mit dem verbleibenden Fold getestet. Die Gütekriterien werden über alle Iterationen gemittelt.\n\n# Daten und benötigte Pakete laden\ndata(mtcars)\nlibrary(caret)\n\n# Kreuzvalidierung mit 5 Folds\n1cv_control &lt;- trainControl(method = \"cv\", number = 5)\n\n# Training des multiplen Regressionsmodells mit Kreuzvalidierung\ncv_model &lt;- train(            \n2    mpg ~ wt + hp + cyl,\n3    data = mtcars,\n4    method = \"lm\",\n5    trControl = cv_control\n)\n\n# Ergebnisse anzeigen\ncv_model\n\n\n1\n\ncv_control: Definiert die Kreuzvalidierung mit 5 Folds.\n\n2\n\nmpg ~ wt + hp + cyl: Definiert die abhängige Variable (mpg) und die unabhängigen Variablen (wt, hp, cyl).\n\n3\n\ndata = mtcars: Definiert den Datensatz, der für das Modelltraining verwendet wird.\n\n4\n\nmethod = \"lm\": Definiert das Regressionsmodell als lineare Regression.\n\n5\n\ntrControl = cv_control: Definiert die Kreuzvalidierung mit 5 Folds.\n\n\n\n\n\n\nLinear Regression \n\n32 samples\n 3 predictor\n\nNo pre-processing\nResampling: Cross-Validated (5 fold) \nSummary of sample sizes: 24, 24, 28, 26, 26 \nResampling results:\n\n  RMSE      Rsquared   MAE     \n  2.536794  0.8652719  2.134368\n\nTuning parameter 'intercept' was held constant at a value of TRUE\n\n\n\n\nErgebnisse der Kreuzvalidierung\nNach der Durchführung der Kreuzvalidierung liefert das Modell folgende Kennwerte:\n\nRMSE (Root Mean Squared Error): 2.537\nDer RMSE misst den durchschnittlichen quadratischen Fehler der Vorhersagen. Ein niedriger Wert deutet auf eine gute Modellanpassung hin.\n\\(R^2\\) (Bestimmtheitsmaß): 0.865\nDer \\(R^2\\)-Wert zeigt, wie viel der Varianz von mpg durch die Prädiktoren wt, hp und cyl erklärt werden kann. Werte nahe 1 deuten auf eine hohe Erklärungskraft des Modells hin.\nMAE (Mean Absolute Error): 2.134\nDer MAE misst den durchschnittlichen absoluten Vorhersagefehler. Im Gegensatz zum RMSE ist er weniger empfindlich gegenüber Ausreißern.\n\n\n\nInterpretation der Ergebnisse\nDas Modell zeigt folgende Leistungswerte:\n\nVorhersagegenauigkeit (RMSE): Der RMSE beträgt 2.537.\n\nEin RMSE &lt; 3 deutet auf eine gute Anpassung des Modells hin.\n\nWerte &gt; 5 würden auf eine ungenügende Modellanpassung hindeuten.\n\nIn diesem Fall ist der Wert zufriedenstellend.\n\nErklärte Varianz (\\(R^2\\)): Der \\(R^2\\)-Wert beträgt 0.865.\n\nEin \\(R^2\\) &gt; 0.7 gilt als sehr gut, da mehr als 70 % der Varianz von mpg durch die Prädiktoren erklärt wird.\n\nEin Wert &lt; 0.5 würde darauf hindeuten, dass das Modell wichtige Prädiktoren vermissen könnte.\n\nHier zeigt der Wert eine starke Erklärungskraft.\n\nDurchschnittlicher Fehler (MAE): Der MAE beträgt 2.134.\n\nEin MAE &lt; 3 deutet darauf hin, dass die durchschnittlichen Vorhersagefehler gering sind.\n\nWerte &gt; 5 könnten auf systematische Fehler im Modell hinweisen.\n\nIn unserem Fall ist der Fehler akzeptabel.\n\n\n\n\nFazit\nDas multiple Regressionsmodell erklärt einen großen Anteil der Varianz von mpg und liefert eine präzise Vorhersage. Die Kreuzvalidierung zeigt, dass das Modell auch bei unbekannten Daten stabile Ergebnisse liefert. Eventuelle Optimierungen könnten durch die Einbeziehung weiterer Prädiktoren oder Interaktionsterme erreicht werden.",
     "crumbs": [
       "Statistische Datenanalyse",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Regression</span>"
     ]
   },
   {
-    "objectID": "glossar.html",
-    "href": "glossar.html",
-    "title": "11  Glossar",
+    "objectID": "clusteranalyse.html",
+    "href": "clusteranalyse.html",
+    "title": "12  Clusteranalyse",
     "section": "",
-    "text": "11.1 Mittelwert \\(\\bar{x}\\) oder \\(\\mu\\)",
+    "text": "12.1 Schwellenwertanalyse\nEine Clusteranalyse klassifiziert Bezugs/Raumeinheiten auf der Grundlage von Ähnlichkeitsmassen (z.B. Klimatypen, Stadttypen, etc.).\nEine einfachste Methode zur Klassifizierung ist die Schwellenwertanalyse. Diese erfordert theoretische oder empirische Kenntnisse über die zu klassifizierenden Objekte und nutzt subjektie Schwellenwerte.",
     "crumbs": [
       "Statistische Datenanalyse",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Glossar</span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Clusteranalyse</span>"
+    ]
+  },
+  {
+    "objectID": "clusteranalyse.html#k-means-clustering",
+    "href": "clusteranalyse.html#k-means-clustering",
+    "title": "12  Clusteranalyse",
+    "section": "12.2 k-Means-Clustering",
+    "text": "12.2 k-Means-Clustering\n\nInitialisierung: \\(k\\) Clusterzentren auf \\(k\\) zufällige, aber unterschiedliche Positionen im \\(p\\)-dimensionalen Raum setzen, möglichst so dass die Abstände zwischen initialen Clusterzentren maximal sind. Jedem Clusterzentrum wird eine eindeutige Klassennummer (1 bis \\(k\\)) zugewiesen.\nKlassifizierung: Finde für jeden Datenpunkt das nächste Clusterzentrum und weise dem Datenpunkt die Klassennummer dieses Clusterzentrums zu.\nClusterzentren berechnen: Berechne die Position der Clusterzentren neu, in dem alle Datenpunkte die zu einer bestimmten Klasse gehören gemittelt werden.\nIteration: Wiederholung ab Schritt 2, bis die Klassifizierung stabil ist\n\n\n\nCode\nlibrary(ggplot2)\n\n# Synthetische Daten erzeugen\nset.seed(123)\nn &lt;- 150\ndata_kmeans &lt;- data.frame(\n  x = c(rnorm(n, mean = 2), rnorm(n, mean = 6), rnorm(n, mean = 4)),\n  y = c(rnorm(n, mean = 3), rnorm(n, mean = 7), rnorm(n, mean = 5))\n)\n\n# K-Means Clustering\nkmeans_result &lt;- kmeans(data_kmeans, centers = 3)\ndata_kmeans$cluster &lt;- as.factor(kmeans_result$cluster)\n\n# Plot für K-Means Clustering\nggplot(data_kmeans, aes(x = x, y = y, color = cluster)) +\n  geom_point(size = 2, alpha = 0.7) +\n  geom_point(data = as.data.frame(kmeans_result$centers), \n             aes(x = x, y = y), \n             color = \"black\", \n             size = 4, \n             shape = 8) +  # Zentren als Sterne\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n\n\n\n\nK-Means-Clustering mit synthetischen Daten",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Clusteranalyse</span>"
+    ]
+  },
+  {
+    "objectID": "clusteranalyse.html#hierarchisches-clustering",
+    "href": "clusteranalyse.html#hierarchisches-clustering",
+    "title": "12  Clusteranalyse",
+    "section": "12.3 Hierarchisches Clustering",
+    "text": "12.3 Hierarchisches Clustering\n\n\nCode\nlibrary(ggdendro)\n\nn &lt;- 50\n\n# Synthetische Daten erzeugen\ndata_hclust &lt;- data.frame(\n  x = c(rnorm(n, mean = 1), rnorm(n, mean = 5), rnorm(n, mean = 3)),\n  y = c(rnorm(n, mean = 2), rnorm(n, mean = 6), rnorm(n, mean = 4))\n)\n\n# Hierarchisches Clustering\ndist_matrix &lt;- dist(data_hclust)\nhclust_result &lt;- hclust(dist_matrix)\n\n# Dendrogramm-Daten für ggplot\ndend_data &lt;- dendro_data(hclust_result, type = \"rectangle\")\n\n# Plot für das Dendrogramm\nggplot() +\n  geom_segment(data = dend_data$segments, \n               aes(x = x, y = y, xend = xend, yend = yend), \n               color = \"black\") +\n  theme_minimal() +\n  labs(title = \"Hierarchisches Clustering (Dendrogramm)\",\n       x = \"\", y = \"Distanz\") +\n  theme(axis.text.x = element_blank(),\n        axis.ticks.x = element_blank(),\n        panel.grid = element_blank())\n\n\n\n\n\nDendrogramm mit synthetischen Daten",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Clusteranalyse</span>"
+    ]
+  },
+  {
+    "objectID": "hauptkomponentenanalyse.html",
+    "href": "hauptkomponentenanalyse.html",
+    "title": "13  Hauptkomponentenanalyse",
+    "section": "",
+    "text": "13.1 Grundidee\nDie Hauptkomponentenanalyse (PCA) ist eine Methode der multivariaten Statistik, die zur Dimensionsreduktion von Datensätzen mit vielen Variablen eingesetzt wird. Ihr Ziel ist es, die Komplexität der Daten zu reduzieren, während möglichst viel der ursprünglichen Varianz erhalten bleibt. PCA wird in verschiedenen Bereichen wie der Datenanalyse, Mustererkennung und Visualisierung angewendet.\nDie PCA transformiert die Ausgangsdaten in ein neues Koordinatensystem, in dem die größte Varianz der Daten entlang der ersten Achse (der ersten Hauptkomponente) liegt. Die zweite Hauptkomponente erklärt die zweitgrößte Varianz und steht orthogonal zur ersten, und so weiter.\nWichtige Konzepte: - Varianz: Ein Maß für die Streuung der Daten. - Kovarianzmatrix: Beschreibt, wie stark zwei Variablen gemeinsam variieren. - Eigenwerte und Eigenvektoren: Eigenwerte geben an, wie viel Varianz von einer Komponente erklärt wird; Eigenvektoren definieren die Richtung dieser Varianz.",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Hauptkomponentenanalyse</span>"
+    ]
+  },
+  {
+    "objectID": "hauptkomponentenanalyse.html#mathematische-herleitung",
+    "href": "hauptkomponentenanalyse.html#mathematische-herleitung",
+    "title": "13  Hauptkomponentenanalyse",
+    "section": "13.2 Mathematische Herleitung",
+    "text": "13.2 Mathematische Herleitung\n\nStandardisierung der Daten:\n\nUm Variablen mit unterschiedlichen Einheiten vergleichbar zu machen, werden die Daten zentriert und skaliert.\n\nBerechnung der Kovarianzmatrix: \\[\n\\Sigma = \\frac{1}{n-1} X^T X\n\\]\nEigenwertzerlegung:\n\nLösung der Eigenwertgleichung: \\[\n\\Sigma v = \\lambda v\n\\] wobei \\(\\lambda\\) die Eigenwerte und \\(v\\) die Eigenvektoren sind.\n\nSortierung der Eigenwerte:\n\nDie Eigenwerte werden in absteigender Reihenfolge sortiert, die zugehörigen Eigenvektoren bilden die Hauptkomponenten.\n\nTransformation der Daten:\n\nProjektion der Daten in den neuen Raum: \\[\nZ = XW\n\\] wobei \\(W\\) die Matrix der Eigenvektoren ist.",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Hauptkomponentenanalyse</span>"
+    ]
+  },
+  {
+    "objectID": "hauptkomponentenanalyse.html#interpretation",
+    "href": "hauptkomponentenanalyse.html#interpretation",
+    "title": "13  Hauptkomponentenanalyse",
+    "section": "13.3 Interpretation",
+    "text": "13.3 Interpretation\n\nErklärte Varianz: Der Anteil der Gesamtvarianz, der von jeder Hauptkomponente erklärt wird.\nBiplots: Visualisieren die Projektion der Daten und die Lasten der Variablen auf den Hauptkomponenten.\n\n\nCode\n# Daten simulieren\nset.seed(123)\ndata &lt;- matrix(rnorm(100*5), ncol = 5)\ncolnames(data) &lt;- paste0(\"Var\", 1:5)\n\n# PCA durchführen\npca_result &lt;- prcomp(data, scale. = TRUE)\n\n# Zusammenfassung\nsummary(pca_result)\n# Scree-Plot\nplot(pca_result, type = \"l\")\n\n# Biplot\nbiplot(pca_result, scale = 0)\n\n\n\n\nImportance of components:\n                          PC1    PC2    PC3    PC4    PC5\nStandard deviation     1.1077 1.0610 1.0191 0.9468 0.8440\nProportion of Variance 0.2454 0.2251 0.2077 0.1793 0.1425\nCumulative Proportion  0.2454 0.4705 0.6783 0.8575 1.0000\n\n\n\n\n\nScree-Plot zeigt die Eigenwerte der Hauptkomponenten\n\n\n\n\n\n\n\n\n\nBiplot zeigt die Projektion der Daten und die Lasten der Variablen auf den Hauptkomponenten",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Hauptkomponentenanalyse</span>"
+    ]
+  },
+  {
+    "objectID": "hauptkomponentenanalyse.html#interpretation-der-pca-ergebnisse",
+    "href": "hauptkomponentenanalyse.html#interpretation-der-pca-ergebnisse",
+    "title": "13  Hauptkomponentenanalyse",
+    "section": "13.4 Interpretation der PCA-Ergebnisse",
+    "text": "13.4 Interpretation der PCA-Ergebnisse\n\nScree-Plot: Zeigt die Eigenwerte der Hauptkomponenten. Ein “Knick” im Plot deutet darauf hin, dass ab diesem Punkt weniger Varianz erklärt wird.\nBiplot: Zeigt sowohl die Beobachtungen als Punkte als auch die Variablen als Vektoren. Die Länge der Vektoren zeigt die Bedeutung der Variablen, und der Winkel zwischen ihnen die Korrelation.",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Hauptkomponentenanalyse</span>"
+    ]
+  },
+  {
+    "objectID": "hauptkomponentenanalyse.html#fazit",
+    "href": "hauptkomponentenanalyse.html#fazit",
+    "title": "13  Hauptkomponentenanalyse",
+    "section": "13.5 Fazit",
+    "text": "13.5 Fazit\nDie Hauptkomponentenanalyse ist ein leistungsfähiges Werkzeug zur Reduktion von Datenkomplexität. Sie hilft, Muster in den Daten zu identifizieren und zu visualisieren, sollte jedoch mit Vorsicht interpretiert werden, da die Hauptkomponenten nicht immer eine klare inhaltliche Bedeutung haben.",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Hauptkomponentenanalyse</span>"
+    ]
+  },
+  {
+    "objectID": "extremwertstatistik.html",
+    "href": "extremwertstatistik.html",
+    "title": "14  Extremwertstatistik",
+    "section": "",
+    "text": "14.1 Grundlagen der Extremwertstatistik\nExtremereignisse, wie starke Niederschläge, stellen eine bedeutende Herausforderung für Hochwasserschutz, Infrastrukturplanung und Klimarisikoanalysen dar. Die Extremwertstatistik liefert Methoden, um seltene, extreme Ereignisse zu quantifizieren. In diesem Kapitel betrachten wir zwei zentrale Ansätze:\nWir vergleichen beide Methoden hinsichtlich ihrer Annahmen, Stärken und Schwächen.",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Extremwertstatistik</span>"
+    ]
+  },
+  {
+    "objectID": "extremwertstatistik.html#grundlagen-der-extremwertstatistik",
+    "href": "extremwertstatistik.html#grundlagen-der-extremwertstatistik",
+    "title": "14  Extremwertstatistik",
+    "section": "",
+    "text": "Wiederkehrwert \\(X(T)\\): Der Wert, der im Durchschnitt alle \\(T\\) Jahre überschritten wird.\n\nWiederkehrperiode \\(T\\): Gibt an, wie selten ein Ereignis ist (z.B. ein 100-jähriges Ereignis wird im Mittel alle 100 Jahre überschritten).\n\nÜberschreitungswahrscheinlichkeit: \\(P = \\frac{1}{T}\\) pro Jahr.\n\n\n\n\n\n\n\nDatenaufbereitung\n\n\n\nWir verwenden tägliche Niederschlagsdaten, um Extremereignisse zu identifizieren.\n\nlibrary(dplyr)\ndata &lt;- read.csv(\"Data/meteodaten_tag.csv\", sep = \",\", na.strings = \"-\")\ndata$Datum &lt;- as.Date(paste(data$Jahr, data$Monat, data$Tag, sep = \"-\"))\n\n# Jahresmaxima für den Blockmaxima-Ansatz\njahres_maxima &lt;- data %&gt;%\n  group_by(Jahr) %&gt;%\n  summarise(MaxNiederschlag = max(Niederschlag.mm.Tag., na.rm = TRUE))\n\n# Schwellenwert für den POT-Ansatz (95. Perzentil)\nthreshold &lt;- quantile(data$Niederschlag.mm.Tag., 0.95, na.rm = TRUE)\nextreme_events &lt;- data %&gt;%\n  filter(Niederschlag.mm.Tag. &gt; threshold) %&gt;%\n  pull(Niederschlag.mm.Tag.)  # Extrahiert nur die Niederschlagswerte als Vektor\n\nDatenüberblick\n\nMaximaler Tagesniederschlag in der Zeitreihe: 64.2 mm/Tag\n\n95%-Schwellenwert für Extremereignisse: 15.54 mm/Tag",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Extremwertstatistik</span>"
+    ]
+  },
+  {
+    "objectID": "extremwertstatistik.html#blockmaxima-ansatz-gev-verteilung",
+    "href": "extremwertstatistik.html#blockmaxima-ansatz-gev-verteilung",
+    "title": "14  Extremwertstatistik",
+    "section": "14.2 Blockmaxima-Ansatz (GEV-Verteilung)",
+    "text": "14.2 Blockmaxima-Ansatz (GEV-Verteilung)\nDer Blockmaxima-Ansatz betrachtet den höchsten Wert in festgelegten Zeitblöcken (hier: jährlich). Diese Maxima werden mit der Generalized Extreme Value (GEV)-Verteilung modelliert.\n\\[\n\\operatorname{GEV}(x ; \\mu, \\sigma, \\xi)=\\exp \\left\\{-\\left[1+\\xi\\left(\\frac{x-\\mu}{\\sigma}\\right)\\right]^{-1 / \\xi}\\right\\}\n\\]\n\n\\(\\mu\\) ist der Lageparameter\n\\(\\sigma\\) ist der Skalenparameter\n\\(\\xi\\) ist der Formparameter\n\n\\(\\xi = 0\\) entspricht der Gumbel-Verteilung und die Verteilung ist unbeschränkt\n\\(\\xi &gt; 0\\) entspricht der Fréchet-Verteilung und die Verteilung ist nach unten beschränkt\n\\(\\xi &lt; 0\\) entspricht der Weibull-Verteilung und die Verteilung ist nach oben beschränkt\n\n\n\nlibrary(extRemes)\ngev_fit &lt;- fevd(jahres_maxima$MaxNiederschlag, type = \"GEV\")\nsummary(gev_fit)\n\n\n\n\nfevd(x = jahres_maxima$MaxNiederschlag, type = \"GEV\")\n\n[1] \"Estimation Method used: MLE\"\n\n\n Negative Log-Likelihood Value:  50.47947 \n\n\n Estimated parameters:\n  location      scale      shape \n44.1527070 14.4947231 -0.6719294 \n\n Standard Error Estimates:\n location     scale     shape \n4.8703829 4.9359710 0.4169397 \n\n Estimated parameter covariance matrix.\n           location      scale      shape\nlocation 23.7206294  0.2456008 -1.1427263\nscale     0.2456008 24.3638095 -1.6521606\nshape    -1.1427263 -1.6521606  0.1738387\n\n AIC = 106.9589 \n\n BIC = 108.6538 \n\n\n\n14.2.1 Parameter der GEV-Verteilung:\n\nLageparameter (\\(\\mu\\)): 44.15 mm/Tag\n\nSkalenparameter (\\(\\sigma\\)): 14.49 mm/Tag\n\nFormparameter (\\(\\xi\\)): -0.672 also Weibull-Verteilt und nach oben beschränkt\n\n\n\n14.2.2 Berechnung von Wiederkehrwerten (GEV)\n\ngev_return_levels &lt;- return.level(gev_fit, c(100, 1000))\ngev_return_levels\n\nfevd(x = jahres_maxima$MaxNiederschlag, type = \"GEV\")\nget(paste(\"return.level.fevd.\", newcl, sep = \"\"))(x = x, return.period = return.period)\n\n GEV model fitted to  jahres_maxima$MaxNiederschlag  \nData are assumed to be  stationary \n[1] \"Return Levels for period units in years\"\n 100-year level 1000-year level \n       64.74390        65.51642 \n\n\n\n100-jähriges Ereignis: 64.74 mm/Tag\n\n1000-jähriges Ereignis: 65.52 mm/Tag\n\nWenn wir diese Werte mit dem höchsten Wert aus unserer Zeitreihe (64.2 mm/Tag) vergleichen, sehen wir, dass die GEV-Verteilung grosse Probleme mit nur so wenigen Datenpunkten (unsere Zeitreihe ist nur 13 Jahre lang, die Methode berechnet also die Wiederkehrwerte mit nur 13 Datenpunkten) hat.",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Extremwertstatistik</span>"
+    ]
+  },
+  {
+    "objectID": "extremwertstatistik.html#peaks-over-threshold-pot-ansatz-gpd",
+    "href": "extremwertstatistik.html#peaks-over-threshold-pot-ansatz-gpd",
+    "title": "14  Extremwertstatistik",
+    "section": "14.3 Peaks-over-Threshold (POT-Ansatz, GPD)",
+    "text": "14.3 Peaks-over-Threshold (POT-Ansatz, GPD)\nEinen Ansatz um bei kurzen Zeitreihen die Wiederkehrwerte zu berechnen, ist der POT-Ansatz. Hier wird die Verteilung der Extremwerte oberhalb eines Schwellenwerts betrachtet. Das setzt voraus, dass die Extremwerte unabhängig voneinander sind und erfordert theoretisches Grundlagenwissen um den Schwellenwert subjektiv zu bestimmen.\nDer POT-Ansatz betrachtet alle Werte, die einen definierten Schwellenwert überschreiten (hier das 95. Perzentil). Diese Extremwerte werden mit der Generalized Pareto Distribution (GPD) modelliert.\n\npot_fit &lt;- fevd(extreme_events, \n                threshold = threshold,\n                type = \"GP\")\nsummary(pot_fit)\npot_params &lt;- pot_fit$results$par\n\n\n\n\nfevd(x = extreme_events, threshold = threshold, type = \"GP\")\n\n[1] \"Estimation Method used: MLE\"\n\n\n Negative Log-Likelihood Value:  739.7819 \n\n\n Estimated parameters:\n     scale      shape \n8.68543965 0.04087106 \n\n Standard Error Estimates:\n     scale      shape \n0.85257220 0.07289508 \n\n Estimated parameter covariance matrix.\n            scale        shape\nscale  0.72687936 -0.044552840\nshape -0.04455284  0.005313693\n\n AIC = 1483.564 \n\n BIC = 1490.449 \n\n\n\n14.3.1 Parameter der GPD:\n\nSchwellenwert: 15.54 mm/Tag\n\nSkalenparameter (\\(\\sigma\\)): 8.69 mm/Tag\n\nFormparameter (\\(\\xi\\)): 0.041\n\n\n\n14.3.2 Berechnung von Wiederkehrwerten (POT)\n\npot_return_levels &lt;- return.level(pot_fit, c(100, 1000))\npot_return_levels\n\nfevd(x = extreme_events, threshold = threshold, type = \"GP\")\nget(paste(\"return.level.fevd.\", newcl, sep = \"\"))(x = x, return.period = return.period)\n\n GP model fitted to  extreme_events  \nData are assumed to be  stationary \n[1] \"Return Levels for period units in years\"\n 100-year level 1000-year level \n       129.5096        161.7263 \n\n\n\n100-jähriges Ereignis (POT): 129.51 mm/Tag\n\n1000-jähriges Ereignis (POT): 161.73 mm/Tag\n\nZur Erinnerung: der höchste Wert in unserer Zeitreihe war 64.2 mm/Tag. Das liefert uns also eine komplett andere Schätzung für die Wiederkehrwerte.",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Extremwertstatistik</span>"
+    ]
+  },
+  {
+    "objectID": "extremwertstatistik.html#visualisierung-der-wiederkehrwerte",
+    "href": "extremwertstatistik.html#visualisierung-der-wiederkehrwerte",
+    "title": "14  Extremwertstatistik",
+    "section": "14.4 Visualisierung der Wiederkehrwerte",
+    "text": "14.4 Visualisierung der Wiederkehrwerte\n\n\nCode\nlibrary(ggplot2)\n\n# 1. Definition des Bereichs für die Wiederkehrperioden\nreturn_periods &lt;- seq(2, 1000, length.out = 500)\n\n# 2. Berechnung der Wiederkehrwerte für beide Modelle\ngev_return_levels_full &lt;- return.level(gev_fit, return.period = return_periods)\npot_return_levels_full &lt;- return.level(pot_fit, return.period = return_periods)\n\n# 3. Berechnung der Konfidenzintervalle\ngev_ci &lt;- ci(gev_fit, return.period = return_periods)\npot_ci &lt;- ci(pot_fit, return.period = return_periods)\n\n# 4. Daten für den Plot zusammenfassen\nplot_data &lt;- data.frame(\n  ReturnPeriod = rep(return_periods, 2),\n  ReturnLevel = c(gev_return_levels_full, pot_return_levels_full),\n  LowerCI = c(gev_ci[, \"95% lower CI\"], pot_ci[, \"95% lower CI\"]),\n  UpperCI = c(gev_ci[, \"95% upper CI\"], pot_ci[, \"95% upper CI\"]),\n  Methode = rep(c(\"GEV (Blockmaxima)\", \"GPD (POT)\"), each = length(return_periods))\n)\n\n# 5. Plot erstellen\nggplot(plot_data, aes(x = ReturnPeriod, y = ReturnLevel, color = Methode, fill = Methode)) +\n  geom_ribbon(aes(ymin = LowerCI, ymax = UpperCI), alpha = 0.2, linetype = 0) +  # Unsicherheitsbereich\n  geom_line(linewidth = 1) +                                                    # Verteilungsfunktion\n  geom_point(data = plot_data %&gt;% filter(ReturnPeriod %in% c(100, 1000)),        # Markierung für 100- und 1000-jähriges Ereignis\n             aes(x = ReturnPeriod, y = ReturnLevel),\n             size = 3, shape = 21, fill = \"white\") +\n  scale_x_log10(breaks = c(2, 5, 10, 20, 50, 100, 200, 500, 1000)) +             # Log-Skala\n  labs(\n    title = \"Vergleich der Wiederkehrwerte mit Konfidenzintervallen\",\n    x = \"Wiederkehrperiode (Jahre, log-Skala)\",\n    y = \"Niederschlag (mm/Tag)\"\n  ) +\n  theme_minimal() +\n  theme(legend.position = \"bottom\")",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Extremwertstatistik</span>"
+    ]
+  },
+  {
+    "objectID": "extremwertstatistik.html#direkter-vergleich-der-methoden",
+    "href": "extremwertstatistik.html#direkter-vergleich-der-methoden",
+    "title": "14  Extremwertstatistik",
+    "section": "14.5 Direkter Vergleich der Methoden",
+    "text": "14.5 Direkter Vergleich der Methoden\n\nvergleich &lt;- data.frame(\n  Methode = c(\"GEV (Blockmaxima)\", \"GPD (POT)\"),\n  `100-jährig (mm)` = c(gev_return_levels[1], pot_return_levels[1]),\n  `1000-jährig (mm)` = c(gev_return_levels[2], pot_return_levels[2])\n)\nvergleich\n\n            Methode X100.jährig..mm. X1000.jährig..mm.\n1 GEV (Blockmaxima)          64.7439          65.51642\n2         GPD (POT)         129.5096         161.72632\n\n\n\n14.5.1 Interpretation:\n\nGEV (Blockmaxima): Nutzt nur ein Extremereignis pro Jahr.\n\nGPD (POT): Berücksichtigt alle extremen Ereignisse oberhalb der Schwelle → häufig realistischere Werte bei kurzen Zeitreihen.\n\n\n\n14.5.2 Vorteile des Blockmaxima-Ansatzes (GEV):\n\nEinfach zu berechnen und zu interpretieren.\n\nRobuster bei langen Zeitreihen.\n\n\n\n14.5.3 Nachteile des Blockmaxima-Ansatzes (GEV):\n\nViele extreme Ereignisse werden nicht berücksichtigt.\n\nWenige Datenpunkte führen zu hoher Unsicherheit.\n\n\n\n14.5.4 Vorteile des POT-Ansatzes (GPD):\n\nNutzt mehr Extremwerte → bessere statistische Basis.\n\nFlexibler bei kurzen Zeitreihen.\n\n\n\n14.5.5 Nachteile des POT-Ansatzes (GPD):\n\nWahl des Schwellenwerts ist kritisch.\n\nAbhängigkeiten zwischen Extremereignissen müssen beachtet werden.\n\nBeide Methoden haben ihre Berechtigung:\n\nBlockmaxima (GEV) ist geeignet für lange Zeitreihen mit stabilen Extremwerten.\n\nPOT (GPD) liefert bei kurzen Datensätzen oft realistischere Ergebnisse.",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Extremwertstatistik</span>"
+    ]
+  },
+  {
+    "objectID": "fallen-der-statistik.html",
+    "href": "fallen-der-statistik.html",
+    "title": "16  Fallen der Statistik",
+    "section": "",
+    "text": "16.1 p-Werte",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Fallen der Statistik</span>"
+    ]
+  },
+  {
+    "objectID": "fallen-der-statistik.html#p-werte",
+    "href": "fallen-der-statistik.html#p-werte",
+    "title": "16  Fallen der Statistik",
+    "section": "",
+    "text": "“The effect of the drug on blood pressure was statistically significant (p = 0.02)”\n\n\nEin p-Wert von &lt; 0.05 bedeutet die Ablehnung der Nullhypothese\nDie Nullhypothese sagt normalerweise, dass es keine Korrelation oder einen Unterschied zwischen A und B gibt\nABER:\n\n“It is foolish to ask ‘Are the effects of A and B different?’ They are always different for some decimal place”\nWir sind nicht wirklich an “statistischer Signifikanz” interessiert, sondern an physikalisch oder sozial signifikanten Effekten.\nAber wie gross war der Effekt",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Fallen der Statistik</span>"
+    ]
+  },
+  {
+    "objectID": "fallen-der-statistik.html#simpsons-paradoxon",
+    "href": "fallen-der-statistik.html#simpsons-paradoxon",
+    "title": "16  Fallen der Statistik",
+    "section": "16.2 Simpsons Paradoxon",
+    "text": "16.2 Simpsons Paradoxon\n\nUnaufgesplittete Daten aus einer Medikamentenstudie.\n\n\n\nControl\nTreatment\n\n\n\n\nAlive\n60\n200\n\n\nDead\n60\n200\n\n\nRate\n50%\n50%\n\n\n\nWenn wir diese Daten betrachten, sehen wir, dass das Medikament wirkungslos ist.\nWenn wir die Daten nach Geschlecht aufsplitten, sehen wir einen anderen Effekt:\n\nAufgesplittete Daten nur für Männer.\n\n\n\nControl\nTreatment\n\n\n\n\nAlive\n40\n80\n\n\nDead\n30\n50\n\n\nRate\n43%\n38%\n\n\n\nDas Medikament hat einen positiven Effekt. Was erwarten wir, wenn die Daten für Frauen betrachtet werden?\n\nAufgesplittete Daten nur für Frauen.\n\n\n\nControl\nTreatment\n\n\n\n\nAlive\n20\n120\n\n\nDead\n30\n150\n\n\nRate\n60%\n55%\n\n\n\nDas Medikament hat ebenfalls einen positiven Effekt. Wie kann das sein?\nEinzelpersonen der Gruppen bekommen ein unterschiedliches Gewicht in Prozent am Ausgang.",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Fallen der Statistik</span>"
+    ]
+  },
+  {
+    "objectID": "fallen-der-statistik.html#probleme-mit-seltenen-ereignissen",
+    "href": "fallen-der-statistik.html#probleme-mit-seltenen-ereignissen",
+    "title": "16  Fallen der Statistik",
+    "section": "16.3 Probleme mit seltenen Ereignissen",
+    "text": "16.3 Probleme mit seltenen Ereignissen\n\nUmfragen haben eine Tendenz, seltene Ereignisse zu unterschätzen",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Fallen der Statistik</span>"
+    ]
+  },
+  {
+    "objectID": "fallen-der-statistik.html#falsche-interpretation-wahrnehmung",
+    "href": "fallen-der-statistik.html#falsche-interpretation-wahrnehmung",
+    "title": "16  Fallen der Statistik",
+    "section": "16.4 Falsche Interpretation / Wahrnehmung",
+    "text": "16.4 Falsche Interpretation / Wahrnehmung\nWahrscheinlichkeit, dass mindestens zwei Personen am gleichen Tag Geburtstag haben nach Anzahl Personen.\n\n\nCode\nviewof numPeople = Inputs.range(\n  [2, 100], \n  { value: 23, step: 1, label: \"Anzahl Personen:\" }\n)\n\n\n\n\n\n\n\n\n\nCode\nfunction birthdayProbability(n) {\n  let prob = 1;\n  for (let i = 0; i &lt; n; i++) {\n    prob *= (365 - i) / 365;\n  }\n  return 1 - prob;\n}\n\n// Daten für den Plot generieren\ndata = Array.from({ length: 99 }, (_, i) =&gt; ({\n  numPeople: i + 2,\n  probability: birthdayProbability(i + 2)\n}));\n\n// Aktuelle Wahrscheinlichkeit berechnen\ncurrentProb = birthdayProbability(numPeople);\n\n// Plot erstellen\nPlot.plot({\n  marks: [\n    Plot.line(data, { x: \"numPeople\", y: \"probability\", stroke: \"blue\" }),\n    Plot.dot(\n      [{ numPeople, probability: currentProb }],\n      { x: \"numPeople\", y: \"probability\", fill: \"red\", r: 5 }\n    ),\n    // Textanzeige unten rechts\n    Plot.text(\n      [{ label: `Wahrscheinlichkeit: ${(currentProb * 100).toFixed(1)}%` }],\n      {\n        x: 60, \n        y: 0.5, \n        text: \"label\", \n        fill: \"black\", \n        dy: 10, \n        dx: 10,\n        fontSize: 14,\n        anchor: \"end\"\n      }\n    )\n  ],\n  x: { label: \"Anzahl Personen\", domain: [2, 100] },\n  y: { label: \"Wahrscheinlichkeit\", tickFormat: \"%\" },\n  width: 600,\n  height: 400\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBereits bei 23 Personen liegt die Wahrscheinlichkeit bei über 50 %, dass zwei Personen am gleichen Tag Geburtstag haben. Dies verdeutlicht, wie unsere Intuition bei Wahrscheinlichkeiten oft trügt.",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Fallen der Statistik</span>"
+    ]
+  },
+  {
+    "objectID": "glossar.html",
+    "href": "glossar.html",
+    "title": "17  Glossar",
+    "section": "",
+    "text": "17.1 Mittelwert \\(\\bar{x}\\) oder \\(\\mu\\)",
+    "crumbs": [
+      "Statistische Datenanalyse",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Glossar</span>"
     ]
   },
   {
     "objectID": "glossar.html#mittelwert-barx-oder-mu",
     "href": "glossar.html#mittelwert-barx-oder-mu",
-    "title": "11  Glossar",
+    "title": "17  Glossar",
     "section": "",
     "text": "Symbol: \\(\\bar{x}\\) (Stichprobe) oder \\(\\mu\\) (Population)\n\nBeschreibung: Der Mittelwert ist der Durchschnitt aller Werte in einer Stichprobe oder Population. Er gibt an, wo das Zentrum der Daten liegt.\nFormel:\n\\[\n\\bar{x} = \\frac{1}{n} \\sum_{i=1}^{n} x_i\n\\]\nAnwendung: Wird verwendet, um den typischen Wert in Datensätzen zu beschreiben, z.B. den durchschnittlichen Lohn in einer Population.\nR-Code:\n\n\nmean(x)",
     "crumbs": [
       "Statistische Datenanalyse",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Glossar</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Glossar</span>"
     ]
   },
   {
     "objectID": "glossar.html#median-x_0.5",
     "href": "glossar.html#median-x_0.5",
-    "title": "11  Glossar",
-    "section": "11.2 Median \\(x_{0.5}\\)",
-    "text": "11.2 Median \\(x_{0.5}\\)\n\nSymbol: \\(x_{0.5}\\)\n\nBeschreibung: Der Median ist der Wert, der die Daten in zwei gleiche Hälften teilt. Er ist robust gegen Ausreißer und gibt einen durchschnittlichen Wert an, der nicht durch Extremwerte beeinflusst wird.\nFormel:\n\\[\nx_{0.5} = \\begin{cases}\nx_{(n+1)/2} & \\text{falls } n \\text{ ungerade} \\\\\n\\frac{x_{n/2} + x_{n/2+1}}{2} & \\text{falls } n \\text{ gerade}\n\\end{cases}\n\\]\nAnwendung: Wird verwendet, um den typischen Wert in Datensätzen zu beschreiben, z.B. den durchschnittlichen Lohn in einer Population.\nR-Code:\n\n\nmedian(x)",
+    "title": "17  Glossar",
+    "section": "17.2 Median \\(x_{0.5}\\)",
+    "text": "17.2 Median \\(x_{0.5}\\)\n\nSymbol: \\(x_{0.5}\\)\n\nBeschreibung: Der Median ist der Wert, der die Daten in zwei gleiche Hälften teilt. Er ist robust gegen Ausreißer und gibt einen durchschnittlichen Wert an, der nicht durch Extremwerte beeinflusst wird.\nFormel:\n\\[\nx_{0.5} = \\begin{cases}\nx_{(n+1)/2} & \\text{falls } n \\text{ ungerade} \\\\\n\\frac{x_{n/2} + x_{n/2+1}}{2} & \\text{falls } n \\text{ gerade}\n\\end{cases}\n\\]\nAnwendung: Wird verwendet, um den typischen Wert in Datensätzen zu beschreiben, z.B. den durchschnittlichen Lohn in einer Population.\nR-Code:\n\n\nmedian(x)",
     "crumbs": [
       "Statistische Datenanalyse",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Glossar</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Glossar</span>"
     ]
   },
   {
     "objectID": "glossar.html#varianz-s2-sigma2",
     "href": "glossar.html#varianz-s2-sigma2",
-    "title": "11  Glossar",
-    "section": "11.3 Varianz \\(s^2\\), \\(\\sigma^2\\)",
-    "text": "11.3 Varianz \\(s^2\\), \\(\\sigma^2\\)\n\nSymbol: \\(s^2\\) (Stichprobe), \\(\\sigma^2\\) (Population)\n\nBeschreibung: Die Varianz misst die durchschnittliche quadratische Abweichung der Werte vom Mittelwert und beschreibt die Streuung der Daten.\nFormel (Stichprobe):\n\\[\ns^2 = \\frac{1}{n-1} \\sum_{i=1}^{n} (x_i - \\bar{x})^2\n\\]\nFormel (Population):\n\\[\n\\sigma^2 = \\frac{1}{n} \\sum_{i=1}^{n} (x_i - \\mu)^2\n\\]\nAnwendung: Wichtig zur Berechnung der Standardabweichung und zur Analyse der Datenstreuung.\nR-Code:\n\n\nvar(x)\n# Für Population: var(x) * (n-1)/n",
+    "title": "17  Glossar",
+    "section": "17.3 Varianz \\(s^2\\), \\(\\sigma^2\\)",
+    "text": "17.3 Varianz \\(s^2\\), \\(\\sigma^2\\)\n\nSymbol: \\(s^2\\) (Stichprobe), \\(\\sigma^2\\) (Population)\n\nBeschreibung: Die Varianz misst die durchschnittliche quadratische Abweichung der Werte vom Mittelwert und beschreibt die Streuung der Daten.\nFormel (Stichprobe):\n\\[\ns^2 = \\frac{1}{n-1} \\sum_{i=1}^{n} (x_i - \\bar{x})^2\n\\]\nFormel (Population):\n\\[\n\\sigma^2 = \\frac{1}{n} \\sum_{i=1}^{n} (x_i - \\mu)^2\n\\]\nAnwendung: Wichtig zur Berechnung der Standardabweichung und zur Analyse der Datenstreuung.\nR-Code:\n\n\nvar(x)\n# Für Population: var(x) * (n-1)/n",
     "crumbs": [
       "Statistische Datenanalyse",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Glossar</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Glossar</span>"
     ]
   },
   {
     "objectID": "glossar.html#standardabweichung-s-sigma",
     "href": "glossar.html#standardabweichung-s-sigma",
-    "title": "11  Glossar",
-    "section": "11.4 Standardabweichung \\(s\\), \\(\\sigma\\)",
-    "text": "11.4 Standardabweichung \\(s\\), \\(\\sigma\\)\n\nSymbol: \\(s\\) (Stichprobe), \\(\\sigma\\) (Population)\n\nBeschreibung: Die Standardabweichung ist die Wurzel der Varianz und beschreibt die durchschnittliche Abweichung der Werte vom Mittelwert.\nFormel:\n\\[\ns = \\sqrt{s^2}, \\quad \\sigma = \\sqrt{\\sigma^2}\n\\]\nAnwendung: Zeigt, wie weit die Daten im Durchschnitt um den Mittelwert streuen. Häufig verwendet in der deskriptiven Statistik.\nR-Code:\n\n\nsd(x)",
+    "title": "17  Glossar",
+    "section": "17.4 Standardabweichung \\(s\\), \\(\\sigma\\)",
+    "text": "17.4 Standardabweichung \\(s\\), \\(\\sigma\\)\n\nSymbol: \\(s\\) (Stichprobe), \\(\\sigma\\) (Population)\n\nBeschreibung: Die Standardabweichung ist die Wurzel der Varianz und beschreibt die durchschnittliche Abweichung der Werte vom Mittelwert.\nFormel:\n\\[\ns = \\sqrt{s^2}, \\quad \\sigma = \\sqrt{\\sigma^2}\n\\]\nAnwendung: Zeigt, wie weit die Daten im Durchschnitt um den Mittelwert streuen. Häufig verwendet in der deskriptiven Statistik.\nR-Code:\n\n\nsd(x)",
     "crumbs": [
       "Statistische Datenanalyse",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Glossar</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Glossar</span>"
     ]
   },
   {
     "objectID": "glossar.html#standardfehler-se",
     "href": "glossar.html#standardfehler-se",
-    "title": "11  Glossar",
-    "section": "11.5 Standardfehler \\(SE\\)",
-    "text": "11.5 Standardfehler \\(SE\\)\n\nSymbol: \\(SE\\)\n\nBeschreibung: Der Standardfehler des Mittelwerts misst, wie genau der Mittelwert einer Stichprobe den wahren Mittelwert der Population schätzt.\nFormel:\n\\[\nSE = \\frac{s}{\\sqrt{n}}\n\\]\nAnwendung: Grundlage für Konfidenzintervalle und Hypothesentests.\nR-Code:\n\n\nsd(x) / sqrt(length(x))",
+    "title": "17  Glossar",
+    "section": "17.5 Standardfehler \\(SE\\)",
+    "text": "17.5 Standardfehler \\(SE\\)\n\nSymbol: \\(SE\\)\n\nBeschreibung: Der Standardfehler des Mittelwerts misst, wie genau der Mittelwert einer Stichprobe den wahren Mittelwert der Population schätzt.\nFormel:\n\\[\nSE = \\frac{s}{\\sqrt{n}}\n\\]\nAnwendung: Grundlage für Konfidenzintervalle und Hypothesentests.\nR-Code:\n\n\nsd(x) / sqrt(length(x))",
     "crumbs": [
       "Statistische Datenanalyse",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Glossar</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Glossar</span>"
     ]
   },
   {
     "objectID": "glossar.html#t-wert-t",
     "href": "glossar.html#t-wert-t",
-    "title": "11  Glossar",
-    "section": "11.6 t-Wert \\(t\\)",
-    "text": "11.6 t-Wert \\(t\\)\n\nSymbol: \\(t\\)\n\nBeschreibung: Der t-Wert misst, wie stark ein beobachteter Wert vom erwarteten Wert (unter der Nullhypothese) abweicht, gemessen in Standardfehlern.\nFormel (für Mittelwert-Test):\n\\[\nt = \\frac{\\bar{x} - \\mu_0}{SE}\n\\]\nAnwendung: Verwendung in t-Tests, um Hypothesen über Mittelwerte zu überprüfen.\nR-Code:\n\n\nt.test(x, mu = 50)$statistic",
+    "title": "17  Glossar",
+    "section": "17.6 t-Wert \\(t\\)",
+    "text": "17.6 t-Wert \\(t\\)\n\nSymbol: \\(t\\)\n\nBeschreibung: Der t-Wert misst, wie stark ein beobachteter Wert vom erwarteten Wert (unter der Nullhypothese) abweicht, gemessen in Standardfehlern.\nFormel (für Mittelwert-Test):\n\\[\nt = \\frac{\\bar{x} - \\mu_0}{SE}\n\\]\nAnwendung: Verwendung in t-Tests, um Hypothesen über Mittelwerte zu überprüfen.\nR-Code:\n\n\nt.test(x, mu = 50)$statistic",
     "crumbs": [
       "Statistische Datenanalyse",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Glossar</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Glossar</span>"
     ]
   },
   {
     "objectID": "glossar.html#p-wert-p",
     "href": "glossar.html#p-wert-p",
-    "title": "11  Glossar",
-    "section": "11.7 p-Wert \\(p\\)",
-    "text": "11.7 p-Wert \\(p\\)\n\nSymbol: \\(p\\)\n\nBeschreibung: Der p-Wert gibt die Wahrscheinlichkeit an, ein Ergebnis zu beobachten, das mindestens so extrem ist wie das tatsächliche Ergebnis, wenn die Nullhypothese wahr ist.\nFormel (zweiseitig):\n\\[\np = 2 \\cdot P(T &gt; |t|)\n\\]\nAnwendung: Dient zur Entscheidungsfindung in Hypothesentests. Ein kleiner p-Wert deutet darauf hin, dass das Ergebnis signifikant ist.\nR-Code:\n\n\nt.test(x, mu = 50)$p.value",
+    "title": "17  Glossar",
+    "section": "17.7 p-Wert \\(p\\)",
+    "text": "17.7 p-Wert \\(p\\)\n\nSymbol: \\(p\\)\n\nBeschreibung: Der p-Wert gibt die Wahrscheinlichkeit an, ein Ergebnis zu beobachten, das mindestens so extrem ist wie das tatsächliche Ergebnis, wenn die Nullhypothese wahr ist.\nFormel (zweiseitig):\n\\[\np = 2 \\cdot P(T &gt; |t|)\n\\]\nAnwendung: Dient zur Entscheidungsfindung in Hypothesentests. Ein kleiner p-Wert deutet darauf hin, dass das Ergebnis signifikant ist.\nR-Code:\n\n\nt.test(x, mu = 50)$p.value",
     "crumbs": [
       "Statistische Datenanalyse",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Glossar</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Glossar</span>"
     ]
   },
   {
     "objectID": "glossar.html#freiheitsgrade-df",
     "href": "glossar.html#freiheitsgrade-df",
-    "title": "11  Glossar",
-    "section": "11.8 Freiheitsgrade \\(df\\)",
-    "text": "11.8 Freiheitsgrade \\(df\\)\n\nSymbol: \\(df\\)\n\nBeschreibung: Freiheitsgrade geben an, wie viele Werte in einer Berechnung frei variieren können, ohne dass eine Bedingung verletzt wird.\nFormel (für einfache Stichprobe):\n\\[\ndf = n - 1\n\\]\nAnwendung: Wichtig bei der Bestimmung der kritischen Werte für t- und F-Tests.\nR-Code:\n\n\nlength(x) - 1",
+    "title": "17  Glossar",
+    "section": "17.8 Freiheitsgrade \\(df\\)",
+    "text": "17.8 Freiheitsgrade \\(df\\)\n\nSymbol: \\(df\\)\n\nBeschreibung: Freiheitsgrade geben an, wie viele Werte in einer Berechnung frei variieren können, ohne dass eine Bedingung verletzt wird.\nFormel (für einfache Stichprobe):\n\\[\ndf = n - 1\n\\]\nAnwendung: Wichtig bei der Bestimmung der kritischen Werte für t- und F-Tests.\nR-Code:\n\n\nlength(x) - 1",
     "crumbs": [
       "Statistische Datenanalyse",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Glossar</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Glossar</span>"
     ]
   },
   {
     "objectID": "glossar.html#regressionskoeffizient-hatbeta",
     "href": "glossar.html#regressionskoeffizient-hatbeta",
-    "title": "11  Glossar",
-    "section": "11.9 Regressionskoeffizient \\(\\hat{\\beta}\\)",
-    "text": "11.9 Regressionskoeffizient \\(\\hat{\\beta}\\)\n\nSymbol: \\(\\hat{\\beta}\\)\n\nBeschreibung: Der Regressionskoeffizient misst den Einfluss eines Prädiktors auf die abhängige Variable in einem linearen Regressionsmodell.\nFormel (lineare Regression):\n\\[\nY = \\beta_0 + \\beta_1 X + \\varepsilon\n\\]\nAnwendung: Analyse von Zusammenhängen zwischen Variablen in Regressionsmodellen.\nR-Code:\n\n\nlm(Y ~ X)$coefficients",
+    "title": "17  Glossar",
+    "section": "17.9 Regressionskoeffizient \\(\\hat{\\beta}\\)",
+    "text": "17.9 Regressionskoeffizient \\(\\hat{\\beta}\\)\n\nSymbol: \\(\\hat{\\beta}\\)\n\nBeschreibung: Der Regressionskoeffizient misst den Einfluss eines Prädiktors auf die abhängige Variable in einem linearen Regressionsmodell.\nFormel (lineare Regression):\n\\[\nY = \\beta_0 + \\beta_1 X + \\varepsilon\n\\]\nAnwendung: Analyse von Zusammenhängen zwischen Variablen in Regressionsmodellen.\nR-Code:\n\n\nlm(Y ~ X)$coefficients",
     "crumbs": [
       "Statistische Datenanalyse",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Glossar</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Glossar</span>"
     ]
   },
   {
     "objectID": "glossar.html#standardisiertes-residuum-r_i",
     "href": "glossar.html#standardisiertes-residuum-r_i",
-    "title": "11  Glossar",
-    "section": "11.10 Standardisiertes Residuum \\(r_i\\)",
-    "text": "11.10 Standardisiertes Residuum \\(r_i\\)\n\nSymbol: \\(r_i\\)\n\nBeschreibung: Das standardisierte Residuum misst die Abweichung eines beobachteten Werts vom vorhergesagten Wert in Standardabweichungseinheiten.\nFormel:\n\\[\nr_i = \\frac{e_i}{SE(e_i)}\n\\]\nAnwendung: Identifikation von Ausreißern in Regressionsmodellen.\nR-Code:\n\n\nrstandard(lm(Y ~ X))",
+    "title": "17  Glossar",
+    "section": "17.10 Standardisiertes Residuum \\(r_i\\)",
+    "text": "17.10 Standardisiertes Residuum \\(r_i\\)\n\nSymbol: \\(r_i\\)\n\nBeschreibung: Das standardisierte Residuum misst die Abweichung eines beobachteten Werts vom vorhergesagten Wert in Standardabweichungseinheiten.\nFormel:\n\\[\nr_i = \\frac{e_i}{SE(e_i)}\n\\]\nAnwendung: Identifikation von Ausreißern in Regressionsmodellen.\nR-Code:\n\n\nrstandard(lm(Y ~ X))",
     "crumbs": [
       "Statistische Datenanalyse",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Glossar</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Glossar</span>"
     ]
   },
   {

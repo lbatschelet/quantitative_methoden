@@ -1,0 +1,138 @@
+---
+title: "Fallen der Statistik"
+lang: "de-CH"
+code-annotations: hover
+---
+
+> "It's called a 95% confidence interval it misses 5% of the time"
+
+- Wenn genug Hypothesen getestet werden, findet man zufällig ein positives Ergebnis
+- Aber Datenerhebung ist teuer und nur ein Test wäre Verschwendung, deshalb:
+  1. vor der Studie definierte Haupthypothese aufstellen und in Publikation bennen
+  2. später weitere explorative Hypothesen aufstellen und ebenfalls so kennzeichenen
+  3. eventuell Signifikanzlevel anpassen (z.B. 0.01 statt 0.05)
+
+## p-Werte
+
+> "The effect of the drug on blood pressure was statistically significant (p = 0.02)"
+
+- Ein p-Wert von < 0.05 bedeutet die Ablehnung der Nullhypothese
+- Die Nullhypothese sagt normalerweise, dass es keine Korrelation oder einen Unterschied zwischen A und B gibt
+- ABER:
+  - *"It is foolish to ask 'Are the effects of A and B different?' They are always different for some decimal place"*
+  - Wir sind nicht wirklich an "statistischer Signifikanz" interessiert, sondern an physikalisch oder sozial signifikanten Effekten.
+  - Aber wie gross war der Effekt
+
+## Simpsons Paradoxon
+
+|         | Control | Treatment |
+|---------|---------|-----------|
+| Alive   | 60      | 200       |
+| Dead    | 60      | 200       |
+| Rate    | 50%     | 50%       |
+
+: Unaufgesplittete Daten aus einer Medikamentenstudie. {.striped .hover}
+
+Wenn wir diese Daten betrachten, sehen wir, dass das Medikament wirkungslos ist.
+
+Wenn wir die Daten nach Geschlecht aufsplitten, sehen wir einen anderen Effekt:
+
+|         | Control | Treatment |
+|---------|---------|-----------|
+| Alive   | 40      | 80        |
+| Dead    | 30      | 50        |
+| Rate    | 43%     | 38%       |
+
+: Aufgesplittete Daten nur für Männer.  {.striped .hover}
+
+Das Medikament hat einen positiven Effekt. Was erwarten wir, wenn die Daten für Frauen betrachtet werden?
+
+|         | Control | Treatment |
+|---------|---------|-----------|
+| Alive   | 20      | 120       |
+| Dead    | 30      | 150       |
+| Rate    | 60%     | 55%       |
+
+: Aufgesplittete Daten nur für Frauen.  {.striped .hover}
+
+Das Medikament hat ebenfalls einen positiven Effekt. Wie kann das sein?
+
+Einzelpersonen der Gruppen bekommen ein unterschiedliches Gewicht in Prozent am Ausgang.
+
+## Probleme mit seltenen Ereignissen
+
+- Umfragen haben eine Tendenz, seltene Ereignisse zu unterschätzen
+
+## Falsche Interpretation / Wahrnehmung
+
+Wahrscheinlichkeit, dass mindestens zwei Personen am gleichen Tag Geburtstag haben nach Anzahl Personen.
+
+```{ojs}
+//| panel: input
+//| echo: true
+//| code-fold: true
+viewof numPeople = Inputs.range(
+  [2, 100], 
+  { value: 23, step: 1, label: "Anzahl Personen:" }
+)
+```
+
+```{ojs}
+//| echo: true
+//| code-fold: true
+// Berechnung der Wahrscheinlichkeit
+function birthdayProbability(n) {
+  let prob = 1;
+  for (let i = 0; i < n; i++) {
+    prob *= (365 - i) / 365;
+  }
+  return 1 - prob;
+}
+
+// Daten für den Plot generieren
+data = Array.from({ length: 99 }, (_, i) => ({
+  numPeople: i + 2,
+  probability: birthdayProbability(i + 2)
+}));
+
+// Aktuelle Wahrscheinlichkeit berechnen
+currentProb = birthdayProbability(numPeople);
+
+// Plot erstellen
+Plot.plot({
+  marks: [
+    Plot.line(data, { x: "numPeople", y: "probability", stroke: "blue" }),
+    Plot.dot(
+      [{ numPeople, probability: currentProb }],
+      { x: "numPeople", y: "probability", fill: "red", r: 5 }
+    ),
+    // Textanzeige unten rechts
+    Plot.text(
+      [{ label: `Wahrscheinlichkeit: ${(currentProb * 100).toFixed(1)}%` }],
+      {
+        x: 60, 
+        y: 0.5, 
+        text: "label", 
+        fill: "black", 
+        dy: 10, 
+        dx: 10,
+        fontSize: 14,
+        anchor: "end"
+      }
+    )
+  ],
+  x: { label: "Anzahl Personen", domain: [2, 100] },
+  y: { label: "Wahrscheinlichkeit", tickFormat: "%" },
+  width: 600,
+  height: 400
+})
+```
+
+Bereits bei 23 Personen liegt die Wahrscheinlichkeit bei über 50 %, dass zwei Personen am gleichen Tag Geburtstag haben. Dies verdeutlicht, wie unsere Intuition bei Wahrscheinlichkeiten oft trügt.
+
+Denn:
+
+$$
+P(A) = 1 - \frac{365!}{(365-n)! \cdot 365^n}
+$$
+

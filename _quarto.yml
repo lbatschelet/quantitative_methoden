@@ -42,6 +42,12 @@ book:
       - statistische-tests.qmd
       - korrelation.qmd
       - regression.qmd
+      - fehlermasse.qmd
+      - clusteranalyse.qmd
+      - hauptkomponentenanalyse.qmd
+      - extremwertstatistik.qmd
+      - neuronale-netze.qmd
+      - fallen-der-statistik.qmd
       - glossar.qmd
   appendices:
     - excercises/ex01.qmd

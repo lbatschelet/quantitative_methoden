@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./glossar.html" rel="next">
+<link href="./fehlermasse.html" rel="next">
 <link href="./korrelation.html" rel="prev">
 <link href="./code" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -261,8 +261,44 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./fehlermasse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">fehlermasse.html</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clusteranalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clusteranalyse</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hauptkomponentenanalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hauptkomponentenanalyse</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./extremwertstatistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Extremwertstatistik</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./neuronale-netze.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">neuronale-netze.html</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fallen-der-statistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallen der Statistik</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./glossar.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Glossar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Glossar</span></span></a>
   </div>
 </li>
       </ul>
@@ -334,6 +370,7 @@ window.Quarto = {
   <li><a href="#multiples-bestimmtheitsmass" id="toc-multiples-bestimmtheitsmass" class="nav-link" data-scroll-target="#multiples-bestimmtheitsmass"><span class="header-section-number">10.3.3</span> Multiples Bestimmtheitsmass</a></li>
   <li><a href="#f-test" id="toc-f-test" class="nav-link" data-scroll-target="#f-test"><span class="header-section-number">10.3.4</span> F-Test</a></li>
   <li><a href="#anwendungsbedingungen" id="toc-anwendungsbedingungen" class="nav-link" data-scroll-target="#anwendungsbedingungen"><span class="header-section-number">10.3.5</span> Anwendungsbedingungen</a></li>
+  <li><a href="#modellvalidierung-kreuzvalidierung" id="toc-modellvalidierung-kreuzvalidierung" class="nav-link" data-scroll-target="#modellvalidierung-kreuzvalidierung"><span class="header-section-number">10.3.6</span> Modellvalidierung (Kreuzvalidierung)</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/regression.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></nav>
@@ -1161,39 +1198,350 @@ H_0 : R^2 = 0
 </section>
 <section id="anwendungsbedingungen" class="level3" data-number="10.3.5">
 <h3 data-number="10.3.5" class="anchored" data-anchor-id="anwendungsbedingungen"><span class="header-section-number">10.3.5</span> Anwendungsbedingungen</h3>
+<p>In der linearen Regression ist es ein häufiger Irrtum, dass die <strong>Prädiktorvariablen (<span class="math inline">\(X\)</span>)</strong> oder die <strong>abhängige Variable (<span class="math inline">\(Y\)</span>)</strong> normalverteilt sein müssen. Das ist nicht der Fall – die Regression funktioniert auch mit nicht-normalverteilten Variablen.</p>
+<p>Was jedoch für bestimmte statistische Tests wichtig ist, ist die <strong>Normalverteilung der Residuen (<span class="math inline">\(\varepsilon\)</span>)</strong>. Diese Voraussetzung gilt insbesondere für:</p>
 <ul>
-<li>Linearität</li>
-<li>Normalverteilung der Residuen</li>
-<li>Varianzhomogenität</li>
-<li>Keine oder wenige Ausreisser</li>
+<li><strong>t-Tests:</strong> Überprüfen, ob ein Regressionskoeffizient (<span class="math inline">\(\beta\)</span>) signifikant von null verschieden ist, also ob ein Prädiktor einen echten Einfluss auf <span class="math inline">\(Y\)</span> hat.<br>
+</li>
+<li><strong>F-Tests:</strong> Prüfen, ob das gesamte Regressionsmodell eine signifikante Vorhersagekraft besitzt.</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perfekte synthetische Daten generieren</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="fl">1.5</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Perfekte lineare Beziehung mit normalverteiltem Fehlerterm</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> X1 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> X2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineares Regressionsmodell</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>perfektes_modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagnostische Plots</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>))  <span class="co"># Layout für 4 Plots</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(perfektes_modell)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+<p>Diese Tests liefern einen <strong>p-Wert</strong>, der angibt, wie wahrscheinlich ein beobachteter Effekt zufällig entstanden ist (<strong>Signifikanzbewertung</strong>).</p>
+<p>Damit die Normalverteilung der Residuen überhaupt sinnvoll geprüft werden kann, müssen zwei wichtige Voraussetzungen erfüllt sein:</p>
+<ol type="1">
+<li><strong>Linearität:</strong> Der Zusammenhang zwischen den Prädiktoren (<span class="math inline">\(X\)</span>) und der abhängigen Variable (<span class="math inline">\(Y\)</span>) sollte linear sein.<br>
+</li>
+<li><strong>Homoskedastizität:</strong> Die Varianz der Residuen sollte über alle Werte von <span class="math inline">\(X\)</span> hinweg konstant sein (keine Trichterform in den Residuenplots).</li>
+</ol>
+<p>Ohne diese Bedingungen ist die Verteilung der Residuen verzerrt, was zu fehlerhaften Testergebnissen führt.</p>
+<section id="optimale-residuendiagnostik-mit-geeigneten-daten" class="level4" data-number="10.3.5.1">
+<h4 data-number="10.3.5.1" class="anchored" data-anchor-id="optimale-residuendiagnostik-mit-geeigneten-daten"><span class="header-section-number">10.3.5.1</span> Optimale Residuendiagnostik mit geeigneten Daten</h4>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Synthetische Daten perfekt simulieren</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)    <span class="co"># Normalverteilte Prädiktoren</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">scale</span>(X1, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">scale</span>(X2, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Perfekte lineare Beziehung</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Fehler sind normalverteilt mit konstanter Varianz</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>errors <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)  <span class="co"># Normalverteilte Residuen</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineares Modell</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> X1 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> X2 <span class="sc">+</span> errors</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineares Regressionsmodell</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>perfektes_modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagnostische Plots</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>dot_color <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(perfektes_modell, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell fig-cap-location-top quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="regression_files/figure-html/multiple-regression-residuals-plot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Linearität</figcaption>
+<figcaption>Linearität: Die Residuen streuen zufällig um die Nulllinie. Kein systematisches Muster erkennbar – ein Hinweis auf eine lineare Beziehung.</figcaption>
 </figure>
 </div>
 </div>
 </div>
+</div>
+</section>
+<section id="negative-residuendiagnostik-mit-schlechten-daten" class="level4" data-number="10.3.5.2">
+<h4 data-number="10.3.5.2" class="anchored" data-anchor-id="negative-residuendiagnostik-mit-schlechten-daten"><span class="header-section-number">10.3.5.2</span> Negative Residuendiagnostik mit schlechten Daten</h4>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Nicht-Linearität</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>X_nl <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>Y_nl <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> X_nl<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>modell_nl <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y_nl <span class="sc">~</span> X_nl)  <span class="co"># Falsch spezifiziert (linear)</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Nicht-normalverteilte Residuen</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>X_nn <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>Y_nn <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> X_nn <span class="sc">+</span> <span class="fu">rexp</span>(n, <span class="at">rate =</span> <span class="dv">1</span>)  <span class="co"># Exponentiell verteilte Fehler</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>modell_nn <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y_nn <span class="sc">~</span> X_nn)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Heteroskedastizität</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>X_het <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>Y_het <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">*</span> X_het <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="at">sd =</span> <span class="fu">abs</span>(X_het) <span class="sc">*</span> <span class="dv">2</span>)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>modell_het <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y_het <span class="sc">~</span> X_het)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Ausreisser</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>X_out <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>Y_out <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">*</span> X_out <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>Y_out[<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>)] <span class="ot">&lt;-</span> Y_out[<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>)] <span class="sc">+</span> <span class="dv">20</span>  <span class="co"># Ausreisser hinzufügen</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>modell_out <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y_out <span class="sc">~</span> X_out)</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagnostische Plots (jeweils der relevante)</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell_nl, <span class="at">which =</span> <span class="dv">1</span>, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)   <span class="co"># Nicht-Linearität: Residuals vs Fitted</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell_nn, <span class="at">which =</span> <span class="dv">2</span>, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)   <span class="co"># Nicht-normalverteilte Residuen: Q-Q-Plot</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell_het, <span class="at">which =</span> <span class="dv">3</span>, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)  <span class="co"># Heteroskedastizität: Scale-Location</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell_out, <span class="at">which =</span> <span class="dv">5</span>, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)  <span class="co"># Ausreisser: Residuals vs Leverage</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell fig-cap-location-top quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression_files/figure-html/negative-regression-diagnostics-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Nicht-Linearität: Die Residuen zeigen ein gebogenes Muster. Dies deutet darauf hin, dass das Modell die wahre Beziehung nicht korrekt abbildet.</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression_files/figure-html/negative-regression-diagnostics-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Nicht-Normalverteilte Residuen: Im Q-Q-Plot weichen die Punkte deutlich von der Diagonalen ab. Dies deutet auf eine Verletzung der Normalverteilungsannahme hin.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression_files/figure-html/negative-regression-diagnostics-3.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Heteroskedastizität: Im Scale-Location-Plot ist ein trichterförmiges Muster zu erkennen. Dies weist auf eine zunehmende Varianz der Residuen hin.</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression_files/figure-html/negative-regression-diagnostics-4.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Ausreisser: Im Residuals vs Leverage-Plot sind Punkte mit hoher Cook’s Distance sichtbar. Sie haben einen starken Einfluss auf das Modell.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="heteroskedastizität" class="level4" data-number="10.3.5.3">
+<h4 data-number="10.3.5.3" class="anchored" data-anchor-id="heteroskedastizität"><span class="header-section-number">10.3.5.3</span> Heteroskedastizität</h4>
+<p>Heteroskedastizität beschreibt die Tatsache, dass die Varianz der Residuen nicht konstant ist. Das bedeutet, dass die Residuen nicht gleichmässig um den Mittelwert streuen, sondern eine zunehmende oder abnehmende Varianz aufweisen.</p>
+<p>Ursachen dafür können sein:</p>
+<ul>
+<li>Messfehler werden über die Zeit kleiner</li>
+<li>Befragungen vor und nach dem Lernprozess</li>
+<li>Verhalten ist abhängig vom Einkommen, so dass reichere Personen mehr Wahlmöglichkeiten haben als ärmere</li>
+<li>Bei aggregierten Werten sind Klassen mit kleinem <span class="math inline">\(n\)</span> unsicherer und streuen mehr als Klassen mit grossem <span class="math inline">\(n\)</span></li>
+</ul>
+<p>Tests:</p>
+<ul>
+<li>Zerlegung der Daten und Vergleich von Subsets (z.B. Zeitperioden)</li>
+<li>Goldfeld-Quandt-Test (univariate Regression)</li>
+<li>White-Test (multiple Regression)</li>
+</ul>
+<p>Behandlung:</p>
+<ul>
+<li>Methode der <em>gewichteten</em> kleinsten Quadrate. Werte bekommen dort weniger Gewicht, wo die Streuung gross ist.</li>
+</ul>
+</section>
+<section id="multi-kollinearität" class="level4" data-number="10.3.5.4">
+<h4 data-number="10.3.5.4" class="anchored" data-anchor-id="multi-kollinearität"><span class="header-section-number">10.3.5.4</span> (Multi-)Kollinearität</h4>
+<p>Kollinearität beschreibt die Tatsache, dass zwei oder mehrere Prädiktoren in einem Regressionsmodell stark miteinander korrelieren.</p>
+<ul>
+<li>Die unabhängigen Variablen dürfen untereinander nicht perfekt korrelieren (<span class="math inline">\(i \neq j: \text{corr}(X_i, X_j) = 1\)</span>) d.h. es darf keine Linearkombination anderer unabhängiger Variablen sein.</li>
+<li>Matrix ist sonst nicht invertierbar.</li>
+</ul>
+<p>Folgen:</p>
+<ul>
+<li>Schätzungen der Regressionsparameter sind unzuverlässig</li>
+<li>Standardfehler der Regressionskoeffizienten sind gross</li>
+<li>t-Werte sind klein</li>
+</ul>
+<p>Anzeichen:</p>
+<ul>
+<li>Resultate werden stark vom Weglassen einer Beobachtung beeinflusst</li>
+<li>Vorzeichen der Regressionskoeffizienten ist anders als erwartet</li>
+<li>Hohe Korrelationen der unabhängigen Variablen (<span class="math inline">\(&gt; |0.8|\)</span>) deuten auf mögliche Kollinearität hin</li>
+<li><strong>Varianzinflationsfaktor</strong> (VIF) misst die Abhängigkeit der Varianz des geschätzten Regressionskoeffizienten aufgrund der Korrelation zwischen unabhängigen Variablen. VIF-Werte <span class="math inline">\(&gt; 10\)</span> gelten als kritisch.
+<ul>
+<li><code>vif()</code></li>
+</ul></li>
+</ul>
+<p>Behandlung:</p>
+<ul>
+<li>Weglassen von korrelierenden Prädiktoren</li>
+<li>Neue Prädiktoren finden</li>
+<li>Hauptkomponentenanalyse (PCA): Reduktion der Dimensionalität der Daten durch PCA, um unkorrelierte Hauptkomponenten zu erhalten.</li>
+</ul>
+</section>
+</section>
+<section id="modellvalidierung-kreuzvalidierung" class="level3" data-number="10.3.6">
+<h3 data-number="10.3.6" class="anchored" data-anchor-id="modellvalidierung-kreuzvalidierung"><span class="header-section-number">10.3.6</span> Modellvalidierung (Kreuzvalidierung)</h3>
+<p>Die <strong>Kreuzvalidierung</strong> ist eine Methode zur <strong>Bewertung der Vorhersagegüte</strong> eines Regressionsmodells. Dabei wird der Datensatz in mehrere Teilmengen (sogenannte <strong>Folds</strong>) aufgeteilt. Das Modell wird wiederholt auf verschiedenen Kombinationen von Trainings- und Testdaten geschätzt, um zu überprüfen, wie gut es auf <strong>unbekannte Daten</strong> generalisiert.</p>
+<section id="vorgehensweise-bei-der-k-fold-kreuzvalidierung" class="level4" data-number="10.3.6.1">
+<h4 data-number="10.3.6.1" class="anchored" data-anchor-id="vorgehensweise-bei-der-k-fold-kreuzvalidierung"><span class="header-section-number">10.3.6.1</span> Vorgehensweise bei der K-Fold-Kreuzvalidierung:</h4>
+<ol type="1">
+<li><strong>Aufteilung der Daten:</strong> Der Datensatz wird in <span class="math inline">\(k\)</span> gleich grosse Teilmengen (Folds) aufgeteilt.<br>
+</li>
+<li><strong>Modelltraining:</strong> In jeder der <span class="math inline">\(k\)</span> Iterationen wird das Modell mit <span class="math inline">\((k-1)\)</span> Folds trainiert.<br>
+</li>
+<li><strong>Modelltest:</strong> Der verbliebene Fold dient als Testdatensatz zur Bewertung des Modells.<br>
+</li>
+<li><strong>Ergebnissynthese:</strong> Die Gütekriterien (z.B. <strong>mittlerer quadratischer Fehler</strong> (MSE), <strong><span class="math inline">\(R^2\)</span></strong>) werden über alle Iterationen gemittelt.</li>
+</ol>
+<p>Diese Methode liefert eine <strong>robustere Schätzung</strong> der Modellgüte als eine einfache Trainings-Test-Aufteilung.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Beispiel einer Multiplen Regression
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>In diesem Beispiel verwenden wir den Datensatz <code>mtcars</code>, um ein <strong>multiples lineares Regressionsmodell</strong> zu erstellen. Unser Ziel ist es, den <strong>Benzinverbrauch</strong> (<code>mpg</code>) von Fahrzeugen basierend auf mehreren Einflussgrößen vorherzusagen.</p>
+<section id="datensatz-und-ziel" class="level5">
+<h5 class="anchored" data-anchor-id="datensatz-und-ziel">Datensatz und Ziel</h5>
+<ul>
+<li><strong>Datensatz:</strong> <code>mtcars</code> mit 32 Fahrzeugen<br>
+</li>
+<li><strong>Zielvariable:</strong> <code>mpg</code> (Miles per Gallon, Benzinverbrauch)<br>
+</li>
+<li><strong>Prädiktoren:</strong>
+<ul>
+<li><code>wt</code> (Gewicht des Fahrzeugs in 1000 Pfund)<br>
+</li>
+<li><code>hp</code> (Motorleistung in PS)<br>
+</li>
+<li><code>cyl</code> (Anzahl Zylinder)</li>
+</ul></li>
+</ul>
+<p>Wir möchten überprüfen, wie gut diese Variablen den Benzinverbrauch gemeinsam vorhersagen.</p>
+</section>
+<section id="durchführung-der-5-fold-kreuzvalidierung" class="level5">
+<h5 class="anchored" data-anchor-id="durchführung-der-5-fold-kreuzvalidierung">Durchführung der 5-Fold-Kreuzvalidierung</h5>
+<p>Für die <strong>5-Fold-Kreuzvalidierung</strong> wird der Datensatz in 5 gleich große Teilmengen (Folds) aufgeteilt. In jeder der 5 Iterationen wird das Modell mit 4 Folds trainiert und mit dem verbleibenden Fold getestet. Die Gütekriterien werden über alle Iterationen gemittelt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-16"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-16-1"><a href="#annotated-cell-16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten und benötigte Pakete laden</span></span>
+<span id="annotated-cell-16-2"><a href="#annotated-cell-16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="annotated-cell-16-3"><a href="#annotated-cell-16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="annotated-cell-16-4"><a href="#annotated-cell-16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-16-5"><a href="#annotated-cell-16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Kreuzvalidierung mit 5 Folds</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="1">1</button><span id="annotated-cell-16-6" class="code-annotation-target"><a href="#annotated-cell-16-6" aria-hidden="true" tabindex="-1"></a>cv_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">5</span>)</span>
+<span id="annotated-cell-16-7"><a href="#annotated-cell-16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-16-8"><a href="#annotated-cell-16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Training des multiplen Regressionsmodells mit Kreuzvalidierung</span></span>
+<span id="annotated-cell-16-9"><a href="#annotated-cell-16-9" aria-hidden="true" tabindex="-1"></a>cv_model <span class="ot">&lt;-</span> <span class="fu">train</span>(            </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="2">2</button><span id="annotated-cell-16-10" class="code-annotation-target"><a href="#annotated-cell-16-10" aria-hidden="true" tabindex="-1"></a>    mpg <span class="sc">~</span> wt <span class="sc">+</span> hp <span class="sc">+</span> cyl,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="3">3</button><span id="annotated-cell-16-11" class="code-annotation-target"><a href="#annotated-cell-16-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> mtcars,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="4">4</button><span id="annotated-cell-16-12" class="code-annotation-target"><a href="#annotated-cell-16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="5">5</button><span id="annotated-cell-16-13" class="code-annotation-target"><a href="#annotated-cell-16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">trControl =</span> cv_control</span>
+<span id="annotated-cell-16-14"><a href="#annotated-cell-16-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-16-15"><a href="#annotated-cell-16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-16-16"><a href="#annotated-cell-16-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Ergebnisse anzeigen</span></span>
+<span id="annotated-cell-16-17"><a href="#annotated-cell-16-17" aria-hidden="true" tabindex="-1"></a>cv_model</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-16" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-16" data-code-lines="6" data-code-annotation="1"><code>cv_control</code>: Definiert die Kreuzvalidierung mit 5 Folds.</span>
+</dd>
+<dt data-target-cell="annotated-cell-16" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-16" data-code-lines="10" data-code-annotation="2"><code>mpg ~ wt + hp + cyl</code>: Definiert die abhängige Variable (<code>mpg</code>) und die unabhängigen Variablen (<code>wt</code>, <code>hp</code>, <code>cyl</code>).</span>
+</dd>
+<dt data-target-cell="annotated-cell-16" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-16" data-code-lines="11" data-code-annotation="3"><code>data = mtcars</code>: Definiert den Datensatz, der für das Modelltraining verwendet wird.</span>
+</dd>
+<dt data-target-cell="annotated-cell-16" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-16" data-code-lines="12" data-code-annotation="4"><code>method = "lm"</code>: Definiert das Regressionsmodell als lineare Regression.</span>
+</dd>
+<dt data-target-cell="annotated-cell-16" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-16" data-code-lines="13" data-code-annotation="5"><code>trControl = cv_control</code>: Definiert die Kreuzvalidierung mit 5 Folds.</span>
+</dd>
+</dl>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear Regression 
+
+32 samples
+ 3 predictor
+
+No pre-processing
+Resampling: Cross-Validated (5 fold) 
+Summary of sample sizes: 24, 24, 28, 26, 26 
+Resampling results:
+
+  RMSE      Rsquared   MAE     
+  2.536794  0.8652719  2.134368
+
+Tuning parameter 'intercept' was held constant at a value of TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="ergebnisse-der-kreuzvalidierung" class="level5">
+<h5 class="anchored" data-anchor-id="ergebnisse-der-kreuzvalidierung">Ergebnisse der Kreuzvalidierung</h5>
+<p>Nach der Durchführung der Kreuzvalidierung liefert das Modell folgende Kennwerte:</p>
+<ul>
+<li><p><strong>RMSE (Root Mean Squared Error):</strong> 2.537<br>
+Der <strong>RMSE</strong> misst den durchschnittlichen quadratischen Fehler der Vorhersagen. Ein niedriger Wert deutet auf eine gute Modellanpassung hin.</p></li>
+<li><p><strong><span class="math inline">\(R^2\)</span> (Bestimmtheitsmaß):</strong> 0.865<br>
+Der <strong><span class="math inline">\(R^2\)</span>-Wert</strong> zeigt, wie viel der Varianz von <code>mpg</code> durch die Prädiktoren <code>wt</code>, <code>hp</code> und <code>cyl</code> erklärt werden kann. Werte nahe 1 deuten auf eine hohe Erklärungskraft des Modells hin.</p></li>
+<li><p><strong>MAE (Mean Absolute Error):</strong> 2.134<br>
+Der <strong>MAE</strong> misst den durchschnittlichen absoluten Vorhersagefehler. Im Gegensatz zum RMSE ist er weniger empfindlich gegenüber Ausreißern.</p></li>
+</ul>
+</section>
+<section id="interpretation-der-ergebnisse" class="level5">
+<h5 class="anchored" data-anchor-id="interpretation-der-ergebnisse">Interpretation der Ergebnisse</h5>
+<p>Das Modell zeigt folgende Leistungswerte:</p>
+<ul>
+<li><strong>Vorhersagegenauigkeit (RMSE):</strong> Der RMSE beträgt 2.537.
+<ul>
+<li>Ein RMSE &lt; 3 deutet auf eine <strong>gute Anpassung</strong> des Modells hin.<br>
+</li>
+<li>Werte &gt; 5 würden auf eine <strong>ungenügende Modellanpassung</strong> hindeuten.<br>
+</li>
+<li>In diesem Fall ist der Wert zufriedenstellend.</li>
+</ul></li>
+<li><strong>Erklärte Varianz (<span class="math inline">\(R^2\)</span>):</strong> Der <span class="math inline">\(R^2\)</span>-Wert beträgt 0.865.
+<ul>
+<li>Ein <span class="math inline">\(R^2\)</span> &gt; 0.7 gilt als <strong>sehr gut</strong>, da mehr als 70 % der Varianz von <code>mpg</code> durch die Prädiktoren erklärt wird.<br>
+</li>
+<li>Ein Wert &lt; 0.5 würde darauf hindeuten, dass das Modell wichtige Prädiktoren vermissen könnte.<br>
+</li>
+<li>Hier zeigt der Wert eine starke Erklärungskraft.</li>
+</ul></li>
+<li><strong>Durchschnittlicher Fehler (MAE):</strong> Der MAE beträgt 2.134.
+<ul>
+<li>Ein MAE &lt; 3 deutet darauf hin, dass die <strong>durchschnittlichen Vorhersagefehler gering</strong> sind.<br>
+</li>
+<li>Werte &gt; 5 könnten auf <strong>systematische Fehler</strong> im Modell hinweisen.<br>
+</li>
+<li>In unserem Fall ist der Fehler akzeptabel.</li>
+</ul></li>
+</ul>
+</section>
+<section id="fazit" class="level5">
+<h5 class="anchored" data-anchor-id="fazit">Fazit</h5>
+<p>Das multiple Regressionsmodell erklärt einen großen Anteil der Varianz von <code>mpg</code> und liefert eine präzise Vorhersage. Die Kreuzvalidierung zeigt, dass das Modell auch bei unbekannten Daten <strong>stabile Ergebnisse</strong> liefert. Eventuelle Optimierungen könnten durch die Einbeziehung weiterer Prädiktoren oder Interaktionsterme erreicht werden.</p>
+</section>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 </section>
 
@@ -1556,25 +1904,64 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       };
     }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
           }
-        });
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
       }
   const findCites = (el) => {
     const parentEl = el.parentElement;
@@ -1622,8 +2009,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./glossar.html" class="pagination-link" aria-label="Glossar">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Glossar</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./fehlermasse.html" class="pagination-link" aria-label="fehlermasse.html">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">fehlermasse.html</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

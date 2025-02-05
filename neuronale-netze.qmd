@@ -1,0 +1,6 @@
+---
+title: "Neuronale Netze"
+lang: "de-CH"
+code-annotations: hover
+---
+

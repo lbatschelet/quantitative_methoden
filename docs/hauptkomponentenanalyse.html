@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de-CH" xml:lang="de-CH"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Lukas Batschelet">
 
-<title>Quantitative Methoden</title>
+<title>13&nbsp; Hauptkomponentenanalyse – Quantitative Methoden</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./grundlagen_R.html" rel="next">
+<link href="./extremwertstatistik.html" rel="next">
+<link href="./clusteranalyse.html" rel="prev">
 <link href="./code" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -70,10 +104,39 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-sidebar floating fullcontent">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -82,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Übersicht</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./hauptkomponentenanalyse.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hauptkomponentenanalyse</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
@@ -118,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Übersicht</span></span></a>
   </div>
 </li>
@@ -210,7 +273,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./hauptkomponentenanalyse.html" class="sidebar-item-text sidebar-link">
+  <a href="./hauptkomponentenanalyse.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hauptkomponentenanalyse</span></span></a>
   </div>
 </li>
@@ -286,32 +349,32 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#grundidee" id="toc-grundidee" class="nav-link active" data-scroll-target="#grundidee"><span class="header-section-number">13.1</span> Grundidee</a></li>
+  <li><a href="#mathematische-herleitung" id="toc-mathematische-herleitung" class="nav-link" data-scroll-target="#mathematische-herleitung"><span class="header-section-number">13.2</span> Mathematische Herleitung</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation"><span class="header-section-number">13.3</span> Interpretation</a></li>
+  <li><a href="#interpretation-der-pca-ergebnisse" id="toc-interpretation-der-pca-ergebnisse" class="nav-link" data-scroll-target="#interpretation-der-pca-ergebnisse"><span class="header-section-number">13.4</span> Interpretation der PCA-Ergebnisse</a></li>
+  <li><a href="#fazit" id="toc-fazit" class="nav-link" data-scroll-target="#fazit"><span class="header-section-number">13.5</span> Fazit</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/hauptkomponentenanalyse.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./hauptkomponentenanalyse.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hauptkomponentenanalyse</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Quantitative Methoden</h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hauptkomponentenanalyse</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Autor:in</div>
-    <div class="quarto-title-meta-contents">
-             <p>Lukas Batschelet </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">29. Januar 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -321,25 +384,107 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Diese Website dient als Sammlung meiner Vorlesungsnotizen und Übungen für die Vorlesung <em>“Quantitative Methoden”</em> im Herbstsemester 2024.</p>
-<p>Diese Sammlung ist aktuell noch am Entstehen.</p>
-<div class="callout callout-style-default callout-warning callout-titled" title="Hinweis">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>Die Hauptkomponentenanalyse (PCA) ist eine Methode der multivariaten Statistik, die zur Dimensionsreduktion von Datensätzen mit vielen Variablen eingesetzt wird. Ihr Ziel ist es, die Komplexität der Daten zu reduzieren, während möglichst viel der ursprünglichen Varianz erhalten bleibt. PCA wird in verschiedenen Bereichen wie der Datenanalyse, Mustererkennung und Visualisierung angewendet.</p>
+<section id="grundidee" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="grundidee"><span class="header-section-number">13.1</span> Grundidee</h2>
+<p>Die PCA transformiert die Ausgangsdaten in ein neues Koordinatensystem, in dem die größte Varianz der Daten entlang der ersten Achse (der ersten Hauptkomponente) liegt. Die zweite Hauptkomponente erklärt die zweitgrößte Varianz und steht orthogonal zur ersten, und so weiter.</p>
+<p><strong>Wichtige Konzepte:</strong> - <strong>Varianz:</strong> Ein Maß für die Streuung der Daten. - <strong>Kovarianzmatrix:</strong> Beschreibt, wie stark zwei Variablen gemeinsam variieren. - <strong>Eigenwerte und Eigenvektoren:</strong> Eigenwerte geben an, wie viel Varianz von einer Komponente erklärt wird; Eigenvektoren definieren die Richtung dieser Varianz.</p>
+</section>
+<section id="mathematische-herleitung" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="mathematische-herleitung"><span class="header-section-number">13.2</span> Mathematische Herleitung</h2>
+<ol type="1">
+<li><p><strong>Standardisierung der Daten:</strong></p>
+<ul>
+<li>Um Variablen mit unterschiedlichen Einheiten vergleichbar zu machen, werden die Daten zentriert und skaliert.</li>
+</ul></li>
+<li><p><strong>Berechnung der Kovarianzmatrix:</strong> <span class="math display">\[
+\Sigma = \frac{1}{n-1} X^T X
+\]</span></p></li>
+<li><p><strong>Eigenwertzerlegung:</strong></p>
+<ul>
+<li>Lösung der Eigenwertgleichung: <span class="math display">\[
+\Sigma v = \lambda v
+\]</span> wobei <span class="math inline">\(\lambda\)</span> die Eigenwerte und <span class="math inline">\(v\)</span> die Eigenvektoren sind.</li>
+</ul></li>
+<li><p><strong>Sortierung der Eigenwerte:</strong></p>
+<ul>
+<li>Die Eigenwerte werden in absteigender Reihenfolge sortiert, die zugehörigen Eigenvektoren bilden die Hauptkomponenten.</li>
+</ul></li>
+<li><p><strong>Transformation der Daten:</strong></p>
+<ul>
+<li>Projektion der Daten in den neuen Raum: <span class="math display">\[
+Z = XW
+\]</span> wobei <span class="math inline">\(W\)</span> die Matrix der Eigenvektoren ist.</li>
+</ul></li>
+</ol>
+</section>
+<section id="interpretation" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="interpretation"><span class="header-section-number">13.3</span> Interpretation</h2>
+<ul>
+<li><strong>Erklärte Varianz:</strong> Der Anteil der Gesamtvarianz, der von jeder Hauptkomponente erklärt wird.</li>
+<li><strong>Biplots:</strong> Visualisieren die Projektion der Daten und die Lasten der Variablen auf den Hauptkomponenten.</li>
+</ul>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten simulieren</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span><span class="sc">*</span><span class="dv">5</span>), <span class="at">ncol =</span> <span class="dv">5</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"Var"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA durchführen</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>pca_result <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(data, <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Zusammenfassung</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca_result)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Scree-Plot</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca_result, <span class="at">type =</span> <span class="st">"l"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Biplot</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca_result, <span class="at">scale =</span> <span class="dv">0</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<pre><code>Importance of components:
+                          PC1    PC2    PC3    PC4    PC5
+Standard deviation     1.1077 1.0610 1.0191 0.9468 0.8440
+Proportion of Variance 0.2454 0.2251 0.2077 0.1793 0.1425
+Cumulative Proportion  0.2454 0.4705 0.6783 0.8575 1.0000</code></pre>
 </div>
-<div class="callout-title-container flex-fill">
-Hinweis
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="hauptkomponentenanalyse_files/figure-html/pca-example-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Scree-Plot zeigt die Eigenwerte der Hauptkomponenten</figcaption>
+</figure>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p><strong>Die Inhalte dieser Website können Lücken und Fehler enthalten. Die Inhalte werden laufend ergänzt und verbessert.</strong></p>
-<p>Fehler und Vorschläge können auf jeder Seite direkt über <em>Problem melden</em> auf Github gemeldet werden. Bitte das entsprechende Issue-Template verwenden.</p>
-<p>Falls bereits Erfahrung mit Github und quarto besteht, kann auch jeweils direkt die Seite bearbeitet werden. Anschliessend kann ein Pull-Request erstellt werden.</p>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="hauptkomponentenanalyse_files/figure-html/pca-example-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Biplot zeigt die Projektion der Daten und die Lasten der Variablen auf den Hauptkomponenten</figcaption>
+</figure>
 </div>
 </div>
+</div>
+</div>
+</section>
+<section id="interpretation-der-pca-ergebnisse" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="interpretation-der-pca-ergebnisse"><span class="header-section-number">13.4</span> Interpretation der PCA-Ergebnisse</h2>
+<ol type="1">
+<li><p><strong>Scree-Plot:</strong> Zeigt die Eigenwerte der Hauptkomponenten. Ein “Knick” im Plot deutet darauf hin, dass ab diesem Punkt weniger Varianz erklärt wird.</p></li>
+<li><p><strong>Biplot:</strong> Zeigt sowohl die Beobachtungen als Punkte als auch die Variablen als Vektoren. Die Länge der Vektoren zeigt die Bedeutung der Variablen, und der Winkel zwischen ihnen die Korrelation.</p></li>
+</ol>
+</section>
+<section id="fazit" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="fazit"><span class="header-section-number">13.5</span> Fazit</h2>
+<p>Die Hauptkomponentenanalyse ist ein leistungsfähiges Werkzeug zur Reduktion von Datenkomplexität. Sie hilft, Muster in den Daten zu identifizieren und zu visualisieren, sollte jedoch mit Vorsicht interpretiert werden, da die Hauptkomponenten nicht immer eine klare inhaltliche Bedeutung haben.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -700,25 +845,64 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       };
     }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
           }
-        });
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
       }
   const findCites = (el) => {
     const parentEl = el.parentElement;
@@ -761,10 +945,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./clusteranalyse.html" class="pagination-link" aria-label="Clusteranalyse">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clusteranalyse</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./grundlagen_R.html" class="pagination-link" aria-label="Grundlagen R">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Grundlagen R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./extremwertstatistik.html" class="pagination-link" aria-label="Extremwertstatistik">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Extremwertstatistik</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -776,7 +963,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
 <p>Made with ❤️ by <a href="https://lukasbatschelet.ch/">Lukas Batschelet</a></p>
-<div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/hauptkomponentenanalyse.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p><a href="https://ko-fi.com/lukasbatschelet">☕️Buy me a coffee</a></p>
 </div>

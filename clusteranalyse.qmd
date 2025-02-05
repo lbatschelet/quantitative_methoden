@@ -1,0 +1,159 @@
+---
+title: "Clusteranalyse"
+lang: "de-CH"
+code-annotations: hover
+---
+
+```{r}
+#| label: clustering
+#| echo: true
+#| code-fold: true
+#| output: true
+#| fig-cap: "Clustering"
+
+library(ggplot2)
+library(MASS)
+library(class)  # Für k-NN Klassifikation
+
+# Synthetische Daten erzeugen
+set.seed(42)
+n <- 150
+group1 <- data.frame(x = rnorm(n, mean = 2, sd = 1), 
+                     y = rnorm(n, mean = 4, sd = 1), 
+                     group = "A")
+group2 <- data.frame(x = rnorm(n, mean = 6, sd = 1.5), 
+                     y = sin(rnorm(n, mean = 5, sd = 1)) * 4 + 5, 
+                     group = "B")
+group3 <- data.frame(x = rnorm(n, mean = 4, sd = 0.8), 
+                     y = rnorm(n, mean = 8, sd = 0.8), 
+                     group = "C")
+
+# Daten kombinieren
+data <- rbind(group1, group2, group3)
+
+# Raster für Entscheidungsgrenzen
+grid <- expand.grid(x = seq(min(data$x) - 1, max(data$x) + 1, length = 300),
+                    y = seq(min(data$y) - 1, max(data$y) + 1, length = 300))
+
+# k-NN Klassifikation für nicht-lineare Grenzen
+knn_pred <- knn(train = data[, 1:2], test = grid, cl = data$group, k = 15)
+grid$pred <- knn_pred
+
+# Plot
+ggplot(data, aes(x = x, y = y, color = group)) +
+  geom_point(size = 2, alpha = 0.7) +  # Punkte
+  geom_contour(data = grid, aes(z = as.numeric(pred)), 
+               breaks = c(1.5, 2.5), color = "black", size = 0.2, linetype = "solid") +  # Wilde Grenzen
+  stat_density_2d(aes(fill = group), geom = "polygon", alpha = 0.2, color = NA) +  # Farbige Dichtekonturen
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+Eine Clusteranalyse klassifiziert Bezugs/Raumeinheiten auf der Grundlage von Ähnlichkeitsmassen (z.B. Klimatypen, Stadttypen, etc.).
+
+## Schwellenwertanalyse
+
+Eine einfachste Methode zur Klassifizierung ist die Schwellenwertanalyse. Diese erfordert theoretische oder empirische Kenntnisse über die zu klassifizierenden Objekte und nutzt subjektie Schwellenwerte.
+
+## Nicht-hierarchische Verfahren
+
+- Werte so lange immer wieder auf die Cluster verteilt, bis die Summe der Abstände von zugehörigen Cluster-Mitten minimal ist
+- Vorteil: Werte werden flexibel auf Cluster verteilt
+- Nachteil: Anzahl der Cluster muss a-priori vorgegeben werden
+
+### k-Means
+
+1. Initialisierung: $k$ Clusterzentren auf $k$ zufällige, aber unterschiedliche Positionen im $p$-dimensionalen Raum setzen, möglichst so dass die Abstände zwischen initialen Clusterzentren maximal sind. Jedem Clusterzentrum wird eine eindeutige Klassennummer (1 bis $k$) zugewiesen.
+2. Klassifizierung: Finde für jeden Datenpunkt das nächste Clusterzentrum und weise dem Datenpunkt die Klassennummer dieses Clusterzentrums zu.
+3. Clusterzentren berechnen: Berechne die Position der Clusterzentren neu, in dem alle Datenpunkte die zu einer bestimmten Klasse gehören gemittelt werden.
+4. Iteration: Wiederholung ab Schritt 2, bis die Klassifizierung stabil ist
+
+```{r}
+#| label: kmeans
+#| echo: true
+#| code-fold: true
+#| output: true
+#| fig-cap: "K-Means-Clustering mit synthetischen Daten"
+
+library(ggplot2)
+
+# Synthetische Daten erzeugen
+set.seed(123)
+n <- 150
+data_kmeans <- data.frame(
+  x = c(rnorm(n, mean = 2), rnorm(n, mean = 6), rnorm(n, mean = 4)),
+  y = c(rnorm(n, mean = 3), rnorm(n, mean = 7), rnorm(n, mean = 5))
+)
+
+# K-Means Clustering
+kmeans_result <- kmeans(data_kmeans, centers = 3)
+data_kmeans$cluster <- as.factor(kmeans_result$cluster)
+
+# Plot für K-Means Clustering
+ggplot(data_kmeans, aes(x = x, y = y, color = cluster)) +
+  geom_point(size = 2, alpha = 0.7) +
+  geom_point(data = as.data.frame(kmeans_result$centers), 
+             aes(x = x, y = y), 
+             color = "black", 
+             size = 4, 
+             shape = 8) +  # Zentren als Sterne
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+## Hierarchisches Clustering
+
+- iterative Vorgehensweise, bei der die Cluster des letzten Schrittes immer weiter zusammengefasst werden
+-  Nachteil: Einmal klassifizierte Werte verbleiben in dem Cluster auch wenn sich die Eigenschaften des Cluster im Laufe der Verfahrensschritte verändern
+-  Vorteil: Anzahl der Cluster muss nicht a-priori vorgegeben werden
+
+
+
+```{r}
+#| label: hierarchisches-clustering
+#| echo: true
+#| code-fold: true
+#| output: true
+#| fig-cap: "Dendrogramm mit synthetischen Daten"
+
+library(ggdendro)
+
+n <- 50
+
+# Synthetische Daten erzeugen
+data_hclust <- data.frame(
+  x = c(rnorm(n, mean = 1), rnorm(n, mean = 5), rnorm(n, mean = 3)),
+  y = c(rnorm(n, mean = 2), rnorm(n, mean = 6), rnorm(n, mean = 4))
+)
+
+# Hierarchisches Clustering
+dist_matrix <- dist(data_hclust)
+hclust_result <- hclust(dist_matrix)
+
+# Dendrogramm-Daten für ggplot
+dend_data <- dendro_data(hclust_result, type = "rectangle")
+
+# Plot für das Dendrogramm
+ggplot() +
+  geom_segment(data = dend_data$segments, 
+               aes(x = x, y = y, xend = xend, yend = yend), 
+               color = "black") +
+  theme_minimal() +
+  labs(title = "Hierarchisches Clustering (Dendrogramm)",
+       x = "", y = "Distanz") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        panel.grid = element_blank())
+```
+
+
+
+
+
+
+
+
+
+
+
+

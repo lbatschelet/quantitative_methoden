@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>11&nbsp; Glossar – Quantitative Methoden</title>
+<title>17&nbsp; Glossar – Quantitative Methoden</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./excercises/ex01.html" rel="next">
-<link href="./regression.html" rel="prev">
+<link href="./fallen-der-statistik.html" rel="prev">
 <link href="./code" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -145,7 +145,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./glossar.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Glossar</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./glossar.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Glossar</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -261,8 +261,44 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./fehlermasse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">fehlermasse.html</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clusteranalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clusteranalyse</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hauptkomponentenanalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Hauptkomponentenanalyse</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./extremwertstatistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Extremwertstatistik</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./neuronale-netze.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">neuronale-netze.html</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fallen-der-statistik.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallen der Statistik</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./glossar.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Glossar</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Glossar</span></span></a>
   </div>
 </li>
       </ul>
@@ -318,25 +354,25 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#mittelwert-barx-oder-mu" id="toc-mittelwert-barx-oder-mu" class="nav-link active" data-scroll-target="#mittelwert-barx-oder-mu"><span class="header-section-number">11.1</span> Mittelwert <span class="math inline">\(\bar{x}\)</span> oder <span class="math inline">\(\mu\)</span></a></li>
-  <li><a href="#median-x_0.5" id="toc-median-x_0.5" class="nav-link" data-scroll-target="#median-x_0.5"><span class="header-section-number">11.2</span> Median <span class="math inline">\(x_{0.5}\)</span></a></li>
-  <li><a href="#varianz-s2-sigma2" id="toc-varianz-s2-sigma2" class="nav-link" data-scroll-target="#varianz-s2-sigma2"><span class="header-section-number">11.3</span> Varianz <span class="math inline">\(s^2\)</span>, <span class="math inline">\(\sigma^2\)</span></a></li>
-  <li><a href="#standardabweichung-s-sigma" id="toc-standardabweichung-s-sigma" class="nav-link" data-scroll-target="#standardabweichung-s-sigma"><span class="header-section-number">11.4</span> Standardabweichung <span class="math inline">\(s\)</span>, <span class="math inline">\(\sigma\)</span></a></li>
-  <li><a href="#standardfehler-se" id="toc-standardfehler-se" class="nav-link" data-scroll-target="#standardfehler-se"><span class="header-section-number">11.5</span> Standardfehler <span class="math inline">\(SE\)</span></a></li>
-  <li><a href="#t-wert-t" id="toc-t-wert-t" class="nav-link" data-scroll-target="#t-wert-t"><span class="header-section-number">11.6</span> t-Wert <span class="math inline">\(t\)</span></a></li>
-  <li><a href="#p-wert-p" id="toc-p-wert-p" class="nav-link" data-scroll-target="#p-wert-p"><span class="header-section-number">11.7</span> p-Wert <span class="math inline">\(p\)</span></a></li>
-  <li><a href="#freiheitsgrade-df" id="toc-freiheitsgrade-df" class="nav-link" data-scroll-target="#freiheitsgrade-df"><span class="header-section-number">11.8</span> Freiheitsgrade <span class="math inline">\(df\)</span></a></li>
-  <li><a href="#regressionskoeffizient-hatbeta" id="toc-regressionskoeffizient-hatbeta" class="nav-link" data-scroll-target="#regressionskoeffizient-hatbeta"><span class="header-section-number">11.9</span> Regressionskoeffizient <span class="math inline">\(\hat{\beta}\)</span></a></li>
-  <li><a href="#standardisiertes-residuum-r_i" id="toc-standardisiertes-residuum-r_i" class="nav-link" data-scroll-target="#standardisiertes-residuum-r_i"><span class="header-section-number">11.10</span> Standardisiertes Residuum <span class="math inline">\(r_i\)</span></a></li>
+  <li><a href="#mittelwert-barx-oder-mu" id="toc-mittelwert-barx-oder-mu" class="nav-link active" data-scroll-target="#mittelwert-barx-oder-mu"><span class="header-section-number">17.1</span> Mittelwert <span class="math inline">\(\bar{x}\)</span> oder <span class="math inline">\(\mu\)</span></a></li>
+  <li><a href="#median-x_0.5" id="toc-median-x_0.5" class="nav-link" data-scroll-target="#median-x_0.5"><span class="header-section-number">17.2</span> Median <span class="math inline">\(x_{0.5}\)</span></a></li>
+  <li><a href="#varianz-s2-sigma2" id="toc-varianz-s2-sigma2" class="nav-link" data-scroll-target="#varianz-s2-sigma2"><span class="header-section-number">17.3</span> Varianz <span class="math inline">\(s^2\)</span>, <span class="math inline">\(\sigma^2\)</span></a></li>
+  <li><a href="#standardabweichung-s-sigma" id="toc-standardabweichung-s-sigma" class="nav-link" data-scroll-target="#standardabweichung-s-sigma"><span class="header-section-number">17.4</span> Standardabweichung <span class="math inline">\(s\)</span>, <span class="math inline">\(\sigma\)</span></a></li>
+  <li><a href="#standardfehler-se" id="toc-standardfehler-se" class="nav-link" data-scroll-target="#standardfehler-se"><span class="header-section-number">17.5</span> Standardfehler <span class="math inline">\(SE\)</span></a></li>
+  <li><a href="#t-wert-t" id="toc-t-wert-t" class="nav-link" data-scroll-target="#t-wert-t"><span class="header-section-number">17.6</span> t-Wert <span class="math inline">\(t\)</span></a></li>
+  <li><a href="#p-wert-p" id="toc-p-wert-p" class="nav-link" data-scroll-target="#p-wert-p"><span class="header-section-number">17.7</span> p-Wert <span class="math inline">\(p\)</span></a></li>
+  <li><a href="#freiheitsgrade-df" id="toc-freiheitsgrade-df" class="nav-link" data-scroll-target="#freiheitsgrade-df"><span class="header-section-number">17.8</span> Freiheitsgrade <span class="math inline">\(df\)</span></a></li>
+  <li><a href="#regressionskoeffizient-hatbeta" id="toc-regressionskoeffizient-hatbeta" class="nav-link" data-scroll-target="#regressionskoeffizient-hatbeta"><span class="header-section-number">17.9</span> Regressionskoeffizient <span class="math inline">\(\hat{\beta}\)</span></a></li>
+  <li><a href="#standardisiertes-residuum-r_i" id="toc-standardisiertes-residuum-r_i" class="nav-link" data-scroll-target="#standardisiertes-residuum-r_i"><span class="header-section-number">17.10</span> Standardisiertes Residuum <span class="math inline">\(r_i\)</span></a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/glossar.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./glossar.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Glossar</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./glossar.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Glossar</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Glossar</span></h1>
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Glossar</span></h1>
 </div>
 
 
@@ -353,8 +389,8 @@ window.Quarto = {
 </header>
 
 
-<section id="mittelwert-barx-oder-mu" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="mittelwert-barx-oder-mu"><span class="header-section-number">11.1</span> Mittelwert <span class="math inline">\(\bar{x}\)</span> oder <span class="math inline">\(\mu\)</span></h2>
+<section id="mittelwert-barx-oder-mu" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="mittelwert-barx-oder-mu"><span class="header-section-number">17.1</span> Mittelwert <span class="math inline">\(\bar{x}\)</span> oder <span class="math inline">\(\mu\)</span></h2>
 <ul>
 <li><strong>Symbol:</strong> <span class="math inline">\(\bar{x}\)</span> (Stichprobe) oder <span class="math inline">\(\mu\)</span> (Population)<br>
 </li>
@@ -369,8 +405,8 @@ window.Quarto = {
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="median-x_0.5" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="median-x_0.5"><span class="header-section-number">11.2</span> Median <span class="math inline">\(x_{0.5}\)</span></h2>
+<section id="median-x_0.5" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="median-x_0.5"><span class="header-section-number">17.2</span> Median <span class="math inline">\(x_{0.5}\)</span></h2>
 <ul>
 <li><p><strong>Symbol:</strong> <span class="math inline">\(x_{0.5}\)</span><br>
 </p></li>
@@ -388,8 +424,8 @@ x_{(n+1)/2} &amp; \text{falls } n \text{ ungerade} \\
 </ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="varianz-s2-sigma2" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="varianz-s2-sigma2"><span class="header-section-number">11.3</span> Varianz <span class="math inline">\(s^2\)</span>, <span class="math inline">\(\sigma^2\)</span></h2>
+<section id="varianz-s2-sigma2" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="varianz-s2-sigma2"><span class="header-section-number">17.3</span> Varianz <span class="math inline">\(s^2\)</span>, <span class="math inline">\(\sigma^2\)</span></h2>
 <ul>
 <li><strong>Symbol:</strong> <span class="math inline">\(s^2\)</span> (Stichprobe), <span class="math inline">\(\sigma^2\)</span> (Population)<br>
 </li>
@@ -410,8 +446,8 @@ s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Für Population: var(x) * (n-1)/n</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
-<section id="standardabweichung-s-sigma" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="standardabweichung-s-sigma"><span class="header-section-number">11.4</span> Standardabweichung <span class="math inline">\(s\)</span>, <span class="math inline">\(\sigma\)</span></h2>
+<section id="standardabweichung-s-sigma" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="standardabweichung-s-sigma"><span class="header-section-number">17.4</span> Standardabweichung <span class="math inline">\(s\)</span>, <span class="math inline">\(\sigma\)</span></h2>
 <ul>
 <li><strong>Symbol:</strong> <span class="math inline">\(s\)</span> (Stichprobe), <span class="math inline">\(\sigma\)</span> (Population)<br>
 </li>
@@ -427,8 +463,8 @@ s = \sqrt{s^2}, \quad \sigma = \sqrt{\sigma^2}
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
-<section id="standardfehler-se" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="standardfehler-se"><span class="header-section-number">11.5</span> Standardfehler <span class="math inline">\(SE\)</span></h2>
+<section id="standardfehler-se" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="standardfehler-se"><span class="header-section-number">17.5</span> Standardfehler <span class="math inline">\(SE\)</span></h2>
 <ul>
 <li><strong>Symbol:</strong> <span class="math inline">\(SE\)</span><br>
 </li>
@@ -444,8 +480,8 @@ SE = \frac{s}{\sqrt{n}}
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(x) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
-<section id="t-wert-t" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="t-wert-t"><span class="header-section-number">11.6</span> t-Wert <span class="math inline">\(t\)</span></h2>
+<section id="t-wert-t" class="level2" data-number="17.6">
+<h2 data-number="17.6" class="anchored" data-anchor-id="t-wert-t"><span class="header-section-number">17.6</span> t-Wert <span class="math inline">\(t\)</span></h2>
 <ul>
 <li><strong>Symbol:</strong> <span class="math inline">\(t\)</span><br>
 </li>
@@ -461,8 +497,8 @@ t = \frac{\bar{x} - \mu_0}{SE}
 <div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x, <span class="at">mu =</span> <span class="dv">50</span>)<span class="sc">$</span>statistic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
-<section id="p-wert-p" class="level2" data-number="11.7">
-<h2 data-number="11.7" class="anchored" data-anchor-id="p-wert-p"><span class="header-section-number">11.7</span> p-Wert <span class="math inline">\(p\)</span></h2>
+<section id="p-wert-p" class="level2" data-number="17.7">
+<h2 data-number="17.7" class="anchored" data-anchor-id="p-wert-p"><span class="header-section-number">17.7</span> p-Wert <span class="math inline">\(p\)</span></h2>
 <ul>
 <li><strong>Symbol:</strong> <span class="math inline">\(p\)</span><br>
 </li>
@@ -478,8 +514,8 @@ p = 2 \cdot P(T &gt; |t|)
 <div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x, <span class="at">mu =</span> <span class="dv">50</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
-<section id="freiheitsgrade-df" class="level2" data-number="11.8">
-<h2 data-number="11.8" class="anchored" data-anchor-id="freiheitsgrade-df"><span class="header-section-number">11.8</span> Freiheitsgrade <span class="math inline">\(df\)</span></h2>
+<section id="freiheitsgrade-df" class="level2" data-number="17.8">
+<h2 data-number="17.8" class="anchored" data-anchor-id="freiheitsgrade-df"><span class="header-section-number">17.8</span> Freiheitsgrade <span class="math inline">\(df\)</span></h2>
 <ul>
 <li><strong>Symbol:</strong> <span class="math inline">\(df\)</span><br>
 </li>
@@ -495,8 +531,8 @@ df = n - 1
 <div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x) <span class="sc">-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
-<section id="regressionskoeffizient-hatbeta" class="level2" data-number="11.9">
-<h2 data-number="11.9" class="anchored" data-anchor-id="regressionskoeffizient-hatbeta"><span class="header-section-number">11.9</span> Regressionskoeffizient <span class="math inline">\(\hat{\beta}\)</span></h2>
+<section id="regressionskoeffizient-hatbeta" class="level2" data-number="17.9">
+<h2 data-number="17.9" class="anchored" data-anchor-id="regressionskoeffizient-hatbeta"><span class="header-section-number">17.9</span> Regressionskoeffizient <span class="math inline">\(\hat{\beta}\)</span></h2>
 <ul>
 <li><strong>Symbol:</strong> <span class="math inline">\(\hat{\beta}\)</span><br>
 </li>
@@ -512,8 +548,8 @@ Y = \beta_0 + \beta_1 X + \varepsilon
 <div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Y <span class="sc">~</span> X)<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
-<section id="standardisiertes-residuum-r_i" class="level2" data-number="11.10">
-<h2 data-number="11.10" class="anchored" data-anchor-id="standardisiertes-residuum-r_i"><span class="header-section-number">11.10</span> Standardisiertes Residuum <span class="math inline">\(r_i\)</span></h2>
+<section id="standardisiertes-residuum-r_i" class="level2" data-number="17.10">
+<h2 data-number="17.10" class="anchored" data-anchor-id="standardisiertes-residuum-r_i"><span class="header-section-number">17.10</span> Standardisiertes Residuum <span class="math inline">\(r_i\)</span></h2>
 <ul>
 <li><strong>Symbol:</strong> <span class="math inline">\(r_i\)</span><br>
 </li>
@@ -951,8 +987,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./regression.html" class="pagination-link" aria-label="Regression">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></span>
+      <a href="./fallen-der-statistik.html" class="pagination-link" aria-label="Fallen der Statistik">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallen der Statistik</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

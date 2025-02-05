@@ -1,0 +1,239 @@
+---
+title: "Extremwertstatistik"
+lang: "de-CH"
+code-annotation: hover
+---
+
+
+Extremereignisse, wie starke Niederschläge, stellen eine bedeutende Herausforderung für Hochwasserschutz, Infrastrukturplanung und Klimarisikoanalysen dar. Die **Extremwertstatistik** liefert Methoden, um seltene, extreme Ereignisse zu quantifizieren. In diesem Kapitel betrachten wir zwei zentrale Ansätze:
+
+1. **Blockmaxima-Ansatz (GEV-Verteilung)**  
+2. **Peaks-over-Threshold (POT-Ansatz, Generalized Pareto Distribution - GPD)**
+
+Wir vergleichen beide Methoden hinsichtlich ihrer Annahmen, Stärken und Schwächen.
+
+
+## Grundlagen der Extremwertstatistik
+
+- **Wiederkehrwert $X(T)$:** Der Wert, der im Durchschnitt alle $T$ Jahre überschritten wird.  
+- **Wiederkehrperiode $T$:** Gibt an, wie selten ein Ereignis ist (z.B. ein 100-jähriges Ereignis wird im Mittel alle 100 Jahre überschritten).  
+- **Überschreitungswahrscheinlichkeit:** $P = \frac{1}{T}$ pro Jahr.
+
+
+::: {.callout-note}
+## Datenaufbereitung
+
+Wir verwenden tägliche Niederschlagsdaten, um Extremereignisse zu identifizieren.
+
+```{r}
+#| label: datenaufbereitung
+#| echo: true
+#| output: false
+library(dplyr)
+data <- read.csv("Data/meteodaten_tag.csv", sep = ",", na.strings = "-")
+data$Datum <- as.Date(paste(data$Jahr, data$Monat, data$Tag, sep = "-"))
+
+# Jahresmaxima für den Blockmaxima-Ansatz
+jahres_maxima <- data %>%
+  group_by(Jahr) %>%
+  summarise(MaxNiederschlag = max(Niederschlag.mm.Tag., na.rm = TRUE))
+
+# Schwellenwert für den POT-Ansatz (95. Perzentil)
+threshold <- quantile(data$Niederschlag.mm.Tag., 0.95, na.rm = TRUE)
+extreme_events <- data %>%
+  filter(Niederschlag.mm.Tag. > threshold) %>%
+  pull(Niederschlag.mm.Tag.)  # Extrahiert nur die Niederschlagswerte als Vektor
+```
+
+**Datenüberblick**
+
+- **Maximaler Tagesniederschlag in der Zeitreihe:** `r max(jahres_maxima$MaxNiederschlag)` mm/Tag  
+- **95%-Schwellenwert für Extremereignisse:** `r threshold` mm/Tag  
+
+:::
+
+## Blockmaxima-Ansatz (GEV-Verteilung)
+
+Der **Blockmaxima-Ansatz** betrachtet den höchsten Wert in festgelegten Zeitblöcken (hier: jährlich). Diese Maxima werden mit der **Generalized Extreme Value (GEV)-Verteilung** modelliert.
+
+$$
+\operatorname{GEV}(x ; \mu, \sigma, \xi)=\exp \left\{-\left[1+\xi\left(\frac{x-\mu}{\sigma}\right)\right]^{-1 / \xi}\right\}
+$$
+
+- $\mu$ ist der Lageparameter
+- $\sigma$ ist der Skalenparameter
+- $\xi$ ist der Formparameter
+  - $\xi = 0$ entspricht der Gumbel-Verteilung und die Verteilung ist unbeschränkt
+  - $\xi > 0$ entspricht der Fréchet-Verteilung und die Verteilung ist nach unten beschränkt
+  - $\xi < 0$ entspricht der Weibull-Verteilung und die Verteilung ist nach oben beschränkt
+
+```{r}
+#| label: blockmaxima
+#| echo: true
+#| output: false
+library(extRemes)
+gev_fit <- fevd(jahres_maxima$MaxNiederschlag, type = "GEV")
+summary(gev_fit)
+```
+
+```{r}
+#| label: blockmaxima-output
+#| echo: false
+#| output: true
+summary(gev_fit)
+gev_params <- gev_fit$results$par
+```
+
+### Parameter der GEV-Verteilung:
+
+- **Lageparameter ($\mu$):** `{r} round(gev_params[["location"]], 2)` mm/Tag  
+- **Skalenparameter ($\sigma$):** `{r} round(gev_params[["scale"]], 2)` mm/Tag  
+- **Formparameter ($\xi$):** `r round(gev_params[["shape"]], 3)` also `{r} if(gev_params[["shape"]] == 0) "Gumbel-Verteilt und unbeschränkt" else if(gev_params[["shape"]] > 0) "Fréchet-Verteilt und nach unten beschränkt" else "Weibull-Verteilt und nach oben beschränkt"`
+
+
+### Berechnung von Wiederkehrwerten (GEV)
+
+```{r}
+#| label: blockmaxima-return
+gev_return_levels <- return.level(gev_fit, c(100, 1000))
+gev_return_levels
+```
+
+- **100-jähriges Ereignis:** `r round(gev_return_levels[1], 2)` mm/Tag  
+- **1000-jähriges Ereignis:** `r round(gev_return_levels[2], 2)` mm/Tag 
+
+Wenn wir diese Werte mit dem höchsten Wert aus unserer Zeitreihe (`r max(jahres_maxima$MaxNiederschlag)` mm/Tag) vergleichen, sehen wir, dass die GEV-Verteilung grosse Probleme mit nur so wenigen Datenpunkten (unsere Zeitreihe ist nur 13 Jahre lang, die Methode berechnet also die Wiederkehrwerte mit nur 13 Datenpunkten) hat.
+
+## Peaks-over-Threshold (POT-Ansatz, GPD)
+
+Einen Ansatz um bei kurzen Zeitreihen die Wiederkehrwerte zu berechnen, ist der **POT-Ansatz**. Hier wird die Verteilung der Extremwerte oberhalb eines Schwellenwerts betrachtet. Das setzt voraus, dass die Extremwerte unabhängig voneinander sind und erfordert theoretisches Grundlagenwissen um den Schwellenwert subjektiv zu bestimmen.
+
+Der **POT-Ansatz** betrachtet **alle Werte, die einen definierten Schwellenwert überschreiten** (hier das 95. Perzentil). Diese Extremwerte werden mit der **Generalized Pareto Distribution (GPD)** modelliert.
+
+```{r}
+#| label: pot
+#| echo: true
+#| output: false
+pot_fit <- fevd(extreme_events, 
+                threshold = threshold,
+                type = "GP")
+summary(pot_fit)
+pot_params <- pot_fit$results$par
+```
+
+```{r}
+#| label: pot-output
+#| echo: false
+#| output: true
+summary(pot_fit)
+pot_params <- pot_fit$results$par
+```
+
+### Parameter der GPD:
+
+- **Schwellenwert:** `r round(threshold, 2)` mm/Tag  
+- **Skalenparameter ($\sigma$):** `r round(pot_params[["scale"]], 2)` mm/Tag  
+- **Formparameter ($\xi$):** `r round(pot_params[["shape"]], 3)`  
+
+
+### Berechnung von Wiederkehrwerten (POT)
+
+```{r}
+#| label: pot-return
+pot_return_levels <- return.level(pot_fit, c(100, 1000))
+pot_return_levels
+```
+
+- **100-jähriges Ereignis (POT):** `r round(pot_return_levels[1], 2)` mm/Tag  
+- **1000-jähriges Ereignis (POT):** `r round(pot_return_levels[2], 2)` mm/Tag
+
+
+Zur Erinnerung: der höchste Wert in unserer Zeitreihe war `r max(jahres_maxima$MaxNiederschlag)` mm/Tag. Das liefert uns also eine komplett andere Schätzung für die Wiederkehrwerte.
+
+## Visualisierung der Wiederkehrwerte
+
+```{r}
+#| label: plot-vergleich
+#| echo: true
+#| output: true
+#| code-fold: true
+library(ggplot2)
+
+# 1. Definition des Bereichs für die Wiederkehrperioden
+return_periods <- seq(2, 1000, length.out = 500)
+
+# 2. Berechnung der Wiederkehrwerte für beide Modelle
+gev_return_levels_full <- return.level(gev_fit, return.period = return_periods)
+pot_return_levels_full <- return.level(pot_fit, return.period = return_periods)
+
+# 3. Berechnung der Konfidenzintervalle
+gev_ci <- ci(gev_fit, return.period = return_periods)
+pot_ci <- ci(pot_fit, return.period = return_periods)
+
+# 4. Daten für den Plot zusammenfassen
+plot_data <- data.frame(
+  ReturnPeriod = rep(return_periods, 2),
+  ReturnLevel = c(gev_return_levels_full, pot_return_levels_full),
+  LowerCI = c(gev_ci[, "95% lower CI"], pot_ci[, "95% lower CI"]),
+  UpperCI = c(gev_ci[, "95% upper CI"], pot_ci[, "95% upper CI"]),
+  Methode = rep(c("GEV (Blockmaxima)", "GPD (POT)"), each = length(return_periods))
+)
+
+# 5. Plot erstellen
+ggplot(plot_data, aes(x = ReturnPeriod, y = ReturnLevel, color = Methode, fill = Methode)) +
+  geom_ribbon(aes(ymin = LowerCI, ymax = UpperCI), alpha = 0.2, linetype = 0) +  # Unsicherheitsbereich
+  geom_line(linewidth = 1) +                                                    # Verteilungsfunktion
+  geom_point(data = plot_data %>% filter(ReturnPeriod %in% c(100, 1000)),        # Markierung für 100- und 1000-jähriges Ereignis
+             aes(x = ReturnPeriod, y = ReturnLevel),
+             size = 3, shape = 21, fill = "white") +
+  scale_x_log10(breaks = c(2, 5, 10, 20, 50, 100, 200, 500, 1000)) +             # Log-Skala
+  labs(
+    title = "Vergleich der Wiederkehrwerte mit Konfidenzintervallen",
+    x = "Wiederkehrperiode (Jahre, log-Skala)",
+    y = "Niederschlag (mm/Tag)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+
+## Direkter Vergleich der Methoden
+
+```{r}
+#| label: vergleich
+vergleich <- data.frame(
+  Methode = c("GEV (Blockmaxima)", "GPD (POT)"),
+  `100-jährig (mm)` = c(gev_return_levels[1], pot_return_levels[1]),
+  `1000-jährig (mm)` = c(gev_return_levels[2], pot_return_levels[2])
+)
+vergleich
+```
+
+### Interpretation:
+
+- **GEV (Blockmaxima):** Nutzt nur ein Extremereignis pro Jahr.  
+- **GPD (POT):** Berücksichtigt alle extremen Ereignisse oberhalb der Schwelle → häufig realistischere Werte bei kurzen Zeitreihen.
+
+### Vorteile des Blockmaxima-Ansatzes (GEV):
+- Einfach zu berechnen und zu interpretieren.  
+- Robuster bei langen Zeitreihen.  
+
+### Nachteile des Blockmaxima-Ansatzes (GEV):
+- Viele extreme Ereignisse werden nicht berücksichtigt.  
+- Wenige Datenpunkte führen zu hoher Unsicherheit.
+
+
+### Vorteile des POT-Ansatzes (GPD):
+- Nutzt mehr Extremwerte → bessere statistische Basis.  
+- Flexibler bei kurzen Zeitreihen.  
+
+### Nachteile des POT-Ansatzes (GPD):
+- Wahl des Schwellenwerts ist kritisch.  
+- Abhängigkeiten zwischen Extremereignissen müssen beachtet werden.
+
+
+
+Beide Methoden haben ihre Berechtigung:
+
+- **Blockmaxima (GEV)** ist geeignet für lange Zeitreihen mit stabilen Extremwerten.  
+- **POT (GPD)** liefert bei kurzen Datensätzen oft realistischere Ergebnisse.  

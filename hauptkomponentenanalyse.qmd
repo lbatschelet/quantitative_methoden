@@ -1,0 +1,90 @@
+---
+title: "Hauptkomponentenanalyse"
+lang: "de-CH"
+code-annotations: hover
+---
+
+Die Hauptkomponentenanalyse (PCA) ist eine Methode der multivariaten Statistik, die zur Dimensionsreduktion von Datensätzen mit vielen Variablen eingesetzt wird. Ihr Ziel ist es, die Komplexität der Daten zu reduzieren, während möglichst viel der ursprünglichen Varianz erhalten bleibt. PCA wird in verschiedenen Bereichen wie der Datenanalyse, Mustererkennung und Visualisierung angewendet.
+
+- Ziel ist eine Dimensionsreduktion, d.h. „Relevante“ Informationen mit einem Redundanz- und Rauschfilter zu extrahieren
+- Es gibt viele redundante Informationen, z.B. weil Messungen benachbarter Stationen korreliert sind
+- Die Daten enthalten nicht nur das Messsignal sondern auch Fehler
+
+## Grundidee
+
+Die PCA transformiert die Ausgangsdaten in ein neues Koordinatensystem, in dem die größte Varianz der Daten entlang der ersten Achse (der ersten Hauptkomponente) liegt. Die zweite Hauptkomponente erklärt die zweitgrößte Varianz und steht orthogonal zur ersten, und so weiter. 
+
+**Wichtige Konzepte:**
+- **Varianz:** Ein Maß für die Streuung der Daten.
+- **Kovarianzmatrix:** Beschreibt, wie stark zwei Variablen gemeinsam variieren.
+- **Eigenwerte und Eigenvektoren:** Eigenwerte geben an, wie viel Varianz von einer Komponente erklärt wird; Eigenvektoren definieren die Richtung dieser Varianz.
+
+## Mathematische Herleitung
+
+1. **Standardisierung der Daten:** 
+   - Um Variablen mit unterschiedlichen Einheiten vergleichbar zu machen, werden die Daten zentriert und skaliert.
+   
+2. **Berechnung der Kovarianzmatrix:** 
+   $$
+   \Sigma = \frac{1}{n-1} X^T X
+   $$
+
+3. **Eigenwertzerlegung:** 
+   - Lösung der Eigenwertgleichung:
+   $$
+   \Sigma v = \lambda v
+   $$
+   wobei $\lambda$ die Eigenwerte und $v$ die Eigenvektoren sind.
+
+4. **Sortierung der Eigenwerte:**
+   - Die Eigenwerte werden in absteigender Reihenfolge sortiert, die zugehörigen Eigenvektoren bilden die Hauptkomponenten.
+
+5. **Transformation der Daten:** 
+   - Projektion der Daten in den neuen Raum:
+   $$
+   Z = XW
+   $$
+   wobei $W$ die Matrix der Eigenvektoren ist.
+
+## Interpretation
+
+- **Erklärte Varianz:** Der Anteil der Gesamtvarianz, der von jeder Hauptkomponente erklärt wird.
+- **Biplots:** Visualisieren die Projektion der Daten und die Lasten der Variablen auf den Hauptkomponenten.
+```{r}
+#| label: pca-example
+#| echo: true
+#| code-fold: true
+#| output: true
+#| layout-ncol: 2
+#| fig-subcap: [
+#|   "Scree-Plot zeigt die Eigenwerte der Hauptkomponenten",
+#|   "Biplot zeigt die Projektion der Daten und die Lasten der Variablen auf den Hauptkomponenten"
+#| ]
+
+# Daten simulieren
+set.seed(123)
+data <- matrix(rnorm(100*5), ncol = 5)
+colnames(data) <- paste0("Var", 1:5)
+
+# PCA durchführen
+pca_result <- prcomp(data, scale. = TRUE)
+
+# Zusammenfassung
+summary(pca_result)
+
+# Scree-Plot
+plot(pca_result, type = "l")
+
+# Biplot
+biplot(pca_result, scale = 0)
+```
+
+## Interpretation der PCA-Ergebnisse
+
+1. **Scree-Plot:** Zeigt die Eigenwerte der Hauptkomponenten. Ein "Knick" im Plot deutet darauf hin, dass ab diesem Punkt weniger Varianz erklärt wird.
+
+2. **Biplot:** Zeigt sowohl die Beobachtungen als Punkte als auch die Variablen als Vektoren. Die Länge der Vektoren zeigt die Bedeutung der Variablen, und der Winkel zwischen ihnen die Korrelation.
+
+## Fazit
+
+Die Hauptkomponentenanalyse ist ein leistungsfähiges Werkzeug zur Reduktion von Datenkomplexität. Sie hilft, Muster in den Daten zu identifizieren und zu visualisieren, sollte jedoch mit Vorsicht interpretiert werden, da die Hauptkomponenten nicht immer eine klare inhaltliche Bedeutung haben.
