@@ -401,9 +401,9 @@ window.Quarto = {
 <h2 data-number="8.1" class="anchored" data-anchor-id="standardabweichung-vs.-standardfehler"><span class="header-section-number">8.1</span> Standardabweichung vs.&nbsp;Standardfehler</h2>
 <p>Der <strong>Standardfehler</strong> ist ein Mass für die Genauigkeit eines Schätzers. Er ist definiert als die Standardabweichung der Schätzfunktion.</p>
 <p><span class="math display">\[
-s_{\overline{x}} = \sqrt{\frac{s^2}{n}}
+s_{\bar{x}} = \sqrt{\frac{s^2}{n}}
 \]</span></p>
-<p>Wo <span class="math inline">\(s_{\overline{x}}\)</span> der Standardfehler des Mittelwerts ist, <span class="math inline">\(s^2\)</span> die Varianz der Stichprobe und <span class="math inline">\(n\)</span> die Anzahl der Beobachtungen.</p>
+<p>Wo <span class="math inline">\(s_{\bar{x}}\)</span> der Standardfehler des Mittelwerts ist, <span class="math inline">\(s^2\)</span> die Varianz der Stichprobe und <span class="math inline">\(n\)</span> die Anzahl der Beobachtungen.</p>
 <p>D.h. der Standardfehler ist gross, wenn die Varianz gross ist und/oder die Stichprobe klein ist.</p>
 <p>Die Standardfehler sind dank dem zentralen Grenzwertsatz normalverteilt.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Beispiel">
@@ -422,7 +422,7 @@ Beispiel
 <p>Im gefundenen Bus befinden sich 50 Personen mit einem durchschnittlichen Alter von 80 Jahren.</p>
 <p>Der Standardfehler des Mittelwerts beträgt:</p>
 <p><span class="math display">\[
-s_{\overline{x}} = \sqrt{\frac{s^2}{n}} = \sqrt{\frac{10^2}{50}} = \sqrt{2} \approx 1.41 \text{ Jahre}
+s_{\bar{x}} = \sqrt{\frac{s^2}{n}} = \sqrt{\frac{10^2}{50}} = \sqrt{2} \approx 1.41 \text{ Jahre}
 \]</span></p>
 <p>Die Differenz zwischen dem Mittelwert der Stichprobe und dem Mittelwert der Population beträgt 40 Jahre, und ist damit grösser als 28 Standardfehler.</p>
 <p>Aus der Normalverteilung können wir also schliessen, dass der Bus mit 99.9% Wahrscheinlichkeit nicht die Teilnehmer des Skimarathons enthält.</p>
@@ -461,14 +461,14 @@ s_{\overline{x}} = \sqrt{\frac{s^2}{n}} = \sqrt{\frac{10^2}{50}} = \sqrt{2} \app
 <li>Beim <strong>t-Test</strong> rechnest du einen <strong>t-Wert</strong> (Teststatistik) aus. Dieser t-Wert sagt dir, wie viele „Standardfehler“ deine gemessene Differenz vom erwarteten Wert (unter <span class="math inline">\(H_0\)</span>) entfernt ist.</li>
 </ul>
 <p><span class="math display">\[
-t = \frac{\overline{x} - \mu_0}{s_{\overline{x}}}
+t = \frac{\bar{x} - \mu_0}{s_{\bar{x}}}
 \]</span></p>
 <ul>
-<li><span class="math inline">\(\overline{x}\)</span>: Mittelwert deiner Stichprobe<br>
+<li><span class="math inline">\(\bar{x}\)</span>: Mittelwert deiner Stichprobe<br>
 </li>
 <li><span class="math inline">\(\mu_0\)</span>: unter <span class="math inline">\(H_0\)</span> vermuteter Populationsmittelwert (oder z.B. Differenz von 0 zwischen zwei Gruppen)<br>
 </li>
-<li><span class="math inline">\(s_{\overline{x}} = \frac{s}{\sqrt{n}}\)</span>: Standardfehler des Mittelwerts, basierend auf der Stichproben-Standardabweichung <span class="math inline">\(s\)</span> und der Stichprobengrösse <span class="math inline">\(n\)</span></li>
+<li><span class="math inline">\(s_{\bar{x}} = \frac{s}{\sqrt{n}}\)</span>: Standardfehler des Mittelwerts, basierend auf der Stichproben-Standardabweichung <span class="math inline">\(s\)</span> und der Stichprobengrösse <span class="math inline">\(n\)</span></li>
 </ul></li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -571,14 +571,14 @@ Beispiel
 <p><strong>Teststatistik</strong>:</p>
 <p><span class="math display">\[
 \begin{aligned}
-T &amp;= \frac{\overline{x} - \mu_0}{s_{\overline{x}}} \\
-  &amp;= \frac{\overline{x} - \mu_0}{\frac{s_x}{\sqrt{n}}} \\
+T &amp;= \frac{\bar{x} - \mu_0}{s_{\bar{x}}} \\
+  &amp;= \frac{\bar{x} - \mu_0}{\frac{s_x}{\sqrt{n}}} \\
   &amp;= \frac{8.75 - 9}{\frac{1.05}{\sqrt{111}}} \\
   &amp;= \frac{-0.25}{0.031} \\
   &amp;= -2.51
 \end{aligned}
 \]</span></p>
-<p>Wobei <span class="math inline">\(\overline{x}\)</span> der Mittelwert der Stichprobe ist, <span class="math inline">\(\mu_0\)</span> der Mittelwert der Grundgesamtheit ist, <span class="math inline">\(s_x\)</span> der Standardfehler ist und <span class="math inline">\(n\)</span> die Anzahl der Beobachtungen ist.</p>
+<p>Wobei <span class="math inline">\(\bar{x}\)</span> der Mittelwert der Stichprobe ist, <span class="math inline">\(\mu_0\)</span> der Mittelwert der Grundgesamtheit ist, <span class="math inline">\(s_x\)</span> der Standardfehler ist und <span class="math inline">\(n\)</span> die Anzahl der Beobachtungen ist.</p>
 </div>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -609,9 +609,9 @@ Beispiel
 </div>
 <div class="callout-body-container callout-body">
 <p><span class="math display">\[
-T = \frac{\overline{x} - \mu_0}{s_{\overline{x}}} \Rightarrow \mu \in \left\{\overline{x} \pm q_{T, 0.975} \cdot s_{\overline{x}}\right\}
+T = \frac{\bar{x} - \mu_0}{s_{\bar{x}}} \Rightarrow \mu \in \left\{\bar{x} \pm q_{T, 0.975} \cdot s_{\bar{x}}\right\}
 \]</span></p>
-<p>Wobei <span class="math inline">\(\overline{x}\)</span> der Mittelwert der Stichprobe ist, <span class="math inline">\(\mu_0\)</span> der Mittelwert der Grundgesamtheit ist, <span class="math inline">\(s_{\overline{x}}\)</span> der Standardfehler ist und <span class="math inline">\(q_{T, 0.975}\)</span> das 97.5%-Quantil der t-Verteilung mit <span class="math inline">\(n-1\)</span> Freiheitsgraden ist.</p>
+<p>Wobei <span class="math inline">\(\bar{x}\)</span> der Mittelwert der Stichprobe ist, <span class="math inline">\(\mu_0\)</span> der Mittelwert der Grundgesamtheit ist, <span class="math inline">\(s_{\bar{x}}\)</span> der Standardfehler ist und <span class="math inline">\(q_{T, 0.975}\)</span> das 97.5%-Quantil der t-Verteilung mit <span class="math inline">\(n-1\)</span> Freiheitsgraden ist.</p>
 </div>
 </div>
 <ul>
@@ -619,8 +619,8 @@ T = \frac{\overline{x} - \mu_0}{s_{\overline{x}}} \Rightarrow \mu \in \left\{\ov
 </ul>
 <p><span class="math display">\[
 \begin{aligned}
-\mu_{\text{Obergrenze}} &amp;= \overline{x} + q_{1 - \alpha} \cdot \sqrt{\frac{s^2}{n}} \\
-\mu_{\text{Untergrenze}} &amp;= \overline{x} - q_{1 - \alpha} \cdot \sqrt{\frac{s^2}{n}} \\
+\mu_{\text{Obergrenze}} &amp;= \bar{x} + q_{1 - \alpha} \cdot \sqrt{\frac{s^2}{n}} \\
+\mu_{\text{Untergrenze}} &amp;= \bar{x} - q_{1 - \alpha} \cdot \sqrt{\frac{s^2}{n}} \\
 \end{aligned}
 \]</span></p>
 <p><strong>95%-Konfidenzintervall der erwarteten Temperatur aus dem vorherigen Beispiel</strong>:</p>

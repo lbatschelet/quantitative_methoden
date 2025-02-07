@@ -368,7 +368,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#streuungsparameter" id="toc-streuungsparameter" class="nav-link" data-scroll-target="#streuungsparameter"><span class="header-section-number">6.4</span> Streuungsparameter</a>
   <ul class="collapse">
-  <li><a href="#quantile-q" id="toc-quantile-q" class="nav-link" data-scroll-target="#quantile-q"><span class="header-section-number">6.4.1</span> Quantile <span class="math inline">\(q\%\)</span></a></li>
+  <li><a href="#quantile-q_p" id="toc-quantile-q_p" class="nav-link" data-scroll-target="#quantile-q_p"><span class="header-section-number">6.4.1</span> Quantile <span class="math inline">\(Q_{p}\)</span></a></li>
   <li><a href="#spannweite" id="toc-spannweite" class="nav-link" data-scroll-target="#spannweite"><span class="header-section-number">6.4.2</span> Spannweite</a></li>
   <li><a href="#varianz-s2" id="toc-varianz-s2" class="nav-link" data-scroll-target="#varianz-s2"><span class="header-section-number">6.4.3</span> Varianz <span class="math inline">\(s^2\)</span></a></li>
   <li><a href="#standardabweichung-s" id="toc-standardabweichung-s" class="nav-link" data-scroll-target="#standardabweichung-s"><span class="header-section-number">6.4.4</span> Standardabweichung <span class="math inline">\(s\)</span></a></li>
@@ -626,9 +626,9 @@ Verhältnisskalen Beispiele
 </section>
 <section id="streuungsparameter" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="streuungsparameter"><span class="header-section-number">6.4</span> Streuungsparameter</h2>
-<section id="quantile-q" class="level3" data-number="6.4.1">
-<h3 data-number="6.4.1" class="anchored" data-anchor-id="quantile-q"><span class="header-section-number">6.4.1</span> Quantile <span class="math inline">\(q\%\)</span></h3>
-<p>Das <span class="math inline">\(q\%\)</span>-Quantil ist der Wert, unter dem <span class="math inline">\(q\%\)</span> der Daten liegen.</p>
+<section id="quantile-q_p" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="quantile-q_p"><span class="header-section-number">6.4.1</span> Quantile <span class="math inline">\(Q_{p}\)</span></h3>
+<p>Das <span class="math inline">\(Q_{p}\)</span>-Quantil ist der Wert, unter dem <span class="math inline">\(p\%\)</span> der Daten liegen.</p>
 <section id="spezielle-quantile" class="level4" data-number="6.4.1.1">
 <h4 data-number="6.4.1.1" class="anchored" data-anchor-id="spezielle-quantile"><span class="header-section-number">6.4.1.1</span> Spezielle Quantile</h4>
 <ul>
@@ -761,9 +761,9 @@ s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>bias_n_minus_1 <span class="ot">&lt;-</span> (mean_sd_n_minus_1 <span class="sc">-</span> population_sd) <span class="sc">/</span> population_sd <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>Wahre Standardabweichung der Population: 9.97</li>
-<li>Durchschnittliche Schätzung mit n: 9.18 (Abweichung: -7.9%)</li>
-<li>Durchschnittliche Schätzung mit n-1: 9.68 (Abweichung: -2.92%)</li>
+<li>Wahre Standardabweichung der Population: 9.98</li>
+<li>Durchschnittliche Schätzung mit n: 9.22 (Abweichung: -7.61%)</li>
+<li>Durchschnittliche Schätzung mit n-1: 9.72 (Abweichung: -2.61%)</li>
 </ul>
 <p>Der Effekt der Freiheitsgrade ist besonders bei kleinen Stichproben bedeutsam. Bei einer Stichprobengröße von n=10 führt die Berechnung mit n zu einer systematischen Unterschätzung von etwa 7%, während die Korrektur mit n-1 die Unterschätzung auf etwa 2% reduziert. Bei größeren Stichproben wird dieser Unterschied kleiner, da ein einzelner Freiheitsgrad weniger ins Gewicht fällt (bei n=100 macht ein Freiheitsgrad nur noch 1% aus, bei n=10 sind es 10%).</p>
 
