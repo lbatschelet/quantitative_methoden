@@ -371,7 +371,7 @@ window.Quarto = {
   <li><a href="#quantile-q_p" id="toc-quantile-q_p" class="nav-link" data-scroll-target="#quantile-q_p"><span class="header-section-number">6.4.1</span> Quantile <span class="math inline">\(Q_{p}\)</span></a></li>
   <li><a href="#spannweite" id="toc-spannweite" class="nav-link" data-scroll-target="#spannweite"><span class="header-section-number">6.4.2</span> Spannweite</a></li>
   <li><a href="#varianz-s2" id="toc-varianz-s2" class="nav-link" data-scroll-target="#varianz-s2"><span class="header-section-number">6.4.3</span> Varianz <span class="math inline">\(s^2\)</span></a></li>
-  <li><a href="#standardabweichung-s" id="toc-standardabweichung-s" class="nav-link" data-scroll-target="#standardabweichung-s"><span class="header-section-number">6.4.4</span> Standardabweichung <span class="math inline">\(s\)</span></a></li>
+  <li><a href="#standardabweichung-s-oder-sigma" id="toc-standardabweichung-s-oder-sigma" class="nav-link" data-scroll-target="#standardabweichung-s-oder-sigma"><span class="header-section-number">6.4.4</span> Standardabweichung <span class="math inline">\(s\)</span> oder <span class="math inline">\(\sigma\)</span></a></li>
   <li><a href="#schiefe" id="toc-schiefe" class="nav-link" data-scroll-target="#schiefe"><span class="header-section-number">6.4.5</span> Schiefe</a></li>
   </ul></li>
   <li><a href="#kreuztabelle-kontingenztafel" id="toc-kreuztabelle-kontingenztafel" class="nav-link" data-scroll-target="#kreuztabelle-kontingenztafel"><span class="header-section-number">6.5</span> Kreuztabelle / Kontingenztafel</a>
@@ -656,11 +656,11 @@ s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
 <li>Starker Einfluss von Ausreissern.</li>
 </ul>
 </section>
-<section id="standardabweichung-s" class="level3" data-number="6.4.4">
-<h3 data-number="6.4.4" class="anchored" data-anchor-id="standardabweichung-s"><span class="header-section-number">6.4.4</span> Standardabweichung <span class="math inline">\(s\)</span></h3>
+<section id="standardabweichung-s-oder-sigma" class="level3" data-number="6.4.4">
+<h3 data-number="6.4.4" class="anchored" data-anchor-id="standardabweichung-s-oder-sigma"><span class="header-section-number">6.4.4</span> Standardabweichung <span class="math inline">\(s\)</span> oder <span class="math inline">\(\sigma\)</span></h3>
 <p>Die Standardabweichung ist die Quadratwurzel der Varianz und gibt an, wie stark die Werte einer Variablen um den Mittelwert streuen.</p>
 <p><span class="math display">\[
-s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
+s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2} = \sqrt{s^2}
 \]</span></p>
 <ul>
 <li>Sinnvoll bei metrischen Daten und wenn der Mittelwert ein geeignetes Mass für die Lage der Daten ist.</li>
@@ -680,7 +680,7 @@ s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./resources/schiefe.jpg" class="img-fluid figure-img"></p>
+<p><img src="./resources/schiefe.jpg" class="img-fluid figure-img" style="width:60.0%"></p>
 <figcaption>Schiefe der Verteilung</figcaption>
 </figure>
 </div>
@@ -762,8 +762,8 @@ s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
 </div>
 <ul>
 <li>Wahre Standardabweichung der Population: 9.98</li>
-<li>Durchschnittliche Schätzung mit n: 9.22 (Abweichung: -7.61%)</li>
-<li>Durchschnittliche Schätzung mit n-1: 9.72 (Abweichung: -2.61%)</li>
+<li>Durchschnittliche Schätzung mit n: 9.25 (Abweichung: -7.29%)</li>
+<li>Durchschnittliche Schätzung mit n-1: 9.75 (Abweichung: -2.28%)</li>
 </ul>
 <p>Der Effekt der Freiheitsgrade ist besonders bei kleinen Stichproben bedeutsam. Bei einer Stichprobengröße von n=10 führt die Berechnung mit n zu einer systematischen Unterschätzung von etwa 7%, während die Korrektur mit n-1 die Unterschätzung auf etwa 2% reduziert. Bei größeren Stichproben wird dieser Unterschied kleiner, da ein einzelner Freiheitsgrad weniger ins Gewicht fällt (bei n=100 macht ein Freiheitsgrad nur noch 1% aus, bei n=10 sind es 10%).</p>
 

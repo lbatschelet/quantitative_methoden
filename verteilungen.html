@@ -386,7 +386,7 @@ window.Quarto = {
 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="resources/ereignisraum.jpg" class="img-fluid figure-img"></p>
+<p><img src="resources/ereignisraum.jpg" class="img-fluid figure-img" style="width:60.0%"></p>
 <figcaption>Ereignisraum, Wahrscheinlichkeit, Zufallsvariable</figcaption>
 </figure>
 </div>
@@ -832,8 +832,117 @@ z = \frac{X - \mu}{\sigma}
 \]</span></p>
 <p>Wobei <span class="math inline">\(z\)</span> die standardisierte Zufallsvariable, <span class="math inline">\(X\)</span> die ursprüngliche Zufallsvariable und <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span> der Mittelwert und die Standardabweichung der ursprünglichen Verteilung sind.</p>
 <p>Die Standardisierung wird verwendet, um verschiedene Elemente (d.h. Daten mit Bias oder unterschiedlichen Einheiten oder unterschiedlicher Varianz, etc.) zu vergleichen.</p>
+<section id="sec-standardisierung-beispiel" class="level5">
+<h5 class="anchored" data-anchor-id="sec-standardisierung-beispiel">Beispiel</h5>
+<p>Angenommen, wir haben eine Stichprobe von 5 Studierenden und ihre Prüfungsnoten (Skala 0–100):</p>
+<div id="tbl-noten-beispiel" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-noten-beispiel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.1
+</figcaption>
+<div aria-describedby="tbl-noten-beispiel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Student</th>
+<th>Note <span class="math inline">\(x\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>70</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>80</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>50</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>90</td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td>60</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<section id="schritt-1-berechnung-des-mittelwerts" class="level6">
+<h6 class="anchored" data-anchor-id="schritt-1-berechnung-des-mittelwerts">Schritt 1: Berechnung des Mittelwerts</h6>
+<p><span id="eq-mittelwert-beispiel"><span class="math display">\[
+\mu = \frac{70 + 80 + 50 + 90 + 60}{5} = \frac{350}{5} = 70
+\tag{7.1}\]</span></span></p>
+</section>
+<section id="schritt-2-berechnung-der-standardabweichung" class="level6">
+<h6 class="anchored" data-anchor-id="schritt-2-berechnung-der-standardabweichung">Schritt 2: Berechnung der Standardabweichung</h6>
+<p>Die Standardabweichung ist definiert als:</p>
+<p><span class="math display">\[
+\sigma = \sqrt{\frac{\sum (x_i - \mu)^2}{n}}
+\]</span></p>
+<p>Einsetzen der Werte:</p>
+<p><span id="eq-standardabweichung-beispiel"><span class="math display">\[
+\begin{aligned}
+\sigma &amp;= \sqrt{\frac{(70-70)^2 + (80-70)^2 + (50-70)^2 + (90-70)^2 + (60-70)^2}{5}} \\
+&amp;= \sqrt{\frac{0 + 100 + 400 + 400 + 100}{5}} \\
+&amp;= \sqrt{\frac{1000}{5}} \\
+&amp;= \sqrt{200} \\
+&amp;\approx 15.81
+\end{aligned}
+\tag{7.2}\]</span></span></p>
+</section>
+<section id="schritt-3-berechnung-der-z-werte" class="level6">
+<h6 class="anchored" data-anchor-id="schritt-3-berechnung-der-z-werte">Schritt 3: Berechnung der Z-Werte</h6>
+<p>Nun berechnen wir für jede Note den z-Wert:</p>
+<p><span class="math display">\[
+z = \frac{x - 70}{15.81}
+\]</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Student</th>
+<th>Note <span class="math inline">\(x\)</span></th>
+<th><span class="math inline">\(z = \frac{x - 70}{14.14}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>70</td>
+<td><span class="math inline">\(\frac{70-70}{15.81} = 0\)</span></td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>80</td>
+<td><span class="math inline">\(\frac{80-70}{15.81} = 0.63\)</span></td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>50</td>
+<td><span class="math inline">\(\frac{50-70}{15.81} = -1.27\)</span></td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>90</td>
+<td><span class="math inline">\(\frac{90-70}{15.81} = 1.27\)</span></td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td>60</td>
+<td><span class="math inline">\(\frac{60-70}{15.81} = -0.63\)</span></td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
+</section>
 </section>
 </section>
 </section>
