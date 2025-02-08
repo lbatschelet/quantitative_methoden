@@ -1671,7 +1671,6 @@ Im ersten Schritt betrachten wir eine **zufällige Regressionsgerade**, die mit 
 
 
 
-
 ::: {.cell}
 
 ```{.r .cell-code  code-fold="true"}
@@ -1704,13 +1703,11 @@ text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_random, 2)),
 
 
 
-
 #### Logischer Verbesserungsschritt: Linie durch den Schwerpunkt
 
 Statt zufällig eine bessere Linie zu raten, machen wir den **logischen ersten Schritt**: Wir zeichnen eine **horizontale Linie durch den Schwerpunkt der Daten**, d.h. die **Mittelwerte von $x$ und $y$**.
 
 **Wichtige Erkenntnis:** Jede Regressionsgerade verläuft durch den Punkt $(\bar{x}, \bar{y})$.
-
 
 
 
@@ -1739,7 +1736,6 @@ text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_mean, 2)), p
 ![Zweiter Schritt: Wir zeichnen eine horizontale Linie durch den Schwerpunkt der Daten](regression_files/figure-html/mean-line-1.png){width=672}
 :::
 :::
-
 
 
 
@@ -1824,7 +1820,6 @@ $$
 
 
 
-
 ::: {.cell}
 
 ```{.r .cell-code  code-fold="true"}
@@ -1845,7 +1840,6 @@ text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_optimal, 2))
 ![Dritter Schritt: Optimale Regressionsgerade (Methode der kleinsten Quadrate)](regression_files/figure-html/optimal-line-1.png){width=672}
 :::
 :::
-
 
 
 
