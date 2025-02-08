@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Lineare Regression – Quantitative Methoden</title>
+<title>10&nbsp; LineareRegression – Quantitative Methoden</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -145,7 +145,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title"><strong>Lineare Regression</strong></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LineareRegression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
@@ -256,7 +256,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./regression.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title"><strong>Lineare Regression</strong></span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LineareRegression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -386,9 +386,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title"><strong>Lineare Regression</strong></span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LineareRegression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title"><strong>Lineare Regression</strong></span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LineareRegression</span></h1>
 </div>
 
 
@@ -1671,6 +1671,7 @@ Im ersten Schritt betrachten wir eine **zufällige Regressionsgerade**, die mit 
 
 
 
+
 ::: {.cell}
 
 ```{.r .cell-code  code-fold="true"}
@@ -1703,11 +1704,13 @@ text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_random, 2)),
 
 
 
+
 #### Logischer Verbesserungsschritt: Linie durch den Schwerpunkt
 
 Statt zufällig eine bessere Linie zu raten, machen wir den **logischen ersten Schritt**: Wir zeichnen eine **horizontale Linie durch den Schwerpunkt der Daten**, d.h. die **Mittelwerte von $x$ und $y$**.
 
 **Wichtige Erkenntnis:** Jede Regressionsgerade verläuft durch den Punkt $(\bar{x}, \bar{y})$.
+
 
 
 
@@ -1736,6 +1739,7 @@ text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_mean, 2)), p
 ![Zweiter Schritt: Wir zeichnen eine horizontale Linie durch den Schwerpunkt der Daten](regression_files/figure-html/mean-line-1.png){width=672}
 :::
 :::
+
 
 
 
@@ -1820,6 +1824,7 @@ $$
 
 
 
+
 ::: {.cell}
 
 ```{.r .cell-code  code-fold="true"}
@@ -1840,6 +1845,7 @@ text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_optimal, 2))
 ![Dritter Schritt: Optimale Regressionsgerade (Methode der kleinsten Quadrate)](regression_files/figure-html/optimal-line-1.png){width=672}
 :::
 :::
+
 
 
 
