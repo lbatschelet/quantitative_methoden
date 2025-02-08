@@ -1,5 +1,6 @@
 ---
 title: "Korrelation"
+lang: "de-CH"
 ---
 
 ```{r}
@@ -34,7 +35,7 @@ for (rho in cor_values) {
 ```
 
 -   Die Korrelation beschreibt den statistischen Zusammenhang zwischen zwei Variablen. Sie misst, ob und wie stark zwei Variablen gemeinsam variieren.
-    -   **Positive Korrelation:** Beide Variablen nehmen gleichzeitig zu oder ab (z.B. Körpergröße und Gewicht).
+    -   **Positive Korrelation:** Beide Variablen nehmen gleichzeitig zu oder ab (z.B. Körpergrösse und Schuhgrösse)
     -   **Negative Korrelation:** Eine Variable nimmt zu, während die andere abnimmt (z.B. Anzahl Lernstunden und Fehleranzahl in einem Test).
 
 1.  **Unterschied zwischen Korrelation und Kausalität:**
@@ -43,31 +44,42 @@ for (rho in cor_values) {
     -   **Beispiele für Scheinzusammenhänge:**
         -   Der Konsum von Speiseeis korreliert mit der Anzahl von Sonnenbrandfällen. Ursache ist die höhere Sonneneinstrahlung im Sommer, nicht das Eis selbst.
 
-### Von der Kovarianz zur Korrelation
+## Von der Kovarianz zur Korrelation
 
-1.  **Das Produkt der Abweichungen:**
+1. **Das Produkt der Abweichungen:**
     -   Zentrale Frage: **"Variieren zwei Variablen gemeinsam?"**
-    -   Formel:\
+    -   Formel:
         $$
         (X_i - \bar{X}) \cdot (Y_i - \bar{Y})
         $$
+        -   $X_i$ und $Y_i$ sind die beobachteten Werte der Variablen $X$ und $Y$ für die $i$-te Beobachtung.
+        -   $\bar{X}$ und $\bar{Y}$ sind die Mittelwerte der Variablen $X$ und $Y$.
         -   **Positives Produkt:** Beide Abweichungen haben das gleiche Vorzeichen (gleichsinnige Variation).
         -   **Negatives Produkt:** Abweichungen haben unterschiedliche Vorzeichen (gegensätzliche Variation).
-2.  **Kovarianz: Bedeutung und Berechnung:**
+
+2. **Kovarianz: Bedeutung und Berechnung:**
     -   Die **Kovarianz** misst die durchschnittliche gemeinsame Abweichung zweier Variablen von ihren Mittelwerten.
-    -   Formel der Stichprobenkovarianz: $$
+    -   Formel der Stichprobenkovarianz:
+        $$
         \text{Cov}(X, Y) = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})
         $$
+        -   $n$ ist die Anzahl der Beobachtungen.
+        -   $X_i$ und $Y_i$ sind die beobachteten Werte der Variablen $X$ und $Y$ für die $i$-te Beobachtung.
+        -   $\bar{X}$ und $\bar{Y}$ sind die Mittelwerte der Variablen $X$ und $Y$.
+  
     -   **Interpretation:**
         -   **Positive Kovarianz:** Tendenz zu gleichsinniger Variation.
         -   **Negative Kovarianz:** Tendenz zu gegensätzlicher Variation.
         -   **Nahe 0:** Kein linearer Zusammenhang.
-3.  **Normierung zur Berechnung des Korrelationskoeffizienten:**
+
+3. **Normierung zur Berechnung des Korrelationskoeffizienten:**
     -   Problem der Kovarianz: **Abhängig von den Einheiten der Variablen.**
-    -   Lösung: **Normierung** durch die Standardabweichungen von $X$ und $Y$: $$
+    -   Lösung: **Normierung** durch die Standardabweichungen von $X$ und $Y$:
+        $$
         r = \frac{\text{Cov}(X, Y)}{\sigma_X \cdot \sigma_Y}
         $$
-    -   Ergebnis ist der **Korrelationskoeffizient** ($r$), der immer zwischen **-1 und +1** liegt.
+        -   $\sigma_X$ und $\sigma_Y$ sind die Standardabweichungen der Variablen $X$ und $Y$.
+        -   **Ergebnis:** Der **Korrelationskoeffizient** ($r$), der immer zwischen **-1 und +1** liegt.
 
 ## Der Pearson-Korrelationskoeffizient
 
@@ -77,6 +89,163 @@ $$
 
 -   $\rho$ ist der Standardbuchstabe für den Korrelationskoeffizienten der Grundgesamtheit.
 -   $r$ ist der Standardbuchstabe für den Korrelationskoeffizienten der Stichprobe.
+-   $\mu_x$ und $\mu_y$ sind die Mittelwerte der Variablen $X$ und $Y$.
+-   $N$ ist die Anzahl der Beobachtungen (wird hier gross geschrieben da es sich um die Grundgesamtheit handelt)
+-   $X_i$ und $Y_i$ sind die beobachteten Werte der Variablen $X$ und $Y$ für die $i$-te Beobachtung.
+
+::: {.callout-note title="Beispiel"}
+
+Wir ergänzen unsere Daten aus @tbl-noten-beispiel um eine zweite Variable, die **Lernzeit pro Woche (h)**, um zu untersuchen, ob ein Zusammenhang zwischen Lernzeit und Prüfungsnoten besteht.
+
+| Student | Prüfungsnote ($X$) | Lernzeit ($Y$) |
+|---------|--------------------|----------------|
+| A       | 70                 | 10             |
+| B       | 80                 | 12             |
+| C       | 50                 | 5              |
+| D       | 90                 | 15             |
+| E       | 60                 | 8              |
+
+: {#tbl-noten-lernzeit-beispiel}
+
+**1. Berechnung der Mittelwerte**
+
+```{r}
+#| echo: true
+#| label: noten-lernzeit-mittelwerte-x
+#| code-fold: false
+
+library(tibble)
+
+noten_lernzeit_tabelle <- tibble(
+    student = c("A", "B", "C", "D", "E"),
+    note = c(70, 80, 50, 90, 60),
+    lernzeit = c(10, 12, 5, 15, 8)
+)
+
+
+mean(noten_lernzeit_tabelle$note)
+```
+
+$$
+\begin{aligned}
+\bar{X} &= \frac{70 + 80 + 50 + 90 + 60}{5} \\ 
+&= 70 \\
+\end{aligned}
+$$
+
+```{r}
+#| echo: true
+#| label: noten-lernzeit-mittelwerte-y
+#| code-fold: false
+
+mean(noten_lernzeit_tabelle$lernzeit)
+```
+
+$$
+\begin{aligned}
+\bar{Y} &= \frac{10 + 12 + 5 + 15 + 8}{5} \\
+&= 10
+\end{aligned}
+$$
+
+**2. Kovarianz berechnen**
+
+```{r}
+#| echo: true
+#| label: noten-lernzeit-kovarianz-x-y
+#| code-fold: false
+
+cov(noten_lernzeit_tabelle$note, noten_lernzeit_tabelle$lernzeit)
+```
+
+
+$$
+\begin{aligned}
+\text{Cov}(X, Y) &= \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y}) \\
+&= \frac{1}{4} 
+\left[
+\begin{array}{l}
+(70-70) \cdot (10-10) + (80-70) \cdot (12-10) +  (50-70) \cdot (5-10) +  \\
+(90-70) \cdot (15-10) +  (60-70) \cdot (8-10)
+\end{array}
+\right] \\
+&= \frac{1}{4} \left[0 \cdot 0 + 10 \cdot 2 + (-20) \cdot (-5) + 20 \cdot 5 + (-10) \cdot (-2)\right] \\
+&= \frac{1}{4} \left[0 + 20 + 100 + 100 + 20\right] \\
+&= \frac{1}{4} 240 \\
+&= 60
+\end{aligned}
+$$
+
+
+**3. Standardabweichungen berechnen**
+
+```{r}
+#| echo: true
+#| label: noten-lernzeit-standardabweichung-x
+#| code-fold: false
+
+sd(noten_lernzeit_tabelle$note)
+```
+
+
+$$
+\begin{aligned}
+\sigma_X &= \sqrt{\frac{1}{n-1} \sum (X_i - \bar{X})^2} \\
+&= \sqrt{\frac{1}{4} \left[(70-70)^2 + (80-70)^2 + (50-70)^2 + (90-70)^2 + (60-70)^2\right]} \\
+&= \sqrt{\frac{1}{4} \left[0 + 100 + 400 + 400 + 100\right]} \\
+&= \sqrt{\frac{1}{4} 1000} \\
+&= \sqrt{250} \\
+&\approx 15.81
+\end{aligned}
+$$
+
+```{r}
+#| echo: true
+#| label: noten-lernzeit-standardabweichung-y
+#| code-fold: false
+
+sd(noten_lernzeit_tabelle$lernzeit)
+```
+
+$$
+\begin{aligned}
+\sigma_Y &= \sqrt{\frac{1}{n-1} \sum (Y_i - \bar{Y})^2} \\
+&= \sqrt{\frac{1}{4} \left[(10-10)^2 + (12-10)^2 + (5-10)^2 + (15-10)^2 + (8-10)^2\right]} \\
+&= \sqrt{\frac{1}{4} \left[0 + 4 + 25 + 25 + 4\right]} \\
+&= \sqrt{\frac{1}{4} 58} \\
+&= \sqrt{14.5} \\
+&\approx 3.81
+\end{aligned}
+$$
+
+**4. Pearson-Korrelationskoeffizient berechnen**
+
+```{r}
+#| echo: true
+#| label: noten-lernzeit-pearson
+#| code-fold: false
+
+cor(noten_lernzeit_tabelle$note, noten_lernzeit_tabelle$lernzeit, method = "pearson")
+```
+
+$$
+\begin{aligned}
+r &= \frac{\text{Cov}(X, Y)}{\sigma_X \cdot \sigma_Y} \\
+&= \frac{60}{15.81 \cdot 3.81} \\
+&= \frac{60}{60.21} \\
+&\approx 0.997
+\end{aligned}
+$$
+
+
+**Ergebnis:** $\rho_{X,Y} \approx 0.997$, was auf eine **sehr starke positive Korrelation** hindeutet.
+
+**5. Interpretation**
+
+- Da $\rho_{X,Y} \approx 0.997$ nahe an 1 liegt, bedeutet das, dass Studierende, die mehr Lernzeit investiert haben, **tendenziell bessere Noten erzielt haben**. (Aber: wir können nicht sagen, dass die Lernzeit die Note beeinflusst hat, sondern nur, dass beide Variablen tendenziell gemeinsam variieren.)
+- Das zeigt eine **fast perfekte positive Korrelation** zwischen den beiden Variablen.
+
+:::
 
 ::: {.callout-note collapse="true"}
 ### Herleitung
@@ -125,15 +294,7 @@ $$
 $$
 :::
 
-In R lässt sich der Pearson-Korrelationskoeffizient mit der Funktion `cor()` berechnen. So lassen sich schnell und einfach Korrelationen zwischen zwei Variablen berechnen.
-
-```{r}
-#| label: simple-correlation
-#| echo: true
-a <- c(1, 2, 3, 4, 5)
-b <- c(2, 3, 4, 5, 6)
-cor(a, b)
-```
+Wenn wir Daten plotten, können wir häufig Korrelationen auch visuell schon relativ gut schätzen.
 
 ```{r}
 #| label: simple-correlation-examples
@@ -170,8 +331,7 @@ plot(x_low, y_low,
      pch = 19, col = rgb(0, 0, 1, 0.5))
 ```
 
-Wenn wir unseren Datensatz um einer Ausreisser ergänzen sehen wir schnell, dass der Pearson-Korrelationskoeffizient sehr stark beeinflusst wird.
-
+Die visuelle Darstellung erlaubt es uns, die Sensitivität des Pearson-Korrelationskoeffizienten gegenüber Ausreissern zu betrachten. Dafür fügen wir den Daten einen Ausreisser hinzu und sehen, wie sich der Korrelationskoeffizient drastisch verändert.
 ```{r}
 #| label: outlier-influence
 #| echo: true
@@ -180,47 +340,131 @@ Wenn wir unseren Datensatz um einer Ausreisser ergänzen sehen wir schnell, dass
 
 # Berechnung des Pearson-Korrelationskoeffizienten
 
-# Daten ohne Ausreißer generieren
+# Daten ohne Ausreisser generieren
 x <- runif(30, 1, 10)
 y <- runif(30, 1, 10)
 
-# Korrelationskoeffizient ohne Ausreißer
+# Korrelationskoeffizient ohne Ausreisser
 r_no_outlier <- cor(x, y)
 
-# Daten mit Ausreißer hinzufügen
+# Daten mit Ausreisser hinzufügen
 x_outlier <- c(x, 20)
 y_outlier <- c(y, 25)
 
-# Pearson-Korrelationskoeffizient mit Ausreißer
+# Pearson-Korrelationskoeffizient mit Ausreisser
 r_with_outlier <- cor(x_outlier, y_outlier)
 
 # Plots nebeneinander
 par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
 
-# Plot ohne Ausreißer
+# Plot ohne Ausreisser
 plot(x, y, 
-     main = paste("Ohne Ausreißer\nr =", round(r_no_outlier, 3)), 
+     main = paste("Ohne Ausreisser\nr =", round(r_no_outlier, 3)), 
      xlab = "x", ylab = "y", 
      pch = 19, col = rgb(0, 0, 1, 0.5), xlim = c(0, 22), ylim = c(0, 27))
 
-# Plot mit Ausreißer
+# Plot mit Ausreisser
 plot(x_outlier, y_outlier, 
-     main = paste("Mit Ausreißer\nr =", round(r_with_outlier, 3)), 
+     main = paste("Mit Ausreisser\nr =", round(r_with_outlier, 3)), 
      xlab = "x", ylab = "y", 
      pch = 19, col = c(rep(rgb(0, 0, 1, 0.5), 30), rgb(1, 0, 0, 0.5)), xlim = c(0, 22), ylim = c(0, 27))
 ```
 
 ## Der Spearman-Rangkorrelationskoeffizient
 
--   Für ordinal skalierte Daten kann der Rang eines Objekts in zwei Variablen verwendet werden:
+Der Spearman-Korrelationskoeffizient misst den monotonen Zusammenhang zwischen zwei Variablen anhand ihrer Ränge. Er ist robuster gegenüber Ausreissern als die Pearson-Korrelation und eignet sich auch für nicht-lineare Beziehungen.
+
+- Wird verwendet, wenn der Zusammenhang nicht-linear, aber monoton ist.
+- Robuster gegen Ausreißer als Pearson.
+- Funktioniert für metrische und ordinale Daten.
 
 $$
-\rho = 1 - \frac{6 \sum_{i=1}^N (r_i - s_i)^2}{n^3 - n}
+r_{(X,Y)} = 1 - \frac{6 \sum_{i=1}^n (r_{X_{i}} - r_{Y_{i}})^2}{n(n^2 - 1)}
 $$
 
--   $r_i$ ist der Rang der $i$-ten Beobachtung in der ersten Variable.
--   Vereinfachte Formel, wenn jeder Rang nur einmal vorkommt
--   Der Spearman-Rangkorrelationskoeffizient wird sehr oft acuh für metrische Daten verwendet, da er robust gegenüber Ausreissern ist. Im Zweifel sollte man den Spearman-Rangkorrelationskoeffizienten verwenden.
+-   $r_{X_{i}}$ ist der Rang der $i$-ten Beobachtung von $X$
+-   $r_{Y_{i}}$ ist der Rang der $i$-ten Beobachtung von $Y$
+-   $n$ ist die Anzahl der Beobachtungen.
+-   **ACHTUNG:** Vereinfachte Formel, wenn jeder Rang nur einmal vorkommt. Diese Formel darf bei unentschiedenen Rängen nicht verwendet werden.
+
+::: {.callout-note title="Beispiel"}
+
+Wir können mit unseren Daten aus @tbl-noten-lernzeit-beispiel auch den Spearman-Rangkorrelationskoeffizienten berechnen.
+
+**1. Ränge berechnen**
+
+```{r}
+#| echo: true
+#| label: noten-lernzeit-rankings
+#| code-fold: false
+
+noten_lernzeit_tabelle$note_rank <- rank(noten_lernzeit_tabelle$note)
+noten_lernzeit_tabelle$lernzeit_rank <- rank(noten_lernzeit_tabelle$lernzeit)
+
+noten_lernzeit_tabelle
+```
+
+| Student | Prüfungsnote ($X$) | $r_{X_{i}}$ | Lernzeit ($Y$) | $r_{Y_{i}}$ |
+|---------|--------------------|-------------|----------------|-------------|
+| A       | 70                 | 3           | 10             | 3           |
+| B       | 80                 | 4           | 12             | 4           |
+| C       | 50                 | 1           | 5              | 1           |
+| D       | 90                 | 5           | 15             | 5           |
+| E       | 60                 | 2           | 8              | 2           |
+
+**2. Berechnung der Rangdifferenzen und quadrierten Rangdifferenzen**
+
+```{r}
+#| echo: true
+#| label: noten-lernzeit-rangdifferenzen
+#| code-fold: false
+
+noten_lernzeit_tabelle$d_i <- noten_lernzeit_tabelle$note_rank - noten_lernzeit_tabelle$lernzeit_rank
+noten_lernzeit_tabelle$d_i_sq <- noten_lernzeit_tabelle$d_i^2
+
+sum(noten_lernzeit_tabelle$d_i_sq)
+```
+
+$$
+\begin{aligned}
+\sum d_i^2 &= \sum_{i=1}^N (r_{X_{i}} - r_{Y_{i}})^2 \\
+&= (3-3)^2 + (4-4)^2 + (1-1)^2 + (5-5)^2 + (2-2)^2 \\
+&= 0 + 0 + 0 + 0 + 0 \\
+&= 0
+\end{aligned}
+$$
+
+**3. Spearman-Korrelation berechnen**
+
+```{r}
+#| echo: true
+#| label: noten-lernzeit-spearman
+#| code-fold: false
+
+cor(noten_lernzeit_tabelle$note, noten_lernzeit_tabelle$lernzeit, method = "spearman")
+```
+
+$$
+\begin{aligned}
+r_{(X,Y)} &= 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)} \\
+&= 1 - \frac{6 \times 0}{5(5^2 - 1)} \\
+&= 1 - 0 \\
+&= 1
+\end{aligned}
+$$
+
+**Ergebnis:** $r_{X,Y} = 1$, was auf eine **perfekte positive Korrelation** hindeutet.
+
+**4. Interpretation**
+
+- Da $r_{(X,Y)} = 1$, bedeutet das, dass die Ränge von Prüfungsnoten und Lernzeit **perfekt übereinstimmen**.
+- Das zeigt, dass die Variablen **monoton steigend zusammenhängen** – also mehr Lernzeit immer mit einer besseren Note einhergeht.
+
+::: 
+
+## Vergleich der Korrelationskoeffizienten
+
+### Visualisierung der Korrelationen
 
 ```{r}
 #| label: spearman-outlier-synthetic
@@ -243,14 +487,14 @@ correlations <- function(x, y) {
 # Layout für 2x2 Plots
 par(mfrow = c(2, 2), mar = c(4, 4, 2, 1))
 
-# 1. Plot (ohne Ausreißer)
+# 1. Plot (ohne Ausreisser)
 cor_vals <- correlations(x, y)
 plot(x, y, pch = 19, col = rgb(0, 0, 1, 0.5),
      main = paste0("r(Spearman) = ", cor_vals$spearman, 
                    "\nr(Pearson) = ", cor_vals$pearson),
      xlab = "x", ylab = "y")
 
-# 2. Plot (Ausreißer unten rechts)
+# 2. Plot (Ausreisser unten rechts)
 x2 <- c(x, 12)
 y2 <- c(y, -3)
 cor_vals2 <- correlations(x2, y2)
@@ -259,7 +503,7 @@ plot(x2, y2, pch = c(rep(19, 100), 19), col = c(rep(rgb(0, 0, 1, 0.5), 100), rgb
                    "\nr(Pearson) = ", cor_vals2$pearson),
      xlab = "x", ylab = "y")
 
-# 3. Plot (Ausreißer oben links)
+# 3. Plot (Ausreisser oben links)
 x3 <- c(x, 7.5)
 y3 <- c(y, 1.5)
 cor_vals3 <- correlations(x3, y3)
@@ -268,7 +512,7 @@ plot(x3, y3, pch = c(rep(19, 100), 19), col = c(rep(rgb(0, 0, 1, 0.5), 100), rgb
                    "\nr(Pearson) = ", cor_vals3$pearson),
      xlab = "x", ylab = "y")
 
-# 4. Plot (zwei Ausreißer oben links und unten rechts)
+# 4. Plot (zwei Ausreisser oben links und unten rechts)
 x4 <- c(x, 7.5, 12)
 y4 <- c(y, 1.5, -3)
 cor_vals4 <- correlations(x4, y4)
@@ -345,7 +589,7 @@ plot(x, y_exponential, pch = 19, col = colors,
      xlab = "x", ylab = "y")
 ```
 
-## Vergleich der Korrelationskoeffizienten
+### Vergleichstabelle
 
 +--------------------------------------------------+---------------------------------------------------------+------------------------------------------------------------+
 | Kriterium                                        | Pearson                                                 | Spearman                                                   |

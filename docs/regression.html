@@ -354,10 +354,10 @@ window.Quarto = {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#lineare-regression" id="toc-lineare-regression" class="nav-link active" data-scroll-target="#lineare-regression"><span class="header-section-number">10.1</span> Lineare Regression</a>
+  <li><a href="#lineare-regression" id="toc-lineare-regression" class="nav-link active" data-scroll-target="#lineare-regression"><span class="header-section-number">10.1</span> <strong>Lineare Regression</strong></a>
   <ul class="collapse">
-  <li><a href="#grundidee" id="toc-grundidee" class="nav-link" data-scroll-target="#grundidee"><span class="header-section-number">10.1.1</span> Grundidee</a></li>
-  <li><a href="#das-problem-der-abweichungen-residuen" id="toc-das-problem-der-abweichungen-residuen" class="nav-link" data-scroll-target="#das-problem-der-abweichungen-residuen"><span class="header-section-number">10.1.2</span> Das Problem der Abweichungen (Residuen)</a></li>
+  <li><a href="#einfache-lineare-regression" id="toc-einfache-lineare-regression" class="nav-link" data-scroll-target="#einfache-lineare-regression"><span class="header-section-number">10.1.1</span> Einfache lineare Regression</a></li>
+  <li><a href="#abweichungen-residuen" id="toc-abweichungen-residuen" class="nav-link" data-scroll-target="#abweichungen-residuen"><span class="header-section-number">10.1.2</span> Abweichungen (Residuen)</a></li>
   <li><a href="#bestimmung-der-güte-der-anpassung" id="toc-bestimmung-der-güte-der-anpassung" class="nav-link" data-scroll-target="#bestimmung-der-güte-der-anpassung"><span class="header-section-number">10.1.3</span> Bestimmung der Güte der Anpassung</a></li>
   <li><a href="#testen-der-signifikanz-der-regressionskoeffizienten" id="toc-testen-der-signifikanz-der-regressionskoeffizienten" class="nav-link" data-scroll-target="#testen-der-signifikanz-der-regressionskoeffizienten"><span class="header-section-number">10.1.4</span> Testen der Signifikanz der Regressionskoeffizienten</a></li>
   <li><a href="#berechnung-der-linearen-regression-in-r" id="toc-berechnung-der-linearen-regression-in-r" class="nav-link" data-scroll-target="#berechnung-der-linearen-regression-in-r"><span class="header-section-number">10.1.5</span> Berechnung der linearen Regression in R</a></li>
@@ -397,25 +397,41 @@ window.Quarto = {
 </header>
 
 
+<p>Ja, du hast recht! Das Problem unten hat tatsächlich <strong>mit der Interpretation der Koeffizienten als Faktoren (multiplikativ vs.&nbsp;additiv)</strong> zu tun, nicht nur mit der Annahme der konstanten Variablen. Ich formuliere den gesamten Abschnitt jetzt so, dass er <strong>präzise, verständlich und statistisch korrekt ist</strong>:</p>
+<hr>
 <section id="lineare-regression" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="lineare-regression"><span class="header-section-number">10.1</span> Lineare Regression</h2>
-<p><strong>Ziel</strong>: Vorhersage einer metrischen abhängigen Variable (Kriterium) durch eine oder mehrere unabhängige Variablen (Prädiktoren).</p>
-<p><strong>Voraussetzungen</strong>:</p>
+<h2 data-number="10.1" class="anchored" data-anchor-id="lineare-regression"><span class="header-section-number">10.1</span> <strong>Lineare Regression</strong></h2>
+<p><strong>Ziel:</strong></p>
+<p>Vorhersage einer <strong>metrischen abhängigen Variable</strong> (auch <em>Zielvariable</em> oder <em>Kriterium</em>) durch eine oder mehrere <strong>unabhängige Variablen</strong> (auch <em>Prädiktoren</em> oder <em>Einflussgrössen</em>).</p>
+<p><strong>Voraussetzungen:</strong></p>
 <ul>
-<li>kausaler Zusammenhang zwischen Prädiktoren und Kriterium</li>
-<li>ein <strong>Modell</strong>, das die Zusammenhänge zwischen Prädiktoren und Kriterium beschreibt</li>
+<li>Ein <em>statistischer Zusammenhang</em> zwischen Prädiktoren und Kriterium sollte plausibel sein.<br>
+</li>
+<li>Ein <em>Modell</em>, das die Abhängigkeit der Zielvariable von den Prädiktoren beschreibt.</li>
 </ul>
-<p>Bei einer Regressionsanalyse gibt es eine <strong>abhängige Varaible</strong> (<span class="math inline">\(y\)</span>) welche erklärt werden soll und <strong>eine oder mehrere unabhängige Variablen</strong> (<span class="math inline">\(x_1, x_2, \ldots, x_k\)</span>), die mit der zu erklärenden Variable in Verbindung stehen.</p>
+<p>Bei einer Regressionsanalyse gibt es eine <em>abhängige Variable</em> (<span class="math inline">\(y\)</span>), die erklärt werden soll, und <em>eine oder mehrere unabhängige Variablen</em> (<span class="math inline">\(x_1, x_2, \dots, x_k\)</span>), die mit der Zielvariable in Verbindung stehen.</p>
+<p>Die allgemeine Form der <strong>multiplen linearen Regression</strong> lautet:</p>
 <p><span class="math display">\[
-y = a + b_1 x_1 + b_2 x_2 + \ldots + b_k x_k
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_k x_k + \varepsilon
 \]</span></p>
-<p><span class="math inline">\(a\)</span> ist eine <strong>Regressionskonstante</strong> und <span class="math inline">\(b_1, b_2, \ldots, b_k\)</span> sind die <strong>Regressionskoeffizienten</strong>.</p>
-<p>Für jede zunahme von <span class="math inline">\(x_i\)</span> um eine Einheit, nimmt <span class="math inline">\(y\)</span> um <span class="math inline">\(b_i\)</span> Einheiten zu.</p>
-<section id="grundidee" class="level3" data-number="10.1.1">
-<h3 data-number="10.1.1" class="anchored" data-anchor-id="grundidee"><span class="header-section-number">10.1.1</span> Grundidee</h3>
+<ul>
+<li><span class="math inline">\(\beta_0\)</span> ist die <em>Regressionskonstante</em> (Achsenabschnitt), also der geschätzte Wert für <span class="math inline">\(y\)</span>, wenn alle <span class="math inline">\(x_i = 0\)</span> sind.<br>
+</li>
+<li><span class="math inline">\(\beta_1, \beta_2, \dots, \beta_k\)</span> sind die <em>Regressionskoeffizienten</em>, die die Stärke des Zusammenhangs zwischen <span class="math inline">\(x_i\)</span> und <span class="math inline">\(y\)</span> beschreiben.<br>
+</li>
+<li><span class="math inline">\(\varepsilon\)</span> ist der <em>Fehlerterm</em>, der alle nicht erfassten Einflüsse auf <span class="math inline">\(y\)</span> berücksichtigt.</li>
+</ul>
+<p><strong>Interpretation der Regressionskoeffizienten</strong></p>
+<ul>
+<li>Wenn <span class="math inline">\(x_i\)</span> um <em>eine Einheit</em> steigt, verändert sich <span class="math inline">\(y\)</span> um <span class="math inline">\(\beta_i\)</span>, <em>unter der Annahme, dass alle anderen <span class="math inline">\(x_j\)</span> konstant bleiben</em>.<br>
+</li>
+<li>Beispiel: Wenn <span class="math inline">\(\beta_1 = 2\)</span>, dann bedeutet das, dass eine Erhöhung von <span class="math inline">\(x_1\)</span> um <em>eine Einheit</em> zu einer durchschnittlichen Erhöhung von <span class="math inline">\(y\)</span> um <em>2 Einheiten</em> führt.</li>
+</ul>
+<section id="einfache-lineare-regression" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="einfache-lineare-regression"><span class="header-section-number">10.1.1</span> Einfache lineare Regression</h3>
 <p>Wir wollen eine Gerade der Form:</p>
 <p><span class="math display">\[
-\hat{y} = \beta_0 + \beta_1 \cdot x
+\hat{y} = \beta_0 + \beta_{1x} x
 \]</span></p>
 <ul>
 <li><span class="math inline">\(\hat{y}\)</span> = vorhergesagter Wert von <span class="math inline">\(y\)</span><br>
@@ -426,9 +442,9 @@ y = a + b_1 x_1 + b_2 x_2 + \ldots + b_k x_k
 </ul>
 <p>Die Parameter <span class="math inline">\(\beta_0\)</span> und <span class="math inline">\(\beta_1\)</span> bestimmen die Lage und Neigung der Regressionsgerade.</p>
 </section>
-<section id="das-problem-der-abweichungen-residuen" class="level3" data-number="10.1.2">
-<h3 data-number="10.1.2" class="anchored" data-anchor-id="das-problem-der-abweichungen-residuen"><span class="header-section-number">10.1.2</span> Das Problem der Abweichungen (Residuen)</h3>
-<p>Kein Modell beschreibt die Realität perfekt. Daher gibt es für jeden Datenpunkt eine <strong>Abweichung (Residuum)</strong>:</p>
+<section id="abweichungen-residuen" class="level3" data-number="10.1.2">
+<h3 data-number="10.1.2" class="anchored" data-anchor-id="abweichungen-residuen"><span class="header-section-number">10.1.2</span> Abweichungen (Residuen)</h3>
+<p>Kein Modell beschreibt die Realität perfekt. Daher gibt es für jeden Datenpunkt eine <strong>Abweichung</strong> (Residuum) zu der Regressionsgerade:</p>
 <p><span class="math display">\[
 e_i = y_i - \hat{y}_i
 \]</span></p>
@@ -442,7 +458,7 @@ e_i = y_i - \hat{y}_i
 <p>Das Ziel der linearen Regression ist es, diese Abweichungen so klein wie möglich zu halten.</p>
 <section id="erste-zufällige-anpassung" class="level4" data-number="10.1.2.1">
 <h4 data-number="10.1.2.1" class="anchored" data-anchor-id="erste-zufällige-anpassung"><span class="header-section-number">10.1.2.1</span> Erste (zufällige) Anpassung</h4>
-<p>Im ersten Schritt betrachten wir eine <strong>zufällige Regressionsgerade</strong>, die nicht gut zu den Daten passt. Die <strong>Residuen</strong> (grüne Linien) zeigen die Abstände zwischen den Datenpunkten und der Linie.</p>
+<p>Im ersten Schritt betrachten wir eine <strong>zufällige Regressionsgerade</strong>, die mit grosser Wahrscheinlichkeit nicht gut zu den Daten passt. Die <strong>Residuen</strong> (grüne Linien) zeigen die Abstände zwischen den Datenpunkten und der Linie.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -1432,7 +1448,7 @@ Beispiel einer Multiplen Regression
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>In diesem Beispiel verwenden wir den Datensatz <code>mtcars</code>, um ein <strong>multiples lineares Regressionsmodell</strong> zu erstellen. Unser Ziel ist es, den <strong>Benzinverbrauch</strong> (<code>mpg</code>) von Fahrzeugen basierend auf mehreren Einflussgrößen vorherzusagen.</p>
+<p>In diesem Beispiel verwenden wir den Datensatz <code>mtcars</code>, um ein <strong>multiples lineares Regressionsmodell</strong> zu erstellen. Unser Ziel ist es, den <strong>Benzinverbrauch</strong> (<code>mpg</code>) von Fahrzeugen basierend auf mehreren Einflussgrössen vorherzusagen.</p>
 <section id="datensatz-und-ziel" class="level5">
 <h5 class="anchored" data-anchor-id="datensatz-und-ziel">Datensatz und Ziel</h5>
 <ul>
@@ -1453,7 +1469,7 @@ Beispiel einer Multiplen Regression
 </section>
 <section id="durchführung-der-5-fold-kreuzvalidierung" class="level5">
 <h5 class="anchored" data-anchor-id="durchführung-der-5-fold-kreuzvalidierung">Durchführung der 5-Fold-Kreuzvalidierung</h5>
-<p>Für die <strong>5-Fold-Kreuzvalidierung</strong> wird der Datensatz in 5 gleich große Teilmengen (Folds) aufgeteilt. In jeder der 5 Iterationen wird das Modell mit 4 Folds trainiert und mit dem verbleibenden Fold getestet. Die Gütekriterien werden über alle Iterationen gemittelt.</p>
+<p>Für die <strong>5-Fold-Kreuzvalidierung</strong> wird der Datensatz in 5 gleich grosse Teilmengen (Folds) aufgeteilt. In jeder der 5 Iterationen wird das Modell mit 4 Folds trainiert und mit dem verbleibenden Fold getestet. Die Gütekriterien werden über alle Iterationen gemittelt.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-16"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-16-1"><a href="#annotated-cell-16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten und benötigte Pakete laden</span></span>
 <span id="annotated-cell-16-2"><a href="#annotated-cell-16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
@@ -1522,10 +1538,10 @@ Tuning parameter 'intercept' was held constant at a value of TRUE</code></pre>
 <ul>
 <li><p><strong>RMSE (Root Mean Squared Error):</strong> 2.537<br>
 Der <strong>RMSE</strong> misst den durchschnittlichen quadratischen Fehler der Vorhersagen. Ein niedriger Wert deutet auf eine gute Modellanpassung hin.</p></li>
-<li><p><strong><span class="math inline">\(R^2\)</span> (Bestimmtheitsmaß):</strong> 0.865<br>
+<li><p><strong><span class="math inline">\(R^2\)</span> (Bestimmtheitsmass):</strong> 0.865<br>
 Der <strong><span class="math inline">\(R^2\)</span>-Wert</strong> zeigt, wie viel der Varianz von <code>mpg</code> durch die Prädiktoren <code>wt</code>, <code>hp</code> und <code>cyl</code> erklärt werden kann. Werte nahe 1 deuten auf eine hohe Erklärungskraft des Modells hin.</p></li>
 <li><p><strong>MAE (Mean Absolute Error):</strong> 2.134<br>
-Der <strong>MAE</strong> misst den durchschnittlichen absoluten Vorhersagefehler. Im Gegensatz zum RMSE ist er weniger empfindlich gegenüber Ausreißern.</p></li>
+Der <strong>MAE</strong> misst den durchschnittlichen absoluten Vorhersagefehler. Im Gegensatz zum RMSE ist er weniger empfindlich gegenüber Ausreissern.</p></li>
 </ul>
 </section>
 <section id="interpretation-der-ergebnisse" class="level5">
@@ -1560,7 +1576,7 @@ Der <strong>MAE</strong> misst den durchschnittlichen absoluten Vorhersagefehler
 </section>
 <section id="fazit" class="level5">
 <h5 class="anchored" data-anchor-id="fazit">Fazit</h5>
-<p>Das multiple Regressionsmodell erklärt einen großen Anteil der Varianz von <code>mpg</code> und liefert eine präzise Vorhersage. Die Kreuzvalidierung zeigt, dass das Modell auch bei unbekannten Daten <strong>stabile Ergebnisse</strong> liefert. Eventuelle Optimierungen könnten durch die Einbeziehung weiterer Prädiktoren oder Interaktionsterme erreicht werden.</p>
+<p>Das multiple Regressionsmodell erklärt einen grossen Anteil der Varianz von <code>mpg</code> und liefert eine präzise Vorhersage. Die Kreuzvalidierung zeigt, dass das Modell auch bei unbekannten Daten <strong>stabile Ergebnisse</strong> liefert. Eventuelle Optimierungen könnten durch die Einbeziehung weiterer Prädiktoren oder Interaktionsterme erreicht werden.</p>
 </section>
 </div>
 </div>

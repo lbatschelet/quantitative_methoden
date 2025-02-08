@@ -1,6 +1,6 @@
 # Verteilungen
 
-![Ereignisraum, Wahrscheinlichkeit, Zufallsvariable](resources/ereignisraum.jpg)
+![Ereignisraum, Wahrscheinlichkeit, Zufallsvariable](resources/ereignisraum.jpg){width="60%"}
 
 - **Zufallsvariable** $X$: Variable die den Ergebnissen eines Zufallsexperiments Werte (Realisierungen) zuordnet
 - **Wahrscheinlichkeit** $P$: theoretische Häufigkeit, mit der ein Ereignis in einer grossen Anzahl gleicher, wiederholter, voneinander unabhängiger Zufallsexperimente auftritt (z.B. 0.5 für Zahl beim Münzwurf)
@@ -293,8 +293,7 @@ grid.arrange(plot_pdf, plot_cdf, ncol = 2)
 :::
 
 ### Normalverteilung
-::: {.callout-note collapse="false"}
-### Zentraler Grenzwertsatz
+::: {.callout-note collapse="false" title="Zentraler Grenzwertsatz"}
 
 $$
 \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^{n} X_i = \mu
@@ -379,15 +378,74 @@ grid.arrange(plot_pdf, plot_cdf, ncol = 2)
 - Wendepunkte bei $x = \mu \pm \sigma$
 - asymptotisch gegen 0
 
-#### Standardnormalverteilung
+#### Standardisierung
 
-Durch eine Transformation zu $\mu = 0$ und $\sigma = 1$ erhält man die Standardnormalverteilung.
+Durch eine Transformation zu $\mu = 0$ und $\sigma = 1$ erhält man eine standardisierte Zufallsvariable.
 
 $$
-Z = \frac{X - \mu}{\sigma}
+z = \frac{X - \mu}{\sigma}
 $$
 
-Wobei $Z$ die standardisierte Zufallsvariable, $X$ die ursprüngliche Zufallsvariable und $\mu$ und $\sigma$ der Mittelwert und die Standardabweichung der ursprünglichen Verteilung sind.
+Wobei $z$ die standardisierte Zufallsvariable, $X$ die ursprüngliche Zufallsvariable und $\mu$ und $\sigma$ der Mittelwert und die Standardabweichung der ursprünglichen Verteilung sind.
+
+Die Standardisierung wird verwendet, um verschiedene Elemente (d.h. Daten mit Bias oder unterschiedlichen Einheiten oder unterschiedlicher Varianz, etc.) zu vergleichen.
+
+##### Beispiel {#sec-standardisierung-beispiel}
+
+Angenommen, wir haben eine Stichprobe von 5 Studierenden und ihre Prüfungsnoten (Skala 0–100):
+
+| Student | Note $x$    |
+|---------|-------------|
+| A       | 70          |
+| B       | 80          |
+| C       | 50          |
+| D       | 90          |
+| E       | 60          |
+
+: {#tbl-noten-beispiel}
+
+###### Schritt 1: Berechnung des Mittelwerts
+
+$$
+\mu = \frac{70 + 80 + 50 + 90 + 60}{5} = \frac{350}{5} = 70
+$$ {#eq-mittelwert-beispiel}
+
+###### Schritt 2: Berechnung der Standardabweichung
+
+Die Standardabweichung ist definiert als:
+
+$$
+\sigma = \sqrt{\frac{\sum (x_i - \mu)^2}{n}}
+$$
+
+Einsetzen der Werte:
+
+$$
+\begin{aligned}
+\sigma &= \sqrt{\frac{(70-70)^2 + (80-70)^2 + (50-70)^2 + (90-70)^2 + (60-70)^2}{5}} \\
+&= \sqrt{\frac{0 + 100 + 400 + 400 + 100}{5}} \\
+&= \sqrt{\frac{1000}{5}} \\
+&= \sqrt{200} \\
+&\approx 15.81
+\end{aligned}
+$$ {#eq-standardabweichung-beispiel}
+
+###### Schritt 3: Berechnung der Z-Werte
+Nun berechnen wir für jede Note den z-Wert:
+
+$$
+z = \frac{x - 70}{15.81}
+$$
+
+| Student | Note $x$    | $z = \frac{x - 70}{14.14}$    |
+|---------|-------------|-------------------------------|
+| A       | 70          | $\frac{70-70}{15.81} = 0$     |
+| B       | 80          | $\frac{80-70}{15.81} = 0.63$  |
+| C       | 50          | $\frac{50-70}{15.81} = -1.27$ |
+| D       | 90          | $\frac{90-70}{15.81} = 1.27$  |
+| E       | 60          | $\frac{60-70}{15.81} = -0.63$ |
+
+
 
 
 

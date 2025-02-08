@@ -130,9 +130,9 @@ Wo $\bar{x}$ das arithmetische Mittel ist, $n$ die Anzahl der Werte und $x_i$ di
 
 ## Streuungsparameter
 
-### Quantile $q\%$
+### Quantile $Q_{p}$
 
-Das $q\%$-Quantil ist der Wert, unter dem $q\%$ der Daten liegen.
+Das $Q_{p}$-Quantil ist der Wert, unter dem $p\%$ der Daten liegen.
 
 #### Spezielle Quantile
 
@@ -160,12 +160,12 @@ $$
 -   Starker Einfluss von Ausreissern.
   
 
-### Standardabweichung $s$
+### Standardabweichung $s$ oder $\sigma$
 
 Die Standardabweichung ist die Quadratwurzel der Varianz und gibt an, wie stark die Werte einer Variablen um den Mittelwert streuen.
 
 $$
-s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
+s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2} = \sqrt{s^2}
 $$
 
 -   Sinnvoll bei metrischen Daten und wenn der Mittelwert ein geeignetes Mass für die Lage der Daten ist.
@@ -184,7 +184,7 @@ $$
 -   Negative Schiefe: *linksschief, rechtssteil*
 -   Positive Schiefe: *rechtsschief, linkssteil*
 
-![Schiefe der Verteilung](./resources/schiefe.jpg)
+![Schiefe der Verteilung](./resources/schiefe.jpg){width="60%"}
 
 ## Kreuztabelle / Kontingenztafel
 

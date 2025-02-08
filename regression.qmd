@@ -6,42 +6,56 @@ code-annotations: hover
 
 # Regression
 
-## Lineare Regression
+Ja, du hast recht! Das Problem unten hat tatsächlich **mit der Interpretation der Koeffizienten als Faktoren (multiplikativ vs. additiv)** zu tun, nicht nur mit der Annahme der konstanten Variablen. Ich formuliere den gesamten Abschnitt jetzt so, dass er **präzise, verständlich und statistisch korrekt ist**:
 
-**Ziel**: Vorhersage einer metrischen abhängigen Variable (Kriterium) durch eine oder mehrere unabhängige Variablen (Prädiktoren).
+---
 
-**Voraussetzungen**:
+## **Lineare Regression**  
 
-- kausaler Zusammenhang zwischen Prädiktoren und Kriterium
-- ein **Modell**, das die Zusammenhänge zwischen Prädiktoren und Kriterium beschreibt
+**Ziel:**  
 
-Bei einer Regressionsanalyse gibt es eine **abhängige Varaible** ($y$) welche erklärt werden soll und **eine oder mehrere unabhängige Variablen** ($x_1, x_2, \ldots, x_k$), die mit der zu erklärenden Variable in Verbindung stehen.
+Vorhersage einer **metrischen abhängigen Variable** (auch *Zielvariable* oder *Kriterium*) durch eine oder mehrere **unabhängige Variablen** (auch *Prädiktoren* oder *Einflussgrössen*).  
+
+**Voraussetzungen:**  
+
+- Ein *statistischer Zusammenhang* zwischen Prädiktoren und Kriterium sollte plausibel sein.  
+- Ein *Modell*, das die Abhängigkeit der Zielvariable von den Prädiktoren beschreibt.  
+
+Bei einer Regressionsanalyse gibt es eine *abhängige Variable* ($y$), die erklärt werden soll, und *eine oder mehrere unabhängige Variablen* ($x_1, x_2, \dots, x_k$), die mit der Zielvariable in Verbindung stehen.  
+
+Die allgemeine Form der **multiplen linearen Regression** lautet:
 
 $$
-y = a + b_1 x_1 + b_2 x_2 + \ldots + b_k x_k
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_k x_k + \varepsilon
 $$
 
-$a$ ist eine **Regressionskonstante** und $b_1, b_2, \ldots, b_k$ sind die **Regressionskoeffizienten**.
+- $\beta_0$ ist die *Regressionskonstante* (Achsenabschnitt), also der geschätzte Wert für $y$, wenn alle $x_i = 0$ sind.  
+- $\beta_1, \beta_2, \dots, \beta_k$ sind die *Regressionskoeffizienten*, die die Stärke des Zusammenhangs zwischen $x_i$ und $y$ beschreiben.  
+- $\varepsilon$ ist der *Fehlerterm*, der alle nicht erfassten Einflüsse auf $y$ berücksichtigt.  
 
-Für jede zunahme von $x_i$ um eine Einheit, nimmt $y$ um $b_i$ Einheiten zu.
+**Interpretation der Regressionskoeffizienten**
 
-### Grundidee
+- Wenn $x_i$ um *eine Einheit* steigt, verändert sich $y$ um $\beta_i$, *unter der Annahme, dass alle anderen $x_j$ konstant bleiben*.  
+- Beispiel: Wenn $\beta_1 = 2$, dann bedeutet das, dass eine Erhöhung von $x_1$ um *eine Einheit* zu einer durchschnittlichen Erhöhung von $y$ um *2 Einheiten* führt.  
+
+
+### Einfache lineare Regression
 
 Wir wollen eine Gerade der Form:
 
 $$
-\hat{y} = \beta_0 + \beta_1 \cdot x
+\hat{y} = \beta_0 + \beta_{1x} x
 $$
 
-- $\hat{y}$ = vorhergesagter Wert von $y$  
+- $\hat{y}$ = geschätzter Wert von $y$  
 - $\beta_0$ = **Achsenabschnitt** (Intercept)  
 - $\beta_1$ = **Steigung** der Regressionsgerade
 
 Die Parameter $\beta_0$ und $\beta_1$ bestimmen die Lage und Neigung der Regressionsgerade.
 
-### Das Problem der Abweichungen (Residuen)
+### Abweichungen (Residuen)
 
-Kein Modell beschreibt die Realität perfekt. Daher gibt es für jeden Datenpunkt eine **Abweichung (Residuum)**:
+Kein Modell beschreibt die Realität perfekt. Daher gibt es für jeden Datenpunkt eine **Abweichung** (Residuum) zu der Regressionsgerade:
 
 $$
 e_i = y_i - \hat{y}_i
@@ -49,13 +63,15 @@ $$
 
 - $e_i$ = Residuum des $i$-ten Datenpunkts  
 - $y_i$ = tatsächlicher Wert  
-- $\hat{y}_i$ = vorhergesagter Wert durch die Regressionsgerade
+- $\hat{y}_i$ = durch das Modell geschätzter Wert
 
 Das Ziel der linearen Regression ist es, diese Abweichungen so klein wie möglich zu halten.
 
+### Durchführung
+
 #### Erste (zufällige) Anpassung
 
-Im ersten Schritt betrachten wir eine **zufällige Regressionsgerade**, die nicht gut zu den Daten passt. Die **Residuen** (grüne Linien) zeigen die Abstände zwischen den Datenpunkten und der Linie.
+Im ersten Schritt betrachten wir eine **zufällige Regressionsgerade**, die mit grosser Wahrscheinlichkeit nicht gut zu den Daten passt. Die **Residuen** (grüne Linien) zeigen die Abstände zwischen den Datenpunkten und der Linie.
 
 ```{r}
 #| label: random-line
@@ -734,7 +750,7 @@ Diese Methode liefert eine **robustere Schätzung** der Modellgüte als eine ein
 ::: {.callout-tip collapse=false}
 #### Beispiel einer Multiplen Regression
 
-In diesem Beispiel verwenden wir den Datensatz `mtcars`, um ein **multiples lineares Regressionsmodell** zu erstellen. Unser Ziel ist es, den **Benzinverbrauch** (`mpg`) von Fahrzeugen basierend auf mehreren Einflussgrößen vorherzusagen.
+In diesem Beispiel verwenden wir den Datensatz `mtcars`, um ein **multiples lineares Regressionsmodell** zu erstellen. Unser Ziel ist es, den **Benzinverbrauch** (`mpg`) von Fahrzeugen basierend auf mehreren Einflussgrössen vorherzusagen.
 
 ##### Datensatz und Ziel
 
@@ -749,7 +765,7 @@ Wir möchten überprüfen, wie gut diese Variablen den Benzinverbrauch gemeinsam
 
 ##### Durchführung der 5-Fold-Kreuzvalidierung
 
-Für die **5-Fold-Kreuzvalidierung** wird der Datensatz in 5 gleich große Teilmengen (Folds) aufgeteilt. In jeder der 5 Iterationen wird das Modell mit 4 Folds trainiert und mit dem verbleibenden Fold getestet. Die Gütekriterien werden über alle Iterationen gemittelt.
+Für die **5-Fold-Kreuzvalidierung** wird der Datensatz in 5 gleich grosse Teilmengen (Folds) aufgeteilt. In jeder der 5 Iterationen wird das Modell mit 4 Folds trainiert und mit dem verbleibenden Fold getestet. Die Gütekriterien werden über alle Iterationen gemittelt.
 
 ```{r}
 #| label: multiple-regression-cv
@@ -798,11 +814,11 @@ Nach der Durchführung der Kreuzvalidierung liefert das Modell folgende Kennwert
 - **RMSE (Root Mean Squared Error):** `r round(cv_model$results$RMSE, 3)`  
   Der **RMSE** misst den durchschnittlichen quadratischen Fehler der Vorhersagen. Ein niedriger Wert deutet auf eine gute Modellanpassung hin.
 
-- **$R^2$ (Bestimmtheitsmaß):** `r round(cv_model$results$Rsquared, 3)`  
+- **$R^2$ (Bestimmtheitsmass):** `r round(cv_model$results$Rsquared, 3)`  
   Der **$R^2$-Wert** zeigt, wie viel der Varianz von `mpg` durch die Prädiktoren `wt`, `hp` und `cyl` erklärt werden kann. Werte nahe 1 deuten auf eine hohe Erklärungskraft des Modells hin.
 
 - **MAE (Mean Absolute Error):** `r round(cv_model$results$MAE, 3)`  
-  Der **MAE** misst den durchschnittlichen absoluten Vorhersagefehler. Im Gegensatz zum RMSE ist er weniger empfindlich gegenüber Ausreißern.
+  Der **MAE** misst den durchschnittlichen absoluten Vorhersagefehler. Im Gegensatz zum RMSE ist er weniger empfindlich gegenüber Ausreissern.
 
 ##### Interpretation der Ergebnisse
 
@@ -825,7 +841,7 @@ Das Modell zeigt folgende Leistungswerte:
 
 ##### Fazit
 
-Das multiple Regressionsmodell erklärt einen großen Anteil der Varianz von `mpg` und liefert eine präzise Vorhersage. Die Kreuzvalidierung zeigt, dass das Modell auch bei unbekannten Daten **stabile Ergebnisse** liefert. Eventuelle Optimierungen könnten durch die Einbeziehung weiterer Prädiktoren oder Interaktionsterme erreicht werden.
+Das multiple Regressionsmodell erklärt einen grossen Anteil der Varianz von `mpg` und liefert eine präzise Vorhersage. Die Kreuzvalidierung zeigt, dass das Modell auch bei unbekannten Daten **stabile Ergebnisse** liefert. Eventuelle Optimierungen könnten durch die Einbeziehung weiterer Prädiktoren oder Interaktionsterme erreicht werden.
 :::
 
 
