@@ -256,7 +256,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title"><strong>Lineare Regression</strong></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -492,15 +492,16 @@ Beispiel
 <p>Wir wollen testen, ob der Mittelwert der Grundgesamtheit 75 ist.</p>
 <p>Die Null- und Alternativhypothesen lauten:</p>
 <p><span class="math display">\[
-H_0: \mu = 75 \quad \text{(kein Unterschied, Mittelwert entspricht 75)}
+H_0: \widehat{\bar{Y}} = 75 \quad \text{(kein Unterschied, Mittelwert entspricht 75)}
 \]</span></p>
 <p><span class="math display">\[
-H_1: \mu \neq 75 \quad \text{(es gibt eine Abweichung)}
+H_1: \widehat{\bar{Y}} \neq 75 \quad \text{(es gibt eine Abweichung)}
 \]</span></p>
+<p><strong>Anmerkung zur Notation</strong></p>
+<p>Wir kennzeichnen Schätzungen mit einem Dach <span class="math inline">\(\widehat{X}\)</span>.</p>
+<p><span class="math inline">\(\widehat{\bar{Y}} = 75\)</span> bedeutet also, dass wir den Mittelwert der Variable <span class="math inline">\(Y\)</span> auf 75 schätzen.</p>
 <p>Wir halten zudem fest, dass wir einen zweiseitigen Test durchführen, da wir keine Richtung der Abweichung vorgeben.</p>
-<p><em>Warum 75 als Populationsmittelwert?</em></p>
-<p>Der Wert <span class="math inline">\(\mu_0 = 75\)</span> ist eine Annahme. In vielen Fällen kommt er aus vorherigen Studien, Erfahrungswerten oder offiziellen Angaben. Falls wir z. B. wissen, dass Studierende in den letzten Jahren im Schnitt 75 Punkte hatten, könnte das unser Referenzwert sein.</p>
-<p><strong>2. Signifikanzniveau () festlegen</strong></p>
+<p><strong>2. Signifikanzniveau <span class="math inline">\(\alpha\)</span> festlegen</strong></p>
 <p>Wir entscheiden uns für ein übliches Signifikanzniveau:</p>
 <p><span class="math display">\[
 \alpha = 0.05
@@ -517,19 +518,19 @@ H_1: \mu \neq 75 \quad \text{(es gibt eine Abweichung)}
 <li><strong>Mittelwert</strong> der Stichprobe (siehe <a href="verteilungen.html#eq-mittelwert-beispiel" class="quarto-xref">Gleichung&nbsp;<span>7.1</span></a>)</li>
 </ul>
 <p><span class="math display">\[
-\bar{x} = 70
+\bar{Y} = 70
 \]</span></p>
 <ul>
 <li><strong>Stichprobenstandardabweichung</strong> (siehe <a href="verteilungen.html#eq-standardabweichung-beispiel" class="quarto-xref">Gleichung&nbsp;<span>7.2</span></a>)</li>
 </ul>
 <p><span class="math display">\[
-\sigma = 15.81
+\sigma_Y = 15.81
 \]</span></p>
 <ul>
 <li><p><strong>Standardfehler des Mittelwerts</strong>:</p>
 <p><span class="math display">\[
 \begin{aligned}
-s_{\bar{x}} &amp;= \frac{\sigma}{\sqrt{n}} \\
+s_{\bar{Y}} &amp;= \frac{\sigma_Y}{\sqrt{n}} \\
 &amp;= \frac{15.81}{\sqrt{5}} \\
 &amp;\approx 7.07
 \end{aligned}
@@ -539,14 +540,14 @@ s_{\bar{x}} &amp;= \frac{\sigma}{\sqrt{n}} \\
 <p>Nun berechnen wir den t-Wert mit der Formel:</p>
 <p><span class="math display">\[
 \begin{aligned}
-t &amp;= \frac{\bar{x} - \mu_0}{\sigma_{\bar{x}}} \\
+t &amp;= \frac{\bar{Y} - \widehat{\bar{Y}}}{s_{\bar{Y}}} \\
 &amp;= \frac{70 - 75}{7.07} \\
 &amp;= \frac{-5}{7.07} \\
 &amp;\approx -0.71
 \end{aligned}
 \]</span></p>
 <ul>
-<li>Der t-Wert gibt an, wie viele Standardfehler der Stichprobenmittelwert von <span class="math inline">\(\mu_0\)</span> entfernt ist.</li>
+<li>Der t-Wert gibt an, wie viele Standardfehler der Stichprobenmittelwert von <span class="math inline">\(\widehat{\bar{Y}}\)</span> entfernt ist.</li>
 <li>Hier bedeutet <span class="math inline">\(t = -0.71\)</span>, dass unser Stichprobenmittelwert <strong>0.71 Standardfehler unter 75</strong> liegt.</li>
 </ul>
 <p><strong>5. p-Wert bestimmen und Entscheidung treffen</strong></p>
@@ -649,34 +650,6 @@ p = 2 \times (1 - P(T \leq |t|))
 <li>es ist unwahrscheinlich, dass die Stichprobe exakt das Mittel der Grundgesamtheit trifft.</li>
 <li>Dadurch wird die Verteilung der Teststatistik <span class="math inline">\(t\)</span> breiter.</li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Beispiel">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Beispiel
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Hypothesen</strong>:</p>
-<ul>
-<li><span class="math inline">\(H_0\)</span>: Erwartere Sept.&nbsp;bis Nov.&nbsp;Mitteltemperatur beträgt 9°C (<span class="math inline">\(x = \mu_0\)</span>)</li>
-<li><span class="math inline">\(H_1\)</span>: Erwartere Sept.&nbsp;bis Nov.&nbsp;Mitteltemperatur weicht signifikant von 9°C ab (<span class="math inline">\(x \neq \mu_0\)</span>)</li>
-</ul>
-<p><strong>Teststatistik</strong>:</p>
-<p><span class="math display">\[
-\begin{aligned}
-T &amp;= \frac{\bar{x} - \mu_0}{s_{\bar{x}}} \\
-  &amp;= \frac{\bar{x} - \mu_0}{\frac{s_x}{\sqrt{n}}} \\
-  &amp;= \frac{8.75 - 9}{\frac{1.05}{\sqrt{111}}} \\
-  &amp;= \frac{-0.25}{0.031} \\
-  &amp;= -2.51
-\end{aligned}
-\]</span></p>
-<p>Wobei <span class="math inline">\(\bar{x}\)</span> der Mittelwert der Stichprobe ist, <span class="math inline">\(\mu_0\)</span> der Mittelwert der Grundgesamtheit ist, <span class="math inline">\(s_x\)</span> der Standardfehler ist und <span class="math inline">\(n\)</span> die Anzahl der Beobachtungen ist.</p>
-</div>
-</div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="resources/T-Verteilung.png" class="img-fluid figure-img"></p>
@@ -697,7 +670,7 @@ T &amp;= \frac{\bar{x} - \mu_0}{s_{\bar{x}}} \\
 <p>Allgemeine Formel:</p>
 <p>Ein <span class="math inline">\((1 - \alpha)\)</span>-Konfidenzintervall für den Mittelwert wird berechnet mit:</p>
 <p><span class="math display">\[
-CI_{(1-\alpha)} = \bar{x} \pm t_{\alpha/2, df} \cdot s_{\bar{x}}
+\operatorname{CI}_{(1-\alpha)} = \bar{x} \pm t_{\alpha/2, df} \cdot s_{\bar{x}}
 \]</span></p>
 <p>wobei:</p>
 <ul>
@@ -734,21 +707,21 @@ Beispiel
 <tbody>
 <tr class="odd">
 <td>Stichprobe</td>
-<td><span class="math inline">\(x = \{70, 80, 50, 90, 60\}\)</span></td>
+<td><span class="math inline">\(Y = \{70, 80, 50, 90, 60\}\)</span></td>
 <td></td>
 </tr>
 <tr class="even">
-<td>Stichprobenmittelwert <span class="math inline">\(\bar{x}\)</span></td>
+<td>Stichprobenmittelwert <span class="math inline">\(\bar{Y}\)</span></td>
 <td><span class="math inline">\(\frac{70+80+50+90+60}{5}\)</span></td>
 <td><strong>70.00</strong></td>
 </tr>
 <tr class="odd">
 <td>Stichprobenstandardabweichung <span class="math inline">\(s\)</span></td>
-<td><span class="math inline">\(\sqrt{\frac{\sum (x_i - \bar{x})^2}{n-1}}\)</span></td>
+<td><span class="math inline">\(\sqrt{\frac{\sum (Y_i - \bar{Y})^2}{n-1}}\)</span></td>
 <td><strong>15.81</strong></td>
 </tr>
 <tr class="even">
-<td>Standardfehler <span class="math inline">\(s_{\bar{x}}\)</span></td>
+<td>Standardfehler <span class="math inline">\(s_{\bar{Y}}\)</span></td>
 <td><span class="math inline">\(\frac{s}{\sqrt{n}}\)</span></td>
 <td><strong>7.07</strong></td>
 </tr>
@@ -801,14 +774,6 @@ CI_{95\%} = [50.37, 89.63]
 </ul>
 </div>
 </div>
-<p><strong>95%-Konfidenzintervall der erwarteten Temperatur aus dem vorherigen Beispiel</strong>:</p>
-<p><span class="math display">\[
-\begin{aligned}
-\mu_{\text{Obergrenze}} &amp;= 8.75 \text{°C} + 1.98 \cdot 0.1 \text{°C} = 8.55 \text{°C} \\
-\mu_{\text{Untergrenze}} &amp;= 8.75 \text{°C} - 1.98 \cdot 0.1 \text{°C} = 8.8.95 \text{°C} \\
-\end{aligned}
-\]</span></p>
-<p>Wir beachten, dass <span class="math inline">\(9 \text{°C}\)</span> nicht im Konfidenzintervall liegt, was im Einvernehmen mit der Ablehnung der Nullhypothese <span class="math inline">\(H_0\)</span> liegt.</p>
 <p><strong>Daumenregel</strong>:</p>
 <p><span class="math display">\[
 \text{Konfidenzintervall} = \text{Stichprobenergebnis} \pm 2 \cdot \text{Standardfehler}
@@ -824,7 +789,7 @@ H_A: &amp;\text{Daten sind nicht normalverteilt}
 \end{aligned}
 \]</span></p>
 <div class="callout callout-style-default callout-note callout-titled" title="Anmerkung">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -833,7 +798,7 @@ Anmerkung
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Dass wir hier mit der <span class="math inline">\(H_0\)</span> die Normalverteilung testen, ist nicht intuitiv. Aber wir testen hier nicht, ob die Daten normalverteilt sind, sondern ob sie <em>nicht</em> normalverteilt sind. Wenn wir das Gegenteil beweisen wollen, müssen wir das Gegenteil widerlegen.</p>
 <p>Eine Normalverteilung kann man nicht beweisen, sondern nur widerlegen.</p>

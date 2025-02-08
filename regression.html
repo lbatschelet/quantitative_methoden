@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Regression – Quantitative Methoden</title>
+<title>10&nbsp; Lineare Regression – Quantitative Methoden</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -145,7 +145,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title"><strong>Lineare Regression</strong></span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
@@ -256,7 +256,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./regression.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title"><strong>Lineare Regression</strong></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -354,23 +354,31 @@ window.Quarto = {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#lineare-regression" id="toc-lineare-regression" class="nav-link active" data-scroll-target="#lineare-regression"><span class="header-section-number">10.1</span> Lineare Regression</a>
+  <li><a href="#einfache-lineare-regression" id="toc-einfache-lineare-regression" class="nav-link active" data-scroll-target="#einfache-lineare-regression"><span class="header-section-number">10.0.1</span> Einfache lineare Regression</a></li>
+  <li><a href="#abweichungen-residuen" id="toc-abweichungen-residuen" class="nav-link" data-scroll-target="#abweichungen-residuen"><span class="header-section-number">10.0.2</span> Abweichungen (Residuen)</a></li>
+  <li><a href="#bestimmung-der-modellgüte" id="toc-bestimmung-der-modellgüte" class="nav-link" data-scroll-target="#bestimmung-der-modellgüte"><span class="header-section-number">10.1</span> Bestimmung der Modellgüte</a>
   <ul class="collapse">
-  <li><a href="#grundidee" id="toc-grundidee" class="nav-link" data-scroll-target="#grundidee"><span class="header-section-number">10.1.1</span> Grundidee</a></li>
-  <li><a href="#das-problem-der-abweichungen-residuen" id="toc-das-problem-der-abweichungen-residuen" class="nav-link" data-scroll-target="#das-problem-der-abweichungen-residuen"><span class="header-section-number">10.1.2</span> Das Problem der Abweichungen (Residuen)</a></li>
-  <li><a href="#bestimmung-der-güte-der-anpassung" id="toc-bestimmung-der-güte-der-anpassung" class="nav-link" data-scroll-target="#bestimmung-der-güte-der-anpassung"><span class="header-section-number">10.1.3</span> Bestimmung der Güte der Anpassung</a></li>
-  <li><a href="#testen-der-signifikanz-der-regressionskoeffizienten" id="toc-testen-der-signifikanz-der-regressionskoeffizienten" class="nav-link" data-scroll-target="#testen-der-signifikanz-der-regressionskoeffizienten"><span class="header-section-number">10.1.4</span> Testen der Signifikanz der Regressionskoeffizienten</a></li>
-  <li><a href="#berechnung-der-linearen-regression-in-r" id="toc-berechnung-der-linearen-regression-in-r" class="nav-link" data-scroll-target="#berechnung-der-linearen-regression-in-r"><span class="header-section-number">10.1.5</span> Berechnung der linearen Regression in R</a></li>
+  <li><a href="#testen-der-signifikanz-der-regressionskoeffizienten" id="toc-testen-der-signifikanz-der-regressionskoeffizienten" class="nav-link" data-scroll-target="#testen-der-signifikanz-der-regressionskoeffizienten"><span class="header-section-number">10.1.1</span> Testen der Signifikanz der Regressionskoeffizienten</a></li>
+  <li><a href="#berechnung-der-linearen-regression-in-r" id="toc-berechnung-der-linearen-regression-in-r" class="nav-link" data-scroll-target="#berechnung-der-linearen-regression-in-r"><span class="header-section-number">10.1.3</span> Berechnung der linearen Regression in R</a></li>
   </ul></li>
-  <li><a href="#multiple-regression" id="toc-multiple-regression" class="nav-link" data-scroll-target="#multiple-regression"><span class="header-section-number">10.2</span> Multiple Regression</a></li>
-  <li><a href="#multiple-regression-1" id="toc-multiple-regression-1" class="nav-link" data-scroll-target="#multiple-regression-1"><span class="header-section-number">10.3</span> Multiple Regression</a>
+  <li><a href="#multiple-regression" id="toc-multiple-regression" class="nav-link" data-scroll-target="#multiple-regression"><span class="header-section-number">10.2</span> Multiple Regression</a>
   <ul class="collapse">
-  <li><a href="#ansatz" id="toc-ansatz" class="nav-link" data-scroll-target="#ansatz"><span class="header-section-number">10.3.1</span> Ansatz</a></li>
-  <li><a href="#beispiel-anzahl-der-kinder-in-abhängigkeit-von-ausbildung-und-einkommen" id="toc-beispiel-anzahl-der-kinder-in-abhängigkeit-von-ausbildung-und-einkommen" class="nav-link" data-scroll-target="#beispiel-anzahl-der-kinder-in-abhängigkeit-von-ausbildung-und-einkommen"><span class="header-section-number">10.3.2</span> Beispiel: Anzahl der Kinder in Abhängigkeit von Ausbildung und Einkommen</a></li>
-  <li><a href="#multiples-bestimmtheitsmass" id="toc-multiples-bestimmtheitsmass" class="nav-link" data-scroll-target="#multiples-bestimmtheitsmass"><span class="header-section-number">10.3.3</span> Multiples Bestimmtheitsmass</a></li>
-  <li><a href="#f-test" id="toc-f-test" class="nav-link" data-scroll-target="#f-test"><span class="header-section-number">10.3.4</span> F-Test</a></li>
-  <li><a href="#anwendungsbedingungen" id="toc-anwendungsbedingungen" class="nav-link" data-scroll-target="#anwendungsbedingungen"><span class="header-section-number">10.3.5</span> Anwendungsbedingungen</a></li>
-  <li><a href="#modellvalidierung-kreuzvalidierung" id="toc-modellvalidierung-kreuzvalidierung" class="nav-link" data-scroll-target="#modellvalidierung-kreuzvalidierung"><span class="header-section-number">10.3.6</span> Modellvalidierung (Kreuzvalidierung)</a></li>
+  <li><a href="#ziel" id="toc-ziel" class="nav-link" data-scroll-target="#ziel"><span class="header-section-number">10.2.1</span> Ziel:</a></li>
+  <li><a href="#ansatz" id="toc-ansatz" class="nav-link" data-scroll-target="#ansatz"><span class="header-section-number">10.2.2</span> Ansatz</a></li>
+  </ul></li>
+  <li><a href="#anwendungsbedingungen" id="toc-anwendungsbedingungen" class="nav-link" data-scroll-target="#anwendungsbedingungen"><span class="header-section-number">10.3</span> Anwendungsbedingungen</a>
+  <ul class="collapse">
+  <li><a href="#lineare-beziehung-zwischen-den-variablen" id="toc-lineare-beziehung-zwischen-den-variablen" class="nav-link" data-scroll-target="#lineare-beziehung-zwischen-den-variablen"><span class="header-section-number">10.3.1</span> Lineare Beziehung zwischen den Variablen</a></li>
+  <li><a href="#keine-perfekte-multikollinearität" id="toc-keine-perfekte-multikollinearität" class="nav-link" data-scroll-target="#keine-perfekte-multikollinearität"><span class="header-section-number">10.3.2</span> Keine perfekte Multikollinearität</a></li>
+  <li><a href="#heteroskedastizität" id="toc-heteroskedastizität" class="nav-link" data-scroll-target="#heteroskedastizität"><span class="header-section-number">10.3.3</span> Heteroskedastizität</a></li>
+  <li><a href="#normalverteilte-residuen" id="toc-normalverteilte-residuen" class="nav-link" data-scroll-target="#normalverteilte-residuen"><span class="header-section-number">10.3.4</span> Normalverteilte Residuen</a></li>
+  <li><a href="#keine-starken-ausreißer-oder-einflussreichen-datenpunkte" id="toc-keine-starken-ausreißer-oder-einflussreichen-datenpunkte" class="nav-link" data-scroll-target="#keine-starken-ausreißer-oder-einflussreichen-datenpunkte"><span class="header-section-number">10.3.5</span> Keine starken Ausreißer oder einflussreichen Datenpunkte</a></li>
+  <li><a href="#beispielauswertungen" id="toc-beispielauswertungen" class="nav-link" data-scroll-target="#beispielauswertungen"><span class="header-section-number">10.3.6</span> Beispielauswertungen</a></li>
+  </ul></li>
+  <li><a href="#modellvalidierung" id="toc-modellvalidierung" class="nav-link" data-scroll-target="#modellvalidierung"><span class="header-section-number">10.4</span> Modellvalidierung</a>
+  <ul class="collapse">
+  <li><a href="#kreuzvalidierung" id="toc-kreuzvalidierung" class="nav-link" data-scroll-target="#kreuzvalidierung"><span class="header-section-number">10.4.1</span> Kreuzvalidierung</a></li>
+  <li><a href="#f-test" id="toc-f-test" class="nav-link" data-scroll-target="#f-test"><span class="header-section-number">10.4.2</span> F-Test</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/regression.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></nav>
@@ -378,9 +386,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title"><strong>Lineare Regression</strong></span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title"><strong>Lineare Regression</strong></span></h1>
 </div>
 
 
@@ -397,28 +405,40 @@ window.Quarto = {
 </header>
 
 
-<section id="lineare-regression" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="lineare-regression"><span class="header-section-number">10.1</span> Lineare Regression</h2>
-<p><strong>Ziel</strong>: Vorhersage einer metrischen abhängigen Variable (Kriterium) durch eine oder mehrere unabhängige Variablen (Prädiktoren).</p>
-<p><strong>Voraussetzungen</strong>:</p>
+<p><strong>Ziel:</strong></p>
+<p>Vorhersage einer <strong>metrischen abhängigen Variable</strong> (auch <em>Zielvariable</em> oder <em>Kriterium</em>) durch eine oder mehrere <strong>unabhängige Variablen</strong> (auch <em>Prädiktoren</em> oder <em>Einflussgrössen</em>).</p>
+<p><strong>Voraussetzungen:</strong></p>
 <ul>
-<li>kausaler Zusammenhang zwischen Prädiktoren und Kriterium</li>
-<li>ein <strong>Modell</strong>, das die Zusammenhänge zwischen Prädiktoren und Kriterium beschreibt</li>
+<li>Ein <em>statistischer Zusammenhang</em> zwischen Prädiktoren und Kriterium sollte plausibel sein.<br>
+</li>
+<li>Ein <em>Modell</em>, das die Abhängigkeit der Zielvariable von den Prädiktoren beschreibt.</li>
 </ul>
-<p>Bei einer Regressionsanalyse gibt es eine <strong>abhängige Varaible</strong> (<span class="math inline">\(y\)</span>) welche erklärt werden soll und <strong>eine oder mehrere unabhängige Variablen</strong> (<span class="math inline">\(x_1, x_2, \ldots, x_k\)</span>), die mit der zu erklärenden Variable in Verbindung stehen.</p>
+<p>Bei einer Regressionsanalyse gibt es eine <em>abhängige Variable</em> (<span class="math inline">\(y\)</span>), die erklärt werden soll, und <em>eine oder mehrere unabhängige Variablen</em> (<span class="math inline">\(x_1, x_2, \dots, x_k\)</span>), die mit der Zielvariable in Verbindung stehen.</p>
+<p>Die allgemeine Form der <strong>multiplen linearen Regression</strong> lautet:</p>
 <p><span class="math display">\[
-y = a + b_1 x_1 + b_2 x_2 + \ldots + b_k x_k
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_k x_k + \varepsilon
 \]</span></p>
-<p><span class="math inline">\(a\)</span> ist eine <strong>Regressionskonstante</strong> und <span class="math inline">\(b_1, b_2, \ldots, b_k\)</span> sind die <strong>Regressionskoeffizienten</strong>.</p>
-<p>Für jede zunahme von <span class="math inline">\(x_i\)</span> um eine Einheit, nimmt <span class="math inline">\(y\)</span> um <span class="math inline">\(b_i\)</span> Einheiten zu.</p>
-<section id="grundidee" class="level3" data-number="10.1.1">
-<h3 data-number="10.1.1" class="anchored" data-anchor-id="grundidee"><span class="header-section-number">10.1.1</span> Grundidee</h3>
+<ul>
+<li><span class="math inline">\(\beta_0\)</span> ist die <em>Regressionskonstante</em> (Achsenabschnitt), also der geschätzte Wert für <span class="math inline">\(y\)</span>, wenn alle <span class="math inline">\(x_i = 0\)</span> sind.<br>
+</li>
+<li><span class="math inline">\(\beta_1, \beta_2, \dots, \beta_k\)</span> sind die <em>Regressionskoeffizienten</em>, die die Stärke des Zusammenhangs zwischen <span class="math inline">\(x_i\)</span> und <span class="math inline">\(y\)</span> beschreiben.<br>
+</li>
+<li><span class="math inline">\(\varepsilon\)</span> ist der <em>Fehlerterm</em>, der alle nicht erfassten Einflüsse auf <span class="math inline">\(y\)</span> berücksichtigt.</li>
+</ul>
+<p><strong>Interpretation der Regressionskoeffizienten</strong></p>
+<ul>
+<li>Wenn <span class="math inline">\(x_i\)</span> um <em>eine Einheit</em> steigt, verändert sich <span class="math inline">\(y\)</span> um <span class="math inline">\(\beta_i\)</span>, <em>unter der Annahme, dass alle anderen <span class="math inline">\(x_j\)</span> konstant bleiben</em>.<br>
+</li>
+<li>Beispiel: Wenn <span class="math inline">\(\beta_1 = 2\)</span>, dann bedeutet das, dass eine Erhöhung von <span class="math inline">\(x_1\)</span> um <em>eine Einheit</em> zu einer durchschnittlichen Erhöhung von <span class="math inline">\(y\)</span> um <em>2 Einheiten</em> führt.</li>
+</ul>
+<section id="einfache-lineare-regression" class="level3" data-number="10.0.1">
+<h3 data-number="10.0.1" class="anchored" data-anchor-id="einfache-lineare-regression"><span class="header-section-number">10.0.1</span> Einfache lineare Regression</h3>
 <p>Wir wollen eine Gerade der Form:</p>
 <p><span class="math display">\[
-\hat{y} = \beta_0 + \beta_1 \cdot x
+\hat{y} = \beta_0 + \beta_{1x} x
 \]</span></p>
 <ul>
-<li><span class="math inline">\(\hat{y}\)</span> = vorhergesagter Wert von <span class="math inline">\(y\)</span><br>
+<li><span class="math inline">\(\hat{y}\)</span> = geschätzter Wert von <span class="math inline">\(y\)</span><br>
 </li>
 <li><span class="math inline">\(\beta_0\)</span> = <strong>Achsenabschnitt</strong> (Intercept)<br>
 </li>
@@ -426,9 +446,9 @@ y = a + b_1 x_1 + b_2 x_2 + \ldots + b_k x_k
 </ul>
 <p>Die Parameter <span class="math inline">\(\beta_0\)</span> und <span class="math inline">\(\beta_1\)</span> bestimmen die Lage und Neigung der Regressionsgerade.</p>
 </section>
-<section id="das-problem-der-abweichungen-residuen" class="level3" data-number="10.1.2">
-<h3 data-number="10.1.2" class="anchored" data-anchor-id="das-problem-der-abweichungen-residuen"><span class="header-section-number">10.1.2</span> Das Problem der Abweichungen (Residuen)</h3>
-<p>Kein Modell beschreibt die Realität perfekt. Daher gibt es für jeden Datenpunkt eine <strong>Abweichung (Residuum)</strong>:</p>
+<section id="abweichungen-residuen" class="level3" data-number="10.0.2">
+<h3 data-number="10.0.2" class="anchored" data-anchor-id="abweichungen-residuen"><span class="header-section-number">10.0.2</span> Abweichungen (Residuen)</h3>
+<p>Kein Modell beschreibt die Realität perfekt. Daher gibt es für jeden Datenpunkt eine <strong>Abweichung</strong> (Residuum) zu der Regressionsgerade:</p>
 <p><span class="math display">\[
 e_i = y_i - \hat{y}_i
 \]</span></p>
@@ -437,260 +457,410 @@ e_i = y_i - \hat{y}_i
 </li>
 <li><span class="math inline">\(y_i\)</span> = tatsächlicher Wert<br>
 </li>
-<li><span class="math inline">\(\hat{y}_i\)</span> = vorhergesagter Wert durch die Regressionsgerade</li>
+<li><span class="math inline">\(\hat{y}_i\)</span> = durch das Modell geschätzter Wert</li>
 </ul>
 <p>Das Ziel der linearen Regression ist es, diese Abweichungen so klein wie möglich zu halten.</p>
-<section id="erste-zufällige-anpassung" class="level4" data-number="10.1.2.1">
-<h4 data-number="10.1.2.1" class="anchored" data-anchor-id="erste-zufällige-anpassung"><span class="header-section-number">10.1.2.1</span> Erste (zufällige) Anpassung</h4>
-<p>Im ersten Schritt betrachten wir eine <strong>zufällige Regressionsgerade</strong>, die nicht gut zu den Daten passt. Die <strong>Residuen</strong> (grüne Linien) zeigen die Abstände zwischen den Datenpunkten und der Linie.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setzen des Seeds für reproduzierbare Ergebnisse</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Definieren der Farbe mit Opacity</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>dot_color <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>line_color <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>residual_color <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="fl">0.87</span>, <span class="fl">0.72</span>, <span class="fl">0.53</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">4</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> dot_color, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">20</span>, <span class="at">b =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">col =</span> line_color, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">segments</span>(x[i], y[i], x[i], <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">*</span> x[i] <span class="sc">+</span> <span class="dv">20</span>, <span class="at">col =</span> residual_color, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Gesamtlänge der Residuen berechnen und anzeigen</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>residual_sum_random <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">abs</span>(y <span class="sc">-</span> (<span class="sc">-</span><span class="fl">0.5</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">20</span>)))</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(y), <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Residuen:"</span>, <span class="fu">round</span>(residual_sum_random, <span class="dv">2</span>)), <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">"blue2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="regression_files/figure-html/random-line-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Erster Ansatz: wir zeichnen eine beliebige Gerade und visualisieren die Residuen</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="logischer-verbesserungsschritt-linie-durch-den-schwerpunkt" class="level4" data-number="10.1.2.2">
-<h4 data-number="10.1.2.2" class="anchored" data-anchor-id="logischer-verbesserungsschritt-linie-durch-den-schwerpunkt"><span class="header-section-number">10.1.2.2</span> Logischer Verbesserungsschritt: Linie durch den Schwerpunkt</h4>
-<p>Statt zufällig eine bessere Linie zu raten, machen wir den <strong>logischen ersten Schritt</strong>: Wir zeichnen eine <strong>horizontale Linie durch den Schwerpunkt der Daten</strong>, d.h. die <strong>Mittelwerte von <span class="math inline">\(x\)</span> und <span class="math inline">\(y\)</span></strong>.</p>
-<p><strong>Wichtige Erkenntnis:</strong> Jede Regressionsgerade verläuft durch den Punkt <span class="math inline">\((\bar{x}, \bar{y})\)</span>.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(latex2exp)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>mean_y <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> dot_color, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> mean_y, <span class="at">col =</span> line_color, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(mean_x, mean_y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(mean_x, mean_y, <span class="at">labels =</span> <span class="fu">TeX</span>(<span class="st">"$(</span><span class="sc">\\</span><span class="st">bar{x}, </span><span class="sc">\\</span><span class="st">bar{y})$"</span>), <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">segments</span>(x[i], y[i], x[i], mean_y, <span class="at">col =</span> residual_color, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Gesamtlänge der Residuen berechnen und anzeigen</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>residual_sum_mean <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">abs</span>(y <span class="sc">-</span> mean_y))</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(y), <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Residuen:"</span>, <span class="fu">round</span>(residual_sum_mean, <span class="dv">2</span>)), <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">"blue2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="regression_files/figure-html/mean-line-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Zweiter Schritt: Wir zeichnen eine horizontale Linie durch den Schwerpunkt der Daten</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="optimale-regressionsgerade-least-squares" class="level4" data-number="10.1.2.3">
-<h4 data-number="10.1.2.3" class="anchored" data-anchor-id="optimale-regressionsgerade-least-squares"><span class="header-section-number">10.1.2.3</span> Optimale Regressionsgerade (Least Squares)</h4>
-<p>Im letzten Schritt berechnen wir die <strong>optimale Regressionsgerade</strong> mithilfe der Methode der kleinsten Quadrate. Diese minimiert die Summe der quadrierten Abweichungen (Residuen).</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="Beispiel">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Schrittweise Herleitung
+Beispiel
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<ol type="1">
-<li><strong>Modellgleichung:</strong></li>
-</ol>
-<p>Das lineare Regressionsmodell lautet:</p>
-<p><span class="math display">\[
-\hat{y} = \widehat{\beta_0} + \widehat{\beta_1} \cdot x
-\]</span></p>
+<p>Wir betrachten die Daten aus <a href="korrelation.html#tbl-noten-lernzeit-beispiel" class="quarto-xref">Tabelle&nbsp;<span>9.1</span></a> und untersuchen den Zusammenhang zwischen Lernzeit (h/Woche, <span class="math inline">\(X\)</span>) und Prüfungsnote (<span class="math inline">\(Y\)</span>).</p>
+<p><strong>1. Gegebene Werte</strong></p>
+<p>Bereits bekannte Werte aus vorherigen Berechnungen:</p>
 <ul>
-<li>Das Dach <span class="math inline">\(\widehat{\beta_0}\)</span> und <span class="math inline">\(\widehat{\beta_1}\)</span> bedeutet, dass es sich um Schätzwerte handelt.</li>
+<li><p><strong>Mittelwerte:</strong><br>
+<span class="math inline">\(\bar{X} = 10\)</span> (<a href="korrelation.html#eq-noten-lernzeit-mittelwert-x" class="quarto-xref">Gleichung&nbsp;<span>9.2</span></a>), <span class="math inline">\(\bar{Y} = 70\)</span> (<a href="korrelation.html#eq-noten-lernzeit-mittelwert-y" class="quarto-xref">Gleichung&nbsp;<span>9.1</span></a>)</p></li>
+<li><p><strong>Standardabweichungen:</strong><br>
+<span class="math inline">\(\sigma_X = 3.81\)</span> (<a href="korrelation.html#eq-noten-lernzeit-standardabweichung-x" class="quarto-xref">Gleichung&nbsp;<span>9.5</span></a>), <span class="math inline">\(\sigma_Y = 15.81\)</span> (<a href="korrelation.html#eq-noten-lernzeit-standardabweichung-y" class="quarto-xref">Gleichung&nbsp;<span>9.4</span></a>)</p></li>
+<li><p><strong>Kovarianz:</strong><br>
+<span class="math inline">\(\text{Cov}(X, Y) = 60\)</span> (<a href="korrelation.html#eq-noten-lernzeit-kovarianz" class="quarto-xref">Gleichung&nbsp;<span>9.3</span></a>)</p></li>
+<li><p><strong>Varianz von <span class="math inline">\(X\)</span>:</strong><br>
+<span class="math inline">\(\sigma_X^2 = 14.5\)</span> ergibt sich aus <span class="math inline">\(\sigma_X\)</span></p></li>
 </ul>
-<ol start="2" type="1">
-<li><strong>Definition der Fehler (Residuen):</strong></li>
-</ol>
-<p>Für jeden Datenpunkt ergibt sich das Residuum als Differenz zwischen dem beobachteten Wert <span class="math inline">\(y_i\)</span> und dem vorhergesagten Wert <span class="math inline">\(\hat{y}_i\)</span>:</p>
-<p><span class="math display">\[
-e_i = y_i - (\widehat{\beta_0} + \widehat{\beta_1} x_i)
-\]</span></p>
-<ol start="3" type="1">
-<li><strong>Zielfunktion – Summe der quadrierten Residuen (RSS):</strong></li>
-</ol>
-<p>Wir wollen die Summe der quadrierten Residuen minimieren:</p>
-<p><span class="math display">\[
-RSS = \sum_{i=1}^{n} (y_i - (\widehat{\beta_0} + \widehat{\beta_1} x_i))^2
-\]</span></p>
-<ol start="4" type="1">
-<li><strong>Optimierung durch partielle Ableitung:</strong></li>
-</ol>
-<p>Wir minimieren <span class="math inline">\(RSS\)</span>, indem wir die partiellen Ableitungen nach <span class="math inline">\(\beta_0\)</span> und <span class="math inline">\(\beta_1\)</span> berechnen und gleich null setzen:</p>
+<p><strong>2. Berechnung der Regressionskoeffizienten</strong></p>
 <ul>
-<li><strong>Ableitung nach <span class="math inline">\(\beta_0\)</span>:</strong></li>
+<li>Steigung <span class="math inline">\(\beta_1\)</span></li>
 </ul>
-<p><span class="math display">\[
-\frac{\partial RSS}{\partial \widehat{\beta_0}} = -2 \sum (y_i - \widehat{\beta_0} - \widehat{\beta_1} x_i) = 0
-\]</span></p>
-<ul>
-<li><strong>Ableitung nach <span class="math inline">\(\beta_1\)</span>:</strong></li>
-</ul>
-<p><span class="math display">\[
-\frac{\partial RSS}{\partial \widehat{\beta_1}} = -2 \sum x_i (y_i - \widehat{\beta_0} - \widehat{\beta_1} x_i) = 0
-\]</span></p>
-<ol start="5" type="1">
-<li><strong>Lösen des Gleichungssystems:</strong></li>
-</ol>
-<p>Durch Umformen der beiden Gleichungen erhalten wir die sogenannten <strong>Normalgleichungen</strong>:</p>
 <p><span class="math display">\[
 \begin{aligned}
-\sum y_i &amp;= n \widehat{\beta_0} + \widehat{\beta_1} \sum x_i \\
-\sum x_i y_i &amp;= \widehat{\beta_0} \sum x_i + \widehat{\beta_1} \sum x_i^2
+\beta_1 &amp;= \frac{\text{Cov}(X, Y)}{\sigma_X^2} \\
+&amp;= \frac{60}{14.5} \\
+&amp;\approx 4.14
 \end{aligned}
 \]</span></p>
-<ol start="6" type="1">
-<li><strong>Endformeln für die Regressionskoeffizienten:</strong></li>
-</ol>
-<p>Nach weiteren Umformungen ergeben sich die optimalen Schätzwerte für <span class="math inline">\(\widehat{\beta_1}\)</span> und <span class="math inline">\(\widehat{\beta_0}\)</span>:</p>
-<ul>
-<li><strong>Steigung:</strong></li>
-</ul>
-<p><span class="math display">\[
-\widehat{\beta_1} = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}
-\]</span></p>
-<ul>
-<li><strong>Achsenabschnitt:</strong></li>
-</ul>
-<p><span class="math display">\[
-\widehat{\beta_0} = \bar{y} - \widehat{\beta_1} \cdot \bar{x}
-\]</span></p>
-</div>
-</div>
-</div>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> dot_color, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model, <span class="at">col =</span> line_color, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">segments</span>(x[i], y[i], x[i], <span class="fu">predict</span>(model)[i], <span class="at">col =</span> residual_color, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Gesamtlänge der Residuen berechnen und anzeigen</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>residual_sum_optimal <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">abs</span>(y <span class="sc">-</span> <span class="fu">predict</span>(model)))</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(y), <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Residuen:"</span>, <span class="fu">round</span>(residual_sum_optimal, <span class="dv">2</span>)), <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">"blue2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="regression_files/figure-html/optimal-line-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Dritter Schritt: Optimale Regressionsgerade (Methode der kleinsten Quadrate)</figcaption>
-</figure>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>noten_lernzeit_tabelle <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">student =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">note =</span> <span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">50</span>, <span class="dv">90</span>, <span class="dv">60</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lernzeit =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">8</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(note <span class="sc">~</span> lernzeit, <span class="at">data =</span> noten_lernzeit_tabelle)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="fu">coef</span>(model)[<span class="dv">2</span>]  <span class="co"># Zweites Element ist der Koeffizient für lernzeit</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>beta1</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lernzeit 
+4.137931 </code></pre>
 </div>
 </div>
-</div>
-</section>
-</section>
-<section id="bestimmung-der-güte-der-anpassung" class="level3" data-number="10.1.3">
-<h3 data-number="10.1.3" class="anchored" data-anchor-id="bestimmung-der-güte-der-anpassung"><span class="header-section-number">10.1.3</span> Bestimmung der Güte der Anpassung</h3>
-<p>Die Güte der Anpassung wird durch den <strong>Bestimmtheitsmass</strong> <span class="math inline">\(R^2\)</span> beurteilt.</p>
-<p><span id="eq-r2"><span class="math display">\[
-R^2 = \frac{\text{erklärte Variation}}{\text{Gesamtvariation}} = \frac{\sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2}{\sum_{i=1}^{n} (Y_i - \bar{Y})^2} = 1 - \frac{\text{Residualsumme}}{\text{Gesamtvariation}}
-\tag{10.1}\]</span></span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> Jede zusätzliche Lernstunde pro Woche erhöht die erwartete Prüfungsnote um 4.14 Punkte.</p>
 <ul>
-<li><span class="math inline">\(\hat{Y}_i\)</span> = vorhergesagter Wert</li>
-<li><span class="math inline">\(\bar{Y}\)</span> = Mittelwert der abhängigen Variablen</li>
-<li><span class="math inline">\(Y_i\)</span> = beobachteter Wert</li>
-</ul>
-<p><span class="math inline">\(R^2\)</span> liegt immer zwischen 0 und 1. Je höher <span class="math inline">\(R^2\)</span>, desto besser passt das Modell zu den Daten.</p>
-</section>
-<section id="testen-der-signifikanz-der-regressionskoeffizienten" class="level3" data-number="10.1.4">
-<h3 data-number="10.1.4" class="anchored" data-anchor-id="testen-der-signifikanz-der-regressionskoeffizienten"><span class="header-section-number">10.1.4</span> Testen der Signifikanz der Regressionskoeffizienten</h3>
-<p><strong>Hypothesen</strong>:</p>
-<ul>
-<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta_1 = 0\)</span> (KEINE lineare Abhängigkeit zwischen <span class="math inline">\(x\)</span> und <span class="math inline">\(y\)</span>)</li>
-<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\beta_1 \neq 0\)</span> (lineare Abhängigkeit zwischen <span class="math inline">\(x\)</span> und <span class="math inline">\(y\)</span>)</li>
-<li><span class="math inline">\(\beta_1\)</span> der Stichprobe variiert um den wahren Wert <span class="math inline">\(\beta_1\)</span> der Grundgesamtheit mit bestimmter Wahrscheinlichkeit:
-<ul>
-<li>einer Normalverteilung mit der Standardabweichung <span class="math inline">\(\sigma_{\beta_1}\)</span></li>
-<li><span class="math inline">\(\sigma_{\beta_1}\)</span> wird aus <span class="math inline">\(s_{\beta_1}\)</span> (Standardfehler von <span class="math inline">\(\beta_1\)</span>) geschätzt</li>
-<li>um die Schätzunsicherheiten bei kleinen Stichproben zu berücksichtigen, wird die t-Verteilung verwendet</li>
-</ul></li>
+<li>Achsenabschnitt <span class="math inline">\(\beta_0\)</span></li>
 </ul>
 <p><span class="math display">\[
-T = \frac{\widehat{\beta}}{s_{\beta_1}}, \quad \text{mit} \quad s_{\beta_1} = \sqrt{\frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 / (n-2)}{\sum_{i=1}^{n} (X_i - \bar{X})^2}}
+\begin{aligned}
+\beta_0 &amp;= \bar{Y} - \beta_1 \bar{X} \\
+&amp;\approx 70 - (4.14 \cdot 10) \\
+&amp;\approx 70 - 41.4 \\
+&amp;\approx 28.6
+\end{aligned}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="fu">coef</span>(model)[<span class="dv">1</span>]  <span class="co"># Erstes Element ist der Koeffizient für den Achsenabschnitt</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>beta0</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept) 
+   28.62069 </code></pre>
+</div>
+</div>
+<p><span class="math inline">\(\Rightarrow\)</span> Ohne Lernzeit (<span class="math inline">\(X = 0\)</span>) wäre die erwartete Note 28.6.</p>
+<p><strong>3. Regressionsgleichung</strong></p>
+<p><span class="math display">\[
+\hat{Y} \approx 28.6 + 4.14 X
+\]</span></p>
+<p><strong>4. Vorhersagewerte <span class="math inline">\(\hat{Y}\)</span></strong></p>
+<p>Die vorhergesagten Prüfungsnoten für unsere Lernzeiten:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 19%">
+<col style="width: 23%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Student</th>
+<th><span class="math inline">\(X\)</span> (Lernzeit)</th>
+<th><span class="math inline">\(Y\)</span> (Tatsächlich)</th>
+<th><span class="math inline">\(\hat{Y}\)</span> (Vorhersage)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>10</td>
+<td>70</td>
+<td><span class="math inline">\(28.6 + 4.14 \cdot 10 \approx 70.0\)</span></td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>12</td>
+<td>80</td>
+<td><span class="math inline">\(28.6 + 4.14 \cdot 12 \approx 78.3\)</span></td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>5</td>
+<td>50</td>
+<td><span class="math inline">\(28.6 + 4.14 \cdot 5 \approx 49.3\)</span></td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>15</td>
+<td>90</td>
+<td><span class="math inline">\(28.6 + 4.14 \cdot 15 \approx 90.7\)</span></td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td>8</td>
+<td>60</td>
+<td><span class="math inline">\(28.6 + 4.14 \cdot 8 \approx 61.7\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Wir sehen, dass die vorhergesagten Werte gut zu den tatsächlichen Werten passen.</p>
+<p><strong>5. Berechnung der Residuen <span class="math inline">\(e_i\)</span></strong></p>
+<p>Das Residuum ist die Differenz zwischen tatsächlichem Wert <span class="math inline">\(Y_i\)</span> und vorhergesagtem Wert <span class="math inline">\(\hat{Y}_i\)</span>:</p>
+<p><span class="math display">\[
+e_i = Y_i - \hat{Y}_i
+\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 26%">
+<col style="width: 33%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Student</th>
+<th><span class="math inline">\(Y\)</span> (Tatsächlich)</th>
+<th><span class="math inline">\(\hat{Y}\)</span> (Vorhersage)</th>
+<th>Residuum <span class="math inline">\(e_i\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>70</td>
+<td>70.0</td>
+<td><span class="math inline">\(70 - 70 = 0.0\)</span></td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>80</td>
+<td>78.3</td>
+<td><span class="math inline">\(80 - 78.3 = 1.7\)</span></td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>50</td>
+<td>49.3</td>
+<td><span class="math inline">\(50 - 49.3 = 0.7\)</span></td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>90</td>
+<td>90.7</td>
+<td><span class="math inline">\(90 - 90.7 = -0.7\)</span></td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td>60</td>
+<td>61.7</td>
+<td><span class="math inline">\(60 - 61.7 = -1.7\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Die Residuen sind klein, was bedeutet, dass die Regressionsgerade gut zu den Daten passt.</p>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>Jede zusätzliche Lernstunde erhöht die erwartete Prüfungsnote um 4.14 Punkte.<br>
+</li>
+<li>Ohne zu lernen (wenn <span class="math inline">\(X = 0\)</span>), wäre die erwartete Note 28.6.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="bestimmung-der-modellgüte" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="bestimmung-der-modellgüte"><span class="header-section-number">10.1</span> Bestimmung der Modellgüte</h2>
+<p>Die Güte der Anpassung wird durch das <strong>Bestimmtheitsmass</strong> <span class="math inline">\(R^2\)</span> beurteilt. Dieses Mass gibt an, welcher Anteil der Gesamtvariation von <span class="math inline">\(Y\)</span> durch das Modell erklärt wird:</p>
+<p><span class="math display">\[
+R^2 = \frac{\text{erklärte Variation}}{\text{Gesamtvariation}} = 1 - \frac{\text{Residuenvariation}}{\text{Gesamtvariation}}
+\]</span></p>
+<p>Das bedeutet:</p>
+<p><span class="math display">\[
+R^2 = 1 - \frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2}{\sum_{i=1}^{n} (Y_i - \bar{Y})^2}
 \]</span></p>
 <ul>
-<li><span class="math inline">\(T\)</span> ist t-verteilt mit <span class="math inline">\(n-2\)</span> Freiheitsgraden, da wir den Regressionskoeffizienten <span class="math inline">\(\beta_1\)</span> und die Streuung <span class="math inline">\(\sigma_{\beta_1}\)</span> aus der Stichprobe schätzen</li>
-<li><span class="math inline">\(\beta_1\)</span> ist die Steigung der Regressionsgerade</li>
-<li><span class="math inline">\(s_{\beta_1}\)</span> ist der Standardfehler der Steigung</li>
-<li><span class="math inline">\(\widehat{\beta}\)</span> ist der geschätzte Regressionskoeffizient der Stichprobe</li>
-<li><span class="math inline">\(Y_i\)</span> ist der beobachtete Wert der abhängigen Variablen</li>
-<li><span class="math inline">\(\hat{Y}_i\)</span> ist der vorhergesagte Wert der abhängigen Variablen</li>
-<li><span class="math inline">\(X_i\)</span> ist der beobachtete Wert der unabhängigen Variablen</li>
-<li><span class="math inline">\(\bar{X}\)</span> ist der Mittelwert der unabhängigen Variablen</li>
-<li><span class="math inline">\(n\)</span> ist die Anzahl der Beobachtungen</li>
+<li><span class="math inline">\(Y_i\)</span> ist der tatsächliche Wert der abhängigen Variablen.<br>
+</li>
+<li><span class="math inline">\(\hat{Y}_i\)</span> ist der vorhergesagte Wert der abhängigen Variablen.<br>
+</li>
+<li><span class="math inline">\(\bar{Y}\)</span> ist der Mittelwert von <span class="math inline">\(Y\)</span>.<br>
+</li>
+<li>Der Zähler beschreibt die <strong>Residuenvariation</strong> (nicht erklärte Abweichung).<br>
+</li>
+<li>Der Nenner beschreibt die <strong>Gesamtvariation</strong> (Gesamtstreuung der Daten).</li>
 </ul>
-<section id="konfidenzintervall-der-regressionskoeffizienten" class="level4" data-number="10.1.4.1">
-<h4 data-number="10.1.4.1" class="anchored" data-anchor-id="konfidenzintervall-der-regressionskoeffizienten"><span class="header-section-number">10.1.4.1</span> Konfidenzintervall der Regressionskoeffizienten</h4>
+<p><strong>Eigenschaften von <span class="math inline">\(R^2\)</span>:</strong></p>
+<ul>
+<li><span class="math inline">\(R^2\)</span> liegt <strong>immer zwischen 0 und 1</strong>.<br>
+</li>
+<li><span class="math inline">\(R^2 = 1\)</span> bedeutet <strong>perfekte Anpassung</strong> (alle Datenpunkte liegen exakt auf der Regressionsgeraden).<br>
+</li>
+<li><span class="math inline">\(R^2 = 0\)</span> bedeutet <strong>keine Anpassung</strong> (die unabhängige Variable erklärt nichts).</li>
+</ul>
+<section id="testen-der-signifikanz-der-regressionskoeffizienten" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="testen-der-signifikanz-der-regressionskoeffizienten"><span class="header-section-number">10.1.1</span> Testen der Signifikanz der Regressionskoeffizienten</h3>
+<p>Um zu überprüfen, ob die unabhängige Variable tatsächlich einen <strong>signifikanten Einfluss auf <span class="math inline">\(Y\)</span></strong> hat, testen wir die Hypothesen:</p>
+<ul>
+<li><strong>Nullhypothese <span class="math inline">\(H_0\)</span>:</strong> Kein linearer Zusammenhang <span class="math inline">\(\Rightarrow \beta_1 = 0\)</span>.<br>
+</li>
+<li><strong>Alternativhypothese <span class="math inline">\(H_1\)</span>:</strong> Es gibt einen linearen Zusammenhang <span class="math inline">\(\Rightarrow \beta_1 \neq 0\)</span>.</li>
+</ul>
+<p>Da wir <span class="math inline">\(\beta_1\)</span> nicht direkt kennen, schätzen wir ihn mit <span class="math inline">\(\widehat{\beta}_1\)</span> und testen, ob dieser <strong>signifikant von 0 verschieden ist</strong>. Dafür berechnen wir die Teststatistik:</p>
 <p><span class="math display">\[
-\beta_1 = \widehat{\beta_1} \pm q_t \cdot s_{\beta_1} \quad \text{mit} \quad q_t \text{ aus der T-Tabelle}
+T = \frac{\widehat{\beta}_1}{\operatorname{SE}_{\beta_1}}
+\]</span></p>
+<p>wobei der <strong>Standardfehler von <span class="math inline">\(\beta_1\)</span></strong> durch:</p>
+<p><span class="math display">\[
+\operatorname{SE}_{\beta_1} = \sqrt{\frac{\frac{1}{n-2} \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2}{\sum_{i=1}^{n} (X_i - \bar{X})^2}}
+\]</span></p>
+<p>gegeben ist.</p>
+<ul>
+<li><span class="math inline">\(T\)</span> folgt einer <strong>t-Verteilung mit <span class="math inline">\(n - 2\)</span> Freiheitsgraden</strong>, da wir die beiden Regressionskoeffizienten (<span class="math inline">\(\beta_0, \beta_1\)</span>) aus der Stichprobe schätzen.<br>
+</li>
+<li><strong>Wenn <span class="math inline">\(|T|\)</span> gross genug ist</strong>, lehnen wir <span class="math inline">\(H_0\)</span> ab → <strong><span class="math inline">\(X\)</span> hat einen signifikanten Einfluss auf <span class="math inline">\(Y\)</span></strong>.</li>
+</ul>
+<p><strong>Interpretation des Tests:</strong></p>
+<ul>
+<li>Falls der p-Wert kleiner als <span class="math inline">\(0.05\)</span> ist, lehnen wir <span class="math inline">\(H_0\)</span> ab. Es gibt <strong>einen signifikanten linearen Zusammenhang</strong>.<br>
+</li>
+<li>Falls der p-Wert grösser als <span class="math inline">\(0.05\)</span> ist, können wir <strong>keine signifikante Beziehung feststellen</strong>.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Beispiel">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Beispiel
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wir überprüfen die Signifikanz der Regressionskoeffizienten für das Beispiel der Lernzeit und der Prüfungsnote.</p>
+<p><strong>1. Berechnung der Gesamtvariation <span class="math inline">\(SS_{total}\)</span></strong></p>
+<p>Die Gesamtvariation ist die Summe der quadrierten Abweichungen jedes <span class="math inline">\(Y_i\)</span> vom Mittelwert <span class="math inline">\(\bar{Y}\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+SS_{\text{total}} &amp;= \sum_{i=1}^{n} (Y_i - \bar{Y})^2 \\
+&amp;= \sum_{i=1}^{n} (70 - 70)^2 + (80 - 70)^2 + (50 - 70)^2 + (90 - 70)^2 + (60 - 70)^2 \\
+&amp;= 0 + 100 + 400 + 400 + 100 \\
+&amp;= 1000
+\end{aligned}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ss_total <span class="ot">&lt;-</span> <span class="fu">sum</span>((noten_lernzeit_tabelle<span class="sc">$</span>note <span class="sc">-</span> <span class="fu">mean</span>(noten_lernzeit_tabelle<span class="sc">$</span>note))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ss_total</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1000</code></pre>
+</div>
+</div>
+<p><strong>2. Berechnung der Residuenvariation <span class="math inline">\(SS_{residual}\)</span></strong></p>
+<p>Die Residuenvariation ist die Summe der quadrierten Abweichungen der tatsächlichen Werte <span class="math inline">\(Y_i\)</span> von den vorhergesagten Werten <span class="math inline">\(\hat{Y}_i\)</span>, berechnet mit der Regressionsgleichung:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{Y}_i &amp;= 28.6 + 4.14 X_i \\
+&amp;= 0^2 + 1.7^2 + 0.7^2 + (-0.7)^2 + (-1.7)^2 \\
+&amp;\approx 0 + 2.89 + 0.49 + 0.49 + 2.89 \\
+&amp;\approx 6.9
+\end{aligned}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ss_residual <span class="ot">&lt;-</span> <span class="fu">sum</span>(model<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ss_residual</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.896552</code></pre>
+</div>
+</div>
+<section id="berechnung-des-bestimmtheitsmasses-r2" class="level3" data-number="10.1.2">
+<h3 data-number="10.1.2" class="anchored" data-anchor-id="berechnung-des-bestimmtheitsmasses-r2"><span class="header-section-number">10.1.2</span> <strong>3. Berechnung des Bestimmtheitsmasses <span class="math inline">\(R^2\)</span></strong></h3>
+<p>Nun setzen wir die Werte in die Formel ein:</p>
+<p><span class="math display">\[
+R^2 = 1 - \frac{SS_{\text{residual}}}{SS_{\text{total}}}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>r_squared <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>r.squared</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>r_squared</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9931034</code></pre>
+</div>
+</div>
+<p><span class="math display">\[
+\begin{aligned}
+R^2 &amp;\approx 1 - \frac{6.9}{1000} \\
+&amp;\approx 1 - 0.0069 \\
+&amp;\approx 0.993
+\end{aligned}
+\]</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> <strong>99.3% der Variation in den Prüfungsnoten wird durch die Lernzeit erklärt.</strong><br>
+Das Modell passt also sehr gut zu den Daten.</p>
+<p><strong>4. Berechnung des Standardfehlers von <span class="math inline">\(\beta_1\)</span></strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+\operatorname{SE}_{\beta_1} &amp;= \sqrt{\frac{\frac{1}{n-2} \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2}{\sum_{i=1}^{n} (X_i - \bar{X})^2}} \\
+&amp;= \sqrt{\frac{\frac{1}{3} \sum_{i=1}^{5} (Y_i - \hat{Y}_i)^2}{\sum_{i=1}^{5} (X_i - \bar{X})^2}} \\
+&amp;= \sqrt{\frac{\frac{1}{3} \left[(70-70)^2 + (80-78.3)^2 + (50-49.3)^2 + (90-90.7)^2 + (60-61.7)^2\right]}{\left[(10-10)^2 + (12-10)^2 + (5-10)^2 + (15-10)^2 + (8-10)^2\right]}} \\
+&amp;= \sqrt{\frac{\frac{1}{3} \left[0^2 + 1.7^2 + 0.7^2 + (-0.7)^2 + (-1.7)^2\right]}{\left[0^2 + 2^2 + (-5)^2 + 5^2 + (-2)^2\right]}} \\
+&amp;= \sqrt{\frac{\frac{1}{3} \left[0 + 2.89 + 0.49 + 0.49 + 2.89\right]}{\left[0 + 4 + 25 + 25 + 4\right]}} \\
+&amp;= \sqrt{\frac{\frac{1}{3} \left[6.76\right]}{58}} \\
+&amp;\approx \sqrt{\frac{2.53}{58}} \\
+&amp;\approx \sqrt{0.039} \\
+&amp;\approx 0.197
+\end{aligned}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>se_beta1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="st">"Std. Error"</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>se_beta1</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1990863</code></pre>
+</div>
+</div>
+<p><strong>5. Berechnung der Teststatistik <span class="math inline">\(T\)</span></strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+T &amp;= \frac{\widehat{\beta}_1}{\operatorname{SE}_{\beta_1}} \\
+&amp;= \frac{4.14}{0.197} \\
+&amp;\approx 20.79
+\end{aligned}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>t_value <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(model))[<span class="dv">2</span>, <span class="st">"t value"</span>]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>t_value</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.78461</code></pre>
+</div>
+</div>
+<p><strong>6. Berechnung des p-Werts</strong></p>
+<p>Da die Teststatistik <span class="math inline">\(T\)</span> einer <strong>t-Verteilung mit <span class="math inline">\(n-2\)</span> Freiheitsgraden</strong> folgt, berechnen wir den <strong>p-Wert</strong> für den zweiseitigen Test:</p>
+<p><span class="math display">\[
+p = 2 \cdot P(T \geq |t_{\text{berechnet}}|)
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="st">"Pr(&gt;|t|)"</span>]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>p_value</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0002435779</code></pre>
+</div>
+</div>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>Der berechnete p-Wert ist <strong>sehr klein</strong> <span class="math inline">\((p \approx 0.0002)\)</span>.</li>
+<li>Da <span class="math inline">\(p &lt; 0.05\)</span>, können wir die <strong>Nullhypothese <span class="math inline">\(H_0\)</span> ablehnen</strong>.</li>
+<li>Das bedeutet: <strong>Die Lernzeit hat einen signifikanten Einfluss auf die Prüfungsnote.</strong></li>
+<li>Da der p-Wert sogar weit unter 0.001 liegt, ist der Zusammenhang <strong>hochsignifikant</strong>.</li>
+</ul>
+<p><strong>Fazit:</strong><br>
+Die <strong>Regressionskoeffizienten sind signifikant</strong>. Es gibt <strong>starke Evidenz</strong>, dass eine höhere Lernzeit zu besseren Prüfungsnoten führt.</p>
+</section>
+</div>
+</div>
+<section id="konfidenzintervall-der-regressionskoeffizienten" class="level4" data-number="10.1.2.1">
+<h4 data-number="10.1.2.1" class="anchored" data-anchor-id="konfidenzintervall-der-regressionskoeffizienten"><span class="header-section-number">10.1.2.1</span> Konfidenzintervall der Regressionskoeffizienten</h4>
+<p><span class="math display">\[
+\beta_1 = \widehat{\beta_1} \pm q_t \cdot \operatorname{SE}_{\beta_1} \quad \text{mit} \quad q_t \text{ aus der T-Tabelle}
 \]</span></p>
 <ul>
 <li><span class="math inline">\(t_{n-2}\)</span> ist der kritische Wert der t-Verteilung mit <span class="math inline">\(n-2\)</span> Freiheitsgraden</li>
-<li><span class="math inline">\(s_{\beta_1}\)</span> ist der Standardfehler der Steigung</li>
+<li><span class="math inline">\(\operatorname{SE}_{\beta_1}\)</span> ist der Standardfehler der Steigung</li>
 <li><span class="math inline">\(\widehat{\beta_1}\)</span> ist der geschätzte Regressionskoeffizient der Stichprobe</li>
 </ul>
 </section>
 </section>
-<section id="berechnung-der-linearen-regression-in-r" class="level3" data-number="10.1.5">
-<h3 data-number="10.1.5" class="anchored" data-anchor-id="berechnung-der-linearen-regression-in-r"><span class="header-section-number">10.1.5</span> Berechnung der linearen Regression in R</h3>
+<section id="berechnung-der-linearen-regression-in-r" class="level3" data-number="10.1.3">
+<h3 data-number="10.1.3" class="anchored" data-anchor-id="berechnung-der-linearen-regression-in-r"><span class="header-section-number">10.1.3</span> Berechnung der linearen Regression in R</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten erstellen</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">4</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineare Regression durchführen</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineare Regression durchführen</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(note <span class="sc">~</span> lernzeit, <span class="at">data =</span> noten_lernzeit_tabelle)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = y ~ x)
+lm(formula = note ~ lernzeit, data = noten_lernzeit_tabelle)
 
 Coefficients:
-(Intercept)            x  
-      4.131        1.595  </code></pre>
+(Intercept)     lernzeit  
+     28.621        4.138  </code></pre>
 </div>
 </div>
 <p>Die Ausgabe der Funktion <code>lm()</code> zeigt uns:</p>
@@ -701,84 +871,84 @@ Coefficients:
 </ul></li>
 <li><strong>Coefficients</strong>: Die geschätzten Regressionskoeffizienten
 <ul>
-<li><strong>(Intercept)</strong>: <span class="math inline">\(\widehat{\beta_0}\)</span> = 4.131
+<li><strong>(Intercept)</strong>: <span class="math inline">\(\widehat{\beta_0}\)</span> = 28.621
 <ul>
 <li>Dies ist der y-Achsenabschnitt</li>
 <li>Der vorhergesagte y-Wert, wenn x = 0</li>
 </ul></li>
-<li><strong>x</strong>: <span class="math inline">\(\widehat{\beta_1}\)</span> = 1.595
+<li><strong>x</strong>: <span class="math inline">\(\widehat{\beta_1}\)</span> = 4.138
 <ul>
 <li>Dies ist die Steigung der Geraden</li>
-<li>Für jede Einheit, die x zunimmt, steigt y um 1.595 Einheiten</li>
+<li>Für jede Einheit, die x zunimmt, steigt y um 4.138 Einheiten</li>
 </ul></li>
 </ul></li>
 </ol>
 <p>Für eine detailliertere Analyse können wir die Funktion <code>summary()</code> verwenden:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = y ~ x)
+lm(formula = note ~ lernzeit, data = noten_lernzeit_tabelle)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--7.6915 -2.4266 -0.3433  2.5292 10.5802 
+         1          2          3          4          5 
+-1.220e-14  1.724e+00  6.897e-01 -6.897e-01 -1.724e+00 
 
 Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)   
-(Intercept)   4.1311     5.1598   0.801  0.43009   
-x             1.5948     0.4916   3.244  0.00305 **
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  28.6207     2.1032   13.61 0.000858 ***
+lernzeit      4.1379     0.1991   20.79 0.000244 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 4.147 on 28 degrees of freedom
-Multiple R-squared:  0.2732,    Adjusted R-squared:  0.2472 
-F-statistic: 10.52 on 1 and 28 DF,  p-value: 0.003047</code></pre>
+Residual standard error: 1.516 on 3 degrees of freedom
+Multiple R-squared:  0.9931,    Adjusted R-squared:  0.9908 
+F-statistic:   432 on 1 and 3 DF,  p-value: 0.0002436</code></pre>
 </div>
 </div>
 <p>Die <code>summary()</code> zeigt uns zusätzlich:</p>
 <ol type="1">
 <li><strong>Residuals</strong>: Verteilung der Abweichungen zwischen vorhergesagten und tatsächlichen Werten
 <ul>
-<li>Minimum: -7.691</li>
-<li>Maximum: 10.58</li>
+<li>Minimum: -1.724</li>
+<li>Maximum: 1.724</li>
 <li>Die Quartile zeigen, wie die Residuen verteilt sind</li>
 <li>Idealerweise symmetrisch um 0</li>
 </ul></li>
 <li><strong>Coefficients-Tabelle</strong>:
 <ul>
-<li><strong>Intercept</strong> (<span class="math inline">\(\widehat{\beta_0}\)</span> = 4.131):
+<li><strong>Intercept</strong> (<span class="math inline">\(\widehat{\beta_0}\)</span> = 28.621):
 <ul>
-<li>Standardfehler: 5.16</li>
-<li>t-Wert: 0.801</li>
-<li>p-Wert: 0.43</li>
-<li>Signifikant auf dem nicht signifikant Niveau</li>
+<li>Standardfehler: 2.103</li>
+<li>t-Wert: 13.608</li>
+<li>p-Wert: 0.001</li>
+<li>Signifikant auf dem 0.1% Niveau</li>
 </ul></li>
-<li><strong>Steigung</strong> (<span class="math inline">\(\widehat{\beta_1}\)</span> = 1.595):
+<li><strong>Steigung</strong> (<span class="math inline">\(\widehat{\beta_1}\)</span> = 4.138):
 <ul>
-<li>Standardfehler: 0.492</li>
-<li>t-Wert: 3.244</li>
-<li>p-Wert: 0.003</li>
-<li>Signifikant auf dem 1% Niveau</li>
+<li>Standardfehler: 0.199</li>
+<li>t-Wert: 20.785</li>
+<li>p-Wert: 0</li>
+<li>Signifikant auf dem 0.1% Niveau</li>
 </ul></li>
 </ul></li>
 <li><strong>Modellgüte</strong>:
 <ul>
-<li><span class="math inline">\(R^2\)</span> = 0.273
+<li><span class="math inline">\(R^2\)</span> = 0.993
 <ul>
-<li>27.3% der Varianz in y wird durch x erklärt</li>
+<li>99.3% der Varianz in y wird durch x erklärt</li>
 </ul></li>
-<li>Adjustiertes <span class="math inline">\(R^2\)</span> = 0.247
+<li>Adjustiertes <span class="math inline">\(R^2\)</span> = 0.991
 <ul>
 <li>Berücksichtigt die Anzahl der Prädiktoren</li>
 </ul></li>
 </ul></li>
 <li><strong>F-Test</strong>:
 <ul>
-<li>F-Wert: 10.523</li>
-<li>Freiheitsgrade: 1 und 28</li>
-<li>p-Wert: 0.00305</li>
+<li>F-Wert: 432</li>
+<li>Freiheitsgrade: 1 und 3</li>
+<li>p-Wert: 2.4^{-4}</li>
 <li>Das Modell ist statistisch signifikant</li>
 </ul></li>
 </ol>
@@ -786,28 +956,25 @@ F-statistic: 10.52 on 1 and 28 DF,  p-value: 0.003047</code></pre>
 </section>
 <section id="multiple-regression" class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="multiple-regression"><span class="header-section-number">10.2</span> Multiple Regression</h2>
-</section>
-<section id="multiple-regression-1" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="multiple-regression-1"><span class="header-section-number">10.3</span> Multiple Regression</h2>
 <p>In der einfachen linearen Regression versuchen wir, den Zusammenhang zwischen einer abhängigen Variable <span class="math inline">\(Y\)</span> und einem Prädiktor <span class="math inline">\(X_1\)</span> zu modellieren. Doch was passiert, wenn <span class="math inline">\(Y\)</span> nicht vollständig durch <span class="math inline">\(X_1\)</span> alleine erklärt werden kann?</p>
 <p>Stellen wir uns vor, wir haben Daten, bei denen wir vermuten, dass <span class="math inline">\(X_1\)</span> einen Einfluss auf <span class="math inline">\(Y\)</span> hat. Wir beginnen mit einer einfachen linearen Regression:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten simulieren</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="fl">1.5</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> X1 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> X2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="dv">3</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Einfache lineare Regression Y ~ X1</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>model_X1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X1)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(X1, Y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">105</span><span class="sc">/</span><span class="dv">255</span>, <span class="dv">89</span><span class="sc">/</span><span class="dv">255</span>, <span class="dv">205</span><span class="sc">/</span><span class="dv">255</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>), </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"X1"</span>, <span class="at">ylab =</span> <span class="st">"Y"</span>)</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model_X1, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten simulieren</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> X1 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> X2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Einfache lineare Regression Y ~ X1</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>model_X1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X1)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(X1, Y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">105</span><span class="sc">/</span><span class="dv">255</span>, <span class="dv">89</span><span class="sc">/</span><span class="dv">255</span>, <span class="dv">205</span><span class="sc">/</span><span class="dv">255</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>), </span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"X1"</span>, <span class="at">ylab =</span> <span class="st">"Y"</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model_X1, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -824,16 +991,16 @@ F-statistic: 10.52 on 1 and 28 DF,  p-value: 0.003047</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechne die Residuen der ersten Regression</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>residuals_X1 <span class="ot">&lt;-</span> <span class="fu">resid</span>(model_X1)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression der Residuen auf X2</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>model_resid_X2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(residuals_X1 <span class="sc">~</span> X2)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(X2, residuals_X1, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">105</span><span class="sc">/</span><span class="dv">255</span>, <span class="dv">89</span><span class="sc">/</span><span class="dv">255</span>, <span class="dv">205</span><span class="sc">/</span><span class="dv">255</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>), </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"X2"</span>, <span class="at">ylab =</span> <span class="st">"Residuen von Y ~ X1"</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model_resid_X2, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechne die Residuen der ersten Regression</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>residuals_X1 <span class="ot">&lt;-</span> <span class="fu">resid</span>(model_X1)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression der Residuen auf X2</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>model_resid_X2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(residuals_X1 <span class="sc">~</span> X2)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(X2, residuals_X1, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">105</span><span class="sc">/</span><span class="dv">255</span>, <span class="dv">89</span><span class="sc">/</span><span class="dv">255</span>, <span class="dv">205</span><span class="sc">/</span><span class="dv">255</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>), </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"X2"</span>, <span class="at">ylab =</span> <span class="st">"Residuen von Y ~ X1"</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model_resid_X2, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -853,8 +1020,8 @@ F-statistic: 10.52 on 1 and 28 DF,  p-value: 0.003047</code></pre>
 <li>Durch das schrittweise Vorgehen riskieren wir, <em>Doppelerklärungen</em> oder <em>verzerrte Effekte</em> zu erhalten.</li>
 </ul>
 <p>Wir brauchen einen Ansatz, der es uns ermöglicht, den Einfluss mehrerer Prädiktoren <em>gleichzeitig</em> zu berücksichtigen.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="Beispiel">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -863,7 +1030,7 @@ Beispiel
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Wir versuchen, den Abfluss eines Gebirgsbachs zu modellieren.</p>
 <ul>
@@ -878,8 +1045,39 @@ Beispiel
 </div>
 </div>
 <p><strong>Bemerkung:</strong> Wenn die Prädiktoren <em>nicht</em> korrelieren, ist die Regression der Residuen mit weiteren Variablen möglich.</p>
-<section id="ansatz" class="level3" data-number="10.3.1">
-<h3 data-number="10.3.1" class="anchored" data-anchor-id="ansatz"><span class="header-section-number">10.3.1</span> Ansatz</h3>
+<section id="ziel" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="ziel"><span class="header-section-number">10.2.1</span> Ziel:</h3>
+<p>Vorhersage einer <strong>metrischen abhängigen Variable</strong> durch mehrere <strong>unabhängige Variablen</strong> (<em>Prädiktoren</em>).</p>
+<p><strong>Voraussetzungen:</strong></p>
+<ul>
+<li>Ein <strong>statistischer Zusammenhang</strong> zwischen den Prädiktoren und der Zielvariable sollte plausibel sein.<br>
+</li>
+<li>Ein <strong>Modell</strong>, das die Abhängigkeit der Zielvariable von den Prädiktoren beschreibt.</li>
+</ul>
+<p>Die allgemeine Form der <strong>multiplen linearen Regression</strong> lautet:</p>
+<p><span class="math display">\[
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \ldots + \beta_k X_k + \varepsilon
+\]</span></p>
+<ul>
+<li><span class="math inline">\(Y\)</span> ist die abhängige Variable.<br>
+</li>
+<li><span class="math inline">\(X_1, X_2, \ldots, X_k\)</span> sind die unabhängigen Variablen (<em>Prädiktoren</em>).<br>
+</li>
+<li><span class="math inline">\(\beta_0\)</span> ist die <em>Regressionskonstante</em> (Achsenabschnitt).<br>
+</li>
+<li><span class="math inline">\(\beta_1, \beta_2, \ldots, \beta_k\)</span> sind die <em>Regressionskoeffizienten</em>, die den Einfluss der jeweiligen Prädiktoren auf <span class="math inline">\(Y\)</span> beschreiben.<br>
+</li>
+<li><span class="math inline">\(\varepsilon\)</span> ist der <em>Fehlerterm</em>, der alle nicht erfassten Einflüsse berücksichtigt.</li>
+</ul>
+<p><strong>Interpretation der Regressionskoeffizienten</strong></p>
+<ul>
+<li>Wenn <span class="math inline">\(X_i\)</span> um <em>eine Einheit</em> steigt, verändert sich <span class="math inline">\(Y\)</span> um <span class="math inline">\(\beta_i\)</span>, <strong>unter der Annahme, dass alle anderen Prädiktoren konstant bleiben</strong>.<br>
+</li>
+<li>Beispiel: Wenn <span class="math inline">\(\beta_1 = 2\)</span>, dann bedeutet das, dass eine Erhöhung von <span class="math inline">\(X_1\)</span> um <em>eine Stunde Lernzeit</em> zu einer durchschnittlichen Erhöhung der Prüfungsnote um <em>2 Punkte</em> führt.</li>
+</ul>
+</section>
+<section id="ansatz" class="level3" data-number="10.2.2">
+<h3 data-number="10.2.2" class="anchored" data-anchor-id="ansatz"><span class="header-section-number">10.2.2</span> Ansatz</h3>
 <ul>
 <li>Minimierung der Summe der quadrierten Residuen:</li>
 </ul>
@@ -897,349 +1095,278 @@ Beispiel
 <p><span class="math display">\[
 \widehat{Y} = X \widehat{\beta} \quad \text{mit} \quad \widehat{Y} = \begin{bmatrix} \widehat{Y_1} \\ \widehat{Y_2} \\ \vdots \\ \widehat{Y_n} \end{bmatrix}, \quad \widehat{\beta} = \begin{bmatrix} \widehat{\beta_0} \\ \widehat{\beta_1} \\ \vdots \\ \widehat{\beta_k} \end{bmatrix} \quad \text{und} \quad X = \begin{bmatrix} 1 &amp; X_{11} &amp; X_{21} &amp; \ldots &amp; X_{k1} \\ 1 &amp; X_{12} &amp; X_{22} &amp; \ldots &amp; X_{k2} \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 1 &amp; X_{1n} &amp; X_{2n} &amp; \ldots &amp; X_{kn} \end{bmatrix}
 \]</span></p>
-</section>
-<section id="beispiel-anzahl-der-kinder-in-abhängigkeit-von-ausbildung-und-einkommen" class="level3" data-number="10.3.2">
-<h3 data-number="10.3.2" class="anchored" data-anchor-id="beispiel-anzahl-der-kinder-in-abhängigkeit-von-ausbildung-und-einkommen"><span class="header-section-number">10.3.2</span> Beispiel: Anzahl der Kinder in Abhängigkeit von Ausbildung und Einkommen</h3>
-<p>Wir haben Daten über 20 Personen, bei denen wir die Anzahl der Kinder, die Ausbildung und das Einkommen erfasst haben. Wir gehen davon aus, dass die Anzahl der Kinder abhängig ist von der Ausbildung und dem Einkommen. Ebenfalls gehen wir davon aus, dass die Ausbildung und das Einkommen miteinander korrelieren.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten definieren</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>Person <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>Kinder <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">14</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>Ausbildung <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">16</span>, <span class="dv">20</span>, <span class="dv">12</span>, <span class="dv">9</span>, <span class="dv">18</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">11</span>, <span class="dv">9</span>, <span class="dv">18</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">9</span>, <span class="dv">8</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>Einkommen <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">90</span>, <span class="dv">50</span>, <span class="dv">40</span>, <span class="dv">120</span>, <span class="dv">100</span>, <span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">30</span>, <span class="dv">100</span>, <span class="dv">40</span>, <span class="dv">90</span>, <span class="dv">40</span>, <span class="dv">40</span>, <span class="dv">120</span>, <span class="dv">100</span>, <span class="dv">60</span>, <span class="dv">40</span>, <span class="dv">10</span>)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># DataFrame erstellen</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>anzahlKinderDaten <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Person, Kinder, Ausbildung, Einkommen)</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># DataFrame anzeigen</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(anzahlKinderDaten)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Daten für das Beispiel</caption>
-<thead>
-<tr class="header">
-<th style="text-align: right;">Person</th>
-<th style="text-align: right;">Kinder</th>
-<th style="text-align: right;">Ausbildung</th>
-<th style="text-align: right;">Einkommen</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">30</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">16</td>
-<td style="text-align: right;">40</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">90</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">50</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">40</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">120</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">16</td>
-<td style="text-align: right;">100</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">14</td>
-<td style="text-align: right;">10</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">40</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">30</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">100</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">40</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">90</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">14</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">40</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">40</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">16</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">120</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">17</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">16</td>
-<td style="text-align: right;">100</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">14</td>
-<td style="text-align: right;">60</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">19</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">40</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">14</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">10</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Wir formulieren:</p>
-<p><span class="math display">\[
-\widehat{Y_i} = \widehat{\beta_0} + \widehat{\beta_1} X_{1} + \widehat{\beta_2} X_{2}
-\]</span></p>
-<ul>
-<li><span class="math inline">\(\widehat{Y_i}\)</span>: Vorhergesagte Anzahl der Kinder</li>
-<li><span class="math inline">\(\widehat{\beta_0}\)</span>: Achsenabschnitt</li>
-<li><span class="math inline">\(\widehat{\beta_1}\)</span>: Regressionskoeffizient für Ausbildung</li>
-<li><span class="math inline">\(\widehat{\beta_2}\)</span>: Regressionskoeffizient für Einkommen</li>
-</ul>
-<p>Wir führen eine multiple Regression durch:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>regressionsmodell <span class="ot">&lt;-</span> <span class="fu">lm</span>(Kinder <span class="sc">~</span> Ausbildung <span class="sc">+</span> Einkommen, <span class="at">data =</span> anzahlKinderDaten)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>und erhalten:</p>
-<ul>
-<li><span class="math inline">\(\widehat{\beta_0}\)</span> = 12.519</li>
-<li><span class="math inline">\(\widehat{\beta_1}\)</span> = -0.457</li>
-<li><span class="math inline">\(\widehat{\beta_2}\)</span> = -0.031</li>
-</ul>
-<p>Daraus ergibt sich die Regressionsgleichung:</p>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"$$"</span>,</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Y = "</span>, <span class="fu">round</span>(<span class="fu">coef</span>(regressionsmodell)[<span class="dv">1</span>], <span class="dv">3</span>), <span class="st">" + "</span>, <span class="fu">round</span>(<span class="fu">coef</span>(regressionsmodell)[<span class="dv">2</span>], <span class="dv">3</span>), <span class="st">" </span><span class="sc">\\</span><span class="st">cdot X_1 + "</span>, <span class="fu">round</span>(<span class="fu">coef</span>(regressionsmodell)[<span class="dv">3</span>], <span class="dv">3</span>), <span class="st">" </span><span class="sc">\\</span><span class="st">cdot X_2"</span>,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"$$"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<p><span class="math display">\[ Y =  12.519  +  -0.457  \cdot X_1 +  -0.031  \cdot X_2 \]</span></p>
-<p>Daraus ergibt sich:</p>
-<table class="table-striped table-hover caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Ausbildung</th>
-<th>Einkommen</th>
-<th>Anzahl der Kinder</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(0\)</span></td>
-<td><span class="math inline">\(0\)</span></td>
-<td><span class="math inline">\(\approx 12.52\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(10\)</span></td>
-<td><span class="math inline">\(0\)</span></td>
-<td><span class="math inline">\(\approx 7.95\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(10\)</span></td>
-<td><span class="math inline">\(100\)</span></td>
-<td><span class="math inline">\(\approx 4.9\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(20\)</span></td>
-<td><span class="math inline">\(200\)</span></td>
-<td><span class="math inline">\(\approx -2.72\)</span></td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-style-default callout-note callout-titled" title="Interpretation">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="Beispiel">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Interpretation
+Beispiel
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Um die Güte der Schätzung zu beurteilen, rufen wir die <code>summary()</code> Funktion auf:</p>
+<blockquote class="blockquote">
+<p>Da die Berechnung einer multiplen Regression sehr komplex ist, verwenden wir hierfür R und verzichten auf die manuelle Berechnung.</p>
+</blockquote>
+<p>Wir verwenden die Daten aus <a href="korrelation.html#tbl-noten-lernzeit-beispiel" class="quarto-xref">Tabelle&nbsp;<span>9.1</span></a> und ergänzen sie um zwei weitere Prädiktoren: <strong>Schlafdauer</strong> und <strong>Kaffeekonsum</strong>.</p>
+<div id="tbl-noten-multiple-regression" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-noten-multiple-regression-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;10.1
+</figcaption>
+<div aria-describedby="tbl-noten-multiple-regression-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 21%">
+<col style="width: 22%">
+<col style="width: 30%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Student</th>
+<th>Lernzeit <span class="math inline">\(X_1\)</span></th>
+<th>Schlafdauer <span class="math inline">\(X_2\)</span></th>
+<th>Kaffee <span class="math inline">\(X_3\)</span></th>
+<th>Prüfungsnote <span class="math inline">\(Y\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>10</td>
+<td>7.5</td>
+<td>2</td>
+<td>70</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>12</td>
+<td>6.5</td>
+<td>3</td>
+<td>80</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>5</td>
+<td>6.0</td>
+<td>0</td>
+<td>50</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>15</td>
+<td>8.5</td>
+<td>5</td>
+<td>90</td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td>8</td>
+<td>8.0</td>
+<td>1</td>
+<td>60</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><strong>1. Regressionsmodell aufstellen</strong></p>
+<p>Wir schätzen die folgende multiple lineare Regression:</p>
+<p><span class="math display">\[
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \varepsilon
+\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regressionsmodell)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>noten_lernzeit_schlaf_kaffee <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">student =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">lernzeit =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">8</span>),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">schlafdauer =</span> <span class="fu">c</span>(<span class="fl">7.5</span>, <span class="fl">6.5</span>, <span class="fl">6.0</span>, <span class="fl">8.5</span>, <span class="fl">8.0</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">kaffee =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">1</span>),</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">note =</span> <span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">50</span>, <span class="dv">90</span>, <span class="dv">60</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple lineare Regression durchführen</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>model_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(note <span class="sc">~</span> lernzeit <span class="sc">+</span> schlafdauer <span class="sc">+</span> kaffee, <span class="at">data =</span> noten_lernzeit_schlaf_kaffee)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Ergebnisse anzeigen</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_multiple)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = Kinder ~ Ausbildung + Einkommen, data = anzahlKinderDaten)
+lm(formula = note ~ lernzeit + schlafdauer + kaffee, data = noten_lernzeit_schlaf_kaffee)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--4.1217 -1.7934 -0.1865  1.3497  5.4407 
+      1       2       3       4       5 
+ 0.2626 -0.1050  0.0105 -0.0105 -0.1576 
 
 Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 12.51855    2.17100   5.766 2.28e-05 ***
-Ausbildung  -0.45674    0.21658  -2.109   0.0501 .  
-Einkommen   -0.03053    0.02372  -1.287   0.2152    
+            Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)  36.8067     1.9959  18.441   0.0345 *
+lernzeit      4.5273     0.3028  14.951   0.0425 *
+schlafdauer  -1.5756     0.1960  -8.041   0.0788 .
+kaffee       -0.2626     0.5926  -0.443   0.7345  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 2.523 on 17 degrees of freedom
-Multiple R-squared:  0.5502,    Adjusted R-squared:  0.4973 
-F-statistic:  10.4 on 2 and 17 DF,  p-value: 0.001124</code></pre>
+Residual standard error: 0.3241 on 1 degrees of freedom
+Multiple R-squared:  0.9999,    Adjusted R-squared:  0.9996 
+F-statistic:  3173 on 3 and 1 DF,  p-value: 0.01305</code></pre>
 </div>
 </div>
-</div>
-</div>
-</div>
-</section>
-<section id="multiples-bestimmtheitsmass" class="level3" data-number="10.3.3">
-<h3 data-number="10.3.3" class="anchored" data-anchor-id="multiples-bestimmtheitsmass"><span class="header-section-number">10.3.3</span> Multiples Bestimmtheitsmass</h3>
-<p>Das multiple Bestimmtheitsmass <span class="math inline">\(R^2\)</span> (<a href="#eq-r2" class="quarto-xref">Gleichung&nbsp;<span>10.1</span></a>) ist ein Mass für die Güte der Anpassung des Regressionsmodells. Es gibt an, wie viel Varianz der abhängigen Variablen durch die unabhängigen Variablen erklärt wird.</p>
+<p><strong>2. Berechnung der Regressionskoeffizienten</strong></p>
+<p>Die geschätzte <strong>Regressionsgleichung</strong> lautet:</p>
 <p><span class="math display">\[
-R^2 = 1 - \frac{\text{Residualsumme}}{\text{Gesamtvariation}}
+\begin{aligned}
+\hat{Y} &amp;= \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 \\
+       &amp;\approx 36.8 + 4.53 X_1 + (-1.58) X_2 + (- 0.26) X_3
+\end{aligned}
 \]</span></p>
+<p><strong>Interpretation:</strong></p>
 <ul>
-<li><span class="math inline">\(R^2 = 1\)</span>, wenn alle Punkte auf der Regressions-Hyperebene liegen</li>
-<li><span class="math inline">\(R^2 = 0\)</span>, wenn das Modell keinerlei Erklärung für die Variation von Y liefert.</li>
-<li>Bei multipler Regression nimmt <span class="math inline">\(R^2\)</span> mit der Anzahl der unabhängigen Variablen zu. Deshalb nutzt man das angepasste Bestimmtheitsmass <span class="math inline">\(R^2_{adj}\)</span></li>
-</ul>
-<p><span class="math display">\[
-R^2_{adj} = \left(R^2 - \frac{m}{n-1}\right) \cdot \left(\frac{n-1}{n-m-1}\right) = 1 - (1 - R^2) \cdot \left(\frac{n-1}{n-m-1}\right)
-\]</span></p>
-<ul>
-<li><p><span class="math inline">\(m\)</span> ist die Anzahl der unabhängigen Variablen</p></li>
-<li><p><span class="math inline">\(n\)</span> ist die Anzahl der Beobachtungen</p></li>
-<li><p>Das angepasste Bestimmtheitsmass <span class="math inline">\(R^2_{adj}\)</span> ist immer kleiner als <span class="math inline">\(R^2\)</span> und nimmt mit zunehmender Anzahl Variablen ab, falls diese nichts zur Erklärung der Varianz beitragen.</p></li>
-</ul>
-</section>
-<section id="f-test" class="level3" data-number="10.3.4">
-<h3 data-number="10.3.4" class="anchored" data-anchor-id="f-test"><span class="header-section-number">10.3.4</span> F-Test</h3>
-<p>Der F-Test ist ein Hypothesentest, der die Güte des Regressionsmodells als Ganzes überprüft.</p>
-<p><span class="math display">\[
-F = \frac{\frac{R^2}{k}}{\frac{1-R^2}{n-(k+1)}} = \frac{\text{erklärte Varianz}}{\text{unerklärte Varianz}}
-\]</span></p>
-<ul>
-<li><span class="math inline">\(R^2\)</span> ist das multiple Bestimmtheitsmass</li>
-<li><span class="math inline">\(k\)</span> ist die Anzahl der unabhängigen Variablen</li>
-<li><span class="math inline">\(n\)</span> ist die Anzahl der Beobachtungen</li>
-</ul>
-<p>Der F-Wert sagt, ob das Modell besser ist als einfach die Annahme des Mittelwerts von <span class="math inline">\(Y\)</span> zu nehmen. D.h. ob</p>
-<p><span class="math display">\[
-H_0 : R^2 = 0
-\]</span></p>
-<p>abgelehnt werden kann.</p>
-</section>
-<section id="anwendungsbedingungen" class="level3" data-number="10.3.5">
-<h3 data-number="10.3.5" class="anchored" data-anchor-id="anwendungsbedingungen"><span class="header-section-number">10.3.5</span> Anwendungsbedingungen</h3>
-<p>In der linearen Regression ist es ein häufiger Irrtum, dass die <strong>Prädiktorvariablen (<span class="math inline">\(X\)</span>)</strong> oder die <strong>abhängige Variable (<span class="math inline">\(Y\)</span>)</strong> normalverteilt sein müssen. Das ist nicht der Fall – die Regression funktioniert auch mit nicht-normalverteilten Variablen.</p>
-<p>Was jedoch für bestimmte statistische Tests wichtig ist, ist die <strong>Normalverteilung der Residuen (<span class="math inline">\(\varepsilon\)</span>)</strong>. Diese Voraussetzung gilt insbesondere für:</p>
-<ul>
-<li><strong>t-Tests:</strong> Überprüfen, ob ein Regressionskoeffizient (<span class="math inline">\(\beta\)</span>) signifikant von null verschieden ist, also ob ein Prädiktor einen echten Einfluss auf <span class="math inline">\(Y\)</span> hat.<br>
+<li><span class="math inline">\(\beta_1\)</span> (Lernzeit) ist erwartungsgemäss positiv und signifikant (p &lt; 0.05).<br>
 </li>
-<li><strong>F-Tests:</strong> Prüfen, ob das gesamte Regressionsmodell eine signifikante Vorhersagekraft besitzt.</li>
-</ul>
-<p>Diese Tests liefern einen <strong>p-Wert</strong>, der angibt, wie wahrscheinlich ein beobachteter Effekt zufällig entstanden ist (<strong>Signifikanzbewertung</strong>).</p>
-<p>Damit die Normalverteilung der Residuen überhaupt sinnvoll geprüft werden kann, müssen zwei wichtige Voraussetzungen erfüllt sein:</p>
-<ol type="1">
-<li><strong>Linearität:</strong> Der Zusammenhang zwischen den Prädiktoren (<span class="math inline">\(X\)</span>) und der abhängigen Variable (<span class="math inline">\(Y\)</span>) sollte linear sein.<br>
+<li><span class="math inline">\(\beta_2\)</span> (Schlafdauer) zeigt einen leichten negativen Effekt, mit knapp über unserem Signifikanzniveau von 0.05 (p &lt; 0.1)<br>
 </li>
-<li><strong>Homoskedastizität:</strong> Die Varianz der Residuen sollte über alle Werte von <span class="math inline">\(X\)</span> hinweg konstant sein (keine Trichterform in den Residuenplots).</li>
-</ol>
-<p>Ohne diese Bedingungen ist die Verteilung der Residuen verzerrt, was zu fehlerhaften Testergebnissen führt.</p>
-<section id="optimale-residuendiagnostik-mit-geeigneten-daten" class="level4" data-number="10.3.5.1">
-<h4 data-number="10.3.5.1" class="anchored" data-anchor-id="optimale-residuendiagnostik-mit-geeigneten-daten"><span class="header-section-number">10.3.5.1</span> Optimale Residuendiagnostik mit geeigneten Daten</h4>
+<li><span class="math inline">\(\beta_3\)</span> (Kaffeekonsum) ist leicht negativ, zeigt aber keinen signifikanten Zusammenhang (p &gt; 0.05).</li>
+</ul>
+<p><strong>3. Modellgüte und Vorhersagekraft</strong></p>
+<p>Das <strong>Bestimmtheitsmaß</strong> <span class="math inline">\(R^2\)</span> gibt an, wie gut unser Modell die Prüfungsnoten erklärt:</p>
+<p><span class="math display">\[
+R^2 = 1 - \frac{SS_{\text{residual}}}{SS_{\text{total}}}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_multiple)<span class="sc">$</span>r.squared</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.999895</code></pre>
+</div>
+</div>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>Mit <span class="math inline">\(R^2 =\)</span> 1 sehen wir, dass das unser Modell äusserst gut zu den Daten passt.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="anwendungsbedingungen" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="anwendungsbedingungen"><span class="header-section-number">10.3</span> Anwendungsbedingungen</h2>
+<section id="lineare-beziehung-zwischen-den-variablen" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="lineare-beziehung-zwischen-den-variablen"><span class="header-section-number">10.3.1</span> Lineare Beziehung zwischen den Variablen</h3>
+<p>Die lineare Regression setzt voraus, dass der Zusammenhang zwischen der abhängigen Variable (<span class="math inline">\(Y\)</span>) und den Prädiktoren (<span class="math inline">\(X_1, X_2, \dots, X_k\)</span>) <strong>linear</strong> ist.<br>
+- In einem <strong>Scatterplot</strong> sollte eine ungefähr <strong>geradlinige Beziehung</strong> zwischen den Variablen erkennbar sein.<br>
+- Falls ein nichtlinearer Zusammenhang vorliegt, kann eine <strong>Transformation</strong> der Variablen (z.B. logarithmisch oder quadratisch) sinnvoll sein.</p>
+</section>
+<section id="keine-perfekte-multikollinearität" class="level3" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="keine-perfekte-multikollinearität"><span class="header-section-number">10.3.2</span> Keine perfekte Multikollinearität</h3>
+<p>Kollinearität beschreibt die Tatsache, dass zwei oder mehrere Prädiktoren in einem Regressionsmodell stark miteinander korrelieren.</p>
+<ul>
+<li>Die unabhängigen Variablen dürfen untereinander nicht perfekt korrelieren (<span class="math inline">\(i \neq j: \text{corr}(X_i, X_j) = 1\)</span>) d.h. es darf keine Linearkombination anderer unabhängiger Variablen sein.</li>
+<li>Matrix ist sonst nicht invertierbar.</li>
+</ul>
+<p>Folgen:</p>
+<ul>
+<li>Schätzungen der Regressionsparameter sind unzuverlässig</li>
+<li>Standardfehler der Regressionskoeffizienten sind gross</li>
+<li>t-Werte sind klein</li>
+</ul>
+<p>Anzeichen:</p>
+<ul>
+<li>Resultate werden stark vom Weglassen einer Beobachtung beeinflusst</li>
+<li>Vorzeichen der Regressionskoeffizienten ist anders als erwartet</li>
+<li>Hohe Korrelationen der unabhängigen Variablen (<span class="math inline">\(&gt; |0.8|\)</span>) deuten auf mögliche Kollinearität hin</li>
+<li><strong>Varianzinflationsfaktor</strong> (VIF) misst die Abhängigkeit der Varianz des geschätzten Regressionskoeffizienten aufgrund der Korrelation zwischen unabhängigen Variablen. VIF-Werte <span class="math inline">\(&gt; 10\)</span> gelten als kritisch.
+<ul>
+<li><code>vif()</code></li>
+</ul></li>
+</ul>
+<p>Behandlung:</p>
+<ul>
+<li>Weglassen von korrelierenden Prädiktoren</li>
+<li>Neue Prädiktoren finden</li>
+<li>Hauptkomponentenanalyse (PCA): Reduktion der Dimensionalität der Daten durch PCA, um unkorrelierte Hauptkomponenten zu erhalten.</li>
+</ul>
+</section>
+<section id="heteroskedastizität" class="level3" data-number="10.3.3">
+<h3 data-number="10.3.3" class="anchored" data-anchor-id="heteroskedastizität"><span class="header-section-number">10.3.3</span> Heteroskedastizität</h3>
+<p>Heteroskedastizität beschreibt die Tatsache, dass die Varianz der Residuen nicht konstant ist. Das bedeutet, dass die Residuen nicht gleichmässig um den Mittelwert streuen, sondern eine zunehmende oder abnehmende Varianz aufweisen.</p>
+<p>Ursachen dafür können sein:</p>
+<ul>
+<li>Messfehler werden über die Zeit kleiner</li>
+<li>Befragungen vor und nach dem Lernprozess</li>
+<li>Verhalten ist abhängig vom Einkommen, so dass reichere Personen mehr Wahlmöglichkeiten haben als ärmere</li>
+<li>Bei aggregierten Werten sind Klassen mit kleinem <span class="math inline">\(n\)</span> unsicherer und streuen mehr als Klassen mit grossem <span class="math inline">\(n\)</span></li>
+</ul>
+<p>Tests:</p>
+<ul>
+<li>Zerlegung der Daten und Vergleich von Subsets (z.B. Zeitperioden)</li>
+<li>Goldfeld-Quandt-Test (univariate Regression)</li>
+<li>White-Test (multiple Regression)</li>
+</ul>
+<p>Behandlung:</p>
+<ul>
+<li>Methode der <em>gewichteten</em> kleinsten Quadrate. Werte bekommen dort weniger Gewicht, wo die Streuung gross ist.</li>
+</ul>
+</section>
+<section id="normalverteilte-residuen" class="level3" data-number="10.3.4">
+<h3 data-number="10.3.4" class="anchored" data-anchor-id="normalverteilte-residuen"><span class="header-section-number">10.3.4</span> Normalverteilte Residuen</h3>
+<p>Die Verteilung der Residuen sollte <strong>ungefähr normal</strong> sein. Dies ist besonders wichtig für:</p>
+<ul>
+<li><strong>t-Tests</strong> auf die Regressionskoeffizienten<br>
+</li>
+<li><strong>F-Tests</strong> zur Bewertung der Modellgüte<br>
+</li>
+<li><strong>Konfidenzintervalle für die <span class="math inline">\(\beta\)</span>-Koeffizienten</strong></li>
+</ul>
+<p>Ein <strong>Q-Q-Plot</strong> kann helfen, die Normalverteilung der Residuen zu überprüfen.</p>
+<p>Falls die Residuen nicht normalverteilt sind:</p>
+<ul>
+<li><strong>Transformation</strong> der abhängigen Variable<br>
+</li>
+<li><strong>Bootstrapping-Verfahren</strong> zur Schätzung der Koeffizienten</li>
+</ul>
+</section>
+<section id="keine-starken-ausreißer-oder-einflussreichen-datenpunkte" class="level3" data-number="10.3.5">
+<h3 data-number="10.3.5" class="anchored" data-anchor-id="keine-starken-ausreißer-oder-einflussreichen-datenpunkte"><span class="header-section-number">10.3.5</span> Keine starken Ausreißer oder einflussreichen Datenpunkte</h3>
+<p>Einzelne Datenpunkte mit <strong>extremen Werten</strong> können die Regression stark beeinflussen.</p>
+<ul>
+<li><strong>Leverage-Plot</strong> oder <strong>Cook’s Distance</strong> kann verwendet werden, um einflussreiche Punkte zu identifizieren.<br>
+</li>
+<li>Falls ein Ausreißer zu stark ist, sollte überprüft werden, ob ein <strong>Messfehler</strong> vorliegt oder ob der Punkt sinnvoll entfernt werden kann.</li>
+</ul>
+</section>
+<section id="beispielauswertungen" class="level3" data-number="10.3.6">
+<h3 data-number="10.3.6" class="anchored" data-anchor-id="beispielauswertungen"><span class="header-section-number">10.3.6</span> Beispielauswertungen</h3>
+<section id="optimale-residuendiagnostik-mit-geeigneten-daten" class="level4" data-number="10.3.6.1">
+<h4 data-number="10.3.6.1" class="anchored" data-anchor-id="optimale-residuendiagnostik-mit-geeigneten-daten"><span class="header-section-number">10.3.6.1</span> Optimale Residuendiagnostik mit geeigneten Daten</h4>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Synthetische Daten perfekt simulieren</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)    <span class="co"># Normalverteilte Prädiktoren</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="fl">1.5</span>)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">scale</span>(X1, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">scale</span>(X2, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Perfekte lineare Beziehung</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Fehler sind normalverteilt mit konstanter Varianz</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>errors <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)  <span class="co"># Normalverteilte Residuen</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineares Modell</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> X1 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> X2 <span class="sc">+</span> errors</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineares Regressionsmodell</span></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>perfektes_modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2)</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagnostische Plots</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>dot_color <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(perfektes_modell, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Synthetische Daten perfekt simulieren</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)    <span class="co"># Normalverteilte Prädiktoren</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">scale</span>(X1, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">scale</span>(X2, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Perfekte lineare Beziehung</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Fehler sind normalverteilt mit konstanter Varianz</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>errors <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)  <span class="co"># Normalverteilte Residuen</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineares Modell</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> X1 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> X2 <span class="sc">+</span> errors</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineares Regressionsmodell</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>perfektes_modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2)</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagnostische Plots</span></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>dot_color <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(perfektes_modell, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell fig-cap-location-top quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
@@ -1280,39 +1407,39 @@ H_0 : R^2 = 0
 </div>
 </div>
 </section>
-<section id="negative-residuendiagnostik-mit-schlechten-daten" class="level4" data-number="10.3.5.2">
-<h4 data-number="10.3.5.2" class="anchored" data-anchor-id="negative-residuendiagnostik-mit-schlechten-daten"><span class="header-section-number">10.3.5.2</span> Negative Residuendiagnostik mit schlechten Daten</h4>
+<section id="negative-residuendiagnostik-mit-schlechten-daten" class="level4" data-number="10.3.6.2">
+<h4 data-number="10.3.6.2" class="anchored" data-anchor-id="negative-residuendiagnostik-mit-schlechten-daten"><span class="header-section-number">10.3.6.2</span> Negative Residuendiagnostik mit schlechten Daten</h4>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Nicht-Linearität</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>X_nl <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>Y_nl <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> X_nl<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>modell_nl <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y_nl <span class="sc">~</span> X_nl)  <span class="co"># Falsch spezifiziert (linear)</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Nicht-normalverteilte Residuen</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>X_nn <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>Y_nn <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> X_nn <span class="sc">+</span> <span class="fu">rexp</span>(n, <span class="at">rate =</span> <span class="dv">1</span>)  <span class="co"># Exponentiell verteilte Fehler</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>modell_nn <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y_nn <span class="sc">~</span> X_nn)</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Heteroskedastizität</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>X_het <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>Y_het <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">*</span> X_het <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="at">sd =</span> <span class="fu">abs</span>(X_het) <span class="sc">*</span> <span class="dv">2</span>)</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>modell_het <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y_het <span class="sc">~</span> X_het)</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Ausreisser</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>X_out <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>Y_out <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">*</span> X_out <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>Y_out[<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>)] <span class="ot">&lt;-</span> Y_out[<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>)] <span class="sc">+</span> <span class="dv">20</span>  <span class="co"># Ausreisser hinzufügen</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>modell_out <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y_out <span class="sc">~</span> X_out)</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagnostische Plots (jeweils der relevante)</span></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell_nl, <span class="at">which =</span> <span class="dv">1</span>, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)   <span class="co"># Nicht-Linearität: Residuals vs Fitted</span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell_nn, <span class="at">which =</span> <span class="dv">2</span>, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)   <span class="co"># Nicht-normalverteilte Residuen: Q-Q-Plot</span></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell_het, <span class="at">which =</span> <span class="dv">3</span>, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)  <span class="co"># Heteroskedastizität: Scale-Location</span></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell_out, <span class="at">which =</span> <span class="dv">5</span>, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)  <span class="co"># Ausreisser: Residuals vs Leverage</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Nicht-Linearität</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>X_nl <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>Y_nl <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> X_nl<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>modell_nl <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y_nl <span class="sc">~</span> X_nl)  <span class="co"># Falsch spezifiziert (linear)</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Nicht-normalverteilte Residuen</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>X_nn <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>Y_nn <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> X_nn <span class="sc">+</span> <span class="fu">rexp</span>(n, <span class="at">rate =</span> <span class="dv">1</span>)  <span class="co"># Exponentiell verteilte Fehler</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>modell_nn <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y_nn <span class="sc">~</span> X_nn)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Heteroskedastizität</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>X_het <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>Y_het <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">*</span> X_het <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="at">sd =</span> <span class="fu">abs</span>(X_het) <span class="sc">*</span> <span class="dv">2</span>)</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>modell_het <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y_het <span class="sc">~</span> X_het)</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Ausreisser</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>X_out <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>Y_out <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">*</span> X_out <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>Y_out[<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>)] <span class="ot">&lt;-</span> Y_out[<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>)] <span class="sc">+</span> <span class="dv">20</span>  <span class="co"># Ausreisser hinzufügen</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>modell_out <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y_out <span class="sc">~</span> X_out)</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagnostische Plots (jeweils der relevante)</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell_nl, <span class="at">which =</span> <span class="dv">1</span>, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)   <span class="co"># Nicht-Linearität: Residuals vs Fitted</span></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell_nn, <span class="at">which =</span> <span class="dv">2</span>, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)   <span class="co"># Nicht-normalverteilte Residuen: Q-Q-Plot</span></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell_het, <span class="at">which =</span> <span class="dv">3</span>, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)  <span class="co"># Heteroskedastizität: Scale-Location</span></span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell_out, <span class="at">which =</span> <span class="dv">5</span>, <span class="at">col =</span> dot_color, <span class="at">pch =</span> <span class="dv">19</span>)  <span class="co"># Ausreisser: Residuals vs Leverage</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell fig-cap-location-top quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
@@ -1353,63 +1480,15 @@ H_0 : R^2 = 0
 </div>
 </div>
 </section>
-<section id="heteroskedastizität" class="level4" data-number="10.3.5.3">
-<h4 data-number="10.3.5.3" class="anchored" data-anchor-id="heteroskedastizität"><span class="header-section-number">10.3.5.3</span> Heteroskedastizität</h4>
-<p>Heteroskedastizität beschreibt die Tatsache, dass die Varianz der Residuen nicht konstant ist. Das bedeutet, dass die Residuen nicht gleichmässig um den Mittelwert streuen, sondern eine zunehmende oder abnehmende Varianz aufweisen.</p>
-<p>Ursachen dafür können sein:</p>
-<ul>
-<li>Messfehler werden über die Zeit kleiner</li>
-<li>Befragungen vor und nach dem Lernprozess</li>
-<li>Verhalten ist abhängig vom Einkommen, so dass reichere Personen mehr Wahlmöglichkeiten haben als ärmere</li>
-<li>Bei aggregierten Werten sind Klassen mit kleinem <span class="math inline">\(n\)</span> unsicherer und streuen mehr als Klassen mit grossem <span class="math inline">\(n\)</span></li>
-</ul>
-<p>Tests:</p>
-<ul>
-<li>Zerlegung der Daten und Vergleich von Subsets (z.B. Zeitperioden)</li>
-<li>Goldfeld-Quandt-Test (univariate Regression)</li>
-<li>White-Test (multiple Regression)</li>
-</ul>
-<p>Behandlung:</p>
-<ul>
-<li>Methode der <em>gewichteten</em> kleinsten Quadrate. Werte bekommen dort weniger Gewicht, wo die Streuung gross ist.</li>
-</ul>
-</section>
-<section id="multi-kollinearität" class="level4" data-number="10.3.5.4">
-<h4 data-number="10.3.5.4" class="anchored" data-anchor-id="multi-kollinearität"><span class="header-section-number">10.3.5.4</span> (Multi-)Kollinearität</h4>
-<p>Kollinearität beschreibt die Tatsache, dass zwei oder mehrere Prädiktoren in einem Regressionsmodell stark miteinander korrelieren.</p>
-<ul>
-<li>Die unabhängigen Variablen dürfen untereinander nicht perfekt korrelieren (<span class="math inline">\(i \neq j: \text{corr}(X_i, X_j) = 1\)</span>) d.h. es darf keine Linearkombination anderer unabhängiger Variablen sein.</li>
-<li>Matrix ist sonst nicht invertierbar.</li>
-</ul>
-<p>Folgen:</p>
-<ul>
-<li>Schätzungen der Regressionsparameter sind unzuverlässig</li>
-<li>Standardfehler der Regressionskoeffizienten sind gross</li>
-<li>t-Werte sind klein</li>
-</ul>
-<p>Anzeichen:</p>
-<ul>
-<li>Resultate werden stark vom Weglassen einer Beobachtung beeinflusst</li>
-<li>Vorzeichen der Regressionskoeffizienten ist anders als erwartet</li>
-<li>Hohe Korrelationen der unabhängigen Variablen (<span class="math inline">\(&gt; |0.8|\)</span>) deuten auf mögliche Kollinearität hin</li>
-<li><strong>Varianzinflationsfaktor</strong> (VIF) misst die Abhängigkeit der Varianz des geschätzten Regressionskoeffizienten aufgrund der Korrelation zwischen unabhängigen Variablen. VIF-Werte <span class="math inline">\(&gt; 10\)</span> gelten als kritisch.
-<ul>
-<li><code>vif()</code></li>
-</ul></li>
-</ul>
-<p>Behandlung:</p>
-<ul>
-<li>Weglassen von korrelierenden Prädiktoren</li>
-<li>Neue Prädiktoren finden</li>
-<li>Hauptkomponentenanalyse (PCA): Reduktion der Dimensionalität der Daten durch PCA, um unkorrelierte Hauptkomponenten zu erhalten.</li>
-</ul>
 </section>
 </section>
-<section id="modellvalidierung-kreuzvalidierung" class="level3" data-number="10.3.6">
-<h3 data-number="10.3.6" class="anchored" data-anchor-id="modellvalidierung-kreuzvalidierung"><span class="header-section-number">10.3.6</span> Modellvalidierung (Kreuzvalidierung)</h3>
+<section id="modellvalidierung" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="modellvalidierung"><span class="header-section-number">10.4</span> Modellvalidierung</h2>
+<section id="kreuzvalidierung" class="level3" data-number="10.4.1">
+<h3 data-number="10.4.1" class="anchored" data-anchor-id="kreuzvalidierung"><span class="header-section-number">10.4.1</span> Kreuzvalidierung</h3>
 <p>Die <strong>Kreuzvalidierung</strong> ist eine Methode zur <strong>Bewertung der Vorhersagegüte</strong> eines Regressionsmodells. Dabei wird der Datensatz in mehrere Teilmengen (sogenannte <strong>Folds</strong>) aufgeteilt. Das Modell wird wiederholt auf verschiedenen Kombinationen von Trainings- und Testdaten geschätzt, um zu überprüfen, wie gut es auf <strong>unbekannte Daten</strong> generalisiert.</p>
-<section id="vorgehensweise-bei-der-k-fold-kreuzvalidierung" class="level4" data-number="10.3.6.1">
-<h4 data-number="10.3.6.1" class="anchored" data-anchor-id="vorgehensweise-bei-der-k-fold-kreuzvalidierung"><span class="header-section-number">10.3.6.1</span> Vorgehensweise bei der K-Fold-Kreuzvalidierung:</h4>
+<section id="vorgehensweise-bei-der-k-fold-kreuzvalidierung" class="level4" data-number="10.4.1.1">
+<h4 data-number="10.4.1.1" class="anchored" data-anchor-id="vorgehensweise-bei-der-k-fold-kreuzvalidierung"><span class="header-section-number">10.4.1.1</span> Vorgehensweise bei der K-Fold-Kreuzvalidierung:</h4>
 <ol type="1">
 <li><strong>Aufteilung der Daten:</strong> Der Datensatz wird in <span class="math inline">\(k\)</span> gleich grosse Teilmengen (Folds) aufgeteilt.<br>
 </li>
@@ -1421,7 +1500,7 @@ H_0 : R^2 = 0
 </ol>
 <p>Diese Methode liefert eine <strong>robustere Schätzung</strong> der Modellgüte als eine einfache Trainings-Test-Aufteilung.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1430,9 +1509,9 @@ Beispiel einer Multiplen Regression
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>In diesem Beispiel verwenden wir den Datensatz <code>mtcars</code>, um ein <strong>multiples lineares Regressionsmodell</strong> zu erstellen. Unser Ziel ist es, den <strong>Benzinverbrauch</strong> (<code>mpg</code>) von Fahrzeugen basierend auf mehreren Einflussgrößen vorherzusagen.</p>
+<p>In diesem Beispiel verwenden wir den Datensatz <code>mtcars</code>, um ein <strong>multiples lineares Regressionsmodell</strong> zu erstellen. Unser Ziel ist es, den <strong>Benzinverbrauch</strong> (<code>mpg</code>) von Fahrzeugen basierend auf mehreren Einflussgrössen vorherzusagen.</p>
 <section id="datensatz-und-ziel" class="level5">
 <h5 class="anchored" data-anchor-id="datensatz-und-ziel">Datensatz und Ziel</h5>
 <ul>
@@ -1453,46 +1532,46 @@ Beispiel einer Multiplen Regression
 </section>
 <section id="durchführung-der-5-fold-kreuzvalidierung" class="level5">
 <h5 class="anchored" data-anchor-id="durchführung-der-5-fold-kreuzvalidierung">Durchführung der 5-Fold-Kreuzvalidierung</h5>
-<p>Für die <strong>5-Fold-Kreuzvalidierung</strong> wird der Datensatz in 5 gleich große Teilmengen (Folds) aufgeteilt. In jeder der 5 Iterationen wird das Modell mit 4 Folds trainiert und mit dem verbleibenden Fold getestet. Die Gütekriterien werden über alle Iterationen gemittelt.</p>
+<p>Für die <strong>5-Fold-Kreuzvalidierung</strong> wird der Datensatz in 5 gleich grosse Teilmengen (Folds) aufgeteilt. In jeder der 5 Iterationen wird das Modell mit 4 Folds trainiert und mit dem verbleibenden Fold getestet. Die Gütekriterien werden über alle Iterationen gemittelt.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-16"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-16-1"><a href="#annotated-cell-16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten und benötigte Pakete laden</span></span>
-<span id="annotated-cell-16-2"><a href="#annotated-cell-16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
-<span id="annotated-cell-16-3"><a href="#annotated-cell-16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="annotated-cell-16-4"><a href="#annotated-cell-16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-16-5"><a href="#annotated-cell-16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Kreuzvalidierung mit 5 Folds</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="1">1</button><span id="annotated-cell-16-6" class="code-annotation-target"><a href="#annotated-cell-16-6" aria-hidden="true" tabindex="-1"></a>cv_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">5</span>)</span>
-<span id="annotated-cell-16-7"><a href="#annotated-cell-16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-16-8"><a href="#annotated-cell-16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Training des multiplen Regressionsmodells mit Kreuzvalidierung</span></span>
-<span id="annotated-cell-16-9"><a href="#annotated-cell-16-9" aria-hidden="true" tabindex="-1"></a>cv_model <span class="ot">&lt;-</span> <span class="fu">train</span>(            </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="2">2</button><span id="annotated-cell-16-10" class="code-annotation-target"><a href="#annotated-cell-16-10" aria-hidden="true" tabindex="-1"></a>    mpg <span class="sc">~</span> wt <span class="sc">+</span> hp <span class="sc">+</span> cyl,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="3">3</button><span id="annotated-cell-16-11" class="code-annotation-target"><a href="#annotated-cell-16-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> mtcars,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="4">4</button><span id="annotated-cell-16-12" class="code-annotation-target"><a href="#annotated-cell-16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="5">5</button><span id="annotated-cell-16-13" class="code-annotation-target"><a href="#annotated-cell-16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">trControl =</span> cv_control</span>
-<span id="annotated-cell-16-14"><a href="#annotated-cell-16-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="annotated-cell-16-15"><a href="#annotated-cell-16-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-16-16"><a href="#annotated-cell-16-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Ergebnisse anzeigen</span></span>
-<span id="annotated-cell-16-17"><a href="#annotated-cell-16-17" aria-hidden="true" tabindex="-1"></a>cv_model</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-29"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-29-1"><a href="#annotated-cell-29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten und benötigte Pakete laden</span></span>
+<span id="annotated-cell-29-2"><a href="#annotated-cell-29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="annotated-cell-29-3"><a href="#annotated-cell-29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="annotated-cell-29-4"><a href="#annotated-cell-29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-29-5"><a href="#annotated-cell-29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Kreuzvalidierung mit 5 Folds</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="1">1</button><span id="annotated-cell-29-6" class="code-annotation-target"><a href="#annotated-cell-29-6" aria-hidden="true" tabindex="-1"></a>cv_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">5</span>)</span>
+<span id="annotated-cell-29-7"><a href="#annotated-cell-29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-29-8"><a href="#annotated-cell-29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Training des multiplen Regressionsmodells mit Kreuzvalidierung</span></span>
+<span id="annotated-cell-29-9"><a href="#annotated-cell-29-9" aria-hidden="true" tabindex="-1"></a>cv_model <span class="ot">&lt;-</span> <span class="fu">train</span>(            </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="2">2</button><span id="annotated-cell-29-10" class="code-annotation-target"><a href="#annotated-cell-29-10" aria-hidden="true" tabindex="-1"></a>    mpg <span class="sc">~</span> wt <span class="sc">+</span> hp <span class="sc">+</span> cyl,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="3">3</button><span id="annotated-cell-29-11" class="code-annotation-target"><a href="#annotated-cell-29-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> mtcars,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="4">4</button><span id="annotated-cell-29-12" class="code-annotation-target"><a href="#annotated-cell-29-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="5">5</button><span id="annotated-cell-29-13" class="code-annotation-target"><a href="#annotated-cell-29-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">trControl =</span> cv_control</span>
+<span id="annotated-cell-29-14"><a href="#annotated-cell-29-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-29-15"><a href="#annotated-cell-29-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-29-16"><a href="#annotated-cell-29-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Ergebnisse anzeigen</span></span>
+<span id="annotated-cell-29-17"><a href="#annotated-cell-29-17" aria-hidden="true" tabindex="-1"></a>cv_model</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-16" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="6" data-code-annotation="1"><code>cv_control</code>: Definiert die Kreuzvalidierung mit 5 Folds.</span>
+<span data-code-cell="annotated-cell-29" data-code-lines="6" data-code-annotation="1"><code>cv_control</code>: Definiert die Kreuzvalidierung mit 5 Folds.</span>
 </dd>
-<dt data-target-cell="annotated-cell-16" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="10" data-code-annotation="2"><code>mpg ~ wt + hp + cyl</code>: Definiert die abhängige Variable (<code>mpg</code>) und die unabhängigen Variablen (<code>wt</code>, <code>hp</code>, <code>cyl</code>).</span>
+<span data-code-cell="annotated-cell-29" data-code-lines="10" data-code-annotation="2"><code>mpg ~ wt + hp + cyl</code>: Definiert die abhängige Variable (<code>mpg</code>) und die unabhängigen Variablen (<code>wt</code>, <code>hp</code>, <code>cyl</code>).</span>
 </dd>
-<dt data-target-cell="annotated-cell-16" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="11" data-code-annotation="3"><code>data = mtcars</code>: Definiert den Datensatz, der für das Modelltraining verwendet wird.</span>
+<span data-code-cell="annotated-cell-29" data-code-lines="11" data-code-annotation="3"><code>data = mtcars</code>: Definiert den Datensatz, der für das Modelltraining verwendet wird.</span>
 </dd>
-<dt data-target-cell="annotated-cell-16" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="12" data-code-annotation="4"><code>method = "lm"</code>: Definiert das Regressionsmodell als lineare Regression.</span>
+<span data-code-cell="annotated-cell-29" data-code-lines="12" data-code-annotation="4"><code>method = "lm"</code>: Definiert das Regressionsmodell als lineare Regression.</span>
 </dd>
-<dt data-target-cell="annotated-cell-16" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="13" data-code-annotation="5"><code>trControl = cv_control</code>: Definiert die Kreuzvalidierung mit 5 Folds.</span>
+<span data-code-cell="annotated-cell-29" data-code-lines="13" data-code-annotation="5"><code>trControl = cv_control</code>: Definiert die Kreuzvalidierung mit 5 Folds.</span>
 </dd>
 </dl>
 </div>
@@ -1522,10 +1601,10 @@ Tuning parameter 'intercept' was held constant at a value of TRUE</code></pre>
 <ul>
 <li><p><strong>RMSE (Root Mean Squared Error):</strong> 2.537<br>
 Der <strong>RMSE</strong> misst den durchschnittlichen quadratischen Fehler der Vorhersagen. Ein niedriger Wert deutet auf eine gute Modellanpassung hin.</p></li>
-<li><p><strong><span class="math inline">\(R^2\)</span> (Bestimmtheitsmaß):</strong> 0.865<br>
+<li><p><strong><span class="math inline">\(R^2\)</span> (Bestimmtheitsmass):</strong> 0.865<br>
 Der <strong><span class="math inline">\(R^2\)</span>-Wert</strong> zeigt, wie viel der Varianz von <code>mpg</code> durch die Prädiktoren <code>wt</code>, <code>hp</code> und <code>cyl</code> erklärt werden kann. Werte nahe 1 deuten auf eine hohe Erklärungskraft des Modells hin.</p></li>
 <li><p><strong>MAE (Mean Absolute Error):</strong> 2.134<br>
-Der <strong>MAE</strong> misst den durchschnittlichen absoluten Vorhersagefehler. Im Gegensatz zum RMSE ist er weniger empfindlich gegenüber Ausreißern.</p></li>
+Der <strong>MAE</strong> misst den durchschnittlichen absoluten Vorhersagefehler. Im Gegensatz zum RMSE ist er weniger empfindlich gegenüber Ausreissern.</p></li>
 </ul>
 </section>
 <section id="interpretation-der-ergebnisse" class="level5">
@@ -1560,14 +1639,213 @@ Der <strong>MAE</strong> misst den durchschnittlichen absoluten Vorhersagefehler
 </section>
 <section id="fazit" class="level5">
 <h5 class="anchored" data-anchor-id="fazit">Fazit</h5>
-<p>Das multiple Regressionsmodell erklärt einen großen Anteil der Varianz von <code>mpg</code> und liefert eine präzise Vorhersage. Die Kreuzvalidierung zeigt, dass das Modell auch bei unbekannten Daten <strong>stabile Ergebnisse</strong> liefert. Eventuelle Optimierungen könnten durch die Einbeziehung weiterer Prädiktoren oder Interaktionsterme erreicht werden.</p>
+<p>Das multiple Regressionsmodell erklärt einen grossen Anteil der Varianz von <code>mpg</code> und liefert eine präzise Vorhersage. Die Kreuzvalidierung zeigt, dass das Modell auch bei unbekannten Daten <strong>stabile Ergebnisse</strong> liefert. Eventuelle Optimierungen könnten durch die Einbeziehung weiterer Prädiktoren oder Interaktionsterme erreicht werden.</p>
 </section>
 </div>
 </div>
 </div>
-
-
 </section>
+</section>
+<section id="f-test" class="level3" data-number="10.4.2">
+<h3 data-number="10.4.2" class="anchored" data-anchor-id="f-test"><span class="header-section-number">10.4.2</span> F-Test</h3>
+<p>Der F-Test ist ein Hypothesentest, der die Güte des Regressionsmodells als Ganzes überprüft.</p>
+<p><span class="math display">\[
+F = \frac{\frac{R^2}{k}}{\frac{1-R^2}{n-(k+1)}} = \frac{\text{erklärte Varianz}}{\text{unerklärte Varianz}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(R^2\)</span> ist das multiple Bestimmtheitsmass</li>
+<li><span class="math inline">\(k\)</span> ist die Anzahl der unabhängigen Variablen</li>
+<li><span class="math inline">\(n\)</span> ist die Anzahl der Beobachtungen</li>
+</ul>
+<p>Der F-Wert sagt, ob das Modell besser ist als einfach die Annahme des Mittelwerts von <span class="math inline">\(Y\)</span> zu nehmen. D.h. ob</p>
+<p><span class="math display">\[
+H_0 : R^2 = 0
+\]</span></p>
+<p>abgelehnt werden kann.</p>
+<!---
+
+
+#### Erste (zufällige) Anpassung
+
+Im ersten Schritt betrachten wir eine **zufällige Regressionsgerade**, die mit grosser Wahrscheinlichkeit nicht gut zu den Daten passt. Die **Residuen** (grüne Linien) zeigen die Abstände zwischen den Datenpunkten und der Linie.
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="true"}
+# Setzen des Seeds für reproduzierbare Ergebnisse
+set.seed(42)
+
+# Definieren der Farbe mit Opacity
+dot_color <- rgb(0, 0, 1, alpha = 0.6)
+line_color <- rgb(0, 0, 1, alpha = 0.8)
+residual_color <- rgb(0.87, 0.72, 0.53, alpha = 0.5)
+
+x <- rnorm(30, mean = 10, sd = 2)
+y <- 2 * x + rnorm(30, mean = 0, sd = 4)
+
+plot(x, y, pch = 19, col = dot_color, xlab = "x", ylab = "y")
+abline(a = 20, b = -0.5, col = line_color, lwd = 2)
+for (i in 1:length(x)) {
+  segments(x[i], y[i], x[i], -0.5 * x[i] + 20, col = residual_color, lwd = 1.5)
+}
+
+# Gesamtlänge der Residuen berechnen und anzeigen
+residual_sum_random <- sum(abs(y - (-0.5 * x + 20)))
+text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_random, 2)), pos = 4, col = "blue2")
+```
+
+::: {.cell-output-display}
+![Erster Ansatz: wir zeichnen eine beliebige Gerade und visualisieren die Residuen](regression_files/figure-html/random-line-1.png){width=672}
+:::
+:::
+
+
+
+#### Logischer Verbesserungsschritt: Linie durch den Schwerpunkt
+
+Statt zufällig eine bessere Linie zu raten, machen wir den **logischen ersten Schritt**: Wir zeichnen eine **horizontale Linie durch den Schwerpunkt der Daten**, d.h. die **Mittelwerte von $x$ und $y$**.
+
+**Wichtige Erkenntnis:** Jede Regressionsgerade verläuft durch den Punkt $(\bar{x}, \bar{y})$.
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="true"}
+library(latex2exp)
+
+mean_x <- mean(x)
+mean_y <- mean(y)
+
+plot(x, y, pch = 19, col = dot_color, xlab = "x", ylab = "y")
+abline(h = mean_y, col = line_color, lwd = 2)
+points(mean_x, mean_y, pch = 19, col = "red", cex = 1.5)
+text(mean_x, mean_y, labels = TeX("$(\\bar{x}, \\bar{y})$"), pos = 4, col = "red")
+for (i in 1:length(x)) {
+  segments(x[i], y[i], x[i], mean_y, col = residual_color, lwd = 1.5)
+}
+
+# Gesamtlänge der Residuen berechnen und anzeigen
+residual_sum_mean <- sum(abs(y - mean_y))
+text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_mean, 2)), pos = 4, col = "blue2")
+```
+
+::: {.cell-output-display}
+![Zweiter Schritt: Wir zeichnen eine horizontale Linie durch den Schwerpunkt der Daten](regression_files/figure-html/mean-line-1.png){width=672}
+:::
+:::
+
+
+
+#### Optimale Regressionsgerade (Least Squares)
+
+Im letzten Schritt berechnen wir die **optimale Regressionsgerade** mithilfe der Methode der kleinsten Quadrate. Diese minimiert die Summe der quadrierten Abweichungen (Residuen).
+
+::: {.callout-note collapse=true}
+##### Schrittweise Herleitung
+
+1. **Modellgleichung:**
+
+Das lineare Regressionsmodell lautet:
+
+$$
+\hat{y} = \widehat{\beta_0} + \widehat{\beta_1} \cdot x
+$$
+
+- Das Dach $\widehat{\beta_0}$ und $\widehat{\beta_1}$ bedeutet, dass es sich um Schätzwerte handelt.
+
+2. **Definition der Fehler (Residuen):**
+
+Für jeden Datenpunkt ergibt sich das Residuum als Differenz zwischen dem beobachteten Wert $y_i$ und dem vorhergesagten Wert $\hat{y}_i$:
+
+$$
+e_i = y_i - (\widehat{\beta_0} + \widehat{\beta_1} x_i)
+$$
+
+3. **Zielfunktion – Summe der quadrierten Residuen (RSS):**
+
+Wir wollen die Summe der quadrierten Residuen minimieren:
+
+$$
+RSS = \sum_{i=1}^{n} (y_i - (\widehat{\beta_0} + \widehat{\beta_1} x_i))^2
+$$
+
+4. **Optimierung durch partielle Ableitung:**
+
+Wir minimieren $RSS$, indem wir die partiellen Ableitungen nach $\beta_0$ und $\beta_1$ berechnen und gleich null setzen:
+
+- **Ableitung nach $\beta_0$:**
+
+$$
+\frac{\partial RSS}{\partial \widehat{\beta_0}} = -2 \sum (y_i - \widehat{\beta_0} - \widehat{\beta_1} x_i) = 0
+$$
+
+- **Ableitung nach $\beta_1$:**
+
+$$
+\frac{\partial RSS}{\partial \widehat{\beta_1}} = -2 \sum x_i (y_i - \widehat{\beta_0} - \widehat{\beta_1} x_i) = 0
+$$
+
+5. **Lösen des Gleichungssystems:**
+
+Durch Umformen der beiden Gleichungen erhalten wir die sogenannten **Normalgleichungen**:
+
+$$
+\begin{aligned}
+\sum y_i &= n \widehat{\beta_0} + \widehat{\beta_1} \sum x_i \\
+\sum x_i y_i &= \widehat{\beta_0} \sum x_i + \widehat{\beta_1} \sum x_i^2
+\end{aligned}
+$$
+
+6. **Endformeln für die Regressionskoeffizienten:**
+
+Nach weiteren Umformungen ergeben sich die optimalen Schätzwerte für $\widehat{\beta_1}$ und $\widehat{\beta_0}$:
+
+- **Steigung:**
+
+$$
+\widehat{\beta_1} = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}
+$$
+
+- **Achsenabschnitt:**
+
+$$
+\widehat{\beta_0} = \bar{y} - \widehat{\beta_1} \cdot \bar{x}
+$$
+
+:::
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="true"}
+model <- lm(y ~ x)
+
+plot(x, y, pch = 19, col = dot_color, xlab = "x", ylab = "y")
+abline(model, col = line_color, lwd = 2)
+for (i in 1:length(x)) {
+  segments(x[i], y[i], x[i], predict(model)[i], col = residual_color, lwd = 1.5)
+}
+
+# Gesamtlänge der Residuen berechnen und anzeigen
+residual_sum_optimal <- sum(abs(y - predict(model)))
+text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_optimal, 2)), pos = 4, col = "blue2")
+```
+
+::: {.cell-output-display}
+![Dritter Schritt: Optimale Regressionsgerade (Methode der kleinsten Quadrate)](regression_files/figure-html/optimal-line-1.png){width=672}
+:::
+:::
+
+
+
+-->
+
+
 </section>
 </section>
 
