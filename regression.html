@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; LineareRegression – Quantitative Methoden</title>
+<title>10&nbsp; Lineare Regression – Quantitative Methoden</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -145,7 +145,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LineareRegression</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lineare Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
@@ -256,7 +256,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./regression.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LineareRegression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lineare Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -354,31 +354,33 @@ window.Quarto = {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#einfache-lineare-regression" id="toc-einfache-lineare-regression" class="nav-link active" data-scroll-target="#einfache-lineare-regression"><span class="header-section-number">10.0.1</span> Einfache lineare Regression</a></li>
-  <li><a href="#abweichungen-residuen" id="toc-abweichungen-residuen" class="nav-link" data-scroll-target="#abweichungen-residuen"><span class="header-section-number">10.0.2</span> Abweichungen (Residuen)</a></li>
-  <li><a href="#bestimmung-der-modellgüte" id="toc-bestimmung-der-modellgüte" class="nav-link" data-scroll-target="#bestimmung-der-modellgüte"><span class="header-section-number">10.1</span> Bestimmung der Modellgüte</a>
+  <li><a href="#einfache-lineare-regression" id="toc-einfache-lineare-regression" class="nav-link active" data-scroll-target="#einfache-lineare-regression"><span class="header-section-number">10.1</span> Einfache lineare Regression</a>
   <ul class="collapse">
-  <li><a href="#testen-der-signifikanz-der-regressionskoeffizienten" id="toc-testen-der-signifikanz-der-regressionskoeffizienten" class="nav-link" data-scroll-target="#testen-der-signifikanz-der-regressionskoeffizienten"><span class="header-section-number">10.1.1</span> Testen der Signifikanz der Regressionskoeffizienten</a></li>
-  <li><a href="#berechnung-der-linearen-regression-in-r" id="toc-berechnung-der-linearen-regression-in-r" class="nav-link" data-scroll-target="#berechnung-der-linearen-regression-in-r"><span class="header-section-number">10.1.3</span> Berechnung der linearen Regression in R</a></li>
+  <li><a href="#abweichungen-residuen" id="toc-abweichungen-residuen" class="nav-link" data-scroll-target="#abweichungen-residuen"><span class="header-section-number">10.1.1</span> Abweichungen (Residuen)</a></li>
   </ul></li>
-  <li><a href="#multiple-regression" id="toc-multiple-regression" class="nav-link" data-scroll-target="#multiple-regression"><span class="header-section-number">10.2</span> Multiple Regression</a>
+  <li><a href="#bestimmung-der-modellgüte" id="toc-bestimmung-der-modellgüte" class="nav-link" data-scroll-target="#bestimmung-der-modellgüte"><span class="header-section-number">10.2</span> Bestimmung der Modellgüte</a>
   <ul class="collapse">
-  <li><a href="#ziel" id="toc-ziel" class="nav-link" data-scroll-target="#ziel"><span class="header-section-number">10.2.1</span> Ziel:</a></li>
-  <li><a href="#ansatz" id="toc-ansatz" class="nav-link" data-scroll-target="#ansatz"><span class="header-section-number">10.2.2</span> Ansatz</a></li>
+  <li><a href="#testen-der-signifikanz-der-regressionskoeffizienten" id="toc-testen-der-signifikanz-der-regressionskoeffizienten" class="nav-link" data-scroll-target="#testen-der-signifikanz-der-regressionskoeffizienten"><span class="header-section-number">10.2.1</span> Testen der Signifikanz der Regressionskoeffizienten</a></li>
+  <li><a href="#berechnung-der-linearen-regression-in-r" id="toc-berechnung-der-linearen-regression-in-r" class="nav-link" data-scroll-target="#berechnung-der-linearen-regression-in-r"><span class="header-section-number">10.2.3</span> Berechnung der linearen Regression in R</a></li>
   </ul></li>
-  <li><a href="#anwendungsbedingungen" id="toc-anwendungsbedingungen" class="nav-link" data-scroll-target="#anwendungsbedingungen"><span class="header-section-number">10.3</span> Anwendungsbedingungen</a>
+  <li><a href="#multiple-regression" id="toc-multiple-regression" class="nav-link" data-scroll-target="#multiple-regression"><span class="header-section-number">10.3</span> Multiple Regression</a>
   <ul class="collapse">
-  <li><a href="#lineare-beziehung-zwischen-den-variablen" id="toc-lineare-beziehung-zwischen-den-variablen" class="nav-link" data-scroll-target="#lineare-beziehung-zwischen-den-variablen"><span class="header-section-number">10.3.1</span> Lineare Beziehung zwischen den Variablen</a></li>
-  <li><a href="#keine-perfekte-multikollinearität" id="toc-keine-perfekte-multikollinearität" class="nav-link" data-scroll-target="#keine-perfekte-multikollinearität"><span class="header-section-number">10.3.2</span> Keine perfekte Multikollinearität</a></li>
-  <li><a href="#heteroskedastizität" id="toc-heteroskedastizität" class="nav-link" data-scroll-target="#heteroskedastizität"><span class="header-section-number">10.3.3</span> Heteroskedastizität</a></li>
-  <li><a href="#normalverteilte-residuen" id="toc-normalverteilte-residuen" class="nav-link" data-scroll-target="#normalverteilte-residuen"><span class="header-section-number">10.3.4</span> Normalverteilte Residuen</a></li>
-  <li><a href="#keine-starken-ausreißer-oder-einflussreichen-datenpunkte" id="toc-keine-starken-ausreißer-oder-einflussreichen-datenpunkte" class="nav-link" data-scroll-target="#keine-starken-ausreißer-oder-einflussreichen-datenpunkte"><span class="header-section-number">10.3.5</span> Keine starken Ausreißer oder einflussreichen Datenpunkte</a></li>
-  <li><a href="#beispielauswertungen" id="toc-beispielauswertungen" class="nav-link" data-scroll-target="#beispielauswertungen"><span class="header-section-number">10.3.6</span> Beispielauswertungen</a></li>
+  <li><a href="#ziel" id="toc-ziel" class="nav-link" data-scroll-target="#ziel"><span class="header-section-number">10.3.1</span> Ziel:</a></li>
+  <li><a href="#ansatz" id="toc-ansatz" class="nav-link" data-scroll-target="#ansatz"><span class="header-section-number">10.3.2</span> Ansatz</a></li>
   </ul></li>
-  <li><a href="#modellvalidierung" id="toc-modellvalidierung" class="nav-link" data-scroll-target="#modellvalidierung"><span class="header-section-number">10.4</span> Modellvalidierung</a>
+  <li><a href="#anwendungsbedingungen" id="toc-anwendungsbedingungen" class="nav-link" data-scroll-target="#anwendungsbedingungen"><span class="header-section-number">10.4</span> Anwendungsbedingungen</a>
   <ul class="collapse">
-  <li><a href="#kreuzvalidierung" id="toc-kreuzvalidierung" class="nav-link" data-scroll-target="#kreuzvalidierung"><span class="header-section-number">10.4.1</span> Kreuzvalidierung</a></li>
-  <li><a href="#f-test" id="toc-f-test" class="nav-link" data-scroll-target="#f-test"><span class="header-section-number">10.4.2</span> F-Test</a></li>
+  <li><a href="#lineare-beziehung-zwischen-den-variablen" id="toc-lineare-beziehung-zwischen-den-variablen" class="nav-link" data-scroll-target="#lineare-beziehung-zwischen-den-variablen"><span class="header-section-number">10.4.1</span> Lineare Beziehung zwischen den Variablen</a></li>
+  <li><a href="#keine-perfekte-multikollinearität" id="toc-keine-perfekte-multikollinearität" class="nav-link" data-scroll-target="#keine-perfekte-multikollinearität"><span class="header-section-number">10.4.2</span> Keine perfekte Multikollinearität</a></li>
+  <li><a href="#heteroskedastizität" id="toc-heteroskedastizität" class="nav-link" data-scroll-target="#heteroskedastizität"><span class="header-section-number">10.4.3</span> Heteroskedastizität</a></li>
+  <li><a href="#normalverteilte-residuen" id="toc-normalverteilte-residuen" class="nav-link" data-scroll-target="#normalverteilte-residuen"><span class="header-section-number">10.4.4</span> Normalverteilte Residuen</a></li>
+  <li><a href="#keine-starken-ausreißer-oder-einflussreichen-datenpunkte" id="toc-keine-starken-ausreißer-oder-einflussreichen-datenpunkte" class="nav-link" data-scroll-target="#keine-starken-ausreißer-oder-einflussreichen-datenpunkte"><span class="header-section-number">10.4.5</span> Keine starken Ausreißer oder einflussreichen Datenpunkte</a></li>
+  <li><a href="#beispielauswertungen" id="toc-beispielauswertungen" class="nav-link" data-scroll-target="#beispielauswertungen"><span class="header-section-number">10.4.6</span> Beispielauswertungen</a></li>
+  </ul></li>
+  <li><a href="#modellvalidierung" id="toc-modellvalidierung" class="nav-link" data-scroll-target="#modellvalidierung"><span class="header-section-number">10.5</span> Modellvalidierung</a>
+  <ul class="collapse">
+  <li><a href="#kreuzvalidierung" id="toc-kreuzvalidierung" class="nav-link" data-scroll-target="#kreuzvalidierung"><span class="header-section-number">10.5.1</span> Kreuzvalidierung</a></li>
+  <li><a href="#f-test" id="toc-f-test" class="nav-link" data-scroll-target="#f-test"><span class="header-section-number">10.5.2</span> F-Test</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/regression.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></nav>
@@ -386,9 +388,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LineareRegression</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./deskriptive-statistik.html">Statistische Datenanalyse</a></li><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lineare Regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LineareRegression</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lineare Regression</span></h1>
 </div>
 
 
@@ -431,8 +433,8 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_k x_k + \varepsilon
 </li>
 <li>Beispiel: Wenn <span class="math inline">\(\beta_1 = 2\)</span>, dann bedeutet das, dass eine Erhöhung von <span class="math inline">\(x_1\)</span> um <em>eine Einheit</em> zu einer durchschnittlichen Erhöhung von <span class="math inline">\(y\)</span> um <em>2 Einheiten</em> führt.</li>
 </ul>
-<section id="einfache-lineare-regression" class="level3" data-number="10.0.1">
-<h3 data-number="10.0.1" class="anchored" data-anchor-id="einfache-lineare-regression"><span class="header-section-number">10.0.1</span> Einfache lineare Regression</h3>
+<section id="einfache-lineare-regression" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="einfache-lineare-regression"><span class="header-section-number">10.1</span> Einfache lineare Regression</h2>
 <p>Wir wollen eine Gerade der Form:</p>
 <p><span class="math display">\[
 \hat{y} = \beta_0 + \beta_{1x} x
@@ -445,9 +447,8 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_k x_k + \varepsilon
 <li><span class="math inline">\(\beta_1\)</span> = <strong>Steigung</strong> der Regressionsgerade</li>
 </ul>
 <p>Die Parameter <span class="math inline">\(\beta_0\)</span> und <span class="math inline">\(\beta_1\)</span> bestimmen die Lage und Neigung der Regressionsgerade.</p>
-</section>
-<section id="abweichungen-residuen" class="level3" data-number="10.0.2">
-<h3 data-number="10.0.2" class="anchored" data-anchor-id="abweichungen-residuen"><span class="header-section-number">10.0.2</span> Abweichungen (Residuen)</h3>
+<section id="abweichungen-residuen" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="abweichungen-residuen"><span class="header-section-number">10.1.1</span> Abweichungen (Residuen)</h3>
 <p>Kein Modell beschreibt die Realität perfekt. Daher gibt es für jeden Datenpunkt eine <strong>Abweichung</strong> (Residuum) zu der Regressionsgerade:</p>
 <p><span class="math display">\[
 e_i = y_i - \hat{y}_i
@@ -651,8 +652,9 @@ e_i = Y_i - \hat{Y}_i
 </div>
 </div>
 </section>
-<section id="bestimmung-der-modellgüte" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="bestimmung-der-modellgüte"><span class="header-section-number">10.1</span> Bestimmung der Modellgüte</h2>
+</section>
+<section id="bestimmung-der-modellgüte" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="bestimmung-der-modellgüte"><span class="header-section-number">10.2</span> Bestimmung der Modellgüte</h2>
 <p>Die Güte der Anpassung wird durch das <strong>Bestimmtheitsmass</strong> <span class="math inline">\(R^2\)</span> beurteilt. Dieses Mass gibt an, welcher Anteil der Gesamtvariation von <span class="math inline">\(Y\)</span> durch das Modell erklärt wird:</p>
 <p><span class="math display">\[
 R^2 = \frac{\text{erklärte Variation}}{\text{Gesamtvariation}} = 1 - \frac{\text{Residuenvariation}}{\text{Gesamtvariation}}
@@ -680,8 +682,8 @@ R^2 = 1 - \frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2}{\sum_{i=1}^{n} (Y_i - \bar{Y
 </li>
 <li><span class="math inline">\(R^2 = 0\)</span> bedeutet <strong>keine Anpassung</strong> (die unabhängige Variable erklärt nichts).</li>
 </ul>
-<section id="testen-der-signifikanz-der-regressionskoeffizienten" class="level3" data-number="10.1.1">
-<h3 data-number="10.1.1" class="anchored" data-anchor-id="testen-der-signifikanz-der-regressionskoeffizienten"><span class="header-section-number">10.1.1</span> Testen der Signifikanz der Regressionskoeffizienten</h3>
+<section id="testen-der-signifikanz-der-regressionskoeffizienten" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="testen-der-signifikanz-der-regressionskoeffizienten"><span class="header-section-number">10.2.1</span> Testen der Signifikanz der Regressionskoeffizienten</h3>
 <p>Um zu überprüfen, ob die unabhängige Variable tatsächlich einen <strong>signifikanten Einfluss auf <span class="math inline">\(Y\)</span></strong> hat, testen wir die Hypothesen:</p>
 <ul>
 <li><strong>Nullhypothese <span class="math inline">\(H_0\)</span>:</strong> Kein linearer Zusammenhang <span class="math inline">\(\Rightarrow \beta_1 = 0\)</span>.<br>
@@ -753,8 +755,8 @@ SS_{\text{total}} &amp;= \sum_{i=1}^{n} (Y_i - \bar{Y})^2 \\
 <pre><code>[1] 6.896552</code></pre>
 </div>
 </div>
-<section id="berechnung-des-bestimmtheitsmasses-r2" class="level3" data-number="10.1.2">
-<h3 data-number="10.1.2" class="anchored" data-anchor-id="berechnung-des-bestimmtheitsmasses-r2"><span class="header-section-number">10.1.2</span> <strong>3. Berechnung des Bestimmtheitsmasses <span class="math inline">\(R^2\)</span></strong></h3>
+<section id="berechnung-des-bestimmtheitsmasses-r2" class="level3" data-number="10.2.2">
+<h3 data-number="10.2.2" class="anchored" data-anchor-id="berechnung-des-bestimmtheitsmasses-r2"><span class="header-section-number">10.2.2</span> <strong>3. Berechnung des Bestimmtheitsmasses <span class="math inline">\(R^2\)</span></strong></h3>
 <p>Nun setzen wir die Werte in die Formel ein:</p>
 <p><span class="math display">\[
 R^2 = 1 - \frac{SS_{\text{residual}}}{SS_{\text{total}}}
@@ -835,8 +837,8 @@ Die <strong>Regressionskoeffizienten sind signifikant</strong>. Es gibt <strong>
 </section>
 </div>
 </div>
-<section id="konfidenzintervall-der-regressionskoeffizienten" class="level4" data-number="10.1.2.1">
-<h4 data-number="10.1.2.1" class="anchored" data-anchor-id="konfidenzintervall-der-regressionskoeffizienten"><span class="header-section-number">10.1.2.1</span> Konfidenzintervall der Regressionskoeffizienten</h4>
+<section id="konfidenzintervall-der-regressionskoeffizienten" class="level4" data-number="10.2.2.1">
+<h4 data-number="10.2.2.1" class="anchored" data-anchor-id="konfidenzintervall-der-regressionskoeffizienten"><span class="header-section-number">10.2.2.1</span> Konfidenzintervall der Regressionskoeffizienten</h4>
 <p><span class="math display">\[
 \beta_1 = \widehat{\beta_1} \pm q_t \cdot \operatorname{SE}_{\beta_1} \quad \text{mit} \quad q_t \text{ aus der T-Tabelle}
 \]</span></p>
@@ -847,8 +849,8 @@ Die <strong>Regressionskoeffizienten sind signifikant</strong>. Es gibt <strong>
 </ul>
 </section>
 </section>
-<section id="berechnung-der-linearen-regression-in-r" class="level3" data-number="10.1.3">
-<h3 data-number="10.1.3" class="anchored" data-anchor-id="berechnung-der-linearen-regression-in-r"><span class="header-section-number">10.1.3</span> Berechnung der linearen Regression in R</h3>
+<section id="berechnung-der-linearen-regression-in-r" class="level3" data-number="10.2.3">
+<h3 data-number="10.2.3" class="anchored" data-anchor-id="berechnung-der-linearen-regression-in-r"><span class="header-section-number">10.2.3</span> Berechnung der linearen Regression in R</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineare Regression durchführen</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(note <span class="sc">~</span> lernzeit, <span class="at">data =</span> noten_lernzeit_tabelle)</span>
@@ -954,8 +956,8 @@ F-statistic:   432 on 1 and 3 DF,  p-value: 0.0002436</code></pre>
 </ol>
 </section>
 </section>
-<section id="multiple-regression" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="multiple-regression"><span class="header-section-number">10.2</span> Multiple Regression</h2>
+<section id="multiple-regression" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="multiple-regression"><span class="header-section-number">10.3</span> Multiple Regression</h2>
 <p>In der einfachen linearen Regression versuchen wir, den Zusammenhang zwischen einer abhängigen Variable <span class="math inline">\(Y\)</span> und einem Prädiktor <span class="math inline">\(X_1\)</span> zu modellieren. Doch was passiert, wenn <span class="math inline">\(Y\)</span> nicht vollständig durch <span class="math inline">\(X_1\)</span> alleine erklärt werden kann?</p>
 <p>Stellen wir uns vor, wir haben Daten, bei denen wir vermuten, dass <span class="math inline">\(X_1\)</span> einen Einfluss auf <span class="math inline">\(Y\)</span> hat. Wir beginnen mit einer einfachen linearen Regression:</p>
 <div class="cell">
@@ -1045,8 +1047,8 @@ Beispiel
 </div>
 </div>
 <p><strong>Bemerkung:</strong> Wenn die Prädiktoren <em>nicht</em> korrelieren, ist die Regression der Residuen mit weiteren Variablen möglich.</p>
-<section id="ziel" class="level3" data-number="10.2.1">
-<h3 data-number="10.2.1" class="anchored" data-anchor-id="ziel"><span class="header-section-number">10.2.1</span> Ziel:</h3>
+<section id="ziel" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="ziel"><span class="header-section-number">10.3.1</span> Ziel:</h3>
 <p>Vorhersage einer <strong>metrischen abhängigen Variable</strong> durch mehrere <strong>unabhängige Variablen</strong> (<em>Prädiktoren</em>).</p>
 <p><strong>Voraussetzungen:</strong></p>
 <ul>
@@ -1076,8 +1078,8 @@ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \ldots + \beta_k X_k + \varepsilon
 <li>Beispiel: Wenn <span class="math inline">\(\beta_1 = 2\)</span>, dann bedeutet das, dass eine Erhöhung von <span class="math inline">\(X_1\)</span> um <em>eine Stunde Lernzeit</em> zu einer durchschnittlichen Erhöhung der Prüfungsnote um <em>2 Punkte</em> führt.</li>
 </ul>
 </section>
-<section id="ansatz" class="level3" data-number="10.2.2">
-<h3 data-number="10.2.2" class="anchored" data-anchor-id="ansatz"><span class="header-section-number">10.2.2</span> Ansatz</h3>
+<section id="ansatz" class="level3" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="ansatz"><span class="header-section-number">10.3.2</span> Ansatz</h3>
 <ul>
 <li>Minimierung der Summe der quadrierten Residuen:</li>
 </ul>
@@ -1252,16 +1254,16 @@ R^2 = 1 - \frac{SS_{\text{residual}}}{SS_{\text{total}}}
 </div>
 </section>
 </section>
-<section id="anwendungsbedingungen" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="anwendungsbedingungen"><span class="header-section-number">10.3</span> Anwendungsbedingungen</h2>
-<section id="lineare-beziehung-zwischen-den-variablen" class="level3" data-number="10.3.1">
-<h3 data-number="10.3.1" class="anchored" data-anchor-id="lineare-beziehung-zwischen-den-variablen"><span class="header-section-number">10.3.1</span> Lineare Beziehung zwischen den Variablen</h3>
+<section id="anwendungsbedingungen" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="anwendungsbedingungen"><span class="header-section-number">10.4</span> Anwendungsbedingungen</h2>
+<section id="lineare-beziehung-zwischen-den-variablen" class="level3" data-number="10.4.1">
+<h3 data-number="10.4.1" class="anchored" data-anchor-id="lineare-beziehung-zwischen-den-variablen"><span class="header-section-number">10.4.1</span> Lineare Beziehung zwischen den Variablen</h3>
 <p>Die lineare Regression setzt voraus, dass der Zusammenhang zwischen der abhängigen Variable (<span class="math inline">\(Y\)</span>) und den Prädiktoren (<span class="math inline">\(X_1, X_2, \dots, X_k\)</span>) <strong>linear</strong> ist.<br>
 - In einem <strong>Scatterplot</strong> sollte eine ungefähr <strong>geradlinige Beziehung</strong> zwischen den Variablen erkennbar sein.<br>
 - Falls ein nichtlinearer Zusammenhang vorliegt, kann eine <strong>Transformation</strong> der Variablen (z.B. logarithmisch oder quadratisch) sinnvoll sein.</p>
 </section>
-<section id="keine-perfekte-multikollinearität" class="level3" data-number="10.3.2">
-<h3 data-number="10.3.2" class="anchored" data-anchor-id="keine-perfekte-multikollinearität"><span class="header-section-number">10.3.2</span> Keine perfekte Multikollinearität</h3>
+<section id="keine-perfekte-multikollinearität" class="level3" data-number="10.4.2">
+<h3 data-number="10.4.2" class="anchored" data-anchor-id="keine-perfekte-multikollinearität"><span class="header-section-number">10.4.2</span> Keine perfekte Multikollinearität</h3>
 <p>Kollinearität beschreibt die Tatsache, dass zwei oder mehrere Prädiktoren in einem Regressionsmodell stark miteinander korrelieren.</p>
 <ul>
 <li>Die unabhängigen Variablen dürfen untereinander nicht perfekt korrelieren (<span class="math inline">\(i \neq j: \text{corr}(X_i, X_j) = 1\)</span>) d.h. es darf keine Linearkombination anderer unabhängiger Variablen sein.</li>
@@ -1290,8 +1292,8 @@ R^2 = 1 - \frac{SS_{\text{residual}}}{SS_{\text{total}}}
 <li>Hauptkomponentenanalyse (PCA): Reduktion der Dimensionalität der Daten durch PCA, um unkorrelierte Hauptkomponenten zu erhalten.</li>
 </ul>
 </section>
-<section id="heteroskedastizität" class="level3" data-number="10.3.3">
-<h3 data-number="10.3.3" class="anchored" data-anchor-id="heteroskedastizität"><span class="header-section-number">10.3.3</span> Heteroskedastizität</h3>
+<section id="heteroskedastizität" class="level3" data-number="10.4.3">
+<h3 data-number="10.4.3" class="anchored" data-anchor-id="heteroskedastizität"><span class="header-section-number">10.4.3</span> Heteroskedastizität</h3>
 <p>Heteroskedastizität beschreibt die Tatsache, dass die Varianz der Residuen nicht konstant ist. Das bedeutet, dass die Residuen nicht gleichmässig um den Mittelwert streuen, sondern eine zunehmende oder abnehmende Varianz aufweisen.</p>
 <p>Ursachen dafür können sein:</p>
 <ul>
@@ -1311,8 +1313,8 @@ R^2 = 1 - \frac{SS_{\text{residual}}}{SS_{\text{total}}}
 <li>Methode der <em>gewichteten</em> kleinsten Quadrate. Werte bekommen dort weniger Gewicht, wo die Streuung gross ist.</li>
 </ul>
 </section>
-<section id="normalverteilte-residuen" class="level3" data-number="10.3.4">
-<h3 data-number="10.3.4" class="anchored" data-anchor-id="normalverteilte-residuen"><span class="header-section-number">10.3.4</span> Normalverteilte Residuen</h3>
+<section id="normalverteilte-residuen" class="level3" data-number="10.4.4">
+<h3 data-number="10.4.4" class="anchored" data-anchor-id="normalverteilte-residuen"><span class="header-section-number">10.4.4</span> Normalverteilte Residuen</h3>
 <p>Die Verteilung der Residuen sollte <strong>ungefähr normal</strong> sein. Dies ist besonders wichtig für:</p>
 <ul>
 <li><strong>t-Tests</strong> auf die Regressionskoeffizienten<br>
@@ -1329,8 +1331,8 @@ R^2 = 1 - \frac{SS_{\text{residual}}}{SS_{\text{total}}}
 <li><strong>Bootstrapping-Verfahren</strong> zur Schätzung der Koeffizienten</li>
 </ul>
 </section>
-<section id="keine-starken-ausreißer-oder-einflussreichen-datenpunkte" class="level3" data-number="10.3.5">
-<h3 data-number="10.3.5" class="anchored" data-anchor-id="keine-starken-ausreißer-oder-einflussreichen-datenpunkte"><span class="header-section-number">10.3.5</span> Keine starken Ausreißer oder einflussreichen Datenpunkte</h3>
+<section id="keine-starken-ausreißer-oder-einflussreichen-datenpunkte" class="level3" data-number="10.4.5">
+<h3 data-number="10.4.5" class="anchored" data-anchor-id="keine-starken-ausreißer-oder-einflussreichen-datenpunkte"><span class="header-section-number">10.4.5</span> Keine starken Ausreißer oder einflussreichen Datenpunkte</h3>
 <p>Einzelne Datenpunkte mit <strong>extremen Werten</strong> können die Regression stark beeinflussen.</p>
 <ul>
 <li><strong>Leverage-Plot</strong> oder <strong>Cook’s Distance</strong> kann verwendet werden, um einflussreiche Punkte zu identifizieren.<br>
@@ -1338,10 +1340,10 @@ R^2 = 1 - \frac{SS_{\text{residual}}}{SS_{\text{total}}}
 <li>Falls ein Ausreißer zu stark ist, sollte überprüft werden, ob ein <strong>Messfehler</strong> vorliegt oder ob der Punkt sinnvoll entfernt werden kann.</li>
 </ul>
 </section>
-<section id="beispielauswertungen" class="level3" data-number="10.3.6">
-<h3 data-number="10.3.6" class="anchored" data-anchor-id="beispielauswertungen"><span class="header-section-number">10.3.6</span> Beispielauswertungen</h3>
-<section id="optimale-residuendiagnostik-mit-geeigneten-daten" class="level4" data-number="10.3.6.1">
-<h4 data-number="10.3.6.1" class="anchored" data-anchor-id="optimale-residuendiagnostik-mit-geeigneten-daten"><span class="header-section-number">10.3.6.1</span> Optimale Residuendiagnostik mit geeigneten Daten</h4>
+<section id="beispielauswertungen" class="level3" data-number="10.4.6">
+<h3 data-number="10.4.6" class="anchored" data-anchor-id="beispielauswertungen"><span class="header-section-number">10.4.6</span> Beispielauswertungen</h3>
+<section id="optimale-residuendiagnostik-mit-geeigneten-daten" class="level4" data-number="10.4.6.1">
+<h4 data-number="10.4.6.1" class="anchored" data-anchor-id="optimale-residuendiagnostik-mit-geeigneten-daten"><span class="header-section-number">10.4.6.1</span> Optimale Residuendiagnostik mit geeigneten Daten</h4>
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -1407,8 +1409,8 @@ R^2 = 1 - \frac{SS_{\text{residual}}}{SS_{\text{total}}}
 </div>
 </div>
 </section>
-<section id="negative-residuendiagnostik-mit-schlechten-daten" class="level4" data-number="10.3.6.2">
-<h4 data-number="10.3.6.2" class="anchored" data-anchor-id="negative-residuendiagnostik-mit-schlechten-daten"><span class="header-section-number">10.3.6.2</span> Negative Residuendiagnostik mit schlechten Daten</h4>
+<section id="negative-residuendiagnostik-mit-schlechten-daten" class="level4" data-number="10.4.6.2">
+<h4 data-number="10.4.6.2" class="anchored" data-anchor-id="negative-residuendiagnostik-mit-schlechten-daten"><span class="header-section-number">10.4.6.2</span> Negative Residuendiagnostik mit schlechten Daten</h4>
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
@@ -1482,13 +1484,13 @@ R^2 = 1 - \frac{SS_{\text{residual}}}{SS_{\text{total}}}
 </section>
 </section>
 </section>
-<section id="modellvalidierung" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="modellvalidierung"><span class="header-section-number">10.4</span> Modellvalidierung</h2>
-<section id="kreuzvalidierung" class="level3" data-number="10.4.1">
-<h3 data-number="10.4.1" class="anchored" data-anchor-id="kreuzvalidierung"><span class="header-section-number">10.4.1</span> Kreuzvalidierung</h3>
+<section id="modellvalidierung" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="modellvalidierung"><span class="header-section-number">10.5</span> Modellvalidierung</h2>
+<section id="kreuzvalidierung" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="kreuzvalidierung"><span class="header-section-number">10.5.1</span> Kreuzvalidierung</h3>
 <p>Die <strong>Kreuzvalidierung</strong> ist eine Methode zur <strong>Bewertung der Vorhersagegüte</strong> eines Regressionsmodells. Dabei wird der Datensatz in mehrere Teilmengen (sogenannte <strong>Folds</strong>) aufgeteilt. Das Modell wird wiederholt auf verschiedenen Kombinationen von Trainings- und Testdaten geschätzt, um zu überprüfen, wie gut es auf <strong>unbekannte Daten</strong> generalisiert.</p>
-<section id="vorgehensweise-bei-der-k-fold-kreuzvalidierung" class="level4" data-number="10.4.1.1">
-<h4 data-number="10.4.1.1" class="anchored" data-anchor-id="vorgehensweise-bei-der-k-fold-kreuzvalidierung"><span class="header-section-number">10.4.1.1</span> Vorgehensweise bei der K-Fold-Kreuzvalidierung:</h4>
+<section id="vorgehensweise-bei-der-k-fold-kreuzvalidierung" class="level4" data-number="10.5.1.1">
+<h4 data-number="10.5.1.1" class="anchored" data-anchor-id="vorgehensweise-bei-der-k-fold-kreuzvalidierung"><span class="header-section-number">10.5.1.1</span> Vorgehensweise bei der K-Fold-Kreuzvalidierung:</h4>
 <ol type="1">
 <li><strong>Aufteilung der Daten:</strong> Der Datensatz wird in <span class="math inline">\(k\)</span> gleich grosse Teilmengen (Folds) aufgeteilt.<br>
 </li>
@@ -1646,8 +1648,8 @@ Der <strong>MAE</strong> misst den durchschnittlichen absoluten Vorhersagefehler
 </div>
 </section>
 </section>
-<section id="f-test" class="level3" data-number="10.4.2">
-<h3 data-number="10.4.2" class="anchored" data-anchor-id="f-test"><span class="header-section-number">10.4.2</span> F-Test</h3>
+<section id="f-test" class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="f-test"><span class="header-section-number">10.5.2</span> F-Test</h3>
 <p>Der F-Test ist ein Hypothesentest, der die Güte des Regressionsmodells als Ganzes überprüft.</p>
 <p><span class="math display">\[
 F = \frac{\frac{R^2}{k}}{\frac{1-R^2}{n-(k+1)}} = \frac{\text{erklärte Varianz}}{\text{unerklärte Varianz}}
@@ -1668,6 +1670,7 @@ H_0 : R^2 = 0
 #### Erste (zufällige) Anpassung
 
 Im ersten Schritt betrachten wir eine **zufällige Regressionsgerade**, die mit grosser Wahrscheinlichkeit nicht gut zu den Daten passt. Die **Residuen** (grüne Linien) zeigen die Abstände zwischen den Datenpunkten und der Linie.
+
 
 
 
@@ -1703,11 +1706,13 @@ text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_random, 2)),
 
 
 
+
 #### Logischer Verbesserungsschritt: Linie durch den Schwerpunkt
 
 Statt zufällig eine bessere Linie zu raten, machen wir den **logischen ersten Schritt**: Wir zeichnen eine **horizontale Linie durch den Schwerpunkt der Daten**, d.h. die **Mittelwerte von $x$ und $y$**.
 
 **Wichtige Erkenntnis:** Jede Regressionsgerade verläuft durch den Punkt $(\bar{x}, \bar{y})$.
+
 
 
 
@@ -1736,6 +1741,7 @@ text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_mean, 2)), p
 ![Zweiter Schritt: Wir zeichnen eine horizontale Linie durch den Schwerpunkt der Daten](regression_files/figure-html/mean-line-1.png){width=672}
 :::
 :::
+
 
 
 
@@ -1820,6 +1826,7 @@ $$
 
 
 
+
 ::: {.cell}
 
 ```{.r .cell-code  code-fold="true"}
@@ -1840,6 +1847,7 @@ text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_optimal, 2))
 ![Dritter Schritt: Optimale Regressionsgerade (Methode der kleinsten Quadrate)](regression_files/figure-html/optimal-line-1.png){width=672}
 :::
 :::
+
 
 
 
