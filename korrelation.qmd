@@ -97,7 +97,7 @@ $$
 
 Wir ergänzen unsere Daten aus @tbl-noten-beispiel um eine zweite Variable, die **Lernzeit pro Woche (h)**, um zu untersuchen, ob ein Zusammenhang zwischen Lernzeit und Prüfungsnoten besteht.
 
-| Student | Prüfungsnote ($X$) | Lernzeit ($Y$) |
+| Student | Prüfungsnote ($Y$) | Lernzeit ($X$) |
 |---------|--------------------|----------------|
 | A       | 70                 | 10             |
 | B       | 80                 | 12             |
@@ -128,10 +128,10 @@ mean(noten_lernzeit_tabelle$note)
 
 $$
 \begin{aligned}
-\bar{X} &= \frac{70 + 80 + 50 + 90 + 60}{5} \\ 
+\bar{Y} &= \frac{70 + 80 + 50 + 90 + 60}{5} \\ 
 &= 70 \\
 \end{aligned}
-$$
+$$ {#eq-noten-lernzeit-mittelwert-y}
 
 ```{r}
 #| echo: true
@@ -143,10 +143,10 @@ mean(noten_lernzeit_tabelle$lernzeit)
 
 $$
 \begin{aligned}
-\bar{Y} &= \frac{10 + 12 + 5 + 15 + 8}{5} \\
+\bar{X} &= \frac{10 + 12 + 5 + 15 + 8}{5} \\
 &= 10
 \end{aligned}
-$$
+$$ {#eq-noten-lernzeit-mittelwert-x}
 
 **2. Kovarianz berechnen**
 
@@ -165,16 +165,16 @@ $$
 &= \frac{1}{4} 
 \left[
 \begin{array}{l}
-(70-70) \cdot (10-10) + (80-70) \cdot (12-10) +  (50-70) \cdot (5-10) +  \\
-(90-70) \cdot (15-10) +  (60-70) \cdot (8-10)
+(10-10) \cdot (70-70) + (12-10) \cdot (80-70) +  (5-10) \cdot (50-70) +  \\
+(15-10) \cdot (90-70) +  (8-10) \cdot (60-70)
 \end{array}
 \right] \\
-&= \frac{1}{4} \left[0 \cdot 0 + 10 \cdot 2 + (-20) \cdot (-5) + 20 \cdot 5 + (-10) \cdot (-2)\right] \\
+&= \frac{1}{4} \left[0 \cdot 0 + 2 \cdot 10 + (-5) \cdot (-20) + 5 \cdot 20 + (-2) \cdot (-10)\right] \\
 &= \frac{1}{4} \left[0 + 20 + 100 + 100 + 20\right] \\
 &= \frac{1}{4} 240 \\
 &= 60
 \end{aligned}
-$$
+$$ {#eq-noten-lernzeit-kovarianz}
 
 
 **3. Standardabweichungen berechnen**
@@ -190,14 +190,14 @@ sd(noten_lernzeit_tabelle$note)
 
 $$
 \begin{aligned}
-\sigma_X &= \sqrt{\frac{1}{n-1} \sum (X_i - \bar{X})^2} \\
+\sigma_Y &= \sqrt{\frac{1}{n-1} \sum (Y_i - \bar{Y})^2} \\
 &= \sqrt{\frac{1}{4} \left[(70-70)^2 + (80-70)^2 + (50-70)^2 + (90-70)^2 + (60-70)^2\right]} \\
 &= \sqrt{\frac{1}{4} \left[0 + 100 + 400 + 400 + 100\right]} \\
 &= \sqrt{\frac{1}{4} 1000} \\
 &= \sqrt{250} \\
 &\approx 15.81
 \end{aligned}
-$$
+$$ {#eq-noten-lernzeit-standardabweichung-y}
 
 ```{r}
 #| echo: true
@@ -209,14 +209,14 @@ sd(noten_lernzeit_tabelle$lernzeit)
 
 $$
 \begin{aligned}
-\sigma_Y &= \sqrt{\frac{1}{n-1} \sum (Y_i - \bar{Y})^2} \\
+\sigma_X &= \sqrt{\frac{1}{n-1} \sum (X_i - \bar{X})^2} \\
 &= \sqrt{\frac{1}{4} \left[(10-10)^2 + (12-10)^2 + (5-10)^2 + (15-10)^2 + (8-10)^2\right]} \\
 &= \sqrt{\frac{1}{4} \left[0 + 4 + 25 + 25 + 4\right]} \\
 &= \sqrt{\frac{1}{4} 58} \\
 &= \sqrt{14.5} \\
 &\approx 3.81
 \end{aligned}
-$$
+$$ {#eq-noten-lernzeit-standardabweichung-x}
 
 **4. Pearson-Korrelationskoeffizient berechnen**
 
@@ -231,7 +231,7 @@ cor(noten_lernzeit_tabelle$note, noten_lernzeit_tabelle$lernzeit, method = "pear
 $$
 \begin{aligned}
 r &= \frac{\text{Cov}(X, Y)}{\sigma_X \cdot \sigma_Y} \\
-&= \frac{60}{15.81 \cdot 3.81} \\
+&= \frac{60}{3.81 \cdot 15.81} \\
 &= \frac{60}{60.21} \\
 &\approx 0.997
 \end{aligned}
@@ -404,7 +404,7 @@ noten_lernzeit_tabelle$lernzeit_rank <- rank(noten_lernzeit_tabelle$lernzeit)
 noten_lernzeit_tabelle
 ```
 
-| Student | Prüfungsnote ($X$) | $r_{X_{i}}$ | Lernzeit ($Y$) | $r_{Y_{i}}$ |
+| Student | Prüfungsnote ($Y$) | $r_{Y_{i}}$ | Lernzeit ($X$) | $r_{X_{i}}$ |
 |---------|--------------------|-------------|----------------|-------------|
 | A       | 70                 | 3           | 10             | 3           |
 | B       | 80                 | 4           | 12             | 4           |

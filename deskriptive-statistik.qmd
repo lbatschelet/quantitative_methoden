@@ -1,4 +1,7 @@
-# Deskriptive Statistik
+---
+title: "Deskriptive Statistik"
+lang: "de-CH"
+---
 
 ## Grundgesamtheit vs. Stichprobe
 

@@ -256,7 +256,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LineareRegression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -522,8 +522,8 @@ Tabelle&nbsp;9.1
 <thead>
 <tr class="header">
 <th>Student</th>
-<th>Prüfungsnote (<span class="math inline">\(X\)</span>)</th>
-<th>Lernzeit (<span class="math inline">\(Y\)</span>)</th>
+<th>Prüfungsnote (<span class="math inline">\(Y\)</span>)</th>
+<th>Lernzeit (<span class="math inline">\(X\)</span>)</th>
 </tr>
 </thead>
 <tbody>
@@ -573,24 +573,24 @@ Tabelle&nbsp;9.1
 <pre><code>[1] 70</code></pre>
 </div>
 </div>
-<p><span class="math display">\[
+<p><span id="eq-noten-lernzeit-mittelwert-y"><span class="math display">\[
 \begin{aligned}
-\bar{X} &amp;= \frac{70 + 80 + 50 + 90 + 60}{5} \\
+\bar{Y} &amp;= \frac{70 + 80 + 50 + 90 + 60}{5} \\
 &amp;= 70 \\
 \end{aligned}
-\]</span></p>
+\tag{9.1}\]</span></span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(noten_lernzeit_tabelle<span class="sc">$</span>lernzeit)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10</code></pre>
 </div>
 </div>
-<p><span class="math display">\[
+<p><span id="eq-noten-lernzeit-mittelwert-x"><span class="math display">\[
 \begin{aligned}
-\bar{Y} &amp;= \frac{10 + 12 + 5 + 15 + 8}{5} \\
+\bar{X} &amp;= \frac{10 + 12 + 5 + 15 + 8}{5} \\
 &amp;= 10
 \end{aligned}
-\]</span></p>
+\tag{9.2}\]</span></span></p>
 <p><strong>2. Kovarianz berechnen</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(noten_lernzeit_tabelle<span class="sc">$</span>note, noten_lernzeit_tabelle<span class="sc">$</span>lernzeit)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -598,22 +598,22 @@ Tabelle&nbsp;9.1
 <pre><code>[1] 60</code></pre>
 </div>
 </div>
-<p><span class="math display">\[
+<p><span id="eq-noten-lernzeit-kovarianz"><span class="math display">\[
 \begin{aligned}
 \text{Cov}(X, Y) &amp;= \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y}) \\
 &amp;= \frac{1}{4}
 \left[
 \begin{array}{l}
-(70-70) \cdot (10-10) + (80-70) \cdot (12-10) +  (50-70) \cdot (5-10) +  \\
-(90-70) \cdot (15-10) +  (60-70) \cdot (8-10)
+(10-10) \cdot (70-70) + (12-10) \cdot (80-70) +  (5-10) \cdot (50-70) +  \\
+(15-10) \cdot (90-70) +  (8-10) \cdot (60-70)
 \end{array}
 \right] \\
-&amp;= \frac{1}{4} \left[0 \cdot 0 + 10 \cdot 2 + (-20) \cdot (-5) + 20 \cdot 5 + (-10) \cdot (-2)\right] \\
+&amp;= \frac{1}{4} \left[0 \cdot 0 + 2 \cdot 10 + (-5) \cdot (-20) + 5 \cdot 20 + (-2) \cdot (-10)\right] \\
 &amp;= \frac{1}{4} \left[0 + 20 + 100 + 100 + 20\right] \\
 &amp;= \frac{1}{4} 240 \\
 &amp;= 60
 \end{aligned}
-\]</span></p>
+\tag{9.3}\]</span></span></p>
 <p><strong>3. Standardabweichungen berechnen</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(noten_lernzeit_tabelle<span class="sc">$</span>note)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -621,32 +621,32 @@ Tabelle&nbsp;9.1
 <pre><code>[1] 15.81139</code></pre>
 </div>
 </div>
-<p><span class="math display">\[
+<p><span id="eq-noten-lernzeit-standardabweichung-y"><span class="math display">\[
 \begin{aligned}
-\sigma_X &amp;= \sqrt{\frac{1}{n-1} \sum (X_i - \bar{X})^2} \\
+\sigma_Y &amp;= \sqrt{\frac{1}{n-1} \sum (Y_i - \bar{Y})^2} \\
 &amp;= \sqrt{\frac{1}{4} \left[(70-70)^2 + (80-70)^2 + (50-70)^2 + (90-70)^2 + (60-70)^2\right]} \\
 &amp;= \sqrt{\frac{1}{4} \left[0 + 100 + 400 + 400 + 100\right]} \\
 &amp;= \sqrt{\frac{1}{4} 1000} \\
 &amp;= \sqrt{250} \\
 &amp;\approx 15.81
 \end{aligned}
-\]</span></p>
+\tag{9.4}\]</span></span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(noten_lernzeit_tabelle<span class="sc">$</span>lernzeit)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.807887</code></pre>
 </div>
 </div>
-<p><span class="math display">\[
+<p><span id="eq-noten-lernzeit-standardabweichung-x"><span class="math display">\[
 \begin{aligned}
-\sigma_Y &amp;= \sqrt{\frac{1}{n-1} \sum (Y_i - \bar{Y})^2} \\
+\sigma_X &amp;= \sqrt{\frac{1}{n-1} \sum (X_i - \bar{X})^2} \\
 &amp;= \sqrt{\frac{1}{4} \left[(10-10)^2 + (12-10)^2 + (5-10)^2 + (15-10)^2 + (8-10)^2\right]} \\
 &amp;= \sqrt{\frac{1}{4} \left[0 + 4 + 25 + 25 + 4\right]} \\
 &amp;= \sqrt{\frac{1}{4} 58} \\
 &amp;= \sqrt{14.5} \\
 &amp;\approx 3.81
 \end{aligned}
-\]</span></p>
+\tag{9.5}\]</span></span></p>
 <p><strong>4. Pearson-Korrelationskoeffizient berechnen</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(noten_lernzeit_tabelle<span class="sc">$</span>note, noten_lernzeit_tabelle<span class="sc">$</span>lernzeit, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -657,7 +657,7 @@ Tabelle&nbsp;9.1
 <p><span class="math display">\[
 \begin{aligned}
 r &amp;= \frac{\text{Cov}(X, Y)}{\sigma_X \cdot \sigma_Y} \\
-&amp;= \frac{60}{15.81 \cdot 3.81} \\
+&amp;= \frac{60}{3.81 \cdot 15.81} \\
 &amp;= \frac{60}{60.21} \\
 &amp;\approx 0.997
 \end{aligned}
@@ -865,10 +865,10 @@ Beispiel
 <thead>
 <tr class="header">
 <th>Student</th>
-<th>Prüfungsnote (<span class="math inline">\(X\)</span>)</th>
-<th><span class="math inline">\(r_{X_{i}}\)</span></th>
-<th>Lernzeit (<span class="math inline">\(Y\)</span>)</th>
+<th>Prüfungsnote (<span class="math inline">\(Y\)</span>)</th>
 <th><span class="math inline">\(r_{Y_{i}}\)</span></th>
+<th>Lernzeit (<span class="math inline">\(X\)</span>)</th>
+<th><span class="math inline">\(r_{X_{i}}\)</span></th>
 </tr>
 </thead>
 <tbody>
@@ -1633,8 +1633,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./regression.html" class="pagination-link" aria-label="Regression">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./regression.html" class="pagination-link" aria-label="LineareRegression">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LineareRegression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

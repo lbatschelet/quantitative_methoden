@@ -256,7 +256,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LineareRegression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -355,8 +355,8 @@ window.Quarto = {
    
   <ul>
   <li><a href="#bias" id="toc-bias" class="nav-link active" data-scroll-target="#bias"><span class="header-section-number">11.1</span> Bias</a></li>
-  <li><a href="#mittlerer-absoluter-fehler-mae" id="toc-mittlerer-absoluter-fehler-mae" class="nav-link" data-scroll-target="#mittlerer-absoluter-fehler-mae"><span class="header-section-number">11.2</span> Mittlerer absoluter Fehler (MAE)</a></li>
-  <li><a href="#mittlerer-quadratischer-fehler-mse" id="toc-mittlerer-quadratischer-fehler-mse" class="nav-link" data-scroll-target="#mittlerer-quadratischer-fehler-mse"><span class="header-section-number">11.3</span> Mittlerer quadratischer Fehler (MSE)</a></li>
+  <li><a href="#sec-mae" id="toc-sec-mae" class="nav-link" data-scroll-target="#sec-mae"><span class="header-section-number">11.2</span> Mittlerer absoluter Fehler (MAE)</a></li>
+  <li><a href="#sec-mse" id="toc-sec-mse" class="nav-link" data-scroll-target="#sec-mse"><span class="header-section-number">11.3</span> Mittlerer quadratischer Fehler (MSE)</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/lbatschelet/quantitative_methoden/edit/main/fehlermasse.qmd" class="toc-action"><i class="bi bi-github"></i>Seite editieren</a></li><li><a href="https://github.com/lbatschelet/quantitative_methoden/issues/new?assignees=lbatschelet&amp;labels=bug%2C+enhancement&amp;projects=&amp;template=bug_report.md&amp;title=%5BChapter%5D+Brief+description+of+the+issue+or+suggestion" class="toc-action"><i class="bi empty"></i>Problem melden</a></li></ul></div></nav>
     </div>
@@ -416,13 +416,13 @@ window.Quarto = {
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        ax.text(<span class="op">-</span><span class="fl">2.5</span>, <span class="dv">0</span>, label_y, va<span class="op">=</span><span class="st">'center'</span>, ha<span class="op">=</span><span class="st">'center'</span>, rotation<span class="op">=</span><span class="dv">90</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Punkte für jede der vier Kategorien</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>points_precise_biased <span class="op">=</span> [(<span class="fl">0.8</span>, <span class="fl">0.8</span>), (<span class="fl">0.85</span>, <span class="fl">0.75</span>), (<span class="fl">0.75</span>, <span class="fl">0.85</span>), (<span class="fl">0.8</span>, <span class="fl">0.9</span>)]</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>points_precise_biased <span class="op">=</span> [(<span class="fl">0.8</span>, <span class="fl">0.8</span>), (<span class="fl">0.85</span>, <span class="fl">0.75</span>), (<span class="fl">0.9</span>, <span class="fl">0.8</span>)]</span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>points_imprecise_biased <span class="op">=</span> [(<span class="fl">1.1</span>, <span class="fl">1.1</span>), (<span class="fl">0.9</span>, <span class="fl">0.7</span>), (<span class="fl">1.2</span>, <span class="fl">0.8</span>), (<span class="fl">0.7</span>, <span class="fl">1.2</span>)]</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>points_precise_unbiased <span class="op">=</span> [(<span class="fl">0.05</span>, <span class="fl">0.05</span>), (<span class="op">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span>), (<span class="fl">0.05</span>, <span class="op">-</span><span class="fl">0.05</span>), (<span class="op">-</span><span class="fl">0.05</span>, <span class="op">-</span><span class="fl">0.05</span>)]</span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>points_imprecise_unbiased <span class="op">=</span> [(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), (<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>), (<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>), (<span class="dv">1</span>, <span class="dv">1</span>)]</span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellen des 2x2 Plots</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">4</span>))</span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Obere Reihe (biased)</span></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>draw_target(axs[<span class="dv">0</span>, <span class="dv">0</span>], points_precise_biased, <span class="st">"precise"</span>, label_y<span class="op">=</span><span class="st">"biased"</span>)</span>
@@ -440,15 +440,15 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div id="bias-plot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="fehlermasse_files/figure-html/bias-plot-output-1.png" width="699" height="631" class="figure-img"></p>
+<p><img src="fehlermasse_files/figure-html/bias-plot-output-1.png" width="363" height="335" class="figure-img"></p>
 <figcaption>Unterschiedliche Bias-Arten</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="mittlerer-absoluter-fehler-mae" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="mittlerer-absoluter-fehler-mae"><span class="header-section-number">11.2</span> Mittlerer absoluter Fehler (MAE)</h2>
+<section id="sec-mae" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="sec-mae"><span class="header-section-number">11.2</span> Mittlerer absoluter Fehler (MAE)</h2>
 <p><span class="math display">\[
 \begin{align*}
 \operatorname{MAE} &amp;= \frac{1}{N} \sum_{i=1}^{N} |\hat{y}_i - y_i| \\
@@ -456,8 +456,8 @@ window.Quarto = {
 \end{align*}
 \]</span></p>
 </section>
-<section id="mittlerer-quadratischer-fehler-mse" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="mittlerer-quadratischer-fehler-mse"><span class="header-section-number">11.3</span> Mittlerer quadratischer Fehler (MSE)</h2>
+<section id="sec-mse" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="sec-mse"><span class="header-section-number">11.3</span> Mittlerer quadratischer Fehler (MSE)</h2>
 <p><span class="math display">\[
 \begin{align*}
 \operatorname{MSE} &amp;= \frac{1}{N} \sum_{i=1}^{N} (\hat{y}_i - y_i)^2 \\
@@ -932,8 +932,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./regression.html" class="pagination-link" aria-label="Regression">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></span>
+      <a href="./regression.html" class="pagination-link" aria-label="LineareRegression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LineareRegression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

@@ -12,10 +12,10 @@ Die Hauptkomponentenanalyse (PCA) ist eine Methode der multivariaten Statistik, 
 
 ## Grundidee
 
-Die PCA transformiert die Ausgangsdaten in ein neues Koordinatensystem, in dem die größte Varianz der Daten entlang der ersten Achse (der ersten Hauptkomponente) liegt. Die zweite Hauptkomponente erklärt die zweitgrößte Varianz und steht orthogonal zur ersten, und so weiter. 
+Die PCA transformiert die Ausgangsdaten in ein neues Koordinatensystem, in dem die grösste Varianz der Daten entlang der ersten Achse (der ersten Hauptkomponente) liegt. Die zweite Hauptkomponente erklärt die zweitgrösste Varianz und steht orthogonal zur ersten, und so weiter. 
 
 **Wichtige Konzepte:**
-- **Varianz:** Ein Maß für die Streuung der Daten.
+
 - **Kovarianzmatrix:** Beschreibt, wie stark zwei Variablen gemeinsam variieren.
 - **Eigenwerte und Eigenvektoren:** Eigenwerte geben an, wie viel Varianz von einer Komponente erklärt wird; Eigenvektoren definieren die Richtung dieser Varianz.
 

@@ -1,4 +1,7 @@
-# Verteilungen
+---
+title: "Verteilungen"
+lang: "de-CH"
+---
 
 ![Ereignisraum, Wahrscheinlichkeit, Zufallsvariable](resources/ereignisraum.jpg){width="60%"}
 
@@ -394,7 +397,7 @@ Die Standardisierung wird verwendet, um verschiedene Elemente (d.h. Daten mit Bi
 
 Angenommen, wir haben eine Stichprobe von 5 Studierenden und ihre Prüfungsnoten (Skala 0–100):
 
-| Student | Note $x$    |
+| Student | Note $Y$    |
 |---------|-------------|
 | A       | 70          |
 | B       | 80          |
@@ -407,7 +410,11 @@ Angenommen, wir haben eine Stichprobe von 5 Studierenden und ihre Prüfungsnoten
 ###### Schritt 1: Berechnung des Mittelwerts
 
 $$
-\mu = \frac{70 + 80 + 50 + 90 + 60}{5} = \frac{350}{5} = 70
+\begin{aligned}
+\mu_Y = \bar{Y} &= \frac{70 + 80 + 50 + 90 + 60}{5} \\
+    &= \frac{350}{5} \\
+    &= 70
+\end{aligned}
 $$ {#eq-mittelwert-beispiel}
 
 ###### Schritt 2: Berechnung der Standardabweichung
@@ -422,7 +429,8 @@ Einsetzen der Werte:
 
 $$
 \begin{aligned}
-\sigma &= \sqrt{\frac{(70-70)^2 + (80-70)^2 + (50-70)^2 + (90-70)^2 + (60-70)^2}{5}} \\
+\sigma_Y &= \sqrt{\frac{\sum (Y_i - \bar{Y})^2}{n}} \\
+&= \sqrt{\frac{(70-70)^2 + (80-70)^2 + (50-70)^2 + (90-70)^2 + (60-70)^2}{5}} \\
 &= \sqrt{\frac{0 + 100 + 400 + 400 + 100}{5}} \\
 &= \sqrt{\frac{1000}{5}} \\
 &= \sqrt{200} \\
@@ -434,10 +442,10 @@ $$ {#eq-standardabweichung-beispiel}
 Nun berechnen wir für jede Note den z-Wert:
 
 $$
-z = \frac{x - 70}{15.81}
+z = \frac{Y_i - \bar{Y}}{\sigma_Y}
 $$
 
-| Student | Note $x$    | $z = \frac{x - 70}{14.14}$    |
+| Student | Note $Y$    | $z = \frac{Y_i - 70}{15.81}$  |
 |---------|-------------|-------------------------------|
 | A       | 70          | $\frac{70-70}{15.81} = 0$     |
 | B       | 80          | $\frac{80-70}{15.81} = 0.63$  |

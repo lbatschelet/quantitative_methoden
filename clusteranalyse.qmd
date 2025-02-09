@@ -43,7 +43,7 @@ grid$pred <- knn_pred
 ggplot(data, aes(x = x, y = y, color = group)) +
   geom_point(size = 2, alpha = 0.7) +  # Punkte
   geom_contour(data = grid, aes(z = as.numeric(pred)), 
-               breaks = c(1.5, 2.5), color = "black", size = 0.2, linetype = "solid") +  # Wilde Grenzen
+               breaks = c(1.5, 2.5), color = "black", linewidth = 0.2, linetype = "solid") +  # Wilde Grenzen
   stat_density_2d(aes(fill = group), geom = "polygon", alpha = 0.2, color = NA) +  # Farbige Dichtekonturen
   theme_minimal() +
   theme(legend.position = "none")
@@ -55,11 +55,25 @@ Eine Clusteranalyse klassifiziert Bezugs/Raumeinheiten auf der Grundlage von Äh
 
 Eine einfachste Methode zur Klassifizierung ist die Schwellenwertanalyse. Diese erfordert theoretische oder empirische Kenntnisse über die zu klassifizierenden Objekte und nutzt subjektie Schwellenwerte.
 
+Beispielanwendung:
+
+- Spam-Filterung (Mails über bestimmtem Score als Spam markieren)
+- Betrugserkennung (Transaktionen mit Anomalie-Score > Schwelle)
+- Kreditrisikobewertung (Kunden mit Score < Grenzwert als risikoreich einstufen)
+
+
 ## Nicht-hierarchische Verfahren
 
 - Werte so lange immer wieder auf die Cluster verteilt, bis die Summe der Abstände von zugehörigen Cluster-Mitten minimal ist
 - Vorteil: Werte werden flexibel auf Cluster verteilt
 - Nachteil: Anzahl der Cluster muss a-priori vorgegeben werden
+
+Beispielanwendung:
+ 
+- Kundensegmentierung im Marketing
+- Mustererkennung in Bildverarbeitung
+- Gruppierung von News-Artikeln nach Themen
+
 
 ### k-Means
 
@@ -106,6 +120,14 @@ ggplot(data_kmeans, aes(x = x, y = y, color = cluster)) +
 - iterative Vorgehensweise, bei der die Cluster des letzten Schrittes immer weiter zusammengefasst werden
 -  Nachteil: Einmal klassifizierte Werte verbleiben in dem Cluster auch wenn sich die Eigenschaften des Cluster im Laufe der Verfahrensschritte verändern
 -  Vorteil: Anzahl der Cluster muss nicht a-priori vorgegeben werden
+
+Beispielanwendung:
+ 
+- Verwandtschaftsanalyse in der Genetik  
+- Klassifikation von Dokumenten (Taxonomien)  
+- Analyse von Verkehrsströmen in Städten
+
+
 
 
 

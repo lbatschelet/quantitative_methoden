@@ -1,4 +1,7 @@
-# Glossar
+---
+title: "Glossar"
+lang: "de-CH"
+---
 
 ## Mittelwert $\bar{x}$ oder $\mu$
 
@@ -59,7 +62,7 @@ var(x)
 - **Beschreibung:** Die Standardabweichung ist die Wurzel der Varianz und beschreibt die durchschnittliche Abweichung der Werte vom Mittelwert.
 - **Formel:**  
 $$
-s = \sqrt{s^2}, \quad \sigma = \sqrt{\sigma^2}
+\sigma = \sqrt{s^2}, \quad \sigma = \sqrt{\sigma^2}
 $$
 - **Anwendung:** Zeigt, wie weit die Daten im Durchschnitt um den Mittelwert streuen. Häufig verwendet in der deskriptiven Statistik.
 - **R-Code:**  
@@ -69,13 +72,13 @@ sd(x)
 
 ---
 
-## Standardfehler $SE$
+## Standardfehler $\operatorname{SE}$
 
-- **Symbol:** $SE$  
+- **Symbol:** $\operatorname{SE}$  
 - **Beschreibung:** Der Standardfehler des Mittelwerts misst, wie genau der Mittelwert einer Stichprobe den wahren Mittelwert der Population schätzt.
 - **Formel:**  
 $$
-SE = \frac{s}{\sqrt{n}}
+\operatorname{SE} = \frac{\sigma}{\sqrt{n}}
 $$
 - **Anwendung:** Grundlage für Konfidenzintervalle und Hypothesentests.
 - **R-Code:**  

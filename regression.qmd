@@ -1,16 +1,8 @@
 ---
+title: "LineareRegression"
 lang: "de-CH"
 code-annotations: hover
 ---
-
-
-# Regression
-
-Ja, du hast recht! Das Problem unten hat tatsächlich **mit der Interpretation der Koeffizienten als Faktoren (multiplikativ vs. additiv)** zu tun, nicht nur mit der Annahme der konstanten Variablen. Ich formuliere den gesamten Abschnitt jetzt so, dass er **präzise, verständlich und statistisch korrekt ist**:
-
----
-
-## **Lineare Regression**  
 
 **Ziel:**  
 
@@ -67,7 +59,941 @@ $$
 
 Das Ziel der linearen Regression ist es, diese Abweichungen so klein wie möglich zu halten.
 
-### Durchführung
+::: {.callout-note title="Beispiel"}
+
+Wir betrachten die Daten aus @tbl-noten-lernzeit-beispiel und untersuchen den Zusammenhang zwischen Lernzeit (h/Woche, $X$) und Prüfungsnote ($Y$).
+
+
+**1. Gegebene Werte**
+
+Bereits bekannte Werte aus vorherigen Berechnungen:
+
+- **Mittelwerte:**  
+  $\bar{X} = 10$ (@eq-noten-lernzeit-mittelwert-x), \quad $\bar{Y} = 70$ (@eq-noten-lernzeit-mittelwert-y)
+
+- **Standardabweichungen:**  
+  $\sigma_X = 3.81$ (@eq-noten-lernzeit-standardabweichung-x), \quad $\sigma_Y = 15.81$ (@eq-noten-lernzeit-standardabweichung-y)
+
+- **Kovarianz:**  
+  $\text{Cov}(X, Y) = 60$ (@eq-noten-lernzeit-kovarianz)
+
+- **Varianz von $X$:**  
+  $\sigma_X^2 = 14.5$ ergibt sich aus $\sigma_X$
+
+**2. Berechnung der Regressionskoeffizienten**
+
+- Steigung $\beta_1$
+
+$$
+\begin{aligned}
+\beta_1 &= \frac{\text{Cov}(X, Y)}{\sigma_X^2} \\
+&= \frac{60}{14.5} \\
+&\approx 4.14
+\end{aligned}
+$$
+
+```{r}
+#| echo: true
+#| label: beta1
+#| code-fold: false
+
+library(tibble)
+
+noten_lernzeit_tabelle <- tibble(
+    student = c("A", "B", "C", "D", "E"),
+    note = c(70, 80, 50, 90, 60),
+    lernzeit = c(10, 12, 5, 15, 8)
+)
+
+
+model <- lm(note ~ lernzeit, data = noten_lernzeit_tabelle)
+beta1 <- coef(model)[2]  # Zweites Element ist der Koeffizient für lernzeit
+beta1
+```
+
+
+$\Rightarrow$ Jede zusätzliche Lernstunde pro Woche erhöht die erwartete Prüfungsnote um 4.14 Punkte.
+
+- Achsenabschnitt $\beta_0$
+
+$$
+\begin{aligned}
+\beta_0 &= \bar{Y} - \beta_1 \bar{X} \\
+&\approx 70 - (4.14 \cdot 10) \\
+&\approx 70 - 41.4 \\
+&\approx 28.6
+\end{aligned}
+$$
+
+```{r}
+#| echo: true
+#| label: beta0
+#| code-fold: false
+
+beta0 <- coef(model)[1]  # Erstes Element ist der Koeffizient für den Achsenabschnitt
+beta0
+```
+
+$\Rightarrow$ Ohne Lernzeit ($X = 0$) wäre die erwartete Note 28.6.
+
+**3. Regressionsgleichung**
+
+$$
+\hat{Y} \approx 28.6 + 4.14 X
+$$
+
+**4. Vorhersagewerte $\hat{Y}$**
+
+Die vorhergesagten Prüfungsnoten für unsere Lernzeiten:
+
+| Student | $X$ (Lernzeit) | $Y$ (Tatsächlich) | $\hat{Y}$ (Vorhersage)              |
+|---------|----------------|-------------------|-------------------------------------|
+| A       | 10             | 70                | $28.6 + 4.14 \cdot 10 \approx 70.0$ |
+| B       | 12             | 80                | $28.6 + 4.14 \cdot 12 \approx 78.3$ |
+| C       | 5              | 50                | $28.6 + 4.14 \cdot 5 \approx 49.3$  |
+| D       | 15             | 90                | $28.6 + 4.14 \cdot 15 \approx 90.7$ |
+| E       | 8              | 60                | $28.6 + 4.14 \cdot 8 \approx 61.7$  |
+
+Wir sehen, dass die vorhergesagten Werte gut zu den tatsächlichen Werten passen.
+
+**5. Berechnung der Residuen $e_i$**
+
+Das Residuum ist die Differenz zwischen tatsächlichem Wert $Y_i$ und vorhergesagtem Wert $\hat{Y}_i$:
+
+$$
+e_i = Y_i - \hat{Y}_i
+$$
+
+
+| Student | $Y$ (Tatsächlich) | $\hat{Y}$ (Vorhersage) | Residuum $e_i$     |
+|---------|-------------------|------------------------|--------------------|
+| A       | 70                | 70.0                   | $70 - 70 = 0.0$    |
+| B       | 80                | 78.3                   | $80 - 78.3 = 1.7$  |
+| C       | 50                | 49.3                   | $50 - 49.3 = 0.7$  |
+| D       | 90                | 90.7                   | $90 - 90.7 = -0.7$ |
+| E       | 60                | 61.7                   | $60 - 61.7 = -1.7$ |
+
+
+Die Residuen sind klein, was bedeutet, dass die Regressionsgerade gut zu den Daten passt.
+
+**Interpretation:**
+
+  - Jede zusätzliche Lernstunde erhöht die erwartete Prüfungsnote um 4.14 Punkte.  
+  - Ohne zu lernen (wenn $X = 0$), wäre die erwartete Note 28.6.  
+
+:::
+
+
+## Bestimmung der Modellgüte
+
+Die Güte der Anpassung wird durch das **Bestimmtheitsmass** $R^2$ beurteilt. Dieses Mass gibt an, welcher Anteil der Gesamtvariation von $Y$ durch das Modell erklärt wird:
+
+$$
+R^2 = \frac{\text{erklärte Variation}}{\text{Gesamtvariation}} = 1 - \frac{\text{Residuenvariation}}{\text{Gesamtvariation}}
+$$
+
+Das bedeutet:
+
+$$
+R^2 = 1 - \frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2}{\sum_{i=1}^{n} (Y_i - \bar{Y})^2}
+$$
+
+- $Y_i$ ist der tatsächliche Wert der abhängigen Variablen.  
+- $\hat{Y}_i$ ist der vorhergesagte Wert der abhängigen Variablen.  
+- $\bar{Y}$ ist der Mittelwert von $Y$.  
+- Der Zähler beschreibt die **Residuenvariation** (nicht erklärte Abweichung).  
+- Der Nenner beschreibt die **Gesamtvariation** (Gesamtstreuung der Daten).  
+
+**Eigenschaften von $R^2$:**  
+
+- $R^2$ liegt **immer zwischen 0 und 1**.  
+- $R^2 = 1$ bedeutet **perfekte Anpassung** (alle Datenpunkte liegen exakt auf der Regressionsgeraden).  
+- $R^2 = 0$ bedeutet **keine Anpassung** (die unabhängige Variable erklärt nichts).  
+
+### Testen der Signifikanz der Regressionskoeffizienten
+
+Um zu überprüfen, ob die unabhängige Variable tatsächlich einen **signifikanten Einfluss auf $Y$** hat, testen wir die Hypothesen:
+
+- **Nullhypothese $H_0$:** Kein linearer Zusammenhang $\Rightarrow \beta_1 = 0$.  
+- **Alternativhypothese $H_1$:** Es gibt einen linearen Zusammenhang $\Rightarrow \beta_1 \neq 0$.  
+
+Da wir $\beta_1$ nicht direkt kennen, schätzen wir ihn mit $\widehat{\beta}_1$ und testen, ob dieser **signifikant von 0 verschieden ist**. Dafür berechnen wir die Teststatistik:
+
+$$
+T = \frac{\widehat{\beta}_1}{\operatorname{SE}_{\beta_1}}
+$$
+
+wobei der **Standardfehler von $\beta_1$** durch:
+
+$$
+\operatorname{SE}_{\beta_1} = \sqrt{\frac{\frac{1}{n-2} \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2}{\sum_{i=1}^{n} (X_i - \bar{X})^2}}
+$$
+
+gegeben ist.
+
+- $T$ folgt einer **t-Verteilung mit $n - 2$ Freiheitsgraden**, da wir die beiden Regressionskoeffizienten ($\beta_0, \beta_1$) aus der Stichprobe schätzen.  
+- **Wenn $|T|$ gross genug ist**, lehnen wir $H_0$ ab → **$X$ hat einen signifikanten Einfluss auf $Y$**.  
+
+**Interpretation des Tests:**  
+
+- Falls der p-Wert kleiner als $0.05$ ist, lehnen wir $H_0$ ab. Es gibt **einen signifikanten linearen Zusammenhang**.  
+- Falls der p-Wert grösser als $0.05$ ist, können wir **keine signifikante Beziehung feststellen**.  
+
+
+::: {.callout-note title="Beispiel"}
+
+Wir überprüfen die Signifikanz der Regressionskoeffizienten für das Beispiel der Lernzeit und der Prüfungsnote.
+
+**1. Berechnung der Gesamtvariation $SS_{total}$**
+
+Die Gesamtvariation ist die Summe der quadrierten Abweichungen jedes $Y_i$ vom Mittelwert $\bar{Y}$:
+
+$$
+\begin{aligned}
+SS_{\text{total}} &= \sum_{i=1}^{n} (Y_i - \bar{Y})^2 \\
+&= \sum_{i=1}^{n} (70 - 70)^2 + (80 - 70)^2 + (50 - 70)^2 + (90 - 70)^2 + (60 - 70)^2 \\
+&= 0 + 100 + 400 + 400 + 100 \\
+&= 1000
+\end{aligned}
+$$
+
+```{r}
+#| echo: true
+#| label: total-variation
+#| code-fold: false
+
+ss_total <- sum((noten_lernzeit_tabelle$note - mean(noten_lernzeit_tabelle$note))^2)
+ss_total
+```
+
+**2. Berechnung der Residuenvariation $SS_{residual}$**
+
+Die Residuenvariation ist die Summe der quadrierten Abweichungen der tatsächlichen Werte $Y_i$ von den vorhergesagten Werten $\hat{Y}_i$, berechnet mit der Regressionsgleichung:
+
+$$
+\begin{aligned}
+\hat{Y}_i &= 28.6 + 4.14 X_i \\
+&= 0^2 + 1.7^2 + 0.7^2 + (-0.7)^2 + (-1.7)^2 \\
+&\approx 0 + 2.89 + 0.49 + 0.49 + 2.89 \\
+&\approx 6.9
+\end{aligned}
+$$
+
+```{r}
+#| echo: true
+#| label: residual-variation
+#| code-fold: false
+
+ss_residual <- sum(model$residuals^2)
+ss_residual
+```
+
+### **3. Berechnung des Bestimmtheitsmasses $R^2$**
+
+Nun setzen wir die Werte in die Formel ein:
+
+$$
+R^2 = 1 - \frac{SS_{\text{residual}}}{SS_{\text{total}}}
+$$
+
+```{r}
+#| echo: true
+#| label: r-squared
+#| code-fold: false
+
+r_squared <- summary(model)$r.squared
+r_squared
+```
+
+$$
+\begin{aligned}
+R^2 &\approx 1 - \frac{6.9}{1000} \\
+&\approx 1 - 0.0069 \\
+&\approx 0.993
+\end{aligned}
+$$
+
+$\Rightarrow$ **99.3% der Variation in den Prüfungsnoten wird durch die Lernzeit erklärt.**  
+Das Modell passt also sehr gut zu den Daten.
+
+
+**4. Berechnung des Standardfehlers von $\beta_1$**
+
+$$
+\begin{aligned}
+\operatorname{SE}_{\beta_1} &= \sqrt{\frac{\frac{1}{n-2} \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2}{\sum_{i=1}^{n} (X_i - \bar{X})^2}} \\
+&= \sqrt{\frac{\frac{1}{3} \sum_{i=1}^{5} (Y_i - \hat{Y}_i)^2}{\sum_{i=1}^{5} (X_i - \bar{X})^2}} \\
+&= \sqrt{\frac{\frac{1}{3} \left[(70-70)^2 + (80-78.3)^2 + (50-49.3)^2 + (90-90.7)^2 + (60-61.7)^2\right]}{\left[(10-10)^2 + (12-10)^2 + (5-10)^2 + (15-10)^2 + (8-10)^2\right]}} \\
+&= \sqrt{\frac{\frac{1}{3} \left[0^2 + 1.7^2 + 0.7^2 + (-0.7)^2 + (-1.7)^2\right]}{\left[0^2 + 2^2 + (-5)^2 + 5^2 + (-2)^2\right]}} \\
+&= \sqrt{\frac{\frac{1}{3} \left[0 + 2.89 + 0.49 + 0.49 + 2.89\right]}{\left[0 + 4 + 25 + 25 + 4\right]}} \\
+&= \sqrt{\frac{\frac{1}{3} \left[6.76\right]}{58}} \\
+&\approx \sqrt{\frac{2.53}{58}} \\
+&\approx \sqrt{0.039} \\
+&\approx 0.197
+\end{aligned}
+$$
+
+```{r}
+#| echo: true
+#| label: standard-error
+#| code-fold: false
+
+se_beta1 <- summary(model)$coefficients[2, "Std. Error"]
+se_beta1
+```
+
+**5. Berechnung der Teststatistik $T$**
+
+$$
+\begin{aligned}
+T &= \frac{\widehat{\beta}_1}{\operatorname{SE}_{\beta_1}} \\
+&= \frac{4.14}{0.197} \\
+&\approx 20.79
+\end{aligned}
+$$
+
+```{r}
+#| echo: true
+#| label: t-value
+#| code-fold: false
+
+t_value <- coef(summary(model))[2, "t value"]
+t_value
+```
+
+
+**6. Berechnung des p-Werts**
+
+Da die Teststatistik $T$ einer **t-Verteilung mit $n-2$ Freiheitsgraden** folgt, berechnen wir den **p-Wert** für den zweiseitigen Test:
+
+$$
+p = 2 \cdot P(T \geq |t_{\text{berechnet}}|)
+$$
+
+```{r}
+#| echo: true
+#| label: p-value
+#| code-fold: false
+
+p_value <- summary(model)$coefficients[2, "Pr(>|t|)"]
+p_value
+```
+
+**Interpretation:**
+
+- Der berechnete p-Wert ist **sehr klein** $(p \approx 0.0002)$.
+- Da $p < 0.05$, können wir die **Nullhypothese $H_0$ ablehnen**.
+- Das bedeutet: **Die Lernzeit hat einen signifikanten Einfluss auf die Prüfungsnote.**
+- Da der p-Wert sogar weit unter 0.001 liegt, ist der Zusammenhang **hochsignifikant**.
+
+**Fazit:**  
+Die **Regressionskoeffizienten sind signifikant**. Es gibt **starke Evidenz**, dass eine höhere Lernzeit zu besseren Prüfungsnoten führt.
+
+
+:::
+
+#### Konfidenzintervall der Regressionskoeffizienten
+
+$$
+\beta_1 = \widehat{\beta_1} \pm q_t \cdot \operatorname{SE}_{\beta_1} \quad \text{mit} \quad q_t \text{ aus der T-Tabelle}
+$$
+
+- $t_{n-2}$ ist der kritische Wert der t-Verteilung mit $n-2$ Freiheitsgraden
+- $\operatorname{SE}_{\beta_1}$ ist der Standardfehler der Steigung
+- $\widehat{\beta_1}$ ist der geschätzte Regressionskoeffizient der Stichprobe
+
+### Berechnung der linearen Regression in R
+
+```{r}
+#| label: linear-regression-in-r
+#| echo: true
+
+
+# Lineare Regression durchführen
+model <- lm(note ~ lernzeit, data = noten_lernzeit_tabelle)
+model
+```
+
+Die Ausgabe der Funktion `lm()` zeigt uns:
+
+1. **Call**: Die verwendete Formel für die Regression
+   - `y ~ x` bedeutet: y wird durch x vorhergesagt
+
+2. **Coefficients**: Die geschätzten Regressionskoeffizienten
+   - **(Intercept)**: $\widehat{\beta_0}$ = `{r} round(model$coefficients[1], 3)`
+     - Dies ist der y-Achsenabschnitt
+     - Der vorhergesagte y-Wert, wenn x = 0
+   - **x**: $\widehat{\beta_1}$ = `{r} round(model$coefficients[2], 3)`
+     - Dies ist die Steigung der Geraden
+     - Für jede Einheit, die x zunimmt, steigt y um `{r} round(model$coefficients[2], 3)` Einheiten
+
+Für eine detailliertere Analyse können wir die Funktion `summary()` verwenden:
+
+```{r}
+#| label: regression-summary
+#| echo: true
+#| 
+summary(model)
+```
+
+Die `summary()` zeigt uns zusätzlich:
+
+1. **Residuals**: Verteilung der Abweichungen zwischen vorhergesagten und tatsächlichen Werten
+   - Minimum: `{r} round(summary(model)$residuals[which.min(summary(model)$residuals)], 3)`
+   - Maximum: `{r} round(summary(model)$residuals[which.max(summary(model)$residuals)], 3)`
+   - Die Quartile zeigen, wie die Residuen verteilt sind
+   - Idealerweise symmetrisch um 0
+
+2. **Coefficients-Tabelle**:
+   - **Intercept** ($\widehat{\beta_0}$ = `{r} round(coef(summary(model))[1,1], 3)`):
+     - Standardfehler: `{r} round(coef(summary(model))[1,2], 3)`
+     - t-Wert: `{r} round(coef(summary(model))[1,3], 3)`
+     - p-Wert: `{r} round(coef(summary(model))[1,4], 3)`
+     - Signifikant auf dem `{r} if(coef(summary(model))[1,4] < 0.001) {"0.1%"} else if(coef(summary(model))[1,4] < 0.01) {"1%"} else if(coef(summary(model))[1,4] < 0.05) {"5%"} else {"nicht signifikant"}` Niveau
+   - **Steigung** ($\widehat{\beta_1}$ = `{r} round(coef(summary(model))[2,1], 3)`):
+     - Standardfehler: `{r} round(coef(summary(model))[2,2], 3)`
+     - t-Wert: `{r} round(coef(summary(model))[2,3], 3)`
+     - p-Wert: `{r} round(coef(summary(model))[2,4], 3)`
+     - Signifikant auf dem `{r} if(coef(summary(model))[2,4] < 0.001) {"0.1%"} else if(coef(summary(model))[2,4] < 0.01) {"1%"} else if(coef(summary(model))[2,4] < 0.05) {"5%"} else {"nicht signifikant"}` Niveau
+
+3. **Modellgüte**:
+   - $R^2$ = `{r} round(summary(model)$r.squared, 3)` 
+     - `{r} round(summary(model)$r.squared * 100, 1)`% der Varianz in y wird durch x erklärt
+   - Adjustiertes $R^2$ = `{r} round(summary(model)$adj.r.squared, 3)`
+     - Berücksichtigt die Anzahl der Prädiktoren
+
+4. **F-Test**:
+   - F-Wert: `{r} round(summary(model)$fstatistic[1], 3)`
+   - Freiheitsgrade: `{r} summary(model)$fstatistic[2]` und `{r} summary(model)$fstatistic[3]`
+   - p-Wert: `{r} round(pf(summary(model)$fstatistic[1], summary(model)$fstatistic[2], summary(model)$fstatistic[3], lower.tail = FALSE), 5)`
+   - Das Modell ist `{r} if(pf(summary(model)$fstatistic[1], summary(model)$fstatistic[2], summary(model)$fstatistic[3], lower.tail = FALSE) < 0.05) {"statistisch signifikant"} else {"nicht statistisch signifikant"}`
+
+## Multiple Regression
+
+In der einfachen linearen Regression versuchen wir, den Zusammenhang zwischen einer abhängigen Variable $Y$ und einem Prädiktor $X_1$ zu modellieren. Doch was passiert, wenn $Y$ nicht vollständig durch $X_1$ alleine erklärt werden kann? 
+
+Stellen wir uns vor, wir haben Daten, bei denen wir vermuten, dass $X_1$ einen Einfluss auf $Y$ hat. Wir beginnen mit einer einfachen linearen Regression:
+
+```{r}
+#| label: simple-regression
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Erste Regression: Y in Abhängigkeit von X1"
+
+set.seed(42)
+# Daten simulieren
+n <- 100
+X1 <- rnorm(n, mean = 10, sd = 2)
+X2 <- rnorm(n, mean = 5, sd = 1.5)
+Y <- 3 * X1 + 2 * X2 + rnorm(n, sd = 3)
+
+# Einfache lineare Regression Y ~ X1
+model_X1 <- lm(Y ~ X1)
+
+# Plot
+plot(X1, Y, pch = 19, col = rgb(105/255, 89/255, 205/255, alpha = 0.5), 
+     xlab = "X1", ylab = "Y")
+abline(model_X1, col = "red", lwd = 2)
+```
+
+Wir erkennen, dass $X_1$ einen deutlichen Einfluss auf $Y$ hat. Doch die Vorhersagen des Modells sind nicht perfekt – es bleiben **Residuen** übrig, also Abweichungen zwischen den tatsächlichen Werten von $Y$ und den durch das Modell prognostizierten Werten.
+
+Diese Residuen sind nicht einfach nur zufälliges Rauschen. Sie könnten Hinweise darauf liefern, dass noch **weitere Faktoren** im Spiel sind, die wir bisher nicht berücksichtigt haben.
+
+Um das zu überprüfen, untersuchen wir, ob ein weiterer Prädiktor $X_2$ möglicherweise einen Teil dieser unerklärten Varianz in $Y$ aufklären kann. Dazu betrachten wir die Residuen der ersten Regression und analysieren, ob sie mit $X_2$ zusammenhängen:
+
+```{r}
+#| label: residual-regression
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Zweite Regression: Residuen von Y ~ X1 in Abhängigkeit von X2"
+
+# Berechne die Residuen der ersten Regression
+residuals_X1 <- resid(model_X1)
+
+# Regression der Residuen auf X2
+model_resid_X2 <- lm(residuals_X1 ~ X2)
+
+# Plot
+plot(X2, residuals_X1, pch = 19, col = rgb(105/255, 89/255, 205/255, alpha = 0.5), 
+     xlab = "X2", ylab = "Residuen von Y ~ X1")
+abline(model_resid_X2, col = "orange", lwd = 2)
+```
+
+Wir sehen, dass die Residuen tatsächlich einen Zusammenhang mit $X_2$ aufweisen. Das bedeutet, dass $X_2$ Varianz in $Y$ erklärt, die nicht durch $X_1$ erfasst wurde.
+
+Man könnte diesen Prozess theoretisch weiterführen: Nachdem wir den Einfluss von $X_2$ modelliert haben, könnten wir die neuen Residuen betrachten und versuchen, diese durch einen weiteren Prädiktor $X_3$ zu erklären. Und so weiter.
+
+Dieses schrittweise Vorgehen wirft jedoch ein Problem auf: Was passiert, wenn $X_1$, $X_2$, ..., $X_k$ miteinander korrelieren?
+
+- In diesem Fall ist es schwierig, die individuellen Effekte der einzelnen Prädiktoren zu isolieren.
+- Der Einfluss von $X_2$ könnte bereits teilweise in der ersten Regression durch $X_1$ berücksichtigt worden sein – und umgekehrt.
+- Durch das schrittweise Vorgehen riskieren wir, *Doppelerklärungen* oder *verzerrte Effekte* zu erhalten.
+
+Wir brauchen einen Ansatz, der es uns ermöglicht, den Einfluss mehrerer Prädiktoren *gleichzeitig* zu berücksichtigen.
+
+::: {.callout-note collapse=false title="Beispiel"}
+
+Wir versuchen, den Abfluss eines Gebirgsbachs zu modellieren.
+
+- $Y$: Abfluss
+- $X_1$: Schneeschmelze
+- $X_2$: Niederschlag
+
+Wenn wir den Abfluss $Y$ zunächst in Abhängigkeit von der Schneeschmelze $X_1$ modellieren, stellen wir fest, dass ein Teil der Varianz von $Y$ nicht erklärt wird. Wir vermuten, dass der Niederschlag $X_2$ einen zusätzlichen Einfluss haben könnte. Also modellieren wir die Residuen aus der ersten Regression in Abhängigkeit von $X_2$.
+
+Doch hier entsteht ein Problem: *Schneeschmelze und Niederschlag sind oft korreliert.* Nach starken Niederschlägen folgt häufig eine beschleunigte Schneeschmelze. Wenn wir $X_2$ nur auf die Residuen von $X_1$ anwenden, übersehen wir möglicherweise den gemeinsamen Einfluss beider Faktoren. 
+
+Das führt zu verzerrten Ergebnissen, da der Niederschlag sowohl einen direkten Einfluss auf den Abfluss hat als auch indirekt über die Schneeschmelze wirkt. 
+:::
+
+**Bemerkung:** Wenn die Prädiktoren *nicht* korrelieren, ist die Regression der Residuen mit weiteren Variablen möglich.
+
+
+### Ziel:
+
+Vorhersage einer **metrischen abhängigen Variable** durch mehrere **unabhängige Variablen** (*Prädiktoren*).  
+
+**Voraussetzungen:**  
+
+- Ein **statistischer Zusammenhang** zwischen den Prädiktoren und der Zielvariable sollte plausibel sein.  
+- Ein **Modell**, das die Abhängigkeit der Zielvariable von den Prädiktoren beschreibt.  
+
+Die allgemeine Form der **multiplen linearen Regression** lautet:
+
+$$
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \ldots + \beta_k X_k + \varepsilon
+$$
+
+- $Y$ ist die abhängige Variable.  
+- $X_1, X_2, \ldots, X_k$ sind die unabhängigen Variablen (*Prädiktoren*).  
+- $\beta_0$ ist die *Regressionskonstante* (Achsenabschnitt).  
+- $\beta_1, \beta_2, \ldots, \beta_k$ sind die *Regressionskoeffizienten*, die den Einfluss der jeweiligen Prädiktoren auf $Y$ beschreiben.  
+- $\varepsilon$ ist der *Fehlerterm*, der alle nicht erfassten Einflüsse berücksichtigt.  
+
+**Interpretation der Regressionskoeffizienten**  
+
+- Wenn $X_i$ um *eine Einheit* steigt, verändert sich $Y$ um $\beta_i$, **unter der Annahme, dass alle anderen Prädiktoren konstant bleiben**.  
+- Beispiel: Wenn $\beta_1 = 2$, dann bedeutet das, dass eine Erhöhung von $X_1$ um *eine Stunde Lernzeit* zu einer durchschnittlichen Erhöhung der Prüfungsnote um *2 Punkte* führt.  
+
+
+### Ansatz
+
+- Minimierung der Summe der quadrierten Residuen:
+
+$$
+\sum_{i=1}^{n} (Y_i - \widehat{\beta_0} - \widehat{\beta_1} X_{1i} - \widehat{\beta_2} X_{2i} - \ldots - \widehat{\beta_k} X_{ki})^2 \quad \rightarrow \quad \text{minimal}
+$$
+
+- Dafür müssen die partiellen Ableitungen nach allen $\beta_j$ gleich null gesetzt werden
+- Koeffizienten der multiplen Regression werden auch "partielle Regressionskoeffizienten" genannt
+
+$$
+\widehat{Y_i} = \widehat{\beta_0} + \widehat{\beta_1} X_{1i} + \widehat{\beta_2} X_{2i} + \ldots + \widehat{\beta_k} X_{ki}
+$$
+
+oder in Matrixnotation:
+
+$$
+\widehat{Y} = X \widehat{\beta} \quad \text{mit} \quad \widehat{Y} = \begin{bmatrix} \widehat{Y_1} \\ \widehat{Y_2} \\ \vdots \\ \widehat{Y_n} \end{bmatrix}, \quad \widehat{\beta} = \begin{bmatrix} \widehat{\beta_0} \\ \widehat{\beta_1} \\ \vdots \\ \widehat{\beta_k} \end{bmatrix} \quad \text{und} \quad X = \begin{bmatrix} 1 & X_{11} & X_{21} & \ldots & X_{k1} \\ 1 & X_{12} & X_{22} & \ldots & X_{k2} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & X_{1n} & X_{2n} & \ldots & X_{kn} \end{bmatrix}
+$$
+
+
+::: {.callout-note title="Beispiel"}
+
+> Da die Berechnung einer multiplen Regression sehr komplex ist, verwenden wir hierfür R und verzichten auf die manuelle Berechnung.
+
+Wir verwenden die Daten aus @tbl-noten-lernzeit-beispiel und ergänzen sie um zwei weitere Prädiktoren: **Schlafdauer** und **Kaffeekonsum**.
+
+| Student | Lernzeit $X_1$         | Schlafdauer $X_2$       | Kaffee $X_3$                     | Prüfungsnote $Y$   |
+|---------|------------------------|-------------------------|----------------------------------|--------------------|
+| A       | 10                     | 7.5                     | 2                                | 70                 |
+| B       | 12                     | 6.5                     | 3                                | 80                 |
+| C       | 5                      | 6.0                     | 0                                | 50                 |
+| D       | 15                     | 8.5                     | 5                                | 90                 |
+| E       | 8                      | 8.0                     | 1                                | 60                 |
+
+: {#tbl-noten-multiple-regression}
+
+**1. Regressionsmodell aufstellen**  
+
+Wir schätzen die folgende multiple lineare Regression:
+
+$$
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \varepsilon
+$$
+
+```{r}
+#| echo: true
+#| label: multiple-regression-1
+#| code-fold: false
+
+library(tibble)
+
+noten_lernzeit_schlaf_kaffee <- tibble(
+    student = c("A", "B", "C", "D", "E"),
+    lernzeit = c(10, 12, 5, 15, 8),
+    schlafdauer = c(7.5, 6.5, 6.0, 8.5, 8.0),
+    kaffee = c(2, 3, 0, 5, 1),
+    note = c(70, 80, 50, 90, 60)
+)
+
+# Multiple lineare Regression durchführen
+model_multiple <- lm(note ~ lernzeit + schlafdauer + kaffee, data = noten_lernzeit_schlaf_kaffee)
+
+# Ergebnisse anzeigen
+summary(model_multiple)
+```
+
+**2. Berechnung der Regressionskoeffizienten**  
+
+Die geschätzte **Regressionsgleichung** lautet:
+
+$$
+\begin{aligned}
+\hat{Y} &= \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 \\
+       &\approx 36.8 + 4.53 X_1 + (-1.58) X_2 + (- 0.26) X_3
+\end{aligned}
+$$
+
+
+**Interpretation:**  
+
+- $\beta_1$ (Lernzeit) ist erwartungsgemäss positiv und signifikant (p < 0.05).  
+- $\beta_2$ (Schlafdauer) zeigt einen leichten negativen Effekt, mit knapp über unserem Signifikanzniveau von 0.05 (p < 0.1)  
+- $\beta_3$ (Kaffeekonsum) ist leicht negativ, zeigt aber keinen signifikanten Zusammenhang (p > 0.05).  
+
+**3. Modellgüte und Vorhersagekraft**  
+
+Das **Bestimmtheitsmaß** $R^2$ gibt an, wie gut unser Modell die Prüfungsnoten erklärt:
+
+$$
+R^2 = 1 - \frac{SS_{\text{residual}}}{SS_{\text{total}}}
+$$
+
+```{r}
+#| echo: true
+#| label: r-squared-2
+#| code-fold: false
+
+summary(model_multiple)$r.squared
+```
+
+**Interpretation:**  
+
+- Mit $R^2 =$ `r round(summary(model_multiple)$r.squared, 2)` sehen wir, dass das unser Modell äusserst gut zu den Daten passt.
+
+:::
+
+
+
+## Anwendungsbedingungen
+
+### Lineare Beziehung zwischen den Variablen
+
+Die lineare Regression setzt voraus, dass der Zusammenhang zwischen der abhängigen Variable ($Y$) und den Prädiktoren ($X_1, X_2, \dots, X_k$) **linear** ist.  
+- In einem **Scatterplot** sollte eine ungefähr **geradlinige Beziehung** zwischen den Variablen erkennbar sein.  
+- Falls ein nichtlinearer Zusammenhang vorliegt, kann eine **Transformation** der Variablen (z.B. logarithmisch oder quadratisch) sinnvoll sein.  
+
+### Keine perfekte Multikollinearität
+
+Kollinearität beschreibt die Tatsache, dass zwei oder mehrere Prädiktoren in einem Regressionsmodell stark miteinander korrelieren.
+
+- Die unabhängigen Variablen dürfen untereinander nicht perfekt korrelieren ($i \neq j: \text{corr}(X_i, X_j) = 1$) d.h. es darf keine Linearkombination anderer unabhängiger Variablen sein.
+- Matrix ist sonst nicht invertierbar.
+
+Folgen:
+
+- Schätzungen der Regressionsparameter sind unzuverlässig
+- Standardfehler der Regressionskoeffizienten sind gross
+- t-Werte sind klein
+
+Anzeichen:
+
+- Resultate werden stark vom Weglassen einer Beobachtung beeinflusst
+- Vorzeichen der Regressionskoeffizienten ist anders als erwartet
+- Hohe Korrelationen der unabhängigen Variablen ($> |0.8|$) deuten auf mögliche Kollinearität hin
+- **Varianzinflationsfaktor** (VIF) misst die Abhängigkeit der Varianz des geschätzten Regressionskoeffizienten aufgrund der Korrelation zwischen unabhängigen Variablen. VIF-Werte $> 10$ gelten als kritisch.
+  - `vif()`
+
+Behandlung:
+
+- Weglassen von korrelierenden Prädiktoren
+- Neue Prädiktoren finden
+- Hauptkomponentenanalyse (PCA): Reduktion der Dimensionalität der Daten durch PCA, um unkorrelierte Hauptkomponenten zu erhalten.
+
+
+### Heteroskedastizität
+
+Heteroskedastizität beschreibt die Tatsache, dass die Varianz der Residuen nicht konstant ist. Das bedeutet, dass die Residuen nicht gleichmässig um den Mittelwert streuen, sondern eine zunehmende oder abnehmende Varianz aufweisen.
+
+Ursachen dafür können sein:
+
+- Messfehler werden über die Zeit kleiner
+- Befragungen vor und nach dem Lernprozess
+- Verhalten ist abhängig vom Einkommen, so dass reichere Personen mehr Wahlmöglichkeiten haben als ärmere
+- Bei aggregierten Werten sind Klassen mit kleinem $n$ unsicherer und streuen mehr als Klassen mit grossem $n$
+
+Tests:
+
+- Zerlegung der Daten und Vergleich von Subsets (z.B. Zeitperioden)
+- Goldfeld-Quandt-Test (univariate Regression)
+- White-Test (multiple Regression)
+
+Behandlung:
+
+- Methode der *gewichteten* kleinsten Quadrate. Werte bekommen dort weniger Gewicht, wo die Streuung gross ist. 
+
+### Normalverteilte Residuen
+
+Die Verteilung der Residuen sollte **ungefähr normal** sein. Dies ist besonders wichtig für:  
+
+- **t-Tests** auf die Regressionskoeffizienten  
+- **F-Tests** zur Bewertung der Modellgüte  
+- **Konfidenzintervalle für die $\beta$-Koeffizienten**  
+
+Ein **Q-Q-Plot** kann helfen, die Normalverteilung der Residuen zu überprüfen.  
+
+Falls die Residuen nicht normalverteilt sind:  
+
+- **Transformation** der abhängigen Variable  
+- **Bootstrapping-Verfahren** zur Schätzung der Koeffizienten  
+
+### Keine starken Ausreißer oder einflussreichen Datenpunkte
+
+Einzelne Datenpunkte mit **extremen Werten** können die Regression stark beeinflussen.  
+
+- **Leverage-Plot** oder **Cook’s Distance** kann verwendet werden, um einflussreiche Punkte zu identifizieren.  
+- Falls ein Ausreißer zu stark ist, sollte überprüft werden, ob ein **Messfehler** vorliegt oder ob der Punkt sinnvoll entfernt werden kann.  
+
+### Beispielauswertungen
+
+#### Optimale Residuendiagnostik mit geeigneten Daten
+```{r}
+#| label: multiple-regression-residuals-plot
+#| echo: true
+#| code-fold: true
+#| layout-ncol: 2
+#| fig-cap-location: top
+#| fig-subcap: [
+#|   "Linearität: Die Residuen streuen zufällig um die Nulllinie. Kein systematisches Muster erkennbar – ein Hinweis auf eine lineare Beziehung.",
+#|   "Normalverteilung der Residuen: Die Punkte liegen nahe der Diagonale im Q-Q-Plot. Dies zeigt, dass die Residuen normalverteilt sind.",
+#|   "Varianzhomogenität: Die Punkte im Scale-Location-Plot sind gleichmässig verteilt, ohne Trichterform. Das deutet auf konstante Varianz (Homoskedastizität) hin.",
+#|   "Ausreisser: Im Leverage-Plot gibt es keine Punkte mit hoher Cook's Distance. Dies zeigt, dass es keine einflussreichen Ausreisser gibt."
+#| ]
+
+library(ggplot2)
+
+# Synthetische Daten perfekt simulieren
+n <- 500
+X1 <- rnorm(n, mean = 10, sd = 2)    # Normalverteilte Prädiktoren
+X2 <- rnorm(n, mean = 5, sd = 1.5)
+
+X1 <- scale(X1, center = TRUE, scale = FALSE)
+X2 <- scale(X2, center = TRUE, scale = FALSE)
+
+# Perfekte lineare Beziehung
+# Fehler sind normalverteilt mit konstanter Varianz
+errors <- rnorm(n, mean = 0, sd = 1)  # Normalverteilte Residuen
+
+# Lineares Modell
+Y <- 3 * X1 + 2 * X2 + errors
+
+# Lineares Regressionsmodell
+perfektes_modell <- lm(Y ~ X1 + X2)
+
+# Diagnostische Plots
+dot_color <- rgb(0, 0, 1, 0.5)
+plot(perfektes_modell, col = dot_color, pch = 19)
+```
+
+#### Negative Residuendiagnostik mit schlechten Daten
+
+```{r}
+#| label: negative-regression-diagnostics
+#| echo: true
+#| code-fold: true
+#| layout-ncol: 2
+#| fig-cap-location: top
+#| fig-subcap: [
+#|   "Nicht-Linearität: Die Residuen zeigen ein gebogenes Muster. Dies deutet darauf hin, dass das Modell die wahre Beziehung nicht korrekt abbildet.",
+#|   "Nicht-Normalverteilte Residuen: Im Q-Q-Plot weichen die Punkte deutlich von der Diagonalen ab. Dies deutet auf eine Verletzung der Normalverteilungsannahme hin.",
+#|   "Heteroskedastizität: Im Scale-Location-Plot ist ein trichterförmiges Muster zu erkennen. Dies weist auf eine zunehmende Varianz der Residuen hin.",
+#|   "Ausreisser: Im Residuals vs Leverage-Plot sind Punkte mit hoher Cook's Distance sichtbar. Sie haben einen starken Einfluss auf das Modell."
+#| ]
+
+set.seed(123)
+
+# Nicht-Linearität
+n <- 500
+X_nl <- rnorm(n, mean = 0, sd = 1)
+Y_nl <- 2 * X_nl^2 + rnorm(n, 0, 1)
+modell_nl <- lm(Y_nl ~ X_nl)  # Falsch spezifiziert (linear)
+
+# Nicht-normalverteilte Residuen
+X_nn <- rnorm(n)
+Y_nn <- 3 * X_nn + rexp(n, rate = 1)  # Exponentiell verteilte Fehler
+modell_nn <- lm(Y_nn ~ X_nn)
+
+# Heteroskedastizität
+X_het <- rnorm(n)
+Y_het <- 4 * X_het + rnorm(n, 0, sd = abs(X_het) * 2)
+modell_het <- lm(Y_het ~ X_het)
+
+# Ausreisser
+X_out <- rnorm(n)
+Y_out <- 5 * X_out + rnorm(n, 0, 1)
+Y_out[c(50, 100)] <- Y_out[c(50, 100)] + 20  # Ausreisser hinzufügen
+modell_out <- lm(Y_out ~ X_out)
+
+# Diagnostische Plots (jeweils der relevante)
+plot(modell_nl, which = 1, col = dot_color, pch = 19)   # Nicht-Linearität: Residuals vs Fitted
+plot(modell_nn, which = 2, col = dot_color, pch = 19)   # Nicht-normalverteilte Residuen: Q-Q-Plot
+plot(modell_het, which = 3, col = dot_color, pch = 19)  # Heteroskedastizität: Scale-Location
+plot(modell_out, which = 5, col = dot_color, pch = 19)  # Ausreisser: Residuals vs Leverage
+```
+
+
+
+
+
+
+## Modellvalidierung
+
+### Kreuzvalidierung
+
+Die **Kreuzvalidierung** ist eine Methode zur **Bewertung der Vorhersagegüte** eines Regressionsmodells. Dabei wird der Datensatz in mehrere Teilmengen (sogenannte **Folds**) aufgeteilt. Das Modell wird wiederholt auf verschiedenen Kombinationen von Trainings- und Testdaten geschätzt, um zu überprüfen, wie gut es auf **unbekannte Daten** generalisiert.
+
+#### Vorgehensweise bei der K-Fold-Kreuzvalidierung:
+1. **Aufteilung der Daten:** Der Datensatz wird in $k$ gleich grosse Teilmengen (Folds) aufgeteilt.  
+2. **Modelltraining:** In jeder der $k$ Iterationen wird das Modell mit $(k-1)$ Folds trainiert.  
+3. **Modelltest:** Der verbliebene Fold dient als Testdatensatz zur Bewertung des Modells.  
+4. **Ergebnissynthese:** Die Gütekriterien (z.B. **mittlerer quadratischer Fehler** (MSE), **$R^2$**) werden über alle Iterationen gemittelt.
+
+Diese Methode liefert eine **robustere Schätzung** der Modellgüte als eine einfache Trainings-Test-Aufteilung.
+
+
+::: {.callout-tip collapse=false}
+#### Beispiel einer Multiplen Regression
+
+In diesem Beispiel verwenden wir den Datensatz `mtcars`, um ein **multiples lineares Regressionsmodell** zu erstellen. Unser Ziel ist es, den **Benzinverbrauch** (`mpg`) von Fahrzeugen basierend auf mehreren Einflussgrössen vorherzusagen.
+
+##### Datensatz und Ziel
+
+- **Datensatz:** `mtcars` mit 32 Fahrzeugen  
+- **Zielvariable:** `mpg` (Miles per Gallon, Benzinverbrauch)  
+- **Prädiktoren:**  
+  - `wt` (Gewicht des Fahrzeugs in 1000 Pfund)  
+  - `hp` (Motorleistung in PS)  
+  - `cyl` (Anzahl Zylinder)  
+
+Wir möchten überprüfen, wie gut diese Variablen den Benzinverbrauch gemeinsam vorhersagen.
+
+##### Durchführung der 5-Fold-Kreuzvalidierung
+
+Für die **5-Fold-Kreuzvalidierung** wird der Datensatz in 5 gleich grosse Teilmengen (Folds) aufgeteilt. In jeder der 5 Iterationen wird das Modell mit 4 Folds trainiert und mit dem verbleibenden Fold getestet. Die Gütekriterien werden über alle Iterationen gemittelt.
+
+```{r}
+#| label: multiple-regression-cv
+#| echo: true
+#| code-fold: false
+#| output: false
+#| fig-cap: "5-Fold-Kreuzvalidierung zur Bewertung des multiplen Regressionsmodells"
+
+# Daten und benötigte Pakete laden
+data(mtcars)
+library(caret)
+
+# Kreuzvalidierung mit 5 Folds
+cv_control <- trainControl(method = "cv", number = 5) # <1>
+
+# Training des multiplen Regressionsmodells mit Kreuzvalidierung
+cv_model <- train(            
+    mpg ~ wt + hp + cyl,      # <2>
+    data = mtcars,            # <3>
+    method = "lm",            # <4>
+    trControl = cv_control    # <5>
+)
+
+# Ergebnisse anzeigen
+cv_model
+```
+1. `cv_control`: Definiert die Kreuzvalidierung mit 5 Folds.
+2. `mpg ~ wt + hp + cyl`: Definiert die abhängige Variable (`mpg`) und die unabhängigen Variablen (`wt`, `hp`, `cyl`).
+3. `data = mtcars`: Definiert den Datensatz, der für das Modelltraining verwendet wird.
+4. `method = "lm"`: Definiert das Regressionsmodell als lineare Regression.
+5. `trControl = cv_control`: Definiert die Kreuzvalidierung mit 5 Folds.
+
+```{r}
+#| label: multiple-regression-cv-results
+#| echo: false
+#| code-fold: false
+#| output: true
+
+cv_model
+```
+
+##### Ergebnisse der Kreuzvalidierung
+
+Nach der Durchführung der Kreuzvalidierung liefert das Modell folgende Kennwerte:
+
+- **RMSE (Root Mean Squared Error):** `r round(cv_model$results$RMSE, 3)`  
+  Der **RMSE** misst den durchschnittlichen quadratischen Fehler der Vorhersagen. Ein niedriger Wert deutet auf eine gute Modellanpassung hin.
+
+- **$R^2$ (Bestimmtheitsmass):** `r round(cv_model$results$Rsquared, 3)`  
+  Der **$R^2$-Wert** zeigt, wie viel der Varianz von `mpg` durch die Prädiktoren `wt`, `hp` und `cyl` erklärt werden kann. Werte nahe 1 deuten auf eine hohe Erklärungskraft des Modells hin.
+
+- **MAE (Mean Absolute Error):** `r round(cv_model$results$MAE, 3)`  
+  Der **MAE** misst den durchschnittlichen absoluten Vorhersagefehler. Im Gegensatz zum RMSE ist er weniger empfindlich gegenüber Ausreissern.
+
+##### Interpretation der Ergebnisse
+
+Das Modell zeigt folgende Leistungswerte:
+
+- **Vorhersagegenauigkeit (RMSE):** Der RMSE beträgt `r round(cv_model$results$RMSE, 3)`.  
+  - Ein RMSE < 3 deutet auf eine **gute Anpassung** des Modells hin.  
+  - Werte > 5 würden auf eine **ungenügende Modellanpassung** hindeuten.  
+  - In diesem Fall ist der Wert `r ifelse(cv_model$results$RMSE < 3, "zufriedenstellend", "verbesserungswürdig")`.
+
+- **Erklärte Varianz ($R^2$):** Der $R^2$-Wert beträgt `r round(cv_model$results$Rsquared, 3)`.  
+  - Ein $R^2$ > 0.7 gilt als **sehr gut**, da mehr als 70 % der Varianz von `mpg` durch die Prädiktoren erklärt wird.  
+  - Ein Wert < 0.5 würde darauf hindeuten, dass das Modell wichtige Prädiktoren vermissen könnte.  
+  - Hier zeigt der Wert `r ifelse(cv_model$results$Rsquared > 0.7, "eine starke Erklärungskraft", "eine moderate Erklärungskraft")`.
+
+- **Durchschnittlicher Fehler (MAE):** Der MAE beträgt `r round(cv_model$results$MAE, 3)`.  
+  - Ein MAE < 3 deutet darauf hin, dass die **durchschnittlichen Vorhersagefehler gering** sind.  
+  - Werte > 5 könnten auf **systematische Fehler** im Modell hinweisen.  
+  - In unserem Fall ist der Fehler `r ifelse(cv_model$results$MAE < 3, "akzeptabel", "relativ hoch")`.
+
+##### Fazit
+
+Das multiple Regressionsmodell erklärt einen grossen Anteil der Varianz von `mpg` und liefert eine präzise Vorhersage. Die Kreuzvalidierung zeigt, dass das Modell auch bei unbekannten Daten **stabile Ergebnisse** liefert. Eventuelle Optimierungen könnten durch die Einbeziehung weiterer Prädiktoren oder Interaktionsterme erreicht werden.
+:::
+
+
+### F-Test
+
+Der F-Test ist ein Hypothesentest, der die Güte des Regressionsmodells als Ganzes überprüft.
+
+$$
+F = \frac{\frac{R^2}{k}}{\frac{1-R^2}{n-(k+1)}} = \frac{\text{erklärte Varianz}}{\text{unerklärte Varianz}}
+$$
+
+- $R^2$ ist das multiple Bestimmtheitsmass
+- $k$ ist die Anzahl der unabhängigen Variablen
+- $n$ ist die Anzahl der Beobachtungen
+
+Der F-Wert sagt, ob das Modell besser ist als einfach die Annahme des Mittelwerts von $Y$ zu nehmen. D.h. ob
+
+$$
+H_0 : R^2 = 0
+$$
+
+abgelehnt werden kann.
+
+
+<!---
+
 
 #### Erste (zufällige) Anpassung
 
@@ -229,619 +1155,5 @@ residual_sum_optimal <- sum(abs(y - predict(model)))
 text(min(x), max(y), labels = paste("Residuen:", round(residual_sum_optimal, 2)), pos = 4, col = "blue2")
 ```
 
-### Bestimmung der Güte der Anpassung
-
-
-
-Die Güte der Anpassung wird durch den **Bestimmtheitsmass** $R^2$ beurteilt.
-
-$$
-R^2 = \frac{\text{erklärte Variation}}{\text{Gesamtvariation}} = \frac{\sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2}{\sum_{i=1}^{n} (Y_i - \bar{Y})^2} = 1 - \frac{\text{Residualsumme}}{\text{Gesamtvariation}}
-$$ {#eq-r2}
-
-- $\hat{Y}_i$ = vorhergesagter Wert
-- $\bar{Y}$ = Mittelwert der abhängigen Variablen
-- $Y_i$ = beobachteter Wert
-
-$R^2$ liegt immer zwischen 0 und 1. Je höher $R^2$, desto besser passt das Modell zu den Daten.
-
-
-### Testen der Signifikanz der Regressionskoeffizienten
-
-**Hypothesen**:
-
-- $H_0$: $\beta_1 = 0$ (KEINE lineare Abhängigkeit zwischen $x$ und $y$)
-- $H_1$: $\beta_1 \neq 0$ (lineare Abhängigkeit zwischen $x$ und $y$)
-- $\beta_1$ der Stichprobe variiert um den wahren Wert $\beta_1$ der Grundgesamtheit mit bestimmter Wahrscheinlichkeit:
-  - einer Normalverteilung mit der Standardabweichung $\sigma_{\beta_1}$
-  - $\sigma_{\beta_1}$ wird aus $s_{\beta_1}$ (Standardfehler von $\beta_1$) geschätzt
-  - um die Schätzunsicherheiten bei kleinen Stichproben zu berücksichtigen, wird die t-Verteilung verwendet
-
-$$
-T = \frac{\widehat{\beta}}{s_{\beta_1}}, \quad \text{mit} \quad s_{\beta_1} = \sqrt{\frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 / (n-2)}{\sum_{i=1}^{n} (X_i - \bar{X})^2}}
-$$
-
-- $T$ ist t-verteilt mit $n-2$ Freiheitsgraden, da wir den Regressionskoeffizienten $\beta_1$ und die Streuung $\sigma_{\beta_1}$ aus der Stichprobe schätzen
-- $\beta_1$ ist die Steigung der Regressionsgerade
-- $s_{\beta_1}$ ist der Standardfehler der Steigung
-- $\widehat{\beta}$ ist der geschätzte Regressionskoeffizient der Stichprobe
-- $Y_i$ ist der beobachtete Wert der abhängigen Variablen
-- $\hat{Y}_i$ ist der vorhergesagte Wert der abhängigen Variablen
-- $X_i$ ist der beobachtete Wert der unabhängigen Variablen
-- $\bar{X}$ ist der Mittelwert der unabhängigen Variablen
-- $n$ ist die Anzahl der Beobachtungen
-
-#### Konfidenzintervall der Regressionskoeffizienten
-
-$$
-\beta_1 = \widehat{\beta_1} \pm q_t \cdot s_{\beta_1} \quad \text{mit} \quad q_t \text{ aus der T-Tabelle}
-$$
-
-- $t_{n-2}$ ist der kritische Wert der t-Verteilung mit $n-2$ Freiheitsgraden
-- $s_{\beta_1}$ ist der Standardfehler der Steigung
-- $\widehat{\beta_1}$ ist der geschätzte Regressionskoeffizient der Stichprobe
-
-### Berechnung der linearen Regression in R
-
-```{r}
-#| label: linear-regression-in-r
-#| echo: true
-
-# Daten erstellen
-x <- rnorm(30, mean = 10, sd = 2)
-y <- 2 * x + rnorm(30, mean = 0, sd = 4)
-
-# Lineare Regression durchführen
-model <- lm(y ~ x)
-model
-```
-
-Die Ausgabe der Funktion `lm()` zeigt uns:
-
-1. **Call**: Die verwendete Formel für die Regression
-   - `y ~ x` bedeutet: y wird durch x vorhergesagt
-
-2. **Coefficients**: Die geschätzten Regressionskoeffizienten
-   - **(Intercept)**: $\widehat{\beta_0}$ = `{r} round(model$coefficients[1], 3)`
-     - Dies ist der y-Achsenabschnitt
-     - Der vorhergesagte y-Wert, wenn x = 0
-   - **x**: $\widehat{\beta_1}$ = `{r} round(model$coefficients[2], 3)`
-     - Dies ist die Steigung der Geraden
-     - Für jede Einheit, die x zunimmt, steigt y um `{r} round(model$coefficients[2], 3)` Einheiten
-
-Für eine detailliertere Analyse können wir die Funktion `summary()` verwenden:
-
-```{r}
-#| label: regression-summary
-#| echo: true
-#| 
-summary(model)
-```
-
-Die `summary()` zeigt uns zusätzlich:
-
-1. **Residuals**: Verteilung der Abweichungen zwischen vorhergesagten und tatsächlichen Werten
-   - Minimum: `{r} round(summary(model)$residuals[which.min(summary(model)$residuals)], 3)`
-   - Maximum: `{r} round(summary(model)$residuals[which.max(summary(model)$residuals)], 3)`
-   - Die Quartile zeigen, wie die Residuen verteilt sind
-   - Idealerweise symmetrisch um 0
-
-2. **Coefficients-Tabelle**:
-   - **Intercept** ($\widehat{\beta_0}$ = `{r} round(coef(summary(model))[1,1], 3)`):
-     - Standardfehler: `{r} round(coef(summary(model))[1,2], 3)`
-     - t-Wert: `{r} round(coef(summary(model))[1,3], 3)`
-     - p-Wert: `{r} round(coef(summary(model))[1,4], 3)`
-     - Signifikant auf dem `{r} if(coef(summary(model))[1,4] < 0.001) {"0.1%"} else if(coef(summary(model))[1,4] < 0.01) {"1%"} else if(coef(summary(model))[1,4] < 0.05) {"5%"} else {"nicht signifikant"}` Niveau
-   - **Steigung** ($\widehat{\beta_1}$ = `{r} round(coef(summary(model))[2,1], 3)`):
-     - Standardfehler: `{r} round(coef(summary(model))[2,2], 3)`
-     - t-Wert: `{r} round(coef(summary(model))[2,3], 3)`
-     - p-Wert: `{r} round(coef(summary(model))[2,4], 3)`
-     - Signifikant auf dem `{r} if(coef(summary(model))[2,4] < 0.001) {"0.1%"} else if(coef(summary(model))[2,4] < 0.01) {"1%"} else if(coef(summary(model))[2,4] < 0.05) {"5%"} else {"nicht signifikant"}` Niveau
-
-3. **Modellgüte**:
-   - $R^2$ = `{r} round(summary(model)$r.squared, 3)` 
-     - `{r} round(summary(model)$r.squared * 100, 1)`% der Varianz in y wird durch x erklärt
-   - Adjustiertes $R^2$ = `{r} round(summary(model)$adj.r.squared, 3)`
-     - Berücksichtigt die Anzahl der Prädiktoren
-
-4. **F-Test**:
-   - F-Wert: `{r} round(summary(model)$fstatistic[1], 3)`
-   - Freiheitsgrade: `{r} summary(model)$fstatistic[2]` und `{r} summary(model)$fstatistic[3]`
-   - p-Wert: `{r} round(pf(summary(model)$fstatistic[1], summary(model)$fstatistic[2], summary(model)$fstatistic[3], lower.tail = FALSE), 5)`
-   - Das Modell ist `{r} if(pf(summary(model)$fstatistic[1], summary(model)$fstatistic[2], summary(model)$fstatistic[3], lower.tail = FALSE) < 0.05) {"statistisch signifikant"} else {"nicht statistisch signifikant"}`
-
-## Multiple Regression
-
-## Multiple Regression
-
-In der einfachen linearen Regression versuchen wir, den Zusammenhang zwischen einer abhängigen Variable $Y$ und einem Prädiktor $X_1$ zu modellieren. Doch was passiert, wenn $Y$ nicht vollständig durch $X_1$ alleine erklärt werden kann? 
-
-Stellen wir uns vor, wir haben Daten, bei denen wir vermuten, dass $X_1$ einen Einfluss auf $Y$ hat. Wir beginnen mit einer einfachen linearen Regression:
-
-```{r}
-#| label: simple-regression
-#| echo: true
-#| code-fold: true
-#| fig-cap: "Erste Regression: Y in Abhängigkeit von X1"
-
-set.seed(42)
-# Daten simulieren
-n <- 100
-X1 <- rnorm(n, mean = 10, sd = 2)
-X2 <- rnorm(n, mean = 5, sd = 1.5)
-Y <- 3 * X1 + 2 * X2 + rnorm(n, sd = 3)
-
-# Einfache lineare Regression Y ~ X1
-model_X1 <- lm(Y ~ X1)
-
-# Plot
-plot(X1, Y, pch = 19, col = rgb(105/255, 89/255, 205/255, alpha = 0.5), 
-     xlab = "X1", ylab = "Y")
-abline(model_X1, col = "red", lwd = 2)
-```
-
-Wir erkennen, dass $X_1$ einen deutlichen Einfluss auf $Y$ hat. Doch die Vorhersagen des Modells sind nicht perfekt – es bleiben **Residuen** übrig, also Abweichungen zwischen den tatsächlichen Werten von $Y$ und den durch das Modell prognostizierten Werten.
-
-Diese Residuen sind nicht einfach nur zufälliges Rauschen. Sie könnten Hinweise darauf liefern, dass noch **weitere Faktoren** im Spiel sind, die wir bisher nicht berücksichtigt haben.
-
-Um das zu überprüfen, untersuchen wir, ob ein weiterer Prädiktor $X_2$ möglicherweise einen Teil dieser unerklärten Varianz in $Y$ aufklären kann. Dazu betrachten wir die Residuen der ersten Regression und analysieren, ob sie mit $X_2$ zusammenhängen:
-
-```{r}
-#| label: residual-regression
-#| echo: true
-#| code-fold: true
-#| fig-cap: "Zweite Regression: Residuen von Y ~ X1 in Abhängigkeit von X2"
-
-# Berechne die Residuen der ersten Regression
-residuals_X1 <- resid(model_X1)
-
-# Regression der Residuen auf X2
-model_resid_X2 <- lm(residuals_X1 ~ X2)
-
-# Plot
-plot(X2, residuals_X1, pch = 19, col = rgb(105/255, 89/255, 205/255, alpha = 0.5), 
-     xlab = "X2", ylab = "Residuen von Y ~ X1")
-abline(model_resid_X2, col = "orange", lwd = 2)
-```
-
-Wir sehen, dass die Residuen tatsächlich einen Zusammenhang mit $X_2$ aufweisen. Das bedeutet, dass $X_2$ Varianz in $Y$ erklärt, die nicht durch $X_1$ erfasst wurde.
-
-Man könnte diesen Prozess theoretisch weiterführen: Nachdem wir den Einfluss von $X_2$ modelliert haben, könnten wir die neuen Residuen betrachten und versuchen, diese durch einen weiteren Prädiktor $X_3$ zu erklären. Und so weiter.
-
-Dieses schrittweise Vorgehen wirft jedoch ein Problem auf: Was passiert, wenn $X_1$, $X_2$, ..., $X_k$ miteinander korrelieren?
-
-- In diesem Fall ist es schwierig, die individuellen Effekte der einzelnen Prädiktoren zu isolieren.
-- Der Einfluss von $X_2$ könnte bereits teilweise in der ersten Regression durch $X_1$ berücksichtigt worden sein – und umgekehrt.
-- Durch das schrittweise Vorgehen riskieren wir, *Doppelerklärungen* oder *verzerrte Effekte* zu erhalten.
-
-Wir brauchen einen Ansatz, der es uns ermöglicht, den Einfluss mehrerer Prädiktoren *gleichzeitig* zu berücksichtigen.
-
-::: {.callout-note collapse=false}
-### Beispiel
-
-Wir versuchen, den Abfluss eines Gebirgsbachs zu modellieren.
-
-- $Y$: Abfluss
-- $X_1$: Schneeschmelze
-- $X_2$: Niederschlag
-
-Wenn wir den Abfluss $Y$ zunächst in Abhängigkeit von der Schneeschmelze $X_1$ modellieren, stellen wir fest, dass ein Teil der Varianz von $Y$ nicht erklärt wird. Wir vermuten, dass der Niederschlag $X_2$ einen zusätzlichen Einfluss haben könnte. Also modellieren wir die Residuen aus der ersten Regression in Abhängigkeit von $X_2$.
-
-Doch hier entsteht ein Problem: *Schneeschmelze und Niederschlag sind oft korreliert.* Nach starken Niederschlägen folgt häufig eine beschleunigte Schneeschmelze. Wenn wir $X_2$ nur auf die Residuen von $X_1$ anwenden, übersehen wir möglicherweise den gemeinsamen Einfluss beider Faktoren. 
-
-Das führt zu verzerrten Ergebnissen, da der Niederschlag sowohl einen direkten Einfluss auf den Abfluss hat als auch indirekt über die Schneeschmelze wirkt. 
-:::
-
-**Bemerkung:** Wenn die Prädiktoren *nicht* korrelieren, ist die Regression der Residuen mit weiteren Variablen möglich.
-
-### Ansatz
-
-- Minimierung der Summe der quadrierten Residuen:
-
-$$
-\sum_{i=1}^{n} (Y_i - \widehat{\beta_0} - \widehat{\beta_1} X_{1i} - \widehat{\beta_2} X_{2i} - \ldots - \widehat{\beta_k} X_{ki})^2 \quad \rightarrow \quad \text{minimal}
-$$
-
-- Dafür müssen die partiellen Ableitungen nach allen $\beta_j$ gleich null gesetzt werden
-- Koeffizienten der multiplen Regression werden auch "partielle Regressionskoeffizienten" genannt
-
-$$
-\widehat{Y_i} = \widehat{\beta_0} + \widehat{\beta_1} X_{1i} + \widehat{\beta_2} X_{2i} + \ldots + \widehat{\beta_k} X_{ki}
-$$
-
-oder in Matrixnotation:
-
-$$
-\widehat{Y} = X \widehat{\beta} \quad \text{mit} \quad \widehat{Y} = \begin{bmatrix} \widehat{Y_1} \\ \widehat{Y_2} \\ \vdots \\ \widehat{Y_n} \end{bmatrix}, \quad \widehat{\beta} = \begin{bmatrix} \widehat{\beta_0} \\ \widehat{\beta_1} \\ \vdots \\ \widehat{\beta_k} \end{bmatrix} \quad \text{und} \quad X = \begin{bmatrix} 1 & X_{11} & X_{21} & \ldots & X_{k1} \\ 1 & X_{12} & X_{22} & \ldots & X_{k2} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & X_{1n} & X_{2n} & \ldots & X_{kn} \end{bmatrix}
-$$
-
-
-### Beispiel: Anzahl der Kinder in Abhängigkeit von Ausbildung und Einkommen
-
-Wir haben Daten über 20 Personen, bei denen wir die Anzahl der Kinder, die Ausbildung und das Einkommen erfasst haben. Wir gehen davon aus, dass die Anzahl der Kinder abhängig ist von der Ausbildung und dem Einkommen. Ebenfalls gehen wir davon aus, dass die Ausbildung und das Einkommen miteinander korrelieren.
-
-```{r}
-#| label: multiple-regression-data
-#| echo: true
-#| code-fold: true
-#| tbl-cap: "Daten für das Beispiel"
-library(knitr)
-# Daten definieren
-Person <- 1:20
-Kinder <- c(2, 5, 1, 9, 6, 3, 0, 3, 7, 7, 2, 5, 1, 9, 6, 3, 0, 3, 7, 14)
-Ausbildung <- c(12, 16, 20, 12, 9, 18, 16, 14, 9, 12, 12, 10, 20, 11, 9, 18, 16, 14, 9, 8)
-Einkommen <- c(30, 40, 90, 50, 40, 120, 100, 10, 40, 30, 100, 40, 90, 40, 40, 120, 100, 60, 40, 10)
-
-# DataFrame erstellen
-anzahlKinderDaten <- data.frame(Person, Kinder, Ausbildung, Einkommen)
-
-# DataFrame anzeigen
-kable(anzahlKinderDaten)
-```
-
-Wir formulieren:
-
-$$
-\widehat{Y_i} = \widehat{\beta_0} + \widehat{\beta_1} X_{1} + \widehat{\beta_2} X_{2}
-$$
-
-- $\widehat{Y_i}$: Vorhergesagte Anzahl der Kinder
-- $\widehat{\beta_0}$: Achsenabschnitt
-- $\widehat{\beta_1}$: Regressionskoeffizient für Ausbildung
-- $\widehat{\beta_2}$: Regressionskoeffizient für Einkommen
-
-Wir führen eine multiple Regression durch:
-
-```{r}
-#| label: multiple-regression
-#| echo: true
-#| code-fold: false
-regressionsmodell <- lm(Kinder ~ Ausbildung + Einkommen, data = anzahlKinderDaten)
-```
-
-und erhalten:
-
-- $\widehat{\beta_0}$ = `{r} round(coef(regressionsmodell)[1], 3)`
-- $\widehat{\beta_1}$ = `{r} round(coef(regressionsmodell)[2], 3)`
-- $\widehat{\beta_2}$ = `{r} round(coef(regressionsmodell)[3], 3)`
-
-Daraus ergibt sich die Regressionsgleichung:
-
-```{r}
-#| label: multiple-regression-equation-latex-expression-builder
-#| echo: true
-#| code-fold: true
-#| output: asis
-cat("$$",
-    "Y = ", round(coef(regressionsmodell)[1], 3), " + ", round(coef(regressionsmodell)[2], 3), " \\cdot X_1 + ", round(coef(regressionsmodell)[3], 3), " \\cdot X_2",
-    "$$")
-```
-
-Daraus ergibt sich:
-
-| Ausbildung   | Einkommen   | Anzahl der Kinder                                                                                                         |
-|--------------|-------------|---------------------------------------------------------------------------------------------------------------------------|
-| $0$          | $0$         | $\approx `{r} round(coef(regressionsmodell)[1] + coef(regressionsmodell)[2] * 0 + coef(regressionsmodell)[3] * 0, 2)`$    |
-| $10$         | $0$         | $\approx `{r} round(coef(regressionsmodell)[1] + coef(regressionsmodell)[2] * 10 + coef(regressionsmodell)[3] * 0, 2)`$   |
-| $10$         | $100$       | $\approx `{r} round(coef(regressionsmodell)[1] + coef(regressionsmodell)[2] * 10 + coef(regressionsmodell)[3] * 100, 2)`$ |
-| $20$         | $200$       | $\approx `{r} round(coef(regressionsmodell)[1] + coef(regressionsmodell)[2] * 20 + coef(regressionsmodell)[3] * 200, 2)`$ |
-
-: {.striped .hover tbl-colwidths="[25,25,50]"}
-
-::: {.callout-note collapse=true title="Interpretation"}
-
-Um die Güte der Schätzung zu beurteilen, rufen wir die `summary()` Funktion auf:
-
-```{r}
-#| label: multiple-regression-validity
-#| echo: true
-#| code-fold: false
-summary(regressionsmodell)
-```
-
-:::
-
-### Multiples Bestimmtheitsmass
-
-Das multiple Bestimmtheitsmass $R^2$ (@eq-r2) ist ein Mass für die Güte der Anpassung des Regressionsmodells. Es gibt an, wie viel Varianz der abhängigen Variablen durch die unabhängigen Variablen erklärt wird.
-
-$$
-R^2 = 1 - \frac{\text{Residualsumme}}{\text{Gesamtvariation}}
-$$
-
-- $R^2 = 1$, wenn alle Punkte auf der Regressions-Hyperebene liegen
-- $R^2 = 0$, wenn das Modell keinerlei Erklärung für die Variation von Y liefert.
-- Bei multipler Regression nimmt $R^2$ mit der Anzahl der unabhängigen Variablen zu. Deshalb nutzt man das angepasste Bestimmtheitsmass $R^2_{adj}$
-
-$$
-R^2_{adj} = \left(R^2 - \frac{m}{n-1}\right) \cdot \left(\frac{n-1}{n-m-1}\right) = 1 - (1 - R^2) \cdot \left(\frac{n-1}{n-m-1}\right)
-$$
-
-- $m$ ist die Anzahl der unabhängigen Variablen
-- $n$ ist die Anzahl der Beobachtungen
-
-- Das angepasste Bestimmtheitsmass $R^2_{adj}$ ist immer kleiner als $R^2$ und nimmt mit zunehmender Anzahl Variablen ab, falls diese nichts zur Erklärung der Varianz beitragen.
-
-### F-Test
-
-Der F-Test ist ein Hypothesentest, der die Güte des Regressionsmodells als Ganzes überprüft.
-
-$$
-F = \frac{\frac{R^2}{k}}{\frac{1-R^2}{n-(k+1)}} = \frac{\text{erklärte Varianz}}{\text{unerklärte Varianz}}
-$$
-
-- $R^2$ ist das multiple Bestimmtheitsmass
-- $k$ ist die Anzahl der unabhängigen Variablen
-- $n$ ist die Anzahl der Beobachtungen
-
-Der F-Wert sagt, ob das Modell besser ist als einfach die Annahme des Mittelwerts von $Y$ zu nehmen. D.h. ob
-
-$$
-H_0 : R^2 = 0
-$$
-
-abgelehnt werden kann.
-
-### Anwendungsbedingungen
-
-In der linearen Regression ist es ein häufiger Irrtum, dass die **Prädiktorvariablen ($X$)** oder die **abhängige Variable ($Y$)** normalverteilt sein müssen. Das ist nicht der Fall – die Regression funktioniert auch mit nicht-normalverteilten Variablen.
-
-Was jedoch für bestimmte statistische Tests wichtig ist, ist die **Normalverteilung der Residuen ($\varepsilon$)**. Diese Voraussetzung gilt insbesondere für:
-
-- **t-Tests:** Überprüfen, ob ein Regressionskoeffizient ($\beta$) signifikant von null verschieden ist, also ob ein Prädiktor einen echten Einfluss auf $Y$ hat.  
-- **F-Tests:** Prüfen, ob das gesamte Regressionsmodell eine signifikante Vorhersagekraft besitzt.  
-
-Diese Tests liefern einen **p-Wert**, der angibt, wie wahrscheinlich ein beobachteter Effekt zufällig entstanden ist (**Signifikanzbewertung**).
-
-Damit die Normalverteilung der Residuen überhaupt sinnvoll geprüft werden kann, müssen zwei wichtige Voraussetzungen erfüllt sein:
-
-1. **Linearität:** Der Zusammenhang zwischen den Prädiktoren ($X$) und der abhängigen Variable ($Y$) sollte linear sein.  
-2. **Homoskedastizität:** Die Varianz der Residuen sollte über alle Werte von $X$ hinweg konstant sein (keine Trichterform in den Residuenplots).
-
-Ohne diese Bedingungen ist die Verteilung der Residuen verzerrt, was zu fehlerhaften Testergebnissen führt.
-
-#### Optimale Residuendiagnostik mit geeigneten Daten
-```{r}
-#| label: multiple-regression-residuals-plot
-#| echo: true
-#| code-fold: true
-#| layout-ncol: 2
-#| fig-cap-location: top
-#| fig-subcap: [
-#|   "Linearität: Die Residuen streuen zufällig um die Nulllinie. Kein systematisches Muster erkennbar – ein Hinweis auf eine lineare Beziehung.",
-#|   "Normalverteilung der Residuen: Die Punkte liegen nahe der Diagonale im Q-Q-Plot. Dies zeigt, dass die Residuen normalverteilt sind.",
-#|   "Varianzhomogenität: Die Punkte im Scale-Location-Plot sind gleichmässig verteilt, ohne Trichterform. Das deutet auf konstante Varianz (Homoskedastizität) hin.",
-#|   "Ausreisser: Im Leverage-Plot gibt es keine Punkte mit hoher Cook's Distance. Dies zeigt, dass es keine einflussreichen Ausreisser gibt."
-#| ]
-
-library(ggplot2)
-
-# Synthetische Daten perfekt simulieren
-n <- 500
-X1 <- rnorm(n, mean = 10, sd = 2)    # Normalverteilte Prädiktoren
-X2 <- rnorm(n, mean = 5, sd = 1.5)
-
-X1 <- scale(X1, center = TRUE, scale = FALSE)
-X2 <- scale(X2, center = TRUE, scale = FALSE)
-
-# Perfekte lineare Beziehung
-# Fehler sind normalverteilt mit konstanter Varianz
-errors <- rnorm(n, mean = 0, sd = 1)  # Normalverteilte Residuen
-
-# Lineares Modell
-Y <- 3 * X1 + 2 * X2 + errors
-
-# Lineares Regressionsmodell
-perfektes_modell <- lm(Y ~ X1 + X2)
-
-# Diagnostische Plots
-dot_color <- rgb(0, 0, 1, 0.5)
-plot(perfektes_modell, col = dot_color, pch = 19)
-```
-
-#### Negative Residuendiagnostik mit schlechten Daten
-
-```{r}
-#| label: negative-regression-diagnostics
-#| echo: true
-#| code-fold: true
-#| layout-ncol: 2
-#| fig-cap-location: top
-#| fig-subcap: [
-#|   "Nicht-Linearität: Die Residuen zeigen ein gebogenes Muster. Dies deutet darauf hin, dass das Modell die wahre Beziehung nicht korrekt abbildet.",
-#|   "Nicht-Normalverteilte Residuen: Im Q-Q-Plot weichen die Punkte deutlich von der Diagonalen ab. Dies deutet auf eine Verletzung der Normalverteilungsannahme hin.",
-#|   "Heteroskedastizität: Im Scale-Location-Plot ist ein trichterförmiges Muster zu erkennen. Dies weist auf eine zunehmende Varianz der Residuen hin.",
-#|   "Ausreisser: Im Residuals vs Leverage-Plot sind Punkte mit hoher Cook's Distance sichtbar. Sie haben einen starken Einfluss auf das Modell."
-#| ]
-
-set.seed(123)
-
-# Nicht-Linearität
-n <- 500
-X_nl <- rnorm(n, mean = 0, sd = 1)
-Y_nl <- 2 * X_nl^2 + rnorm(n, 0, 1)
-modell_nl <- lm(Y_nl ~ X_nl)  # Falsch spezifiziert (linear)
-
-# Nicht-normalverteilte Residuen
-X_nn <- rnorm(n)
-Y_nn <- 3 * X_nn + rexp(n, rate = 1)  # Exponentiell verteilte Fehler
-modell_nn <- lm(Y_nn ~ X_nn)
-
-# Heteroskedastizität
-X_het <- rnorm(n)
-Y_het <- 4 * X_het + rnorm(n, 0, sd = abs(X_het) * 2)
-modell_het <- lm(Y_het ~ X_het)
-
-# Ausreisser
-X_out <- rnorm(n)
-Y_out <- 5 * X_out + rnorm(n, 0, 1)
-Y_out[c(50, 100)] <- Y_out[c(50, 100)] + 20  # Ausreisser hinzufügen
-modell_out <- lm(Y_out ~ X_out)
-
-# Diagnostische Plots (jeweils der relevante)
-plot(modell_nl, which = 1, col = dot_color, pch = 19)   # Nicht-Linearität: Residuals vs Fitted
-plot(modell_nn, which = 2, col = dot_color, pch = 19)   # Nicht-normalverteilte Residuen: Q-Q-Plot
-plot(modell_het, which = 3, col = dot_color, pch = 19)  # Heteroskedastizität: Scale-Location
-plot(modell_out, which = 5, col = dot_color, pch = 19)  # Ausreisser: Residuals vs Leverage
-```
-
-
-#### Heteroskedastizität
-
-Heteroskedastizität beschreibt die Tatsache, dass die Varianz der Residuen nicht konstant ist. Das bedeutet, dass die Residuen nicht gleichmässig um den Mittelwert streuen, sondern eine zunehmende oder abnehmende Varianz aufweisen.
-
-Ursachen dafür können sein:
-
-- Messfehler werden über die Zeit kleiner
-- Befragungen vor und nach dem Lernprozess
-- Verhalten ist abhängig vom Einkommen, so dass reichere Personen mehr Wahlmöglichkeiten haben als ärmere
-- Bei aggregierten Werten sind Klassen mit kleinem $n$ unsicherer und streuen mehr als Klassen mit grossem $n$
-
-Tests:
-
-- Zerlegung der Daten und Vergleich von Subsets (z.B. Zeitperioden)
-- Goldfeld-Quandt-Test (univariate Regression)
-- White-Test (multiple Regression)
-
-Behandlung:
-
-- Methode der *gewichteten* kleinsten Quadrate. Werte bekommen dort weniger Gewicht, wo die Streuung gross ist.
-
-#### (Multi-)Kollinearität
-
-Kollinearität beschreibt die Tatsache, dass zwei oder mehrere Prädiktoren in einem Regressionsmodell stark miteinander korrelieren.
-
-- Die unabhängigen Variablen dürfen untereinander nicht perfekt korrelieren ($i \neq j: \text{corr}(X_i, X_j) = 1$) d.h. es darf keine Linearkombination anderer unabhängiger Variablen sein.
-- Matrix ist sonst nicht invertierbar.
-
-Folgen:
-
-- Schätzungen der Regressionsparameter sind unzuverlässig
-- Standardfehler der Regressionskoeffizienten sind gross
-- t-Werte sind klein
-
-Anzeichen:
-
-- Resultate werden stark vom Weglassen einer Beobachtung beeinflusst
-- Vorzeichen der Regressionskoeffizienten ist anders als erwartet
-- Hohe Korrelationen der unabhängigen Variablen ($> |0.8|$) deuten auf mögliche Kollinearität hin
-- **Varianzinflationsfaktor** (VIF) misst die Abhängigkeit der Varianz des geschätzten Regressionskoeffizienten aufgrund der Korrelation zwischen unabhängigen Variablen. VIF-Werte $> 10$ gelten als kritisch.
-  - `vif()`
-
-Behandlung:
-
-- Weglassen von korrelierenden Prädiktoren
-- Neue Prädiktoren finden
-- Hauptkomponentenanalyse (PCA): Reduktion der Dimensionalität der Daten durch PCA, um unkorrelierte Hauptkomponenten zu erhalten.
-
-### Modellvalidierung (Kreuzvalidierung)
-
-Die **Kreuzvalidierung** ist eine Methode zur **Bewertung der Vorhersagegüte** eines Regressionsmodells. Dabei wird der Datensatz in mehrere Teilmengen (sogenannte **Folds**) aufgeteilt. Das Modell wird wiederholt auf verschiedenen Kombinationen von Trainings- und Testdaten geschätzt, um zu überprüfen, wie gut es auf **unbekannte Daten** generalisiert.
-
-#### Vorgehensweise bei der K-Fold-Kreuzvalidierung:
-1. **Aufteilung der Daten:** Der Datensatz wird in $k$ gleich grosse Teilmengen (Folds) aufgeteilt.  
-2. **Modelltraining:** In jeder der $k$ Iterationen wird das Modell mit $(k-1)$ Folds trainiert.  
-3. **Modelltest:** Der verbliebene Fold dient als Testdatensatz zur Bewertung des Modells.  
-4. **Ergebnissynthese:** Die Gütekriterien (z.B. **mittlerer quadratischer Fehler** (MSE), **$R^2$**) werden über alle Iterationen gemittelt.
-
-Diese Methode liefert eine **robustere Schätzung** der Modellgüte als eine einfache Trainings-Test-Aufteilung.
-
-
-::: {.callout-tip collapse=false}
-#### Beispiel einer Multiplen Regression
-
-In diesem Beispiel verwenden wir den Datensatz `mtcars`, um ein **multiples lineares Regressionsmodell** zu erstellen. Unser Ziel ist es, den **Benzinverbrauch** (`mpg`) von Fahrzeugen basierend auf mehreren Einflussgrössen vorherzusagen.
-
-##### Datensatz und Ziel
-
-- **Datensatz:** `mtcars` mit 32 Fahrzeugen  
-- **Zielvariable:** `mpg` (Miles per Gallon, Benzinverbrauch)  
-- **Prädiktoren:**  
-  - `wt` (Gewicht des Fahrzeugs in 1000 Pfund)  
-  - `hp` (Motorleistung in PS)  
-  - `cyl` (Anzahl Zylinder)  
-
-Wir möchten überprüfen, wie gut diese Variablen den Benzinverbrauch gemeinsam vorhersagen.
-
-##### Durchführung der 5-Fold-Kreuzvalidierung
-
-Für die **5-Fold-Kreuzvalidierung** wird der Datensatz in 5 gleich grosse Teilmengen (Folds) aufgeteilt. In jeder der 5 Iterationen wird das Modell mit 4 Folds trainiert und mit dem verbleibenden Fold getestet. Die Gütekriterien werden über alle Iterationen gemittelt.
-
-```{r}
-#| label: multiple-regression-cv
-#| echo: true
-#| code-fold: false
-#| output: false
-#| fig-cap: "5-Fold-Kreuzvalidierung zur Bewertung des multiplen Regressionsmodells"
-
-# Daten und benötigte Pakete laden
-data(mtcars)
-library(caret)
-
-# Kreuzvalidierung mit 5 Folds
-cv_control <- trainControl(method = "cv", number = 5) # <1>
-
-# Training des multiplen Regressionsmodells mit Kreuzvalidierung
-cv_model <- train(            
-    mpg ~ wt + hp + cyl,      # <2>
-    data = mtcars,            # <3>
-    method = "lm",            # <4>
-    trControl = cv_control    # <5>
-)
-
-# Ergebnisse anzeigen
-cv_model
-```
-1. `cv_control`: Definiert die Kreuzvalidierung mit 5 Folds.
-2. `mpg ~ wt + hp + cyl`: Definiert die abhängige Variable (`mpg`) und die unabhängigen Variablen (`wt`, `hp`, `cyl`).
-3. `data = mtcars`: Definiert den Datensatz, der für das Modelltraining verwendet wird.
-4. `method = "lm"`: Definiert das Regressionsmodell als lineare Regression.
-5. `trControl = cv_control`: Definiert die Kreuzvalidierung mit 5 Folds.
-
-```{r}
-#| label: multiple-regression-cv-results
-#| echo: false
-#| code-fold: false
-#| output: true
-
-cv_model
-```
-
-##### Ergebnisse der Kreuzvalidierung
-
-Nach der Durchführung der Kreuzvalidierung liefert das Modell folgende Kennwerte:
-
-- **RMSE (Root Mean Squared Error):** `r round(cv_model$results$RMSE, 3)`  
-  Der **RMSE** misst den durchschnittlichen quadratischen Fehler der Vorhersagen. Ein niedriger Wert deutet auf eine gute Modellanpassung hin.
-
-- **$R^2$ (Bestimmtheitsmass):** `r round(cv_model$results$Rsquared, 3)`  
-  Der **$R^2$-Wert** zeigt, wie viel der Varianz von `mpg` durch die Prädiktoren `wt`, `hp` und `cyl` erklärt werden kann. Werte nahe 1 deuten auf eine hohe Erklärungskraft des Modells hin.
-
-- **MAE (Mean Absolute Error):** `r round(cv_model$results$MAE, 3)`  
-  Der **MAE** misst den durchschnittlichen absoluten Vorhersagefehler. Im Gegensatz zum RMSE ist er weniger empfindlich gegenüber Ausreissern.
-
-##### Interpretation der Ergebnisse
-
-Das Modell zeigt folgende Leistungswerte:
-
-- **Vorhersagegenauigkeit (RMSE):** Der RMSE beträgt `r round(cv_model$results$RMSE, 3)`.  
-  - Ein RMSE < 3 deutet auf eine **gute Anpassung** des Modells hin.  
-  - Werte > 5 würden auf eine **ungenügende Modellanpassung** hindeuten.  
-  - In diesem Fall ist der Wert `r ifelse(cv_model$results$RMSE < 3, "zufriedenstellend", "verbesserungswürdig")`.
-
-- **Erklärte Varianz ($R^2$):** Der $R^2$-Wert beträgt `r round(cv_model$results$Rsquared, 3)`.  
-  - Ein $R^2$ > 0.7 gilt als **sehr gut**, da mehr als 70 % der Varianz von `mpg` durch die Prädiktoren erklärt wird.  
-  - Ein Wert < 0.5 würde darauf hindeuten, dass das Modell wichtige Prädiktoren vermissen könnte.  
-  - Hier zeigt der Wert `r ifelse(cv_model$results$Rsquared > 0.7, "eine starke Erklärungskraft", "eine moderate Erklärungskraft")`.
-
-- **Durchschnittlicher Fehler (MAE):** Der MAE beträgt `r round(cv_model$results$MAE, 3)`.  
-  - Ein MAE < 3 deutet darauf hin, dass die **durchschnittlichen Vorhersagefehler gering** sind.  
-  - Werte > 5 könnten auf **systematische Fehler** im Modell hinweisen.  
-  - In unserem Fall ist der Fehler `r ifelse(cv_model$results$MAE < 3, "akzeptabel", "relativ hoch")`.
-
-##### Fazit
-
-Das multiple Regressionsmodell erklärt einen grossen Anteil der Varianz von `mpg` und liefert eine präzise Vorhersage. Die Kreuzvalidierung zeigt, dass das Modell auch bei unbekannten Daten **stabile Ergebnisse** liefert. Eventuelle Optimierungen könnten durch die Einbeziehung weiterer Prädiktoren oder Interaktionsterme erreicht werden.
-:::
-
+-->
 

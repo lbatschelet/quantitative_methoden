@@ -93,21 +93,22 @@ Wir wollen testen, ob der Mittelwert der Grundgesamtheit 75 ist.
 Die Null- und Alternativhypothesen lauten:
 
 $$
-H_0: \mu = 75 \quad \text{(kein Unterschied, Mittelwert entspricht 75)}
+H_0: \widehat{\bar{Y}} = 75 \quad \text{(kein Unterschied, Mittelwert entspricht 75)}
 $$
 
 $$
-H_1: \mu \neq 75 \quad \text{(es gibt eine Abweichung)}
+H_1: \widehat{\bar{Y}} \neq 75 \quad \text{(es gibt eine Abweichung)}
 $$
+
+**Anmerkung zur Notation**
+
+Wir kennzeichnen Schätzungen mit einem Dach $\widehat{X}$.
+
+$\widehat{\bar{Y}} = 75$ bedeutet also, dass wir den Mittelwert der Variable $Y$ auf 75 schätzen.
 
 Wir halten zudem fest, dass wir einen zweiseitigen Test durchführen, da wir keine Richtung der Abweichung vorgeben.
 
-*Warum 75 als Populationsmittelwert?*
-
-Der Wert $\mu_0 = 75$ ist eine Annahme. In vielen Fällen kommt er aus vorherigen Studien, Erfahrungswerten oder offiziellen Angaben. Falls wir z. B. wissen, dass Studierende in den letzten Jahren im Schnitt 75 Punkte hatten, könnte das unser Referenzwert sein.
-
-
-**2. Signifikanzniveau \(\alpha\) festlegen**
+**2. Signifikanzniveau $\alpha$ festlegen**
 
 Wir entscheiden uns für ein übliches Signifikanzniveau:
 
@@ -132,20 +133,20 @@ Wir übernehmen die Daten aus @tbl-noten-beispiel welche die Noten von 5 Studier
 - **Mittelwert** der Stichprobe (siehe @eq-mittelwert-beispiel)
 
 $$
-\bar{x} = 70
+\bar{Y} = 70
 $$
 
 - **Stichprobenstandardabweichung** (siehe @eq-standardabweichung-beispiel)
 
 $$
-\sigma = 15.81
+\sigma_Y = 15.81
 $$
 
 - **Standardfehler des Mittelwerts**:
 
   $$
   \begin{aligned}
-  s_{\bar{x}} &= \frac{\sigma}{\sqrt{n}} \\
+  s_{\bar{Y}} &= \frac{\sigma_Y}{\sqrt{n}} \\
   &= \frac{15.81}{\sqrt{5}} \\
   &\approx 7.07
   \end{aligned}
@@ -158,7 +159,7 @@ Nun berechnen wir den t-Wert mit der Formel:
 
 $$
 \begin{aligned}
-t &= \frac{\bar{x} - \mu_0}{\sigma_{\bar{x}}} \\
+t &= \frac{\bar{Y} - \widehat{\bar{Y}}}{s_{\bar{Y}}} \\
 &= \frac{70 - 75}{7.07} \\
 &= \frac{-5}{7.07} \\
 &\approx -0.71
@@ -166,7 +167,7 @@ t &= \frac{\bar{x} - \mu_0}{\sigma_{\bar{x}}} \\
 $$
 
 
-- Der t-Wert gibt an, wie viele Standardfehler der Stichprobenmittelwert von $\mu_0$ entfernt ist.
+- Der t-Wert gibt an, wie viele Standardfehler der Stichprobenmittelwert von $\widehat{\bar{Y}}$ entfernt ist.
 - Hier bedeutet $t = -0.71$, dass unser Stichprobenmittelwert **0.71 Standardfehler unter 75** liegt.
 
 
@@ -252,27 +253,6 @@ Beide Werte gehören zusammen: Ohne t-Wert weisst du nicht, *wie* stark die Abwe
 -   es ist unwahrscheinlich, dass die Stichprobe exakt das Mittel der Grundgesamtheit trifft.
 -   Dadurch wird die Verteilung der Teststatistik $t$ breiter.
 
-::: {.callout-note title="Beispiel"}
-**Hypothesen**:
-
--   $H_0$: Erwartere Sept. bis Nov. Mitteltemperatur beträgt 9°C ($x = \mu_0$)
--   $H_1$: Erwartere Sept. bis Nov. Mitteltemperatur weicht signifikant von 9°C ab ($x \neq \mu_0$)
-
-**Teststatistik**:
-
-$$
-\begin{aligned}
-T &= \frac{\bar{x} - \mu_0}{s_{\bar{x}}} \\
-  &= \frac{\bar{x} - \mu_0}{\frac{s_x}{\sqrt{n}}} \\
-  &= \frac{8.75 - 9}{\frac{1.05}{\sqrt{111}}} \\
-  &= \frac{-0.25}{0.031} \\
-  &= -2.51
-\end{aligned}
-$$
-
-Wobei $\bar{x}$ der Mittelwert der Stichprobe ist, $\mu_0$ der Mittelwert der Grundgesamtheit ist, $s_x$ der Standardfehler ist und $n$ die Anzahl der Beobachtungen ist.
-:::
-
 ![T-Verteilung](resources/T-Verteilung.png)
 
 Dieser Test ist ein zweiseitiger Test mit $\alpha = 0.05$. Das führt dazu, dass wir die Quantile so verteilen, dass "unten" 2.5% der Fläche und "oben" 2.5% der Fläche liegen.
@@ -291,7 +271,7 @@ Allgemeine Formel:
 Ein $(1 - \alpha)$-Konfidenzintervall für den Mittelwert wird berechnet mit:
 
 $$
-CI_{(1-\alpha)} = \bar{x} \pm t_{\alpha/2, df} \cdot s_{\bar{x}}
+\operatorname{CI}_{(1-\alpha)} = \bar{x} \pm t_{\alpha/2, df} \cdot s_{\bar{x}}
 $$
 
 wobei:
@@ -310,10 +290,10 @@ Gegeben:
 
 | Wert                              | Berechnung                                  | Ergebnis  |
 |-----------------------------------|---------------------------------------------|-----------|
-| Stichprobe                        | $x = \{70, 80, 50, 90, 60\}$                |           |
-| Stichprobenmittelwert $\bar{x}$   | $\frac{70+80+50+90+60}{5}$                  | **70.00** |
-| Stichprobenstandardabweichung $s$ | $\sqrt{\frac{\sum (x_i - \bar{x})^2}{n-1}}$ | **15.81** |
-| Standardfehler $s_{\bar{x}}$      | $\frac{s}{\sqrt{n}}$                        | **7.07**  |
+| Stichprobe                        | $Y = \{70, 80, 50, 90, 60\}$                |           |
+| Stichprobenmittelwert $\bar{Y}$   | $\frac{70+80+50+90+60}{5}$                  | **70.00** |
+| Stichprobenstandardabweichung $s$ | $\sqrt{\frac{\sum (Y_i - \bar{Y})^2}{n-1}}$ | **15.81** |
+| Standardfehler $s_{\bar{Y}}$      | $\frac{s}{\sqrt{n}}$                        | **7.07**  |
 | Freiheitsgrade $df$               | $n-1 = 4$                                   | **4**     |
 
 
@@ -374,17 +354,6 @@ $$
 - Das breite Intervall zeigt eine **hohe Streuung oder eine kleine Stichprobe**, was bedeutet, dass unsere Schätzung noch unsicher ist.
 
 :::
-
-**95%-Konfidenzintervall der erwarteten Temperatur aus dem vorherigen Beispiel**:
-
-$$
-\begin{aligned}
-\mu_{\text{Obergrenze}} &= 8.75 \text{°C} + 1.98 \cdot 0.1 \text{°C} = 8.55 \text{°C} \\
-\mu_{\text{Untergrenze}} &= 8.75 \text{°C} - 1.98 \cdot 0.1 \text{°C} = 8.8.95 \text{°C} \\
-\end{aligned}
-$$
-
-Wir beachten, dass $9 \text{°C}$ nicht im Konfidenzintervall liegt, was im Einvernehmen mit der Ablehnung der Nullhypothese $H_0$ liegt.
 
 **Daumenregel**:
 
