@@ -1,1 +1,1 @@
-Sitemap: https://quanti.baets.ch/sitemap.xml
+Sitemap: https://baets.ch/quanti/sitemap.xml
