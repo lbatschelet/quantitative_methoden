@@ -554,4 +554,3 @@ legend("topright", legend = paste("k=", df_values),
 
 ![Testauswahl *Quelle: [Methodenberatung UZH](https://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html)*](https://www.methodenberatung.uzh.ch/static/entscheidbaum/entscheidbaum.jpg)
 
-

@@ -1,91 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://quanti.baets.ch/index.html</loc>
+    <loc>https://baets.ch/quanti/index.html</loc>
     <lastmod>2025-02-05T09:00:52.852Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/grundlagen_R.html</loc>
+    <loc>https://baets.ch/quanti/grundlagen_R.html</loc>
     <lastmod>2025-02-05T09:00:52.852Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/plots_in_R.html</loc>
+    <loc>https://baets.ch/quanti/plots_in_R.html</loc>
     <lastmod>2025-02-05T09:00:52.854Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/packages_and_libraries.html</loc>
+    <loc>https://baets.ch/quanti/packages_and_libraries.html</loc>
     <lastmod>2025-02-05T09:00:52.853Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/loops_and_functions.html</loc>
+    <loc>https://baets.ch/quanti/loops_and_functions.html</loc>
     <lastmod>2025-02-05T09:00:52.853Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/deskriptive-statistik.html</loc>
+    <loc>https://baets.ch/quanti/deskriptive-statistik.html</loc>
     <lastmod>2025-02-08T14:23:40.592Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/verteilungen.html</loc>
-    <lastmod>2025-02-08T14:23:39.767Z</lastmod>
+    <loc>https://baets.ch/quanti/verteilungen.html</loc>
+    <lastmod>2025-02-10T12:38:23.004Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/statistische-tests.html</loc>
-    <lastmod>2025-02-08T09:32:34.104Z</lastmod>
+    <loc>https://baets.ch/quanti/statistische-tests.html</loc>
+    <lastmod>2025-02-10T08:37:27.929Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/korrelation.html</loc>
+    <loc>https://baets.ch/quanti/korrelation.html</loc>
     <lastmod>2025-02-08T14:13:39.162Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/regression.html</loc>
-    <lastmod>2025-02-08T14:23:38.838Z</lastmod>
+    <loc>https://baets.ch/quanti/regression.html</loc>
+    <lastmod>2025-02-11T13:58:03.032Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/fehlermasse.html</loc>
+    <loc>https://baets.ch/quanti/fehlermasse.html</loc>
     <lastmod>2025-02-08T15:02:08.610Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/clusteranalyse.html</loc>
-    <lastmod>2025-02-08T14:37:13.406Z</lastmod>
+    <loc>https://baets.ch/quanti/clusteranalyse.html</loc>
+    <lastmod>2025-02-10T12:36:45.811Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/hauptkomponentenanalyse.html</loc>
+    <loc>https://baets.ch/quanti/hauptkomponentenanalyse.html</loc>
     <lastmod>2025-02-08T15:20:09.389Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/extremwertstatistik.html</loc>
+    <loc>https://baets.ch/quanti/extremwertstatistik.html</loc>
     <lastmod>2025-02-05T09:00:52.851Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/neuronale-netze.html</loc>
+    <loc>https://baets.ch/quanti/neuronale-netze.html</loc>
     <lastmod>2025-02-08T15:18:34.374Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/fallen-der-statistik.html</loc>
+    <loc>https://baets.ch/quanti/fallen-der-statistik.html</loc>
     <lastmod>2025-02-05T09:00:52.852Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/glossar.html</loc>
+    <loc>https://baets.ch/quanti/glossar.html</loc>
     <lastmod>2025-02-08T14:23:37.697Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/excercises/ex01.html</loc>
+    <loc>https://baets.ch/quanti/excercises/ex01.html</loc>
     <lastmod>2025-02-05T09:00:52.850Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/excercises/ex02.html</loc>
+    <loc>https://baets.ch/quanti/excercises/ex02.html</loc>
     <lastmod>2025-02-05T09:00:52.850Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/excercises/ex03.html</loc>
+    <loc>https://baets.ch/quanti/excercises/ex03.html</loc>
     <lastmod>2025-02-05T09:00:52.850Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/excercises/deskriptive-statistik.html</loc>
+    <loc>https://baets.ch/quanti/excercises/deskriptive-statistik.html</loc>
     <lastmod>2025-02-05T09:00:52.850Z</lastmod>
   </url>
   <url>
-    <loc>https://quanti.baets.ch/excercises/verteilungen-und-tests.html</loc>
+    <loc>https://baets.ch/quanti/excercises/verteilungen-und-tests.html</loc>
     <lastmod>2025-02-05T09:00:52.851Z</lastmod>
   </url>
 </urlset>

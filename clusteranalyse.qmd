@@ -77,6 +77,8 @@ Beispielanwendung:
 
 ### k-Means
 
+![K-Means](resources/k-means-iter.gif)
+
 1. Initialisierung: $k$ Clusterzentren auf $k$ zufällige, aber unterschiedliche Positionen im $p$-dimensionalen Raum setzen, möglichst so dass die Abstände zwischen initialen Clusterzentren maximal sind. Jedem Clusterzentrum wird eine eindeutige Klassennummer (1 bis $k$) zugewiesen.
 2. Klassifizierung: Finde für jeden Datenpunkt das nächste Clusterzentrum und weise dem Datenpunkt die Klassennummer dieses Clusterzentrums zu.
 3. Clusterzentren berechnen: Berechne die Position der Clusterzentren neu, in dem alle Datenpunkte die zu einer bestimmten Klasse gehören gemittelt werden.

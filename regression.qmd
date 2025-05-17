@@ -1,5 +1,5 @@
 ---
-title: "LineareRegression"
+title: "Lineare Regression"
 lang: "de-CH"
 code-annotations: hover
 ---
@@ -31,7 +31,7 @@ $$
 - Beispiel: Wenn $\beta_1 = 2$, dann bedeutet das, dass eine Erhöhung von $x_1$ um *eine Einheit* zu einer durchschnittlichen Erhöhung von $y$ um *2 Einheiten* führt.  
 
 
-### Einfache lineare Regression
+## Einfache lineare Regression
 
 Wir wollen eine Gerade der Form:
 
@@ -864,6 +864,8 @@ plot(modell_out, which = 5, col = dot_color, pch = 19)  # Ausreisser: Residuals 
 
 Die **Kreuzvalidierung** ist eine Methode zur **Bewertung der Vorhersagegüte** eines Regressionsmodells. Dabei wird der Datensatz in mehrere Teilmengen (sogenannte **Folds**) aufgeteilt. Das Modell wird wiederholt auf verschiedenen Kombinationen von Trainings- und Testdaten geschätzt, um zu überprüfen, wie gut es auf **unbekannte Daten** generalisiert.
 
+![Kreuzvalidierung](resources/kreuzvalidierung-2.jpg)
+
 #### Vorgehensweise bei der K-Fold-Kreuzvalidierung:
 1. **Aufteilung der Daten:** Der Datensatz wird in $k$ gleich grosse Teilmengen (Folds) aufgeteilt.  
 2. **Modelltraining:** In jeder der $k$ Iterationen wird das Modell mit $(k-1)$ Folds trainiert.  
@@ -871,6 +873,14 @@ Die **Kreuzvalidierung** ist eine Methode zur **Bewertung der Vorhersagegüte** 
 4. **Ergebnissynthese:** Die Gütekriterien (z.B. **mittlerer quadratischer Fehler** (MSE), **$R^2$**) werden über alle Iterationen gemittelt.
 
 Diese Methode liefert eine **robustere Schätzung** der Modellgüte als eine einfache Trainings-Test-Aufteilung.
+
+#### Leave-One-Out-Kreuzvalidierung
+
+Bei der Leave-One-Out-Kreuzvalidierung wird das Modell $n$-mal trainiert und getestet, wobei jeweils eine Beobachtung als Testdatensatz verwendet wird. Dies eignet sich besonders für kleine Datensätze.
+
+![Leave-One-Out-Kreuzvalidierung](resources/leave-one-out-validierung.jpg)
+
+
 
 
 ::: {.callout-tip collapse=false}

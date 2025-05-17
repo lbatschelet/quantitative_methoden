@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de-CH" xml:lang="de-CH"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -256,7 +256,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">LineareRegression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lineare Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -761,9 +761,9 @@ s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>bias_n_minus_1 <span class="ot">&lt;-</span> (mean_sd_n_minus_1 <span class="sc">-</span> population_sd) <span class="sc">/</span> population_sd <span class="sc">*</span> <span class="dv">100</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>Wahre Standardabweichung der Population: 9.97</li>
-<li>Durchschnittliche Schätzung mit n: 9.32 (Abweichung: -6.58%)</li>
-<li>Durchschnittliche Schätzung mit n-1: 9.82 (Abweichung: -1.52%)</li>
+<li>Wahre Standardabweichung der Population: 9.94</li>
+<li>Durchschnittliche Schätzung mit n: 9.23 (Abweichung: -7.18%)</li>
+<li>Durchschnittliche Schätzung mit n-1: 9.73 (Abweichung: -2.16%)</li>
 </ul>
 <p>Der Effekt der Freiheitsgrade ist besonders bei kleinen Stichproben bedeutsam. Bei einer Stichprobengröße von n=10 führt die Berechnung mit n zu einer systematischen Unterschätzung von etwa 7%, während die Korrektur mit n-1 die Unterschätzung auf etwa 2% reduziert. Bei größeren Stichproben wird dieser Unterschied kleiner, da ein einzelner Freiheitsgrad weniger ins Gewicht fällt (bei n=100 macht ein Freiheitsgrad nur noch 1% aus, bei n=10 sind es 10%).</p>
 
@@ -862,7 +862,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/quanti\.baets\.ch\/");
+      var filterRegex = new RegExp("https:\/\/baets\.ch\/quanti");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
